@@ -37,7 +37,7 @@ module.exports = function (grunt) {
 						separator: ';'
 					},
 					dist: {
-				      src: ['public/js/**/*.js'],
+				      src: ['public/js/lib/*.js', 'public/js/tmpl/*.js'],
 				      dest: 'public/js/concat.js'
 				    }
 				},
@@ -45,13 +45,22 @@ module.exports = function (grunt) {
 				watch:{
 					fest: { /* Подзадача */
 						files: ['templates/*.xml'], /* следим за шаблонами */
-						tasks: ['fest', 'concat'], /* перекомпилировать */
+						tasks: ['fest'], /* перекомпилировать */
 						options: {
+							atBegin: true/* запустить задачу при старте */
+						}
+					},
+					concat: {
+		                files: ['public/js/lib/*.js', 'public/js/tmpl/*.js'],
+		                tasks: ['concat'],
+		                options: {
 							atBegin: true,/* запустить задачу при старте */
 							livereload: true
 						}
-					}
-				}	
+		            }
+		        }
+
+							
  });
     grunt.loadNpmTasks('grunt-contrib-connect');
 	grunt.loadNpmTasks('grunt-fest');
