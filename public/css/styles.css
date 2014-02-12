@@ -1,0 +1,51 @@
+
+ li {
+	list-style-type: none;
+ }
+
+ ul {
+	padding: 0;
+
+ }
+
+ .center {
+	width : 300px;
+	margin: auto;
+ } 
+
+ .btn {
+	background: black;
+	font-size: 15pt;
+	height: 60px;
+	width: 200px;
+	margin: 20px 15%;
+	text-align: center;
+	color: white;
+	border-radius: 30px
+}
+
+.small-btn {
+	background: black;
+	font-size: 15pt;
+	height: 60px;
+	width: 100px;
+	text-align: center;
+	color: white;
+	border-radius: 30px
+}
+
+.label {
+	background-color: black;
+	color: white;
+	text-align: center;
+	font-size: 18pt;
+	padding: 10px 0px 10px;
+}
+
+.title {
+	margin: 20pt;
+	color: black;
+	text-align: center;
+	font-size: 30px;
+	font-weight: bolder;
+}
