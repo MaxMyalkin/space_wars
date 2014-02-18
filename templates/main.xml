@@ -3,9 +3,9 @@
     <div  class="center">
         <h1 class="label">EPIC GAME</h1>
         <ul>
-        	<li> <h1 class="title">MAIN MENU</h1> </li>
-        	<li> <button href='#' class='js-scoreboard btn' >SCORE BOARD</button> </li>
-        	<li> <button href='#' class='js-start-game btn' >START GAME</button> </li>
+        	<li> <h1 class="title">Main menu</h1> </li>
+        	<li> <button href='#' class='js-scoreboard btn' >Score board</button> </li>
+        	<li> <button href='#' class='js-start-game btn' >Start game</button> </li>
         </ul>
     </div>
 </fest:template>

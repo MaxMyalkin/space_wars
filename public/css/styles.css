@@ -1,51 +1,58 @@
-
+   @font-face {
+    font-family: Yahoo; /* Гарнитура шрифта */
+    src: url(fonts/Yahoo.ttf); /* Путь к файлу со шрифтом */
+   }
  li {
 	list-style-type: none;
+	text-align: center;
  }
 
  ul {
 	padding: 0;
-
  }
 
  .center {
-	width : 300px;
+	width : 600px;
 	margin: auto;
  } 
 
  .btn {
 	background: black;
-	font-size: 15pt;
-	height: 60px;
-	width: 200px;
+	font-size: 18pt;
+	height: 80px;
+	width: 300px;
 	margin: 20px 15%;
 	text-align: center;
 	color: white;
-	border-radius: 30px
+	border-radius: 50px;
+	font-family: Yahoo , Arial;
+
 }
 
 .small-btn {
 	background: black;
 	font-size: 15pt;
 	height: 60px;
-	width: 100px;
+	width: 150px;
 	text-align: center;
 	color: white;
-	border-radius: 30px
+	border-radius: 30px;
+	font-family: Yahoo , Arial;
 }
 
 .label {
 	background-color: black;
 	color: white;
 	text-align: center;
-	font-size: 18pt;
+	font-size: 28pt;
 	padding: 10px 0px 10px;
+	font-family: Yahoo , Arial;
 }
 
 .title {
 	margin: 20pt;
 	color: black;
 	text-align: center;
-	font-size: 30px;
-	font-weight: bolder;
+	font-size: 30pt;
+	font-family: Yahoo , Arial;
 }

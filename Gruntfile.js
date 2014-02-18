@@ -57,6 +57,13 @@ module.exports = function (grunt) {
 							atBegin: true,/* запустить задачу при старте */
 							livereload: true
 						}
+		            },
+		            refresh: {
+		            	files: [ "public/**/*"],
+		            	options:
+		            	{
+		            		livereload: true
+		            	}
 		            }
 		        }
 
