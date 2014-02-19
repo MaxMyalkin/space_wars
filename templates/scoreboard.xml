@@ -1,9 +1,11 @@
+
 <fest:template xmlns:fest="http://fest.mail.ru"
     context_name="json">
     <div class="center">
     	<h1 class="label">EPIC GAME</h1>
     	<h1 class="title">SCORE BOARD</h1>
-    	<button class="js-back small-btn">&#9668 BACK</button>
+    	<a href="/#" class="small-btn">&#9668 BACK</a>
     </div>
 
 </fest:template>
+

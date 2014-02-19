@@ -1,6 +1,7 @@
+
 <fest:template xmlns:fest="http://fest.mail.ru"
     context_name="json">
     <div>
-    	<button href='#' class='js-back small-btn'>&#9668 BACK</button>
+    	<a href='/#' class='js-back small-btn'>&#9668 BACK</a>
     </div>
 </fest:template>
