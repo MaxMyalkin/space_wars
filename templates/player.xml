@@ -1,7 +1,7 @@
-
 <fest:template xmlns:fest="http://fest.mail.ru"
     context_name="json">
     <div>
-    	<a href='/#' class='btn btn_small'>&#9668 BACK</a>
+    	<h4 class="name"></h4>
+    	<h4 class="score"></h4>
     </div>
 </fest:template>

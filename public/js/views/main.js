@@ -13,15 +13,14 @@ define([
 
         },
         render: function () {
-          //  var template = tmpl();
-           
-          //  return this;
+            
         },
         show: function () {
              this.$el.html(this.template);
+             alert("show main");
         },
         hide: function () {
-            // TODO
+            alert("hide main");
         }
 
     });
