@@ -2,6 +2,10 @@
 <fest:template xmlns:fest="http://fest.mail.ru"
     context_name="json">
     <div>
+    	<canvas id='game'></canvas>
     	<a href='/#' class='btn btn_small'>&#9668 BACK</a>
+    	<div id="gamescreen">   
+    </div>
+    <script src="js/game_mechanics.js"></script>
     </div>
 </fest:template>

@@ -4,6 +4,7 @@ define([
     Backbone
 ){
 
+
    var PlayerModel = Backbone.Model.extend({
         default:
         {

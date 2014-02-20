@@ -3,7 +3,8 @@ define([
     'tmpl/main'
 ], function(
     Backbone,
-    tmpl
+    tmpl,
+    models
 ){
 
     var View = Backbone.View.extend({
@@ -19,6 +20,7 @@ define([
              this.$el.html(this.template);
         },
         hide: function () {
+
         }
 
     });

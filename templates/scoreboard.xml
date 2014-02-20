@@ -3,6 +3,7 @@
     <div class="menu">
     	<h1 class="label">EPIC GAME</h1>
     	<h1 class="menu__title">SCORE BOARD</h1>
+
         <table class="menu__table">
             <tr>
                 <th>Name</th>

@@ -27,4 +27,5 @@ define([
     });
 
     return new ScoreboardView();
+
 });
