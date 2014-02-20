@@ -26,7 +26,7 @@ define(['backbone',
         },
         scoreboardAction: function () {
             mainScreen.hide();
-            scoreboardScreen.render();
+            scoreboardScreen.show();
             currentScreen = "scoreboard";
         },
         gameAction: function () {
