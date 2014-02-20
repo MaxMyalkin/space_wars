@@ -20,10 +20,7 @@ define([
              this.$el.html(this.template);
         },
         hide: function () {
-<<<<<<< HEAD
 
-=======
->>>>>>> 705f1bfe13878ca3254cc463310c41f0f26817e5
         }
 
     });
