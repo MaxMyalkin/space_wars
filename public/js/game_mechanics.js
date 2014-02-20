@@ -2,7 +2,8 @@ var KEY_CODE = {
       LEFT: 37,
       UP: 38,
       RIGHT: 39,
-      DOWN: 40
+      DOWN: 40,
+      SPACE: 32,
     };
 
 var GAME_WIDTH = 1024;
@@ -11,8 +12,13 @@ var PLAYER_WIDTH = GAME_WIDTH/10;
 var PLAYER_HEIGHT = GAME_HEIGHT/50;
 var PLAYER_START_X = GAME_WIDTH/2 - PLAYER_WIDTH/2;
 var PLAYER_START_Y = GAME_HEIGHT - 2*PLAYER_HEIGHT;
+var ROCKET_WIDTH = PLAYER_WIDTH/2;
+var ROCKET_HEIGHT = PLAYER_HEIGHT/2;
+var ROCKET_SPEED = ROCKET_HEIGHT/4;
+
 var MOVE_X = PLAYER_WIDTH/10;
 
+var ROCKETS = [];
 
 function initObject(color, x, y, width, height) {
     this.color = color; // цвет прямоугольника
@@ -30,23 +36,60 @@ function initObject(color, x, y, width, height) {
 function draw(){
     game.draw();
     player.draw();
+    drawAllRockets();
+}
+
+function deleteRocket(index)
+{
+    ROCKETS.splice(index, 1);
+}
+
+function drawAllRockets(){
+    for (var i = 0; i < ROCKETS.length; i++)
+    {
+        if (ROCKETS[i].y + ROCKET_HEIGHT <= 0)
+        {
+            deleteRocket(i); 
+        }
+        ROCKETS[i].draw();
+    };
 }
 
 function update(){
+    for (var i = 0; i < ROCKETS.length; i++)
+    {
+        ROCKETS[i].y -= ROCKET_SPEED;
 
+    };
+    console.log(ROCKETS.length);
 }
 
 function play(){
     draw();
+    update();
+}
+
+function damageRocket(){
+    ROCKETS.push(new initObject("#ffffff", player.x, player.y, 
+        ROCKET_WIDTH, ROCKET_HEIGHT));
 }
 
 function movePlayer(event){
     switch(event.keyCode) {
         case KEY_CODE.LEFT:
-            player.x -= MOVE_X;
+            if (player.x > 0)
+            {
+                player.x -= MOVE_X;
+            }
         break;
         case KEY_CODE.RIGHT:
-            player.x += MOVE_X;
+            if (player.x + PLAYER_WIDTH < GAME_WIDTH)
+            {
+                player.x += MOVE_X;
+            }
+        break;
+        case KEY_CODE.UP:
+            damageRocket();
         break;
       
     }
@@ -64,9 +107,9 @@ function init() {
     canvas.width = game.width;
     canvas.height = game.height;
     context = canvas.getContext("2d");
-    window.addEventListener('keydown', movePlayer, false);
+    //window.addEventListener('keydown', movePlayer, false);
     window.addEventListener('keypress', movePlayer, false);
-    window.addEventListener('keyup', movePlayer, false);
+    //window.addEventListener('keyup', movePlayer, false);
 
     setInterval(play, 1000 / 50);
 }
