@@ -3,5 +3,11 @@
     context_name="json">
     <div>
     	<a href='/#' class='btn btn_small'>&#9668 BACK</a>
+    	<div id="gamescreen">
+    	 <canvas id='game'></canvas>
+        <script src="js/game_mechanics.js"></script>
+            
+        
+    </div>
     </div>
 </fest:template>
