@@ -2,13 +2,26 @@ define([
     'backbone',
     'models/score'
 ], function(
-    Backbone, 
-    Player
+
+    Backbone,
+    Score
 ){
+    var Scoreboard = Backbone.Collection.extend({
+    	model: Score,
 
-    var PlayerCollection = Backbone.Collection.extend({
-    	model: Player
+
+    	initialize: function() {
+    		this.models = [
+	    		{
+	    			name: "MAX",
+	    			score: 1000
+	    		},
+	    		{
+	    			name: "SIRIOGA",
+	    			score: -1000
+	    		}
+    		];
+    	}
     });
-
-    return new PlayerCollection();
+    return new Scoreboard();
 });

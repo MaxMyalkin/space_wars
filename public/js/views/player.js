@@ -12,7 +12,7 @@ efine([
 
     tagName: "li", //тэг для игрока
     className: "score__item", // класс для игрока
-    template: fest['player'], //шаблон
+    template: tmpl, //шаблон
 
     events: {
         "click .button_delete": "destroy" //вызываем удаление при нажатии на кнопку
