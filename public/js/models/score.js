@@ -1,10 +1,15 @@
 define([
-    'backbone'
+    'backbone',
 ], function(
     Backbone
 ){
 
    var PlayerModel = Backbone.Model.extend({
+        default:
+        {
+            name: '',
+            score: 0
+        }
     });
 
 	var player = new PlayerModel();
@@ -13,6 +18,5 @@ define([
 	    alert('Player name is ' + name);
 	});
 
-	player.set({name: 'Mark'});
-    return Model;
+    return player;
 });

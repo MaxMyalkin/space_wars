@@ -53,7 +53,7 @@
 	background-color: black;
 	color: white;
 	text-align: center;
-	font-size: 28pt;
+	font-size: 30px;
 	padding: 10px 0px 10px;
 }
 
@@ -61,5 +61,15 @@
 	margin: 20pt;
 	color: black;
 	text-align: center;
-	font-size: 30pt;
+	font-size: 33px;
+}
+
+.menu__table {
+	width: 100%;
+	text-align: left;
+}
+
+.table__head {
+	font-size: 20px;
+	text-align: left;
 }

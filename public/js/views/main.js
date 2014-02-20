@@ -17,10 +17,8 @@ define([
         },
         show: function () {
              this.$el.html(this.template);
-             alert("show main");
         },
         hide: function () {
-            alert("hide main");
         }
 
     });
