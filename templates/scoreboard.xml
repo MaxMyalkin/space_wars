@@ -4,9 +4,9 @@
     	<h1 class="label">EPIC GAME</h1>
     	<h1 class="menu__title">SCORE BOARD</h1>
         <table class="menu__table">
-            <tr class="table__head">
-                <th>Имя</th>
-                <th>Очки</th>
+            <tr>
+                <th>Name</th>
+                <th>Score</th>
             </tr>
     		<fest:for iterate="json.scoreboard" index="i">
                 <tr>
