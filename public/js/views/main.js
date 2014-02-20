@@ -1,9 +1,11 @@
 define([
     'backbone',
-    'tmpl/main'
+    'tmpl/main',
+    'models/player'
 ], function(
     Backbone,
-    tmpl
+    tmpl,
+    models
 ){
 
     var View = Backbone.View.extend({
@@ -13,15 +15,20 @@ define([
 
         },
         render: function () {
-          //  var template = tmpl();
-           
-          //  return this;
+
         },
         show: function () {
-             this.$el.html(this.template);
+            this.$el.html(this.template);  
+            var player = new PlayerModel();
+
+            player.on('change:name', function(model, name) {
+                alert('Player name is ' + name);
+            });
+
+            player.set({name: 'Mark'});
         },
-        hide: function () {
-            // TODO
+        hide: function (){
+
         }
 
     });
