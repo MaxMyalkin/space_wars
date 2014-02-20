@@ -1,7 +1,13 @@
-define(['backbone', 'views/main', 'views/scoreboard', 'views/game'
-], function(Backbone, mainScreen, scoreboardScreen, gameScreen
+define(['backbone',
+ 'views/main', 
+ 'views/scoreboard', 
+ 'views/game'
+], function(Backbone, 
+    mainScreen, 
+    scoreboardScreen, 
+    gameScreen
 ){
-
+    var currentScreen = "";
     var Router = Backbone.Router.extend({
         routes: {
             'scoreboard': 'scoreboardAction',
@@ -9,13 +15,24 @@ define(['backbone', 'views/main', 'views/scoreboard', 'views/game'
             '*default': 'defaultActions'
         },
         defaultActions: function () {
+            if(currentScreen === "scoreboard") {
+                scoreboardScreen.hide();
+            }
+            else if (currentScreen === "game") {
+                gameScreen.hide();
+            };
+            currentScreen = "main";
             mainScreen.show();
         },
         scoreboardAction: function () {
-            scoreboardScreen.show();
+            mainScreen.hide();
+            scoreboardScreen.render();
+            currentScreen = "scoreboard";
         },
         gameAction: function () {
+            mainScreen.hide();
             gameScreen.show();
+            currentScreen = "game";
         }
     });
 

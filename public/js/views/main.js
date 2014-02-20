@@ -1,7 +1,6 @@
 define([
     'backbone',
-    'tmpl/main',
-    'models/player'
+    'tmpl/main'
 ], function(
     Backbone,
     tmpl,
@@ -15,19 +14,12 @@ define([
 
         },
         render: function () {
-
+            
         },
         show: function () {
-            this.$el.html(this.template);  
-            var player = new PlayerModel();
-
-            player.on('change:name', function(model, name) {
-                alert('Player name is ' + name);
-            });
-
-            player.set({name: 'Mark'});
+             this.$el.html(this.template);
         },
-        hide: function (){
+        hide: function () {
 
         }
 

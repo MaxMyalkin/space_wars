@@ -17,9 +17,11 @@ define([
         },
         show: function () {
             this.$el.html(this.template);
+            alert("show game");
         },
         hide: function () {
             // TODO
+            alert("hide game");
         }
 
     });
