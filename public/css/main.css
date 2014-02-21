@@ -1,28 +1,32 @@
-   @font-face {
+  @font-face {
     font-family: Yahoo; /* Гарнитура шрифта */
     src: url(fonts/Yahoo.ttf); /* Путь к файлу со шрифтом */
    }
 
-html {
-	height: 100%;
-	overflow: hidden;
-}
+  html {
+		height: 100%;
+	}
   body {
-  	background-color: #000000;
-  	background: url(../images/stars.gif);
-  	margin: 0;
-	padding: 0;
-	height: 100%;
-  }
+	  	background-color: #000000;
+	  	background: url(../images/stars.gif);
+	  	margin: 0;
+		padding: 0;
+		height: 100%;
+	  }
 
-  #game {
-  	width: 60%;
-  	height: 60%;
-  }
-
-  #page {
+ #page {
   	height: 100%;
   }
+
+  .game-screen {
+	width: 60%;
+	height: 80%;
+	margin: 0 0 0 20% ;
+	border: solid;
+	border-color: #f2e8c9;
+	border-width: 10px;
+}
+/* menu */
 
  .menu {
 	width : 40%;
@@ -41,12 +45,47 @@ html {
 	padding: 0;
  }
 
+
+.header {
+	color: white;
+	text-align: center;
+	font-size: 30px;
+	padding: 10px 0px 10px;
+}
+
+.header_blue {
+	background-color: #082567;
+}
+
+.header_game {
+	background-color: #f2e8c9;
+	text-align: left;
+}
+
+.header__info {
+	position: relative;
+	left: 40%;
+	display: inline;
+	color: black;
+
+}
+
+.menu__title {
+	margin: 20pt;
+	color: black;
+	text-align: center;
+	font-size: 33px;
+
+}
+
+
+/*buttons*/
+
  .btn {
-	background: #082567;
+	background-color: #082567;
 	text-align: center;
 	font-size: 12px;
 	color: white;
-	opacity: 0.5;
 	border-radius: 10px;
 	margin: 20px;
 	display: inline-block;
@@ -58,11 +97,24 @@ html {
 	text-decoration: underline;
 }
 
+.btn:active {
+	text-decoration: underline;
+	background-color: #B22222;
+}
+
 .btn_small {
 	font-size: 20px;
 	height: 60px;
 	width: 150px;
 	line-height: 60px;
+}
+
+.btn_header {
+	font-size: 15px;
+	height: 40px;
+	width: 150px;
+	line-height: 40px;
+	margin: 0 20px 0;
 }
 
 .btn_big {
@@ -72,21 +124,7 @@ html {
 	line-height: 80px;
 }
 
-.label {
-	background-color: white;
-	color: black;
-	text-align: center;
-	font-size: 30px;
-	padding: 10px 0px 10px;
-}
-
-.menu__title {
-	margin: 20pt;
-	color: white;
-	text-align: center;
-	font-size: 33px;
-
-}
+/*scoreboard*/
 
 table ,.menu__table {
 	width: 90%;
@@ -101,7 +139,8 @@ table ,.menu__table {
 .menu__table th {
 	font-size: 20px;
 	text-align: center;
-	background-color: #6495ED;
+	background-color: #B22222;
+	color: white;
 }
 
 .menu__table td {
@@ -115,6 +154,8 @@ table ,.menu__table {
 .menu__table th,td{
 	border-style: solid;
 	border-width: 3px;
-	border-color: white;
+	border-color: black;
 }
+
+
 
