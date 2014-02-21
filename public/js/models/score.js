@@ -3,8 +3,6 @@ define([
 ], function(
     Backbone
 ){
-
-
    var PlayerModel = Backbone.Model.extend({
         default:
         {
@@ -12,12 +10,5 @@ define([
             score: 0
         }
     });
-
-	var player = new PlayerModel();
-
-	player.on('change:name', function(model, name) {
-	    alert('Player name is ' + name);
-	});
-
-    return player;
+    return PlayerModel;
 });

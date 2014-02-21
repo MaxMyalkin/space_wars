@@ -12,10 +12,10 @@
     		<fest:for iterate="json.scoreboard" index="i">
                 <tr>
 		        	<td>
-                        <fest:value>json.scoreboard[i].name</fest:value>
+                        <fest:value>json.scoreboard[i].get('name')</fest:value>
                     </td>
                     <td>
-                        <fest:value>json.scoreboard[i].score</fest:value>
+                        <fest:value>json.scoreboard[i].get('score')</fest:value>
                     </td>
                 </tr>
 		    </fest:for>

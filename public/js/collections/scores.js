@@ -9,19 +9,17 @@ define([
     var Scoreboard = Backbone.Collection.extend({
     	model: Score,
 
+        comparator: function(score){
+            return -score.get("score"); // компаратор по убыванию
+        },
 
     	initialize: function() {
-    		this.models = [
-	    		{
-	    			name: "MAX",
-	    			score: 1000
-	    		},
-	    		{
-	    			name: "SIRIOGA",
-	    			score: -1000
-	    		}
-    		];
+    	
     	}
     });
-    return new Scoreboard();
+    var scores = new Scoreboard();
+    scores.on("add", function(Score) {
+        console.log("«" + Score.get("name") + "» добавлен");
+    });
+    return scores;
 });

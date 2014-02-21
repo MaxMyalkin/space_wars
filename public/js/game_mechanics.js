@@ -107,8 +107,8 @@ function init() {
     canvas.width = game.width;
     canvas.height = game.height;
     context = canvas.getContext("2d");
-    //window.addEventListener('keydown', movePlayer, false);
-    window.addEventListener('keypress', movePlayer, false);
+    window.addEventListener('keydown', movePlayer, false);
+    //window.addEventListener('keypress', movePlayer, false);
     //window.addEventListener('keyup', movePlayer, false);
 
     setInterval(play, 1000 / 50);
