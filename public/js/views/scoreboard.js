@@ -15,12 +15,26 @@ define([
         template: tmplScore,
         scoreboard: Scoreboard,
         initialize: function () {
-            var players =new Player({ name: "max", score: 888 });
-            this.scoreboard.add(players);
-            var pl2 = new Player({ name: "max2", score: 988 });
-            this.scoreboard.add(pl2);
-            var pl3 = new Player({ name: "max3", score: 788 });
-            this.scoreboard.add(pl3);
+            var player =new Player({ name: "max", score: 888 });
+            this.scoreboard.add(player);
+            player = new Player({ name: "maxim", score: 988 });
+            this.scoreboard.add(player);
+            var player = new Player({ name: "sergey", score: 788 });
+            this.scoreboard.add(player);
+            var player = new Player({ name: "ivan", score: 178 });
+            this.scoreboard.add(player);
+            var player = new Player({ name: "anton", score: 1178 });
+            this.scoreboard.add(player);
+            var player = new Player({ name: "ilya", score: 1000 });
+            this.scoreboard.add(player);
+            var player = new Player({ name: "sergey2", score: 748 });
+            this.scoreboard.add(player);
+            var player = new Player({ name: "ivan2", score: 1780 });
+            this.scoreboard.add(player);
+            var player = new Player({ name: "anton2", score: 1078 });
+            this.scoreboard.add(player);
+            var player = new Player({ name: "ilya2", score: 1100 });
+            this.scoreboard.add(player);
         },
         render: function () {
         },

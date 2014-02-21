@@ -1,16 +1,20 @@
 <fest:template xmlns:fest="http://fest.mail.ru"
     context_name="json">
     <div class="menu">
-    	<h1 class="label">EPIC GAME</h1>
+    	<h1 class="header header_blue">EPIC GAME</h1>
     	<h1 class="menu__title">SCORE BOARD</h1>
 
         <table class="menu__table">
             <tr>
+                <th>#</th>
                 <th>Name</th>
                 <th>Score</th>
             </tr>
     		<fest:for iterate="json.scoreboard" index="i">
                 <tr>
+                    <td>
+                        <fest:value>i + 1</fest:value>
+                    </td>
 		        	<td>
                         <fest:value>json.scoreboard[i].get('name')</fest:value>
                     </td>
