@@ -72,6 +72,7 @@
         };
     }
 
+<<<<<<< HEAD
     function createAsteroid(){
         timer = 0;
         var asteroidPosition = Math.random()*(GAME_WIDTH);
@@ -90,10 +91,17 @@
         if ((object1.y > object2.y + object2.height) ||
             (object2.y > object1.y + object1.height)){
             return false;
+=======
+    for (var i = 0; i < ASTEROIDS.length; i++)
+    {
+        if (collision(player, ASTEROIDS[i])){
+            endGame();
+>>>>>>> 27017b4db05509cfb5f5648c746228b9df580d36
         }
         return true;
     }
 
+<<<<<<< HEAD
     function update(){
         //Создание астероидов
         if (timer == ASTEROIDS_TIMEOUT){
@@ -129,8 +137,62 @@
         };
 
 
+=======
+    //Обновление позиции ракет и астероидов
+    for (var i = 0; i < ROCKETS.length; i++)
+    {
+        ROCKETS[i].y -= ROCKETS[i].speedY;
+    };
+    for (var i = 0; i < ASTEROIDS.length; i++)
+    {
+        ASTEROIDS[i].y += ASTEROIDS[i].speedY;
+    };
+
+
+}
+
+function play(){
+    if (start)
+    {
+        timer += 1;
+        drawGame();
+        update();
+        console.log(ASTEROIDS.length);
+    }
+}
+
+function damageRocket(){
+    var rocket = new initObject("#ffffff", player.x, player.y, 
+      ROCKET_WIDTH, ROCKET_HEIGHT);
+    rocket.initMotion(0, ROCKET_SPEED);
+    ROCKETS.push(rocket);
+}
+
+function movePlayer(event){
+    if (start)
+        {
+        switch(event.keyCode) {
+            case KEY_CODE.LEFT:
+                if (player.x > 0)
+                {
+                    player.x -= player.speedX;
+                }
+            break;
+            case KEY_CODE.RIGHT:
+                if (player.x + player.width < GAME_WIDTH)
+                {
+                    player.x += player.speedX;
+                }
+            break;
+            case KEY_CODE.UP:
+                damageRocket();
+            break;
+          
+        }
+>>>>>>> 27017b4db05509cfb5f5648c746228b9df580d36
     }
 
+<<<<<<< HEAD
     function play(){
         timer += 1;
         drawGame();
@@ -185,10 +247,43 @@
 
         setInterval(play, 1000 / DELAY);
     }
+=======
+function init() {
+    start = false;
+    // объект игрового поля
+    //game = new initObject("#000", 0, 0, GAME_WIDTH, GAME_HEIGHT);
+    // объект игрок
+    player = new initObject("#ffffff", PLAYER_START_X, PLAYER_START_Y, 
+        PLAYER_WIDTH, PLAYER_HEIGHT);
+    player.initMotion(MOVE_X, 0);
+    //холст
+    var canvas = document.getElementById("game");
+    canvas.width = GAME_WIDTH;
+    canvas.height = GAME_HEIGHT;
+    context = canvas.getContext("2d");
+    window.addEventListener('keydown', movePlayer, false);
+    //window.addEventListener('keypress', movePlayer, false);
+    //window.addEventListener('keyup', movePlayer, false);
+    canvas.onclick = startGame;
+    setInterval(play, 1000 / DELAY);
+}
+>>>>>>> 27017b4db05509cfb5f5648c746228b9df580d36
 
+function startGame(){
+    start = true;
+}
 
-
-
-
+function endGame(){
+    start = false;
+    while (ASTEROIDS.length > 0)
+    {
+        deleteObject(ASTEROIDS, 0);   
+    }
+    while (ROCKETS.length > 0)
+    {
+        deleteObject(ROCKETS, 0);   
+    }
+    alert("GAMEOVER");
+}
 
     init();

@@ -9,5 +9,7 @@
 MaxMyalkin
 maxmyalkin@gmail.com
 
+Чернобровкин Сергей Викторович NapalmDeath 
+
 Подробное о проекте можно прочесть на сайте [Технопарка] [1]
-[1]: tp.mail.ru
+[1]: https://tech-mail.ru/
