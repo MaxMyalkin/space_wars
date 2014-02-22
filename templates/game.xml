@@ -4,7 +4,7 @@
     <div class="header header_game">
     	<a href='/#' class='btn btn_header'>&#9668 BACK</a>
     	<a href='/#' class='btn btn_header'>Pause</a>
-    	<a href='/#' class='btn btn_header'>Restart</a>
+    	<a href='/#' class='btn btn_header' onclick="endGame">Restart</a>
     	<p class="header__info">Score: </p>
     </div>
     	<canvas id='game' class="game-screen"></canvas>

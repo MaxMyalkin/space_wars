@@ -113,7 +113,7 @@ function update(){
     for (var i = 0; i < ASTEROIDS.length; i++)
     {
         if (collision(player, ASTEROIDS[i])){
-            return alert("GAMEOVER");
+            endGame();
         }
     }
 
@@ -131,37 +131,43 @@ function update(){
 }
 
 function play(){
-    timer += 1;
-    drawGame();
-    update();
-    console.log(ASTEROIDS.length);
+    if (start)
+    {
+        timer += 1;
+        drawGame();
+        update();
+        console.log(ASTEROIDS.length);
+    }
 }
 
 function damageRocket(){
     var rocket = new initObject("#ffffff", player.x, player.y, 
-        ROCKET_WIDTH, ROCKET_HEIGHT);
+      ROCKET_WIDTH, ROCKET_HEIGHT);
     rocket.initMotion(0, ROCKET_SPEED);
     ROCKETS.push(rocket);
 }
 
 function movePlayer(event){
-    switch(event.keyCode) {
-        case KEY_CODE.LEFT:
-            if (player.x > 0)
-            {
-                player.x -= player.speedX;
-            }
-        break;
-        case KEY_CODE.RIGHT:
-            if (player.x + player.width < GAME_WIDTH)
-            {
-                player.x += player.speedX;
-            }
-        break;
-        case KEY_CODE.UP:
-            damageRocket();
-        break;
-      
+    if (start)
+        {
+        switch(event.keyCode) {
+            case KEY_CODE.LEFT:
+                if (player.x > 0)
+                {
+                    player.x -= player.speedX;
+                }
+            break;
+            case KEY_CODE.RIGHT:
+                if (player.x + player.width < GAME_WIDTH)
+                {
+                    player.x += player.speedX;
+                }
+            break;
+            case KEY_CODE.UP:
+                damageRocket();
+            break;
+          
+        }
     }
 }
 
@@ -181,13 +187,25 @@ function init() {
     window.addEventListener('keydown', movePlayer, false);
     //window.addEventListener('keypress', movePlayer, false);
     //window.addEventListener('keyup', movePlayer, false);
-
+    canvas.onclick = startGame;
     setInterval(play, 1000 / DELAY);
 }
 
+function startGame(){
+    start = true;
+}
 
-
-
-
+function endGame(){
+    start = false;
+    while (ASTEROIDS.length > 0)
+    {
+        deleteObject(ASTEROIDS, 0);   
+    }
+    while (ROCKETS.length > 0)
+    {
+        deleteObject(ROCKETS, 0);   
+    }
+    alert("GAMEOVER");
+}
 
 init();
