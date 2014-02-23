@@ -7,15 +7,11 @@
 		height: 100%;
 	}
   body {
-<<<<<<< HEAD
-
-=======
->>>>>>> 27017b4db05509cfb5f5648c746228b9df580d36
-	  	background-color: #000000;
-	  	background: url(../images/stars.gif);
-	  	margin: 0;
-		padding: 0;
-		height: 100%;
+  	background-color: #000000;
+  	background: url(../images/stars.gif);
+  	margin: 0;
+	padding: 0;
+	height: 100%;
 	  }
 
  #page {
@@ -28,10 +24,7 @@
 	margin: 0 0 0 20% ;
 	border: solid;
 	border-color: #f2e8c9;
-<<<<<<< HEAD
 	border-top: 0;
-=======
->>>>>>> 27017b4db05509cfb5f5648c746228b9df580d36
 	border-width: 10px;
 }
 /* menu */
@@ -60,10 +53,7 @@
 	text-align: center;
 	font-size: 30px;
 	padding: 10px 0px 10px;
-<<<<<<< HEAD
 	margin-top: 0;
-=======
->>>>>>> 27017b4db05509cfb5f5648c746228b9df580d36
 }
 
 .header_blue {
