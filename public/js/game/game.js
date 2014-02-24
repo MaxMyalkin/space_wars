@@ -73,7 +73,7 @@ function(Class, Player, GameMechanic){
 		            }
 		        }
 		        if (this.keydown["w"]){
-		        	if (this.player.bullets.length < 1){
+		        	if (this.gameMechanic.howManyBullets(this.player.bullets, this.GAME_HEIGHT, 0.7) < 1){
 		        		this.player.launchBullet(this);
 		        	}
 		        }

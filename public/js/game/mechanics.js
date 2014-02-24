@@ -74,6 +74,16 @@ function(Class, Asteroid){
                 return false;
             }
             return true;
+        },
+
+        howManyBullets: function(bullets, height, partOfScreen){
+            var result = 0;
+            for (var i = 0; i < bullets.length; i++){
+                if (bullets[i].y > height*partOfScreen){
+                    result++;
+                }
+            }
+            return result;
         }
     });
 
