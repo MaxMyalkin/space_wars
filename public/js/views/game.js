@@ -1,9 +1,11 @@
 define([
     'backbone',
-    'tmpl/game'
+    'tmpl/game',
+     'game_mechanics'
 ], function(
     Backbone,
-    tmpl
+    tmpl,
+    game
 ){
 
     var View = Backbone.View.extend({
@@ -17,6 +19,7 @@ define([
         },
         show: function () {
             this.$el.html(this.template);
+            game();
         },
         hide: function () {
             // TODO

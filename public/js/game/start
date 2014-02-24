@@ -1,0 +1,24 @@
+define([
+], function(){
+    function startGame(){
+        start = true;
+    }
+
+    function endGame(){
+        start = false;
+        while (ASTEROIDS.length > 0)
+        {
+            deleteObject(ASTEROIDS, 0);   
+        }
+        while (ROCKETS.length > 0)
+        {
+            deleteObject(ROCKETS, 0);   
+        }
+        alert("GAMEOVER");
+    }
+
+    function restart(){
+        endGame();
+        alert("RESTART");
+    }
+};

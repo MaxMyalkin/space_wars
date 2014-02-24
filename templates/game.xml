@@ -2,11 +2,11 @@
 <fest:template xmlns:fest="http://fest.mail.ru"
     context_name="json">
     <div class="header header_game">
-    	<a href='/#' class='btn btn_header'>&#9668 BACK</a>
-    	<a href='/#' class='btn btn_header'>Pause</a>
-    	<a href='/#' class='btn btn_header' onclick="endGame">Restart</a>
-    	<p class="header__info">Score: </p>
+    	<a id="backBtn" href='/#' class='btn btn_header'>&#9668 BACK</a>
+    	<a id="pause" class='btn btn_header'>Pause</a>
+    	<a id="restart" class='btn btn_header'>Start</a>
+    	
     </div>
     	<canvas id='game' class="game-screen"></canvas>
-    <script src="js/game_mechanics.js"></script>
+
 </fest:template>

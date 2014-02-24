@@ -1,3 +1,5 @@
+define([
+], function(){
 var DELAY = 50;
 var KEY_CODE = {
       LEFT: 37,
@@ -5,6 +7,7 @@ var KEY_CODE = {
       RIGHT: 39,
       DOWN: 40,
       SPACE: 32,
+      CTRL: 17
     };
 
 var GAME_WIDTH = 1024;
@@ -14,11 +17,15 @@ var PLAYER_HEIGHT = GAME_HEIGHT/50;
 var PLAYER_START_X = GAME_WIDTH/2 - PLAYER_WIDTH/2;
 var PLAYER_START_Y = GAME_HEIGHT - 2*PLAYER_HEIGHT;
 var ROCKET_WIDTH = PLAYER_HEIGHT/2;
-var ROCKET_HEIGHT = PLAYER_WIDTH/2;
+var ROCKET_HEIGHT = PLAYER_WIDTH/10;
 var ROCKET_SPEED = ROCKET_HEIGHT/2;
 var ASTEROID_HEIGHT = GAME_HEIGHT/15;
 var ASTEROID_WIDTH = GAME_WIDTH/15;
 var ASTEROIDS_SPEED = GAME_HEIGHT/200;
+
+var SCORE_FONT_SIZE = 50;
+var SCORE_Y = SCORE_FONT_SIZE * 1.1;
+var SCORE_X = SCORE_FONT_SIZE * 1.1;
 
 var MOVE_X = PLAYER_WIDTH/10;
 
@@ -27,6 +34,8 @@ var ASTEROIDS = [];
 
 var timer = 0;
 var ASTEROIDS_TIMEOUT = 50;
+
+var firstTime = true;;
 
 function initObject(color, x, y, width, height) {
     this.color = color; // цвет прямоугольника
@@ -39,6 +48,9 @@ function initObject(color, x, y, width, height) {
         this.speedX = speed_x;
         this.speedY = speed_y;
     }
+    this.setScore = function(score){
+        this.score = score;
+    }
     // функция рисует прямоугольник согласно заданным параметрам
     this.draw = function() {
         context.fillStyle = this.color;
@@ -46,12 +58,13 @@ function initObject(color, x, y, width, height) {
     };
 }
 
-
 function drawGame(){
     context.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
     player.draw();
     drawAllObjects(ROCKETS);
     drawAllObjects(ASTEROIDS);
+    context.font = "bold " + SCORE_FONT_SIZE + "px sans-serif";
+    context.fillText(player.score, SCORE_X, SCORE_Y);
 }
 
 function deleteObject(object, index)
@@ -105,7 +118,9 @@ function update(){
         {
             if (collision(ROCKETS[i], ASTEROIDS[j])){
                 deleteObject(ROCKETS, i);
-                deleteObject(ASTEROIDS, j);   
+                deleteObject(ASTEROIDS, j);
+                player.setScore(player.score + 1);
+                break;
             }
         }
     }
@@ -126,8 +141,6 @@ function update(){
     {
         ASTEROIDS[i].y += ASTEROIDS[i].speedY;
     };
-
-
 }
 
 function play(){
@@ -141,8 +154,9 @@ function play(){
 }
 
 function damageRocket(){
-    var rocket = new initObject("#ffffff", player.x, player.y, 
-      ROCKET_WIDTH, ROCKET_HEIGHT);
+    var rocket = new initObject("#ffffff", player.x + player.width/2 - ROCKET_WIDTH/2, 
+        player.y, 
+        ROCKET_WIDTH, ROCKET_HEIGHT);
     rocket.initMotion(0, ROCKET_SPEED);
     ROCKETS.push(rocket);
 }
@@ -163,32 +177,61 @@ function movePlayer(event){
                     player.x += player.speedX;
                 }
             break;
-            case KEY_CODE.UP:
+            case KEY_CODE.CTRL:
                 damageRocket();
             break;
-          
         }
     }
+    return false;
 }
+
 
 function init() {
     start = false;
+    pauseFlag = false;
     // объект игрового поля
     //game = new initObject("#000", 0, 0, GAME_WIDTH, GAME_HEIGHT);
     // объект игрок
     player = new initObject("#ffffff", PLAYER_START_X, PLAYER_START_Y, 
         PLAYER_WIDTH, PLAYER_HEIGHT);
     player.initMotion(MOVE_X, 0);
+    player.setScore(0);
     //холст
     var canvas = document.getElementById("game");
     canvas.width = GAME_WIDTH;
     canvas.height = GAME_HEIGHT;
     context = canvas.getContext("2d");
     window.addEventListener('keydown', movePlayer, false);
-    //window.addEventListener('keypress', movePlayer, false);
-    //window.addEventListener('keyup', movePlayer, false);
-    canvas.onclick = startGame;
-    setInterval(play, 1000 / DELAY);
+    //canvas.keydown = movePlayer;
+    var restart = document.getElementById("restart");
+    restart.onclick = restartGame;
+    var pause = document.getElementById("pause");
+    pause.onclick = pauseGame;
+    var backBtn = document.getElementById("backBtn");
+    backBtn.onclick = endGame;
+    if (firstTime === true)
+    {
+        setInterval(play, 1000 / DELAY);
+    }
+}
+function restartGame(){
+    endGame();
+    startGame();
+}
+
+function pauseGame(){
+    var pauseBtn = document.getElementById("pause");
+        
+    if (pauseFlag === true){
+        start = true;
+        pauseFlag = false;
+        pauseBtn.text = "Pause";
+    }
+    else{
+        pauseBtn.text = "Play";
+        start = false;
+        pauseFlag = true;
+    }
 }
 
 function startGame(){
@@ -196,7 +239,9 @@ function startGame(){
 }
 
 function endGame(){
+    timer = 0;
     start = false;
+    firstTime = false;
     while (ASTEROIDS.length > 0)
     {
         deleteObject(ASTEROIDS, 0);   
@@ -205,7 +250,7 @@ function endGame(){
     {
         deleteObject(ROCKETS, 0);   
     }
-    alert("GAMEOVER");
-}
-
-init();
+    player.score = 0;
+}   
+    return init;
+});

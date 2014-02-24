@@ -1,11 +1,13 @@
 define(['backbone',
  'views/main', 
  'views/scoreboard', 
- 'views/game'
+ 'views/game',
+
 ], function(Backbone, 
     mainScreen, 
     scoreboardScreen, 
-    gameScreen
+    gameScreen,
+    game
 ){
     var currentScreen = "";
     var Router = Backbone.Router.extend({
