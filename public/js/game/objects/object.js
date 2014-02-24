@@ -9,10 +9,12 @@ function(Class){
     		this.height = height; 
     		this.img = src;
 		},
+
 		draw: function(context) {
         	context.fillStyle = this.color;
         	context.fillRect(this.x, this.y, this.width, this.height);
     	},
+        
     	initMotion: function(speedX, speedY){
     		this.speedX = speedX;
             this.speedY = speedY;

@@ -1,19 +1,10 @@
 define(['classy', 'game/objects/player', 'game/mechanics'], 
 function(Class, Player, GameMechanic){
-	
-	var KeyCode = Class.$extend({
-		__init__: function (){
-			this.left = 37;
-			this.right = 39;
-			this.fire = 17;
-		}
-	});
 
 	var Game = Class.$extend({
 		
 		__init__: function (){
-
-
+			//Константы
 			this.DELAY = 50;
 			this.GAME_WIDTH = 1024;
 			this.GAME_HEIGHT = 768;
@@ -33,15 +24,14 @@ function(Class, Player, GameMechanic){
 			this.MOVE_X = 10;
 			this.ASTEROID_TIMEOUT = 50;
 
-
-			this.gameMechanic = new GameMechanic();
-			this.keys = new KeyCode();
+			//Переменные
 			this.timer = 0;	        
 			this.firstTime = true;
 			this.startTime = false;
 			this.pauseFlag = false;
 			this.asteroids = [];
 			this.keydown = [];
+			this.gameMechanic = new GameMechanic();
 			this.player = new Player("#ffffff", this.PLAYER_START_X, this.PLAYER_START_Y, 
 		    	this.PLAYER_WIDTH, this.PLAYER_HEIGHT, "", this.MOVE_X, 0);
 			var canvas = document.getElementById("game");
@@ -51,24 +41,17 @@ function(Class, Player, GameMechanic){
 		    this.context.fillStyle = "#ffffff";
 		    var game = this;
 		  	$(document).bind("keydown", function(event) {
-		  		if (event.keyCode == 37){
-                	this.player.launchBullet(this);
-                }
                 game.keydown[String.fromCharCode(event.which).toLowerCase()] = true;
-                
             });
              $(document).bind("keyup", function(event) {
                 game.keydown[String.fromCharCode(event.which).toLowerCase()] = false;
             });
 		    var restart = document.getElementById("restart");
-		    //var restartGameVar = game.restartGame;
-		    //restart.onСlick = game.restartGame;
-		    //var pause = document.getElementById("pause");
-		    //pause.onclick = this.pauseGame;
-		    //var backBtn = document.getElementById("backBtn");
-		    //backBtn.onclick = this.endGame;
-		    this.startTime = true;
-		    var game = this;
+		    restart.onclick = this.restartGame.bind(game);
+		    var pause = document.getElementById("pause");
+		    pause.onclick = this.pauseGame.bind(game);
+		    var backBtn = document.getElementById("backBtn");
+		    backBtn.onclick = this.endGame.bind(game);
 		    if (this.firstTime == true)
 		    {
 		        setInterval(function(){game.play(); game.movePlayer();}, 1000 / this.DELAY);
@@ -90,7 +73,7 @@ function(Class, Player, GameMechanic){
 		            }
 		        }
 		        if (this.keydown["w"]){
-		        	if (this.player.bullets.length < 10){
+		        	if (this.player.bullets.length < 1){
 		        		this.player.launchBullet(this);
 		        	}
 		        }
@@ -98,21 +81,20 @@ function(Class, Player, GameMechanic){
 		},
 
 	    restartGame: function(){
-	    	alert("restart");
-    		this.startTime = true;
 	    	this.endGame();
+    		this.startTime = true;
 	    },
 
 	    pauseGame: function(){
 	    	var pauseBtn = document.getElementById("pause");
 		    if (this.pauseFlag === true){
-		        this.start = true;
+		        this.startTime = true;
 		        this.pauseFlag = false;
 		        pauseBtn.text = "Pause";
 		    }
 		    else {
 		        pauseBtn.text = "Play";
-		        this.start = false;
+		        this.startTime = false;
 		        this.pauseFlag = true;
 		    }
 	    }, 
@@ -134,8 +116,7 @@ function(Class, Player, GameMechanic){
 		 	this.gameMechanic.drawObjects(this.asteroids, this.GAME_HEIGHT, this.context);  
 	    },
 
-		endGame: function(){
-			alert("endGame");
+		endGame: function(){;
 			this.timer = 0;
 		    this.startTime = false;
 		    this.firstTime = false;
@@ -146,8 +127,13 @@ function(Class, Player, GameMechanic){
 		    }
 		    while (this.player.bullets.length > 0)
 		    {
-		        this.gameMechanic.deleteObject(this.bullets, 0);   
+		        this.gameMechanic.deleteObject(this.player.bullets, 0);   
 		    }
+		 	while (this.keydown.length > 0)
+		    {
+		        this.keydown.deleteObject(this.keydown, 0);   
+		    }
+		       
 		}
 
 	});
