@@ -6,11 +6,15 @@
 
         <table class="menu__table">
             <tr>
+                <th>#</th>
                 <th>Name</th>
                 <th>Score</th>
             </tr>
     		<fest:for iterate="json.scoreboard" index="i">
                 <tr>
+                    <td>
+                        <fest:value>i + 1</fest:value>
+                    </td>
 		        	<td>
                         <fest:value>json.scoreboard[i].get('name')</fest:value>
                     </td>

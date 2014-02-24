@@ -10,17 +10,28 @@ define([
     Player
 ){
 
+    var players = [
+    {name: "max", score: 888},
+    {name: "maxim", score: 988},
+    {name: "sergey", score: 788},
+    {name: "ivan", score: 178},
+    {name: "anton", score: 1178},
+    {name: "ilya", score: 1000},
+    {name: "sergey2", score: 748},
+    {name: "ivan2", score: 1780},
+    {name: "anton2", score: 1078},
+    {name: "ilya2", score: 1100}
+    ];
     var ScoreboardView = Backbone.View.extend({
         el: "#page",
         template: tmplScore,
         scoreboard: Scoreboard,
         initialize: function () {
-            var players =new Player({ name: "max", score: 888 });
-            this.scoreboard.add(players);
-            var pl2 = new Player({ name: "max2", score: 988 });
-            this.scoreboard.add(pl2);
-            var pl3 = new Player({ name: "max3", score: 788 });
-            this.scoreboard.add(pl3);
+            for (var i = 0; i < players.length; i++) {
+                var player =new Player(players[i]);
+                this.scoreboard.add(player);
+            };
+;
         },
         render: function () {
         },

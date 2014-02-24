@@ -4,7 +4,7 @@ define([
     Backbone
 ){
    var PlayerModel = Backbone.Model.extend({
-        default:
+        defaults:
         {
             name: '',
             score: 0

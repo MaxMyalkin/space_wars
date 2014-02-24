@@ -1,5 +1,6 @@
-define([
-], function(){
+define(['classy'
+], function(Class){
+
 var DELAY = 50;
 var KEY_CODE = {
       LEFT: 37,
@@ -9,7 +10,7 @@ var KEY_CODE = {
       SPACE: 32,
       CTRL: 17
     };
-
+ 
 var GAME_WIDTH = 1024;
 var GAME_HEIGHT = 768;
 var PLAYER_WIDTH = GAME_WIDTH/10;
@@ -28,15 +29,21 @@ var SCORE_Y = SCORE_FONT_SIZE * 1.1;
 var SCORE_X = SCORE_FONT_SIZE * 1.1;
 
 var MOVE_X = PLAYER_WIDTH/10;
-
+ 
 var ROCKETS = [];
 var ASTEROIDS = [];
-
+ 
 var timer = 0;
 var ASTEROIDS_TIMEOUT = 50;
+ 
+var firstTime = true;
 
-var firstTime = true;;
-
+var Player = Class.$extend({
+    __init__: function (){
+        alert("init");
+    }
+});
+ 
 function initObject(color, x, y, width, height) {
     this.color = color; // цвет прямоугольника
     this.x = x; // координата х
@@ -66,12 +73,12 @@ function drawGame(){
     context.font = "bold " + SCORE_FONT_SIZE + "px sans-serif";
     context.fillText(player.score, SCORE_X, SCORE_Y);
 }
-
+ 
 function deleteObject(object, index)
 {
     object.splice(index, 1);
 }
-
+ 
 function drawAllObjects(object){
     for (var i = 0; i < object.length; i++)
     {
@@ -83,7 +90,7 @@ function drawAllObjects(object){
         }
     };
 }
-
+ 
 function createAsteroid(){
     timer = 0;
     var asteroidPosition = Math.random()*(GAME_WIDTH);
@@ -93,7 +100,7 @@ function createAsteroid(){
     asteroid.initMotion(0, ASTEROIDS_SPEED);
     ASTEROIDS.push(asteroid);
 }
-
+ 
 function collision(object1, object2){
     if ((object1.x > object2.x + object2.width) || 
         (object2.x > object1.x + object1.width)) {
@@ -105,13 +112,13 @@ function collision(object1, object2){
     }
     return true;
 }
-
+ 
 function update(){
     //Создание астероидов
     if (timer == ASTEROIDS_TIMEOUT){
         createAsteroid();
     }
-
+ 
     for (var i = 0; i < ROCKETS.length; i++)
     {
         for (var j = 0; j < ASTEROIDS.length; j++)
@@ -124,14 +131,14 @@ function update(){
             }
         }
     }
-
+ 
     for (var i = 0; i < ASTEROIDS.length; i++)
     {
         if (collision(player, ASTEROIDS[i])){
             endGame();
         }
     }
-
+ 
     //Обновление позиции ракет и астероидов
     for (var i = 0; i < ROCKETS.length; i++)
     {
@@ -142,7 +149,7 @@ function update(){
         ASTEROIDS[i].y += ASTEROIDS[i].speedY;
     };
 }
-
+ 
 function play(){
     if (start)
     {
@@ -152,7 +159,7 @@ function play(){
         console.log(ASTEROIDS.length);
     }
 }
-
+ 
 function damageRocket(){
     var rocket = new initObject("#ffffff", player.x + player.width/2 - ROCKET_WIDTH/2, 
         player.y, 
@@ -160,7 +167,7 @@ function damageRocket(){
     rocket.initMotion(0, ROCKET_SPEED);
     ROCKETS.push(rocket);
 }
-
+ 
 function movePlayer(event){
     if (start)
         {
@@ -185,10 +192,10 @@ function movePlayer(event){
     return false;
 }
 
-
 function init() {
     start = false;
     pauseFlag = false;
+    var player_ = new Player();
     // объект игрового поля
     //game = new initObject("#000", 0, 0, GAME_WIDTH, GAME_HEIGHT);
     // объект игрок
@@ -225,10 +232,10 @@ function pauseGame(){
     if (pauseFlag === true){
         start = true;
         pauseFlag = false;
-        pauseBtn.text = "Pause";
+        pauseBtn.value = "Pause";
     }
     else{
-        pauseBtn.text = "Play";
+        pauseBtn.value = "Play";
         start = false;
         pauseFlag = true;
     }
@@ -237,7 +244,7 @@ function pauseGame(){
 function startGame(){
     start = true;
 }
-
+ 
 function endGame(){
     timer = 0;
     start = false;

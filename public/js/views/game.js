@@ -1,31 +1,32 @@
 define([
     'backbone',
     'tmpl/game',
-     'game_mechanics'
+     'game/game'
 ], function(
     Backbone,
     tmpl,
-    game
+    Game
 ){
-
+ 
     var View = Backbone.View.extend({
         el: $("#page"),
         template: tmpl,
         initialize: function () {
-            
+             
         },
         render: function () {
             // TODO
         },
         show: function () {
             this.$el.html(this.template);
-            game();
+            var game = Game();
+            //game.draw();
         },
         hide: function () {
             // TODO
         }
-
+ 
     });
-
+ 
     return new View();
 });
