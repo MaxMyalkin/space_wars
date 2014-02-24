@@ -6,10 +6,10 @@ function(Class, Asteroid){
             object.splice(index, 1);
         },
 
-        drawObjects: function (object, gameHeight){
+        drawObjects: function (object, gameHeight, context){
             for (var i = 0; i < object.length; i++)
             {
-                object[i].draw();
+                object[i].draw(context);
                 if ((object[i].y + object[i].height < 0) 
                     || (object[i].y - object[i].height > gameHeight))
                 {
@@ -19,15 +19,15 @@ function(Class, Asteroid){
         },
 
         update: function(game){
-            if (game.timer == game.ASTEROIDS_TIMEOUT){
-                this.createAsteroid();
+            if (game.timer == game.ASTEROID_TIMEOUT){
+                this.createAsteroid(game);
             }
          
             for (var i = 0; i < game.player.bullets.length; i++)
             {
                 for (var j = 0; j < game.asteroids.length; j++)
                 {
-                    if (collision(game.player.bullets[i], game.asteroids[j])){
+                    if (this.collision(game.player.bullets[i], game.asteroids[j])){
                         this.deleteObject(game.player.bullets, i);
                         this.deleteObject(game.asteroids, j);
                         game.player.score += 1;
@@ -38,27 +38,33 @@ function(Class, Asteroid){
          
             for (var i = 0; i < game.asteroids.length; i++)
             {
-                if (collision(game.player, game.asteroids[i])){
+                if (this.collision(game.player, game.asteroids[i])){
                     game.endGame();
                 }
             }
          
             //Обновление позиции ракет и астероидов
-            for (var i = 0; i < game.player.bullets.length; i++)
-            {
-                game.player.bullets[i].y -= game.player.bullets[i].speedY;
-            };
             for (var i = 0; i < game.asteroids.length; i++)
             {
                 game.asteroids[i].y += game.asteroids[i].speedY;
-            };
+            }
+            for (var i = 0; i < game.player.bullets.length; i++)
+            {
+                game.player.bullets[i].y -= game.player.bullets[i].speedY;
+            }
+            
+            var x = game.player.x;
+           // var y = game.player.y;
+
+            if (game.keydown["a"])
+                game.player.x -= game.MOVE_X;
         },
 
         createAsteroid: function(game){
             game.timer = 0;
             var asteroidPosition = Math.random()*(game.GAME_WIDTH);
             var asteroid = new Asteroid("#ffffff", asteroidPosition, 0, 
-                game.ASTEROID_WIDTH, game.ASTEROID_HEIGHT, 0, game.ASTEROID_SPEED); 
+                game.ASTEROID_WIDTH, game.ASTEROID_HEIGHT, "", 0, game.ASTEROID_SPEED); 
             game.asteroids.push(asteroid);
         },
 
