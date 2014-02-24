@@ -6,8 +6,14 @@ function(AbstractObject, Bullet){
     		this.score = 0;
     		this.bullets = [];
     		this.initMotion(speedX, speedY);
+    		this.bulletDelay = 50;
 		},
 
+		launchBullet: function(game){
+		    var rocket = new Bullet("#ffffff", this.x + this.width/2 - game.ROCKET_WIDTH/2, 
+		        this.y, game.ROCKET_WIDTH, game.ROCKET_HEIGHT, "", 0, game.ROCKET_SPEED);
+		    this.bullets.push(rocket);
+		}
 	});
 
 	return Player;

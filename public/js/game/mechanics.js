@@ -53,11 +53,7 @@ function(Class, Asteroid){
                 game.player.bullets[i].y -= game.player.bullets[i].speedY;
             }
             
-            var x = game.player.x;
-           // var y = game.player.y;
-
-            if (game.keydown["a"])
-                game.player.x -= game.MOVE_X;
+            
         },
 
         createAsteroid: function(game){

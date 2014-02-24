@@ -41,6 +41,7 @@ function(Class, Player, GameMechanic){
 			this.startTime = false;
 			this.pauseFlag = false;
 			this.asteroids = [];
+			this.keydown = [];
 			this.player = new Player("#ffffff", this.PLAYER_START_X, this.PLAYER_START_Y, 
 		    	this.PLAYER_WIDTH, this.PLAYER_HEIGHT, "", this.MOVE_X, 0);
 			var canvas = document.getElementById("game");
@@ -50,7 +51,11 @@ function(Class, Player, GameMechanic){
 		    this.context.fillStyle = "#ffffff";
 		    var game = this;
 		  	$(document).bind("keydown", function(event) {
+		  		if (event.keyCode == 37){
+                	this.player.launchBullet(this);
+                }
                 game.keydown[String.fromCharCode(event.which).toLowerCase()] = true;
+                
             });
              $(document).bind("keyup", function(event) {
                 game.keydown[String.fromCharCode(event.which).toLowerCase()] = false;
@@ -66,31 +71,30 @@ function(Class, Player, GameMechanic){
 		    var game = this;
 		    if (this.firstTime == true)
 		    {
-		        setInterval(function(){game.play();}, 1000 / this.DELAY);
+		        setInterval(function(){game.play(); game.movePlayer();}, 1000 / this.DELAY);
 		    }
 		  
 	    },
 
-		movePlayer: function (event){
+		movePlayer: function (){
 
-		   // if (this.startTime === true ){
-		        switch(event.keyCode) {
-		            case 37:
+		    if (this.startTime === true ){
+		        if (this.keydown["a"]) {
 		                if (this.player.x > 0){
 		                    this.player.x -= this.player.speedX;
 		                }
-		            	break;
-		            case this.keys.right:
-		                if (this.player.x + this.player.width < this.GAME_WIDTH){
-		                    this.player.x += this.player.speedX;
-		                }
-		            	break;
-		            case this.keys.fire:
-		                //openFire();
-		            	break;
 		        }
-		//    }
-		    return false;
+		        if (this.keydown["d"]){
+		        	if (this.player.x + this.player.width < this.GAME_WIDTH){
+		                    this.player.x += this.player.speedX;
+		            }
+		        }
+		        if (this.keydown["w"]){
+		        	if (this.player.bullets.length < 10){
+		        		this.player.launchBullet(this);
+		        	}
+		        }
+		    }
 		},
 
 	    restartGame: function(){
