@@ -1,18 +1,20 @@
 define(['classy'], 
 function(Class){
 	var AbstractObject = Class.$extend({
-		__init__: function(color, x, y, width, height, src){
+		__init__: function(color, x, y, radius, src){
 			this.color = color; 
     		this.x = x; 
     		this.y = y; 
-    		this.width = width;
-    		this.height = height; 
-    		this.img = src;
+    		this.radius = radius; 
+    		//this.img = new Image();
+            //this.img.src = src;
 		},
 
 		draw: function(context) {
-        	context.fillStyle = this.color;
-        	context.fillRect(this.x, this.y, this.width, this.height);
+            	context.fillStyle = this.color;
+                context.beginPath();
+            	context.arc(this.x, this.y, this.radius, 0 , 2 * Math.PI , false );
+                context.fill();
     	},
         
     	initMotion: function(speedX, speedY){

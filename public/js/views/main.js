@@ -14,10 +14,11 @@ define([
 
         },
         render: function () {
-            
+             this.$el.html(this.template);            
         },
         show: function () {
-             this.$el.html(this.template);
+            this.render();
+
         },
         hide: function () {
 

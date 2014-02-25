@@ -29,9 +29,18 @@ function(Class, Asteroid){
                 {
                     if (this.collision(game.player.bullets[i], game.asteroids[j])){
                         this.deleteObject(game.player.bullets, i);
-                        this.deleteObject(game.asteroids, j);
-                        game.player.score += 1;
-                        break;
+                        if(game.asteroids[j].health <= 1)
+                        {
+                            this.deleteObject(game.asteroids, j);
+                            game.player.score += 1;
+                            break;
+                        }
+                        else {
+                            game.asteroids[j].health -= 1;
+                            console.log("----------------------" + game.asteroids[i].health);//---------------------------------------------------------
+                        }
+                        
+                    
                     }
                 }
             }
@@ -60,20 +69,18 @@ function(Class, Asteroid){
             game.timer = 0;
             var asteroidPosition = Math.random()*(game.GAME_WIDTH);
             var asteroid = new Asteroid("#ffffff", asteroidPosition, 0, 
-                game.ASTEROID_WIDTH, game.ASTEROID_HEIGHT, "", 0, game.ASTEROID_SPEED); 
+                game.ASTEROID_RADIUS, "", 0, game.ASTEROID_SPEED); 
+            //alert("ok");
             game.asteroids.push(asteroid);
         },
 
         collision: function(object1, object2){
-            if ((object1.x > object2.x + object2.width) || 
-                (object2.x > object1.x + object1.width)) {
+            if(Math.sqrt(Math.pow(object2.x - object1.x , 2) + Math.pow( object2.y - object1.y , 2) ) < object1.radius + object2.radius ) {
+                return true;
+            }
+            else   {
                 return false;
             }
-            if ((object1.y > object2.y + object2.height) ||
-                (object2.y > object1.y + object1.height)){
-                return false;
-            }
-            return true;
         },
 
         howManyBullets: function(bullets, height, partOfScreen){
