@@ -1,5 +1,5 @@
-define(['classy', 'game/objects/player', 'game/mechanics'], 
-function(Class, Player, GameMechanic){
+define(['classy', 'game/objects/player', 'game/mechanics', 'easeljs'], 
+function(Class, Player, GameMechanic, easeljs){
 
 	var Game = Class.$extend({
 		
@@ -8,15 +8,15 @@ function(Class, Player, GameMechanic){
 			this.DELAY = 50;
 			this.GAME_WIDTH = 1024;
 			this.GAME_HEIGHT = 768;
-			this.PLAYER_WIDTH = this.GAME_WIDTH/10;
-			this.PLAYER_HEIGHT = this.GAME_HEIGHT/50;
+			this.PLAYER_WIDTH = 93;
+			this.PLAYER_HEIGHT = 93;
 			this.PLAYER_START_X = this.GAME_WIDTH/2 - this.PLAYER_WIDTH/2;
-			this.PLAYER_START_Y = this.GAME_HEIGHT - 2 * this.PLAYER_HEIGHT;
-			this.ROCKET_WIDTH = this.PLAYER_HEIGHT/2;
-			this.ROCKET_HEIGHT = this.PLAYER_WIDTH/10;
+			this.PLAYER_START_Y = this.GAME_HEIGHT - 2 * this.PLAYER_HEIGHT + 96;
+			this.ROCKET_WIDTH = this.GAME_WIDTH/100;
+			this.ROCKET_HEIGHT = this.GAME_HEIGHT/70;
 			this.ROCKET_SPEED = 10;
-			this.ASTEROID_HEIGHT = this.GAME_HEIGHT/15;
-			this.ASTEROID_WIDTH = this.GAME_WIDTH/15;
+			this.ASTEROID_HEIGHT = 80;
+			this.ASTEROID_WIDTH = 80;
 			this.ASTEROID_SPEED = 10;
 			this.SCORE_FONT_SIZE = 50;
 			this.SCORE_Y = this.SCORE_FONT_SIZE * 1.1;
@@ -32,13 +32,19 @@ function(Class, Player, GameMechanic){
 			this.asteroids = [];
 			this.keydown = [];
 			this.gameMechanic = new GameMechanic();
-			this.player = new Player("#ffffff", this.PLAYER_START_X, this.PLAYER_START_Y, 
-		    	this.PLAYER_WIDTH, this.PLAYER_HEIGHT, "", this.MOVE_X, 0);
 			var canvas = document.getElementById("game");
 		    canvas.width = this.GAME_WIDTH;
 		    canvas.height = this.GAME_HEIGHT;
 		    this.context = canvas.getContext("2d");
 		    this.context.fillStyle = "#ffffff";
+
+		    this.stage = new easeljs.Stage(canvas);
+			this.player = new Player("#ffffff", this.PLAYER_START_X, this.PLAYER_START_Y, 
+		    	this.PLAYER_WIDTH, this.PLAYER_HEIGHT, "/images/1.png", this.MOVE_X, 0);
+			
+			
+			//easeljs.Ticker.on("tick", this.tick);
+
 		    var game = this;
 		  	$(document).bind("keydown", function(event) {
                 game.keydown[String.fromCharCode(event.which).toLowerCase()] = true;
@@ -73,7 +79,7 @@ function(Class, Player, GameMechanic){
 		            }
 		        }
 		        if (this.keydown["w"]){
-		        	if (this.gameMechanic.howManyBullets(this.player.bullets, this.GAME_HEIGHT, 0.7) < 1){
+		        	if (this.gameMechanic.howManyBullets(this.player.bullets, this.GAME_HEIGHT, 0.5) < 1){
 		        		this.player.launchBullet(this);
 		        	}
 		        }

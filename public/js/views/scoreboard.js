@@ -35,7 +35,6 @@ define([
         render: function () {
         },
         show: function () {
-            console.log(this.scoreboard);
             this.$el.html(this.template({scoreboard: this.scoreboard.models}));
         },
         hide: function () {

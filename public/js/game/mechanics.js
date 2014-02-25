@@ -60,7 +60,7 @@ function(Class, Asteroid){
             game.timer = 0;
             var asteroidPosition = Math.random()*(game.GAME_WIDTH);
             var asteroid = new Asteroid("#ffffff", asteroidPosition, 0, 
-                game.ASTEROID_WIDTH, game.ASTEROID_HEIGHT, "", 0, game.ASTEROID_SPEED); 
+                game.ASTEROID_WIDTH, game.ASTEROID_HEIGHT, "/images/2.png", 0, game.ASTEROID_SPEED); 
             game.asteroids.push(asteroid);
         },
 

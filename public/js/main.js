@@ -5,7 +5,8 @@ require.config({
         jquery: "lib/jquery",
         underscore: "lib/underscore",
         backbone: "lib/backbone",
-        classy: "lib/classy"
+        classy: "lib/classy",
+        easeljs: "lib/easeljs"
     },
     shim: {
         'backbone': {
@@ -17,6 +18,9 @@ require.config({
         },
         'classy':{
             exports: 'Class'
+        },
+        'easeljs': {
+            exports: 'createjs'
         }
     }
 });

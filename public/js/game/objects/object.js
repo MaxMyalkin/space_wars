@@ -7,12 +7,17 @@ function(Class){
     		this.y = y; 
     		this.width = width;
     		this.height = height; 
-    		this.img = src;
-		},
+            if (src != ""){
+                this.img = new Image();
+                this.img.src = src;
+            }
+    	},
 
 		draw: function(context) {
-        	context.fillStyle = this.color;
-        	context.fillRect(this.x, this.y, this.width, this.height);
+        	   context.fillStyle = this.color;
+        	   context.fillRect(this.x, this.y, this.width, this.height);
+        
+
     	},
         
     	initMotion: function(speedX, speedY){
