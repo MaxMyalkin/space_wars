@@ -5,16 +5,25 @@ function(Class){
 			this.color = color; 
     		this.x = x; 
     		this.y = y; 
-    		this.radius = radius; 
-    		//this.img = new Image();
-            //this.img.src = src;
+    		this.radius = radius;
+            if (src != "") { 
+    		    this.img = new Image();
+                this.img.src = src;
+        }
 		},
 
 		draw: function(context) {
-            	context.fillStyle = this.color;
+            if(this.img === undefined)
+            {
+                context.fillStyle = this.color;
                 context.beginPath();
-            	context.arc(this.x, this.y, this.radius, 0 , 2 * Math.PI , false );
+                context.arc(this.x, this.y, this.radius, 0 , 2 * Math.PI , false );
                 context.fill();
+            }
+            else
+            {
+                context.drawImage(this.img, this.x - this.radius , this.y - this.radius);
+            }
     	},
         
     	initMotion: function(speedX, speedY){

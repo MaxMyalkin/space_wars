@@ -1,6 +1,12 @@
 define(['classy', 'game/objects/player', 'game/mechanics'], 
 function(Class, Player, GameMechanic){
- 
+ /* TODO multiplayer
+        bigbang on collision 
+        animation
+        rotate asteroids
+        bonuses
+        resource manager
+         */
     var Game = Class.$extend({
          
         __init__: function (){
@@ -9,9 +15,9 @@ function(Class, Player, GameMechanic){
             this.GAME_WIDTH = 1024;
             this.GAME_HEIGHT = 768;
             
-            this.PLAYER_RADIUS = 20;
-            this.PLAYER_START_X = this.GAME_WIDTH/2 - this.PLAYER_RADIUS/2;
-            this.PLAYER_START_Y = this.GAME_HEIGHT - 2 * this.PLAYER_RADIUS;
+            this.PLAYER_RADIUS = 43;
+            this.PLAYER_START_X = this.GAME_WIDTH/2;
+            this.PLAYER_START_Y = this.GAME_HEIGHT - this.PLAYER_RADIUS;
             this.ROCKET_RADIUS = 5;
             this.ROCKET_SPEED = 10;
             this.ASTEROID_RADIUS = 20;
@@ -37,7 +43,7 @@ function(Class, Player, GameMechanic){
             this.context = canvas.getContext("2d");
             this.context.fillStyle = "#ffffff";
             this.player = new Player("#ffffff", this.PLAYER_START_X, this.PLAYER_START_Y, 
-                this.PLAYER_RADIUS, "", this.MOVE_X, 0);
+                this.PLAYER_RADIUS, "/images/ship.png", this.MOVE_X, 0);
  
             var game = this;
             $(document).bind("keydown", function(event) {
