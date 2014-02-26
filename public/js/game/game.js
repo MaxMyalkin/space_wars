@@ -38,7 +38,7 @@ function(Class, Player, GameMechanic, easeljs){
 		    this.context = canvas.getContext("2d");
 		    this.context.fillStyle = "#ffffff";
 
-		    this.stage = new easeljs.Stage(canvas);
+		    //this.stage = new easeljs.Stage(canvas);
 			this.player = new Player("#ffffff", this.PLAYER_START_X, this.PLAYER_START_Y, 
 		    	this.PLAYER_WIDTH, this.PLAYER_HEIGHT, "/images/1.png", this.MOVE_X, 0);
 			

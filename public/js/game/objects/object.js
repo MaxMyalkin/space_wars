@@ -7,16 +7,19 @@ function(Class){
     		this.y = y; 
     		this.width = width;
     		this.height = height; 
-            if (src != ""){
-                this.img = new Image();
-                this.img.src = src;
-            }
+            this.img = new Image();
+            this.img.src = src;
+
     	},
 
 		draw: function(context) {
+            if (this.img.src == ""){
         	   context.fillStyle = this.color;
         	   context.fillRect(this.x, this.y, this.width, this.height);
-        
+            }
+            else{
+                context.drawImage(this.img, this.x, this.y);
+            }
 
     	},
         
