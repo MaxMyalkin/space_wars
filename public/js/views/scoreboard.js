@@ -39,7 +39,7 @@ define([
             this.render();
         },
         hide: function () {
-            // TODO
+            
         }
     });
     return new ScoreboardView();

@@ -22,12 +22,6 @@ function(Class){
             }
             else
             {
-                /*
-                context.fillStyle = this.color;
-                context.beginPath();
-                context.arc(this.x, this.y, this.radius, 0 , 2 * Math.PI , false );
-                context.fill();
-                */
                 context.drawImage(this.img, this.x - this.radius , this.y - this.radius);
             }
     	},

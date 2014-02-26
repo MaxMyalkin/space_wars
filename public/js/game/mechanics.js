@@ -19,43 +19,46 @@ function(Class, Asteroid){
         },
 
         update: function(game){
-            if (game.timer == game.ASTEROID_TIMEOUT){
+            if (game.timer == game.ASTEROID_TIMEOUT) {
                 this.createAsteroid(game);
             }
-         
+         	var toDeleteAster = [];
+         	var toDeleteBullet= [];
             for (var i = 0; i < game.player.bullets.length; i++)
-            {
+            {	
                 for (var j = 0; j < game.asteroids.length; j++)
                 {
                     if (this.collision(game.player.bullets[i], game.asteroids[j])){
-                        this.deleteObject(game.player.bullets, i);
-                        if(game.asteroids[j].health <= 1)
+                        toDeleteBullet.push(i);
+                        if(game.asteroids[j].health <= game.player.bullets[i].damage)
                         {
-                            this.deleteObject(game.asteroids, j);
-                            game.player.score += 1;
+                            toDeleteAster.push(j);
+                            game.player.score += game.asteroids[j].type ;
                             break;
                         }
                         else {
-                            game.asteroids[j].health -= 1;
+                            game.asteroids[j].health -= game.player.bullets[i].damage;
                         }
-                        
-                    
                     }
                 }
             }
+
+            for (var i = 0; i < toDeleteBullet.length; i++) {
+            		this.deleteObject(game.player.bullets, toDeleteBullet[i]);
+            };
          
+            for (var i = 0; i < toDeleteAster.length; i++) {
+            		this.deleteObject(game.asteroids, toDeleteAster[i]);
+            };
+
             for (var i = 0; i < game.asteroids.length; i++)  
             {
                 if (this.collision(game.player, game.asteroids[i])){
                     game.endGame();
                 }
-            }
-         
-            //Обновление позиции ракет и астероидов
-            for (var i = 0; i < game.asteroids.length; i++)
-            {
                 game.asteroids[i].y += game.asteroids[i].speedY;
             }
+
             for (var i = 0; i < game.player.bullets.length; i++)
             {
                 game.player.bullets[i].y -= game.player.bullets[i].speedY;
@@ -66,9 +69,7 @@ function(Class, Asteroid){
 
         createAsteroid: function(game){
             game.timer = 0;
-            var asteroidPosition = Math.random()*(game.GAME_WIDTH);
-            var asteroid = new Asteroid("#ffffff", asteroidPosition, 0, 
-                game.ASTEROID_RADIUS, game.resources, 0, game.ASTEROID_SPEED); 
+            var asteroid = new Asteroid("#ffffff", game.GAME_WIDTH, 0 , game.resources, game.ASTEROID_SPEED); 
             game.asteroids.push(asteroid);
         },
 

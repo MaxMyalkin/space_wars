@@ -19,14 +19,10 @@ function(Class, Player, GameMechanic, Resources){
             this.PLAYER_RADIUS = this.resources.playerImgD/2;
             this.PLAYER_START_X = this.GAME_WIDTH/2;
             this.PLAYER_START_Y = this.GAME_HEIGHT - this.PLAYER_RADIUS;
-            this.ROCKET_RADIUS = this.resources.redBulletD/2;
-            this.ROCKET_SPEED = 10;
-            this.ASTEROID_RADIUS = this.resources.smallAsteroidImgD/2;
+            this.ROCKET_SPEED = 30;
             this.ASTEROID_SPEED = 5;
 
-            this.SCORE_FONT_SIZE = 50;
-            this.SCORE_Y = this.SCORE_FONT_SIZE * 1.1;
-            this.SCORE_X = this.SCORE_FONT_SIZE * 1.1;
+            this.FONT_SIZE = 50;
             this.MOVE_X = 10;
             this.ASTEROID_TIMEOUT = 50;
  
@@ -35,6 +31,8 @@ function(Class, Player, GameMechanic, Resources){
             this.firstTime = true;
             this.startTime = false;
             this.pauseFlag = false;
+            this.gameover = false;
+            this.stopped = true;
             this.asteroids = [];
             this.keydown = [];
             this.gameMechanic = new GameMechanic();
@@ -54,24 +52,42 @@ function(Class, Player, GameMechanic, Resources){
                 game.keydown[String.fromCharCode(event.which).toLowerCase()] = false;
             });
 
-            var restart = document.getElementById("restart");
-            restart.onclick = this.restartGame.bind(game);
-            var pause = document.getElementById("pause");
-            pause.onclick = this.pauseGame.bind(game);
-            var backBtn = document.getElementById("backBtn");
-            backBtn.onclick = this.endGame.bind(game);
-            if (this.firstTime == true)
-            {
-                setInterval(function(){ game.play(); game.movePlayer(); }, 1000 / this.DELAY);
-            }
-           
+            this.restart = document.getElementById("restart");
+            this.restart.onclick = this.restartGame.bind(game);
+            this.pauseBtn = document.getElementById("pause");
+            this.pauseBtn.onclick = this.pauseGame.bind(game);
+            this.backBtn = document.getElementById("backBtn");
+            this.backBtn.onclick = this.endGame.bind(game);
+            setInterval(function(){ game.play(); game.movePlayer(); }, 1000 / this.DELAY);
+           	this.setBtnText();
         },
- 
+ 		
+
+
+        setBtnText: function() {
+        	
+        	if (this.pauseFlag) {
+        		this.pauseBtn.innerHTML = "Continue";
+        	}
+        	else {
+        		this.pauseBtn.innerHTML = "Pause";
+        	}
+        	if (this.gameover) {
+        		this.restart.innerHTML = "Restart";
+        	}
+        	if(this.stopped){
+        		this.restart.innerHTML = "Play";
+        	}
+        	else {
+        		this.restart.innerHTML = "Restart";	
+        	}
+        },
+
         movePlayer: function (){
  
-            if (this.startTime === true ){
+            if (/*this.startTime === true*/ !this.gameover && !this.pauseFlag && !this.stopped ){
                 if (this.keydown["a"]) {
-                        if (this.player.x > 0){
+                        if (this.player.x  - this.player.radius > 0){
                             this.player.x -= this.player.speedX;
                             this.player.img.src = this.resources.playerLeftImg;
                         }
@@ -94,60 +110,84 @@ function(Class, Player, GameMechanic, Resources){
         },
  
         restartGame: function(){
-            this.endGame();
-            this.startTime = true;
+        	this.endGame();
+            this.gameover = false;
+            this.pauseFlag = false;
+            this.stopped = false;
+            this.setBtnText();
         },
  
         pauseGame: function(){
-            var pauseBtn = document.getElementById("pause");
-            if (this.pauseFlag === true){
-                this.startTime = true;
-                this.pauseFlag = false;
-                pauseBtn.text = "Pause";
-            }
-            else {
-                pauseBtn.text = "Play";
-                this.startTime = false;
-                this.pauseFlag = true;
-            }
+	            if(!this.gameover && !this.stopped){
+		            if (this.pauseFlag ){
+		                this.pauseFlag = false;
+		            }
+		            else {
+		                this.pauseFlag = true;
+		            }
+	            }
+	            this.setBtnText();    
         }, 
  
         play: function(){
-            if (this.startTime == true) {
+            if (/*this.startTime == true*/ !this.gameover && !this.pauseFlag && !this.stopped) {
                 this.timer += 1;
-                console.log(this.timer);
                 this.draw();       
                 this.gameMechanic.update(this);
             }
+            else 
+            {
+				this.context.clearRect(0, 0, this.GAME_WIDTH, this.GAME_HEIGHT);
+		        this.context.font = "bold " + this.FONT_SIZE + "px sans-serif"; 
+	            if(this.stopped)
+	            {
+		            this.context.fillText("Click play" ,this.GAME_WIDTH / 2 - this.FONT_SIZE * 3, this.GAME_HEIGHT / 2);
+	            }
+	            else
+	            	if(this.pauseFlag) {
+	            		this.context.fillText("Game Paused" ,this.GAME_WIDTH / 2 - this.FONT_SIZE * 3, this.GAME_HEIGHT / 2);
+	            	}
+	            	else
+	            		if(this.gameover){
+	            			this.context.fillText("gameover" ,this.GAME_WIDTH / 2 - this.FONT_SIZE * 3, this.GAME_HEIGHT / 2);
+	            		}
+	            }
         },
  
         draw: function(){
             this.context.clearRect(0, 0, this.GAME_WIDTH, this.GAME_HEIGHT);
             this.player.draw(this.context);
-            this.context.font = "bold " + this.SCORE_FONT_SIZE + "px sans-serif";
-            this.context.fillText(this.player.score, this.SCORE_X, this.SCORE_Y);
+            this.context.font = "bold " + this.FONT_SIZE + "px sans-serif";
             this.gameMechanic.drawObjects(this.player.bullets, this.GAME_HEIGHT, this.context);
             this.gameMechanic.drawObjects(this.asteroids, this.GAME_HEIGHT, this.context);  
+            this.context.fillText("Score: " + this.player.score, 10, this.FONT_SIZE * 1.1);
+            this.context.fillText("0" , this.GAME_WIDTH - this.FONT_SIZE * 2 , this.FONT_SIZE * 1.1);
         },
  
-        endGame: function(){;
-            this.timer = 0;
-            this.startTime = false;
-            this.firstTime = false;
-            this.player.score = 0;
-            while (this.asteroids.length > 0)
-            {
-                this.gameMechanic.deleteObject(this.asteroids, 0);   
-            }
-            while (this.player.bullets.length > 0)
-            {
-                this.gameMechanic.deleteObject(this.player.bullets, 0);   
-            }
-            while (this.keydown.length > 0)
-            {
-                this.keydown.deleteObject(this.keydown, 0);   
-            }
-                
+        endGame: function(){
+	            this.timer = 0;
+	            //this.startTime = false;
+	            //this.firstTime = false;
+	            this.player.score = 0;
+	            this.player.x = this.PLAYER_START_X;
+	            this.player.y = this.PLAYER_START_Y;
+	            while (this.asteroids.length > 0)
+	            {
+	                this.gameMechanic.deleteObject(this.asteroids, 0);   
+	            }
+	            while (this.player.bullets.length > 0)
+	            {
+	                this.gameMechanic.deleteObject(this.player.bullets, 0);   
+	            }
+	            while (this.keydown.length > 0)
+	            {
+	                this.keydown.deleteObject(this.keydown, 0);   
+	            }
+	            this.context.clearRect(0, 0, this.GAME_WIDTH, this.GAME_HEIGHT);
+	            this.context.font = "bold " + this.FONT_SIZE + "px sans-serif"; 
+	            this.context.fillText("GAME OVER" ,this.GAME_WIDTH / 2 - this.FONT_SIZE * 2.5, this.GAME_HEIGHT / 2);
+	            this.gameover = true;
+	            this.setBtnText();    
         }
  
     });

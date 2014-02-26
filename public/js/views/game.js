@@ -22,7 +22,7 @@ define([
             this.render();
         },
         hide: function () {
-            // TODO
+        	
         }
  
     });

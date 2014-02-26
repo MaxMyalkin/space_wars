@@ -4,6 +4,7 @@ function(Class
  ){
 	var resources = Class.$extend({
 		__init__: function(){
+			
 			this.smallAsteroidImg = "/images/smallAsteroid.png";
 			this.smallAsteroidRealD = 46;
 			this.smallAsteroidImgD = 40;
@@ -27,6 +28,10 @@ function(Class
 			this.redBulletImg = "/images/redBullet.png";
 			this.redBulletRealD = 33;
 			this.redBulletD = 28;
+
+			this.greenBulletImg = "/images/greenBullet.png";
+			this.greenBulletRealD = 33;
+			this.greenBulletD = 28;
 		}
 	});
 
