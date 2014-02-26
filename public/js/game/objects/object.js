@@ -1,26 +1,35 @@
 define(['classy'], 
 function(Class){
 	var AbstractObject = Class.$extend({
-		__init__: function(color, x, y, width, height, src){
+		__init__: function(color, x, y, radius, src){
 			this.color = color; 
     		this.x = x; 
     		this.y = y; 
-    		this.width = width;
-    		this.height = height; 
-            this.img = new Image();
-            this.img.src = src;
-
-    	},
+    		this.radius = radius;
+            if (src != "") { 
+    		    this.img = new Image();
+                this.img.src = src;
+            }
+		},
 
 		draw: function(context) {
-            if (this.img.src == ""){
-        	   context.fillStyle = this.color;
-        	   context.fillRect(this.x, this.y, this.width, this.height);
+            if(this.img === undefined)
+            {
+                context.fillStyle = this.color;
+                context.beginPath();
+                context.arc(this.x, this.y, this.radius, 0 , 2 * Math.PI , false );
+                context.fill();
             }
-            else{
-                context.drawImage(this.img, this.x, this.y);
+            else
+            {
+                /*
+                context.fillStyle = this.color;
+                context.beginPath();
+                context.arc(this.x, this.y, this.radius, 0 , 2 * Math.PI , false );
+                context.fill();
+                */
+                context.drawImage(this.img, this.x - this.radius , this.y - this.radius);
             }
-
     	},
         
     	initMotion: function(speedX, speedY){

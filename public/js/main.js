@@ -19,8 +19,8 @@ require.config({
         'classy':{
             exports: 'Class'
         },
-        'easeljs': {
-            exports: 'createjs'
+        'easeljs':{
+            exports: 'easeljs'
         }
     }
 });

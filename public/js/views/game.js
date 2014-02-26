@@ -15,12 +15,11 @@ define([
              
         },
         render: function () {
-            // TODO
+            this.$el.html(this.template);
+            var game = Game();        
         },
         show: function () {
-            this.$el.html(this.template);
-            var game = Game();
-            //game.draw();
+            this.render();
         },
         hide: function () {
             // TODO

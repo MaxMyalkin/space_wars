@@ -33,9 +33,10 @@ define([
 ;
         },
         render: function () {
+            this.$el.html(this.template({scoreboard: this.scoreboard.models}));
         },
         show: function () {
-            this.$el.html(this.template({scoreboard: this.scoreboard.models}));
+            this.render();
         },
         hide: function () {
             // TODO
