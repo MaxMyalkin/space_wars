@@ -1,35 +1,42 @@
-define(['classy'], 
-function(Class){
+define(['classy',
+	'game/sprite'], 
+function(Class,
+	Sprite
+	){
 	var AbstractObject = Class.$extend({
-		__init__: function(color, x, y, radius, src){
+		__init__: function(color, x, y, radius, img){
 			this.color = color; 
     		this.x = x; 
     		this.y = y; 
     		this.radius = radius;
-            if (src != "") { 
-    		    this.img = new Image();
-                this.img.src = src;
+    		 if (img != undefined) { 
+                this.img = img;
             }
 		},
 
 		draw: function(context) {
-            if(this.img === undefined)
-            {
+             
                 context.fillStyle = this.color;
                 context.beginPath();
                 context.arc(this.x, this.y, this.radius, 0 , 2 * Math.PI , false );
                 context.fill();
-            }
-            else
-            {
+               if (this.sprite != undefined){
+                    this.sprite.render(context , this.x - this.radius , this.y - this.radius);
+                    return;
+                }
                 context.drawImage(this.img, this.x - this.radius , this.y - this.radius);
-            }
+            
     	},
         
     	initMotion: function(speedX, speedY){
     		this.speedX = speedX;
             this.speedY = speedY;
-    	}	
+    	},	
+
+    	initAnimation: function(src , sizeX , sizeY , speed , frames) {
+    		this.sprite = new Sprite(src, sizeX , sizeY, speed, frames);
+    	}
+
 	});
 
     return AbstractObject;

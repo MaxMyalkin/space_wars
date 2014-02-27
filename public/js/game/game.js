@@ -2,10 +2,9 @@ define(['classy', 'game/objects/player', 'game/mechanics', 'game/resources'],
 function(Class, Player, GameMechanic, Resources){
  /* TODO multiplayer
         bigbang on collision 
-        animation
+        animation +-
         rotate asteroids
-        bonuses
-        resource manager
+        bonuses +-
          */
     var Game = Class.$extend({
          
@@ -23,7 +22,7 @@ function(Class, Player, GameMechanic, Resources){
             this.ASTEROID_SPEED = 5;
 
             this.FONT_SIZE = 50;
-            this.MOVE_X = 10;
+            this.MOVE_X = 20;
             this.ASTEROID_TIMEOUT = 50;
  
             //Переменные
@@ -134,24 +133,23 @@ function(Class, Player, GameMechanic, Resources){
                 this.timer += 1;
                 this.draw();       
                 this.gameMechanic.update(this);
+                return;
             }
-            else 
+			this.context.clearRect(0, 0, this.GAME_WIDTH, this.GAME_HEIGHT);
+	        this.context.font = "bold " + this.FONT_SIZE + "px sans-serif"; 
+            if(this.stopped)
             {
-				this.context.clearRect(0, 0, this.GAME_WIDTH, this.GAME_HEIGHT);
-		        this.context.font = "bold " + this.FONT_SIZE + "px sans-serif"; 
-	            if(this.stopped)
-	            {
-		            this.context.fillText("Click play" ,this.GAME_WIDTH / 2 - this.FONT_SIZE * 3, this.GAME_HEIGHT / 2);
-	            }
-	            else
-	            	if(this.pauseFlag) {
-	            		this.context.fillText("Game Paused" ,this.GAME_WIDTH / 2 - this.FONT_SIZE * 3, this.GAME_HEIGHT / 2);
-	            	}
-	            	else
-	            		if(this.gameover){
-	            			this.context.fillText("gameover" ,this.GAME_WIDTH / 2 - this.FONT_SIZE * 3, this.GAME_HEIGHT / 2);
-	            		}
-	            }
+	            this.context.fillText("Click play" ,this.GAME_WIDTH / 2 - this.FONT_SIZE * 3, this.GAME_HEIGHT / 2);
+	            return;
+       		}
+        	if(this.pauseFlag) {
+        		this.context.fillText("Game Paused" ,this.GAME_WIDTH / 2 - this.FONT_SIZE * 3, this.GAME_HEIGHT / 2);
+        		return;
+        	}
+        	if(this.gameover){
+        		this.context.fillText("gameover" ,this.GAME_WIDTH / 2 - this.FONT_SIZE * 3, this.GAME_HEIGHT / 2);
+        		return;
+        	}
         },
  
         draw: function(){

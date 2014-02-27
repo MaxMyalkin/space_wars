@@ -5,7 +5,7 @@ function(AbstractObject){
 			this.type = Math.floor(Math.random() * 2 + 1);
 			this.damage = this.type; 
 			var radius;
-    		var src;
+    		var src = "";
 			switch(this.type){
 				case 1:
 					src = resources.redBulletImg;
