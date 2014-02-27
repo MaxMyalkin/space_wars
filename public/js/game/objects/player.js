@@ -10,7 +10,7 @@ function(AbstractObject,
     		this.score = 0;
     		this.bullets = [];
     		this.initMotion(speedX, speedY);
-    		this.initAnimation(src , 64,64,0.5, [0,1,2,3]);
+    		this.initAnimation(src, 95, 100 ,0.3, [0,1,2,3]);
 		},
 
 		launchBullet: function(game){

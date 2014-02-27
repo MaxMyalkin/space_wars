@@ -71,6 +71,7 @@ function(Class, Asteroid){
             game.timer = 0;
             var asteroid = new Asteroid("#ffffff", game.GAME_WIDTH, 0 , game.resources, game.ASTEROID_SPEED); 
             game.asteroids.push(asteroid);
+            delete asteroid;
         },
 
         collision: function(object1, object2){

@@ -10,16 +10,19 @@ function(AbstractObject){
 				case 1:
 					src = resources.redBulletImg;
 					radius = resources.redBulletRealD/2;
+					this.initAnimation(src, 8, 16, 0.3, [0,1,2,3,4]);
 					break;
 				case 2:
 					src = resources.greenBulletImg;
 					radius = resources.greenBulletRealD/2;
+					this.initAnimation(src, 8, 16, 0.3, [5,6]);
 					break;
 				default:
 					break;
 			}		
     		this.initMotion(0 , constSpeed * this.type / 2 );
     		console.log(this.damage + "  " + this.type);
+
 			this.$super(color, x, y, radius, src);
 		}
 	});

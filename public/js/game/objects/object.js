@@ -14,14 +14,11 @@ function(Class,
             }
 		},
 
-		draw: function(context) {
+		draw: function(context, x = 0, y = 0) {
              
-                context.fillStyle = this.color;
-                context.beginPath();
-                context.arc(this.x, this.y, this.radius, 0 , 2 * Math.PI , false );
-                context.fill();
-               if (this.sprite != undefined){
-                    this.sprite.render(context , this.x - this.radius , this.y - this.radius);
+                //this.drawCircle(context);
+                if (this.sprite != undefined){
+                    this.sprite.render(context , this.x - this.radius, this.y - this.radius - y);
                     return;
                 }
                 context.drawImage(this.img, this.x - this.radius , this.y - this.radius);
@@ -35,7 +32,14 @@ function(Class,
 
     	initAnimation: function(src , sizeX , sizeY , speed , frames) {
     		this.sprite = new Sprite(src, sizeX , sizeY, speed, frames);
-    	}
+    	},
+
+        drawCircle: function(context){
+            context.fillStyle = this.color;
+            context.beginPath();
+            context.arc(this.x, this.y, this.radius, 0 , 2 * Math.PI , false );
+            context.fill();
+        }
 
 	});
 

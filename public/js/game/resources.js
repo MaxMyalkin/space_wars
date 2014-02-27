@@ -27,19 +27,21 @@ function(Class
 			this.playerRightImg.src = "/images/shipRight.png";
 
 			this.playerImg = new Image();
-			this.playerImg.src = "/images/boom.png";
-			this.playerRealD = 93;
-			this.playerImgD = 88;
+			this.playerImg.src = "/images/ship.png";
+			this.playerRealD = 95;
+			this.playerImgD = 95;
 			
 			this.redBulletImg = new Image();	
-			this.redBulletImg.src = "/images/redBullet.png";
-			this.redBulletRealD = 33;
-			this.redBulletD = 28;
+			this.redBulletImg.src = "/images/bullet.png";
+			this.redBulletRealD = 8;//33;
+			this.redBulletD = 8;//28;
+
+
 
 			this.greenBulletImg = new Image();
-			this.greenBulletImg.src = "/images/greenBullet.png";
-			this.greenBulletRealD = 33;
-			this.greenBulletD = 28;
+			this.greenBulletImg.src = "/images/bullet.png";
+			this.greenBulletRealD = 8;
+			this.greenBulletD = 8;
 
 		},
 		get: function(url){
