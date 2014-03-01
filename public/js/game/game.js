@@ -9,6 +9,7 @@ function(Class, Player, GameMechanic, Resources){
     var Game = Class.$extend({
          
         __init__: function (){
+            var DEBUG = false;
             this.resources = new Resources();
             //Константы
             this.DELAY = 50;
@@ -18,15 +19,19 @@ function(Class, Player, GameMechanic, Resources){
             this.PLAYER_RADIUS = this.resources.playerImgD/2;
             this.PLAYER_START_X = this.GAME_WIDTH/2;
             this.PLAYER_START_Y = this.GAME_HEIGHT - this.PLAYER_RADIUS - 10;
-            this.ROCKET_SPEED = 5;
+            this.ROCKET_SPEED = 10;
             this.ASTEROID_SPEED = 5;
 
             this.FONT_SIZE = 50;
-            this.MOVE_X = 10;
+            this.HORIZONTAL_SPEED = 7;
+            this.FORWARD_SPEED = 10;
+            this.BACK_SPEED = 7;
             this.ASTEROID_TIMEOUT = 50;
+            this.BULLET_TIMEOUT = 25;
  
             //Переменные
-            this.timer = 0;         
+            this.bulletTimer = 0;
+            this.asteroidTimer = 0;         
             this.firstTime = true;
             this.startTime = false;
             this.pauseFlag = false;
@@ -34,14 +39,16 @@ function(Class, Player, GameMechanic, Resources){
             this.stopped = true;
             this.asteroids = [];
             this.keydown = [];
+            this.bangs = [];
             this.gameMechanic = new GameMechanic();
             var canvas = document.getElementById("game");
             canvas.width = this.GAME_WIDTH;
             canvas.height = this.GAME_HEIGHT;
             this.context = canvas.getContext("2d");
             this.context.fillStyle = "#ffffff";
+            this.context.debug = DEBUG;
             this.player = new Player("#ffffff", this.PLAYER_START_X, this.PLAYER_START_Y, 
-                this.PLAYER_RADIUS, this.resources.playerImg, this.MOVE_X, 0);
+                this.PLAYER_RADIUS, this.resources.playerImg, this.HORIZONTAL_SPEED, 0);
  
             var game = this;
             $(document).bind("keydown", function(event) {
@@ -98,13 +105,27 @@ function(Class, Player, GameMechanic, Resources){
                             this.player.sprite.url = this.resources.playerRightImg;
                     }
                 }
-                if (this.keydown["w"]){
-                    if (this.gameMechanic.howManyBullets(this.player.bullets, this.GAME_HEIGHT, 0.5) < 1){
+                if (this.keydown["p"]){
+                    /*if (this.gameMechanic.howManyBullets(this.player.bullets, this.GAME_HEIGHT, 0.5) < 1){
                         this.player.launchBullet(this);
+                    }*/
+                    if (this.bulletTimer > this.BULLET_TIMEOUT){
+                        this.player.launchBullet(this);
+                        this.bulletTimer = 0;
                     }
                 }
                 if (!this.keydown["a"] && !this.keydown["d"]){
                     this.player.sprite.url = this.resources.playerImg;
+                }
+                if (this.keydown["w"]) {
+                    if (this.player.y - this.player.radius > 0){
+                        this.player.y -= this.FORWARD_SPEED;
+                    }
+                }
+                if (this.keydown["s"]) {
+                    if (this.player.y + this.player.radius < this.GAME_HEIGHT){
+                        this.player.y += this.BACK_SPEED;
+                    }
                 }
             }
         },
@@ -146,12 +167,13 @@ function(Class, Player, GameMechanic, Resources){
  
         play: function(){
             if ( !this.gameover && !this.pauseFlag && !this.stopped) {
-                this.timer += 1;
+                this.asteroidTimer += 1;
+                this.bulletTimer += 1;
                 this.draw();       
                 this.gameMechanic.update(this);
                 return;
             }
-			this.context.clearRect(0, 0, this.GAME_WIDTH, this.GAME_HEIGHT);
+			//this.context.clearRect(0, 0, this.GAME_WIDTH, this.GAME_HEIGHT);
 	        this.context.font = "bold " + this.FONT_SIZE + "px sans-serif"; 
             if(this.stopped)
             {
@@ -170,16 +192,17 @@ function(Class, Player, GameMechanic, Resources){
  
         draw: function(){
             this.context.clearRect(0, 0, this.GAME_WIDTH, this.GAME_HEIGHT);
-            this.player.draw(this.context, 0, 10);
+            this.player.draw(this.context, 0, -10);
             this.context.font = "bold " + this.FONT_SIZE + "px sans-serif";
-            this.gameMechanic.drawObjects(this.player.bullets, this.GAME_HEIGHT, this.context);
+            this.gameMechanic.drawObjects(this.player.bullets, this.GAME_HEIGHT, this.context, -5);
             this.gameMechanic.drawObjects(this.asteroids, this.GAME_HEIGHT, this.context);  
             this.context.fillText("Score: " + this.player.score, 10, this.FONT_SIZE * 1.1);
             this.context.fillText("0" , this.GAME_WIDTH - this.FONT_SIZE * 2 , this.FONT_SIZE * 1.1);
         },
  
         endGame: function(){
-	            this.timer = 0;
+	            this.asteroidTimer = 0;
+                this.bulletTimer = 0;
 	            //this.startTime = false;
 	            //this.firstTime = false;
 	            this.player.score = 0;

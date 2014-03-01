@@ -8,17 +8,17 @@ function(Class
 			this.smallAsteroidImg = new Image();
 			this.smallAsteroidImg.src = "/images/smallAsteroid.png";
 			this.smallAsteroidRealD = 46;
-			this.smallAsteroidImgD = 40;
+			this.smallAsteroidImgD = 46;
 
 			this.bigAsteroidImg = new Image();
 			this.bigAsteroidImg.src = "/images/bigAsteroid.png";
-			this.bigAsteroidImgD = 90;
+			this.bigAsteroidImgD = 94;
 			this.bigAsteroidRealD = 94;
 
 			this.mediumAsteroidImg = new Image();
 			this.mediumAsteroidImg.src = "/images/mediumAsteroid.png";
 			this.mediumAsteroidRealD = 80;
-			this.mediumAsteroidImgD = 74;
+			this.mediumAsteroidImgD = 80;
 
 			this.playerLeftImg = new Image();
 			this.playerLeftImg.src = "/images/shipLeft.png";
@@ -27,21 +27,21 @@ function(Class
 			this.playerRightImg.src = "/images/shipRight.png";
 
 			this.playerImg = new Image();
-			this.playerImg.src = "/images/ship.png";
+			this.playerImg.src = "/images/shipDirect.png";
 			this.playerRealD = 95;
 			this.playerImgD = 95;
 			
 			this.redBulletImg = new Image();	
-			this.redBulletImg.src = "/images/bullet.png";
-			this.redBulletRealD = 8;//33;
-			this.redBulletD = 8;//28;
+			this.redBulletImg.src = "/images/rocket.png";
+			this.redBulletRealD = 20;//33;
+			this.redBulletD = 12;//28;
 
 
 
 			this.greenBulletImg = new Image();
-			this.greenBulletImg.src = "/images/bullet.png";
-			this.greenBulletRealD = 8;
-			this.greenBulletD = 8;
+			this.greenBulletImg.src = "/images/rocket.png";
+			this.greenBulletRealD = 20;
+			this.greenBulletD = 12;
 
 		},
 		get: function(url){
@@ -55,4 +55,5 @@ function(Class
 	});
 
 	return resources;
+
 });

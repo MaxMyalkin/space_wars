@@ -9,19 +9,36 @@ function(Class,
     		this.x = x; 
     		this.y = y; 
     		this.radius = radius;
-    		 if (img != undefined) { 
+    		if (img != undefined) { 
                 this.img = img;
             }
 		},
 
-		draw: function(context, x = 0, y = 0) {
-             
-                //this.drawCircle(context);
+		draw: function(context, x, y) {
+                if (x == undefined)
+                    x = 0;
+                if (y == undefined)
+                    y = 0;
+                
+                if (context.debug === true)
+                    this.drawCircle(context);
+                
                 if (this.sprite != undefined){
-                    this.sprite.render(context , this.x - this.radius, this.y - this.radius - y);
+                    this.sprite.render(context , this.x - this.radius + x, this.y - this.radius + y );
                     return;
                 }
-                context.drawImage(this.img, this.x - this.radius , this.y - this.radius);
+
+                if (this.deltaAngle != 0){
+                    context.save();
+                    context.translate(this.x, this.y);
+                    this.Angle += this.deltaAngle;
+                    context.rotate(this.Angle*Math.PI/180);
+                    context.translate(-this.x, -this.y);
+                    context.drawImage(this.img, this.x - this.radius + x, this.y - this.radius + y);
+                    context.restore();
+                    return;
+                }
+                context.drawImage(this.img, this.x - this.radius + x, this.y - this.radius + y);
             
     	},
         
@@ -30,9 +47,14 @@ function(Class,
             this.speedY = speedY;
     	},	
 
-    	initAnimation: function(src , sizeX , sizeY , speed , frames) {
-    		this.sprite = new Sprite(src, sizeX , sizeY, speed, frames);
+    	initAnimation: function(src , sizeX , sizeY , speed , frames, direction) {
+    		this.sprite = new Sprite(src, sizeX , sizeY, speed, frames, direction);
     	},
+
+        initRotation: function(startAngle, delta){
+            this.Angle = startAngle;
+            this.deltaAngle = delta;
+        },
 
         drawCircle: function(context){
             context.fillStyle = this.color;

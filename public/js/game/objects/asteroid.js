@@ -25,6 +25,7 @@ function(AbstractObject){
 			var asteroidPosition = Math.random()*( x - 2 * radius ) + radius;
 			this.$super(color, asteroidPosition, y, radius, src);
     		this.initMotion(0 , constSpeed / this.type );	
+    		this.initRotation(0, 1);
 		}
 	});
 

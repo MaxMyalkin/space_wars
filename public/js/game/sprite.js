@@ -3,16 +3,23 @@ function(Class, Resources){
  
     var Sprite = Class.$extend({
  
-        __init__: function(url, sizeX , sizeY , speed, frames){
-            this.posSliceX = 0;
-            this.sizeX = sizeX;
+        __init__: function(url, sizeX , sizeY , speed, frames, direction, once){
+            if (direction === undefined && direction != "vertical"){
+                this.direction = "horizontal";
+            }else{
+                this.direction = "vertical";
+            }
+            if (once === undefined){
+                this.once = false; 
+            }
+            this.sizeX = sizeX; //Размер кадра
             this.sizeY = sizeY;
             this.speed = speed;
             this.frames = frames;
             this._index = 0;
             this.url = url;
         },
- 
+
         update: function() {
             this._index += this.speed;
         },
@@ -29,11 +36,15 @@ function(Class, Resources){
             else {
                 frame = 0;
             }
- 
-            var dx = this.posSliceX; // начальная позиция 
-            dx += frame * this.sizeX;
+            var dx = 0;
+            var dy = 0;
+            if (this.direction === "vertical"){
+                dy += frame * this.sizeY;
+            }else{
+                dx += frame * this.sizeX;
+            }
             context.drawImage(this.url,
-                          dx, 0,
+                          dx, dy,
                           this.sizeX, this.sizeY,
                           x, y,
                           this.sizeX, this.sizeY);

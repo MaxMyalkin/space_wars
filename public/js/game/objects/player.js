@@ -14,7 +14,7 @@ function(AbstractObject,
 		},
 
 		launchBullet: function(game){
-		    var rocket = new Bullet("#ffffff", this.x , 
+		    var rocket = new Bullet("#ffffff", this.x, 
 		        this.y - game.PLAYER_RADIUS, game.resources, game.ROCKET_SPEED);
 		    this.bullets.push(rocket);
 		}
