@@ -47,8 +47,8 @@ function(Class,
             this.speedY = speedY;
     	},	
 
-    	initAnimation: function(src , sizeX , sizeY , speed , frames, direction) {
-    		this.sprite = new Sprite(src, sizeX , sizeY, speed, frames, direction);
+    	initAnimation: function(src , sizeX , sizeY , speed , frames, direction, once) {
+    		this.sprite = new Sprite(src, sizeX , sizeY, speed, frames, direction, once);
     	},
 
         initRotation: function(startAngle, delta){

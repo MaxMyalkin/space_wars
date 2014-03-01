@@ -36,6 +36,11 @@ function(Class
 			this.redBulletRealD = 20;//33;
 			this.redBulletD = 12;//28;
 
+			this.bigBangImg = new Image();
+			this.bigBangImg.src = "/images/explosions.png";
+			this.bigBangRealD = 84;
+			this.bigBangD = 84;
+
 			this.greenBulletImg = new Image();
 			this.greenBulletImg.src = "/images/rocket.png";
 			this.greenBulletRealD = 20;

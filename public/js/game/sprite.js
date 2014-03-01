@@ -4,13 +4,15 @@ function(Class, Resources){
     var Sprite = Class.$extend({
  
         __init__: function(url, sizeX , sizeY , speed, frames, direction, once){
-            if (direction === undefined && direction != "vertical"){
+            if (direction === undefined || direction != "vertical"){
                 this.direction = "horizontal";
             }else{
                 this.direction = "vertical";
             }
             if (once === undefined){
                 this.once = false; 
+            }else{
+                this.once = once;
             }
             this.sizeX = sizeX; //Размер кадра
             this.sizeY = sizeY;
@@ -18,6 +20,7 @@ function(Class, Resources){
             this.frames = frames;
             this._index = 0;
             this.url = url;
+            this.wasPlayed = false;
         },
 
         update: function() {
@@ -48,6 +51,9 @@ function(Class, Resources){
                           this.sizeX, this.sizeY,
                           x, y,
                           this.sizeX, this.sizeY);
+            if (this.once && frame === max - 1){
+                this.wasPlayed = true;
+            }
         }
  
     });
