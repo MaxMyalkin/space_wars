@@ -1,5 +1,5 @@
-define(['classy', 'game/objects/asteroid'], 
-function(Class, Asteroid){
+define(['classy', 'game/objects/asteroid' , 'game/objects/bonus'], 
+function(Class, Asteroid , Bonus){
     var GameMechanic = Class.$extend({
         
         deleteObject: function (object, index){
@@ -25,10 +25,13 @@ function(Class, Asteroid){
         },
 
         update: function(game){
-            if (game.asteroidTimer % 3 === 0)
+            if (game.asteroidTimer % 1 === 0)
                 this.collisionTest(game);
             if (game.asteroidTimer == game.ASTEROID_TIMEOUT) {
                 this.createAsteroid(game);
+            }
+            if (game.bonusTimer == game.BONUS_TIMEOUT) {
+                this.createBonus(game);
             }
          	
             for (var i = 0; i < game.asteroids.length; i++)  
@@ -45,12 +48,17 @@ function(Class, Asteroid){
                 game.player.bullets[i].y -= game.player.bullets[i].speedY;
             }
             
+            for (var i = 0; i < game.bonuses.length; i++)
+            {
+                game.bonuses[i].time += 1;
+            }
             
         },
 
         collisionTest: function(game){
             var toDeleteAster = [];
-            var toDeleteBullet= [];
+            var toDeleteBullet = [];
+            var toDeleteBonus = [];
             for (var i = 0; i < game.player.bullets.length; i++)
             {   
                 for (var j = 0; j < game.asteroids.length; j++)
@@ -60,8 +68,8 @@ function(Class, Asteroid){
                         if(game.asteroids[j].health <= game.player.bullets[i].damage)
                         {
                             toDeleteAster.push(j);
-                            game.bangs.push(new BigBang("#ffffff", 
-                                game.asteroids[j].x, game.asteroids[j].y, game.resources.BbgBangImg));
+                            //game.bangs.push(new BigBang("#ffffff", 
+                              //  game.asteroids[j].x, game.asteroids[j].y, game.resources.BbgBangImg));
                             game.player.score += game.asteroids[j].type ;
                             break;
                         }
@@ -69,6 +77,24 @@ function(Class, Asteroid){
                     }
                 }
             }
+
+            for( var i = 0; i < game.bonuses.length ; i++)
+            {
+            	if(this.collision(game.player , game.bonuses[i]))
+            	{
+            		toDeleteBonus.push(i);
+            		game.player.bonusBullets += 5;
+            	}
+            	else
+	            	if(game.bonuses[i].time > game.BONUS_TERMINATE)
+	            	{
+	            		toDeleteBonus.push(i);
+	            	}
+            }
+
+            for (var i = 0; i < toDeleteBonus.length; i++) {
+                    this.deleteObject(game.bonuses, toDeleteBonus[i]);
+            };
 
             for (var i = 0; i < toDeleteBullet.length; i++) {
                     this.deleteObject(game.player.bullets, toDeleteBullet[i]);
@@ -84,6 +110,12 @@ function(Class, Asteroid){
             var asteroid = new Asteroid("#ffffff", game.GAME_WIDTH, 0 , game.resources, game.ASTEROID_SPEED); 
             game.asteroids.push(asteroid);
             delete asteroid;
+        },
+
+        createBonus: function(game){
+        	game.bonusTimer = 0;
+            var bonus = new Bonus("#ffffff", Math.random() * game.GAME_WIDTH, Math.random() * game.GAME_HEIGHT , game.resources); 
+            game.bonuses.push(bonus);
         },
 
         collision: function(object1, object2){

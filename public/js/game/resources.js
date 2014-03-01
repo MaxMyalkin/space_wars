@@ -36,12 +36,15 @@ function(Class
 			this.redBulletRealD = 20;//33;
 			this.redBulletD = 12;//28;
 
-
-
 			this.greenBulletImg = new Image();
 			this.greenBulletImg.src = "/images/rocket.png";
 			this.greenBulletRealD = 20;
 			this.greenBulletD = 12;
+
+			this.bonusImg = new Image();
+			this.bonusImg.src = "/images/bonus.png";
+			this.bonusRealD = 20;
+			this.bonusImgD = 12;
 
 		},
 		get: function(url){

@@ -1,9 +1,8 @@
 define(['classy', 'game/objects/player', 'game/mechanics', 'game/resources'], 
 function(Class, Player, GameMechanic, Resources){
  /* TODO multiplayer
-        bigbang on collision 
-        animation +-
-        rotate asteroids
+		sounds
+		multiplayer
         bonuses +-
          */
     var Game = Class.$extend({
@@ -28,10 +27,12 @@ function(Class, Player, GameMechanic, Resources){
             this.BACK_SPEED = 7;
             this.ASTEROID_TIMEOUT = 50;
             this.BULLET_TIMEOUT = 25;
- 
+            this.BONUS_TIMEOUT = 500;
+ 			this.BONUS_TERMINATE = 200 
             //Переменные
             this.bulletTimer = 0;
-            this.asteroidTimer = 0;         
+            this.asteroidTimer = 0;
+            this.bonusTimer = 0;         
             this.firstTime = true;
             this.startTime = false;
             this.pauseFlag = false;
@@ -40,6 +41,7 @@ function(Class, Player, GameMechanic, Resources){
             this.asteroids = [];
             this.keydown = [];
             this.bangs = [];
+            this.bonuses = [];
             this.gameMechanic = new GameMechanic();
             var canvas = document.getElementById("game");
             canvas.width = this.GAME_WIDTH;
@@ -110,7 +112,7 @@ function(Class, Player, GameMechanic, Resources){
                         this.player.launchBullet(this);
                     }*/
                     if (this.bulletTimer > this.BULLET_TIMEOUT){
-                        this.player.launchBullet(this);
+                        this.player.launchBullet(this , 1);
                         this.bulletTimer = 0;
                     }
                 }
@@ -126,6 +128,14 @@ function(Class, Player, GameMechanic, Resources){
                     if (this.player.y + this.player.radius < this.GAME_HEIGHT){
                         this.player.y += this.BACK_SPEED;
                     }
+                }
+                if(this.keydown["q"]) {
+                	if( this.bulletTimer > this.BULLET_TIMEOUT && this.player.bonusBullets > 0) {
+                		this.player.launchBullet(this , 2);
+                		this.bulletTimer = 0;	
+                		this.player.bonusBullets -=1;
+                	}
+              
                 }
             }
         },
@@ -169,6 +179,7 @@ function(Class, Player, GameMechanic, Resources){
             if ( !this.gameover && !this.pauseFlag && !this.stopped) {
                 this.asteroidTimer += 1;
                 this.bulletTimer += 1;
+                this.bonusTimer +=1;
                 this.draw();       
                 this.gameMechanic.update(this);
                 return;
@@ -197,7 +208,8 @@ function(Class, Player, GameMechanic, Resources){
             this.gameMechanic.drawObjects(this.player.bullets, this.GAME_HEIGHT, this.context, -5);
             this.gameMechanic.drawObjects(this.asteroids, this.GAME_HEIGHT, this.context);  
             this.context.fillText("Score: " + this.player.score, 10, this.FONT_SIZE * 1.1);
-            this.context.fillText("0" , this.GAME_WIDTH - this.FONT_SIZE * 2 , this.FONT_SIZE * 1.1);
+            this.context.fillText(this.player.bonusBullets , this.GAME_WIDTH - this.FONT_SIZE * 2 , this.FONT_SIZE * 1.1);
+            this.gameMechanic.drawObjects(this.bonuses , this.GAME_HEIGHT , this.context , 0 , -20);
         },
  
         endGame: function(){
@@ -206,6 +218,7 @@ function(Class, Player, GameMechanic, Resources){
 	            //this.startTime = false;
 	            //this.firstTime = false;
 	            this.player.score = 0;
+	            this.player.bonusBullets = 0;
 	            this.player.x = this.PLAYER_START_X;
 	            this.player.y = this.PLAYER_START_Y;
 	            while (this.asteroids.length > 0)
@@ -215,6 +228,11 @@ function(Class, Player, GameMechanic, Resources){
 	            while (this.player.bullets.length > 0)
 	            {
 	                this.gameMechanic.deleteObject(this.player.bullets, 0);   
+	            }
+
+	            while (this.bonuses.length > 0)
+	            {
+	                this.gameMechanic.deleteObject(this.bonuses, 0);   
 	            }
 	            while (this.keydown.length > 0)
 	            {

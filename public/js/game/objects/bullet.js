@@ -1,8 +1,8 @@
 define(['game/objects/object'], 
 function(AbstractObject){
 	var Bullet = AbstractObject.$extend({
-		__init__: function(color, x, y, resources, constSpeed){
-			this.type = Math.floor(Math.random() * 2 + 1);
+		__init__: function(color, x, y, resources, constSpeed , type){
+			this.type = type;
 			this.damage = this.type; 
 			var radius;
     		var src = "";
@@ -21,7 +21,7 @@ function(AbstractObject){
 					break;
 			}		
     		this.initMotion(0 , constSpeed * this.type / 2 );
-    		//console.log(this.damage + "  " + this.type);
+    		this.initRotation(0,1);
 
 			this.$super(color, x, y, radius, src);
 		}

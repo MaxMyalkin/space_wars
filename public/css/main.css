@@ -20,10 +20,10 @@
   }
 
   .game-screen {
-  	width: 1024px;
-  	min-width: 1024px;
-  	height: 768px;
-  	min-height: 768px;
+  	width: 900px;
+  	min-width: 900px;
+  	height: 675px;
+  	min-height: 675px;
 	border: solid;
 	border-color: #f2e8c9;
 	border-top: 0;
