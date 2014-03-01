@@ -1,5 +1,5 @@
-define(['classy', 'game/objects/asteroid'], 
-function(Class, Asteroid){
+define(['classy', 'game/objects/asteroid', 'game/objects/bigBang'], 
+function(Class, Asteroid, BigBang){
     var GameMechanic = Class.$extend({
         
         deleteObject: function (object, index){
@@ -17,7 +17,8 @@ function(Class, Asteroid){
             {
                 object[i].draw(context, dx, dy);
                 if ((object[i].y + object[i].height < 0) 
-                    || (object[i].y - object[i].height > gameHeight))
+                    || (object[i].y - object[i].height > gameHeight) || 
+                    (object[i].sprite != undefined && object[i].sprite.once && object[i].sprite.wasPlayed))
                 {
                     this.deleteObject(object, i); 
                 }
@@ -34,7 +35,7 @@ function(Class, Asteroid){
             for (var i = 0; i < game.asteroids.length; i++)  
             {
                 game.asteroids[i].y += game.asteroids[i].speedY;
-                if (this.collision(game.player, game.asteroids[i])){
+                if (this.collision(game.player, game.asteroids[i], 0.95)){
                     game.endGame();
                 }
                 
@@ -61,8 +62,9 @@ function(Class, Asteroid){
                         {
                             toDeleteAster.push(j);
                             game.bangs.push(new BigBang("#ffffff", 
-                                game.asteroids[j].x, game.asteroids[j].y, game.resources.BbgBangImg));
-                            game.player.score += game.asteroids[j].type ;
+                                game.asteroids[j].x, game.asteroids[j].y, 
+                                game.asteroids[j].radius, game.resources.bigBangImg));
+                            game.player.score += game.asteroids[j].type;
                             break;
                         }
                         game.asteroids[j].health -= game.player.bullets[i].damage;
@@ -86,8 +88,11 @@ function(Class, Asteroid){
             delete asteroid;
         },
 
-        collision: function(object1, object2){
-            if(Math.sqrt(Math.pow(object2.x - object1.x , 2) + Math.pow( object2.y - object1.y , 2) ) < (object1.radius + object2.radius)*0.95 ) {
+        collision: function(object1, object2, procent){
+            if (procent === undefined){
+                procent = 1;
+            }
+            if(Math.sqrt(Math.pow(object2.x - object1.x , 2) + Math.pow( object2.y - object1.y , 2) ) < (object1.radius + object2.radius) * procent ) {
                 return true;
             }
             else   {

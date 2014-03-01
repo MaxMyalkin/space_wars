@@ -195,7 +195,9 @@ function(Class, Player, GameMechanic, Resources){
             this.player.draw(this.context, 0, -10);
             this.context.font = "bold " + this.FONT_SIZE + "px sans-serif";
             this.gameMechanic.drawObjects(this.player.bullets, this.GAME_HEIGHT, this.context, -5);
-            this.gameMechanic.drawObjects(this.asteroids, this.GAME_HEIGHT, this.context);  
+            this.gameMechanic.drawObjects(this.asteroids, this.GAME_HEIGHT, this.context); 
+            if (this.bangs.length != 0) 
+                this.gameMechanic.drawObjects(this.bangs, this.GAME_HEIGHT, this.context);
             this.context.fillText("Score: " + this.player.score, 10, this.FONT_SIZE * 1.1);
             this.context.fillText("0" , this.GAME_WIDTH - this.FONT_SIZE * 2 , this.FONT_SIZE * 1.1);
         },
@@ -216,6 +218,10 @@ function(Class, Player, GameMechanic, Resources){
 	            {
 	                this.gameMechanic.deleteObject(this.player.bullets, 0);   
 	            }
+                while (this.bangs.length > 0)
+                {
+                    this.gameMechanic.deleteObject(this.bangs, 0);   
+                }
 	            while (this.keydown.length > 0)
 	            {
 	                this.keydown.deleteObject(this.keydown, 0);   
