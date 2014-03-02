@@ -93,7 +93,7 @@ function(Class,
             	if(this.collision(game.player , game.bonuses[i]))
             	{
             		toDeleteBonus.push(i);
-            		game.player.bonusBullets += 5;
+            		game.player.bonusBullets[game.bonuses[i].type - 1] += 5;
             	}
             	else
 	            	if(game.bonuses[i].time > game.BONUS_TERMINATE)
@@ -115,6 +115,29 @@ function(Class,
             };
         },
 
+        draw: function(game){
+            game.context.clearRect(0, 0, game.GAME_WIDTH, game.GAME_HEIGHT);
+            game.player.draw(game.context, 0, -10);
+            game.context.font = "bold " + game.FONT_SIZE + "px sans-serif";
+            this.drawObjects(game.player.bullets, game.GAME_HEIGHT, game.context, -5);
+            this.drawObjects(game.asteroids, game.GAME_HEIGHT, game.context); 
+            if (game.bangs.length != 0) 
+                game.gameMechanic.drawObjects(game.bangs, game.GAME_HEIGHT, game.context);
+            this.drawInfo(game);
+            this.drawObjects(game.bonuses , game.GAME_HEIGHT , game.context , 0 , 0);
+            
+        },
+
+        drawInfo: function(game) {
+        	game.context.fillText("Score: " + game.player.score, 10, game.FONT_SIZE * 1.1);
+        	game.context.drawImage(game.resources.bulletImg , game.GAME_WIDTH - game.FONT_SIZE * 3 , game.FONT_SIZE / 3);
+        	game.context.fillText("∞" , game.GAME_WIDTH - game.FONT_SIZE * 2 , game.FONT_SIZE * 1.1);
+        	game.context.drawImage(game.resources.bonusImg , game.GAME_WIDTH - game.FONT_SIZE * 3 , game.FONT_SIZE * 1.3);
+            game.context.fillText(game.player.bonusBullets[0] , game.GAME_WIDTH - game.FONT_SIZE * 2 , 2 * game.FONT_SIZE * 1.1);
+            game.context.drawImage(game.resources.bonus2Img , game.GAME_WIDTH - game.FONT_SIZE * 3 , game.FONT_SIZE * 2.5 );
+            game.context.fillText(game.player.bonusBullets[1] , game.GAME_WIDTH - game.FONT_SIZE * 2 , 3 * game.FONT_SIZE * 1.1);
+        },
+
         createAsteroid: function(game){
             game.asteroidTimer = 0;
             var asteroid = new Asteroid("#ffffff", game.GAME_WIDTH, 0 , game.resources, game.ASTEROID_SPEED); 
@@ -124,7 +147,7 @@ function(Class,
 
         createBonus: function(game){
         	game.bonusTimer = 0;
-            var bonus = new Bonus("#ffffff", Math.random() * game.GAME_WIDTH, Math.random() * game.GAME_HEIGHT , game.resources); 
+            var bonus = new Bonus("#ffffff", Math.random() * game.GAME_WIDTH, Math.random() * game.GAME_HEIGHT , game.resources , Math.floor(Math.random() * 2) + 1); 
             game.bonuses.push(bonus);
         },
 

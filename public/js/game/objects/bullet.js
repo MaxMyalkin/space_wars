@@ -17,12 +17,15 @@ function(AbstractObject){
 					radius = resources.greenBulletD/2;
 					this.initAnimation(src, 20, 50, 0.3, [0, 1, 2, 3], "vertical");
 					break;
+				case 3:
+					src = resources.redBulletImg;
+					radius = resources.redBulletD/2;
+					this.initAnimation(src, 20, 50, 0.3, [4, 5, 6, 7], "vertical");
+					break;
 				default:
 					break;
 			}		
     		this.initMotion(0 , constSpeed * this.type / 2 );
-    		this.initRotation(0,1);
-
 			this.$super(color, x, y, radius, src);
 		}
 	});

@@ -5,12 +5,11 @@ function(AbstractObject,
  Bullet
  ){
 	var Player = AbstractObject.$extend({
-		__init__: function(color, x, y, radius, src, speedX, speedY){
+		__init__: function(color, x, y, radius, src){
 			this.$super(color, x, y, radius, "");
     		this.score = 0;
     		this.bullets = [];
-    		this.bonusBullets = 0;
-    		this.initMotion(speedX, speedY);
+    		this.bonusBullets = [0, 0];
     		this.initAnimation(src, 95, 100 ,0.3, [0,1,2,3]);
 		},
 

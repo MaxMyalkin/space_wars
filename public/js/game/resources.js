@@ -33,8 +33,8 @@ function(Class
 			
 			this.redBulletImg = new Image();	
 			this.redBulletImg.src = "/images/rocket.png";
-			this.redBulletRealD = 20;//33;
-			this.redBulletD = 12;//28;
+			this.redBulletRealD = 20;
+			this.redBulletD = 12;
 
 			this.bigBangImg = new Image();
 			this.bigBangImg.src = "/images/explosions.png";
@@ -46,10 +46,18 @@ function(Class
 			this.greenBulletRealD = 20;
 			this.greenBulletD = 12;
 
+			this.bulletImg = new Image();
+			this.bulletImg.src = "/images/secondbonus.png";
+
 			this.bonusImg = new Image();
-			this.bonusImg.src = "/images/bonus.png";
+			this.bonusImg.src = "/images/firstbonus.png";
 			this.bonusRealD = 20;
 			this.bonusImgD = 12;
+
+			this.bonus2Img = new Image();
+			this.bonus2Img.src = "/images/secondbonus.png";
+			this.bonus2RealD = 20;
+			this.bonus2ImgD = 12;
 
 		},
 		get: function(url){

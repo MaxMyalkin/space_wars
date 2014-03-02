@@ -50,8 +50,8 @@ function(Class, Player, GameMechanic, Resources){
             this.context.fillStyle = "#ffffff";
             this.context.debug = DEBUG;
             this.player = new Player("#ffffff", this.PLAYER_START_X, this.PLAYER_START_Y, 
-                this.PLAYER_RADIUS, this.resources.playerImg, this.HORIZONTAL_SPEED, 0);
- 
+                this.PLAYER_RADIUS, this.resources.playerImg);
+                       
             var game = this;
             $(document).bind("keydown", function(event) {
                 game.keydown[String.fromCharCode(event.which).toLowerCase()] = true;
@@ -66,12 +66,10 @@ function(Class, Player, GameMechanic, Resources){
             this.pauseBtn.onclick = this.pauseGame.bind(game);
             this.backBtn = document.getElementById("backBtn");
             this.backBtn.onclick = this.endGame.bind(game);
-            //this.interval;
+            this.interval;
             this.reloading(true);
            	this.setBtnText();
         },
- 		
-
 
         setBtnText: function() {
         	
@@ -94,23 +92,20 @@ function(Class, Player, GameMechanic, Resources){
 
         movePlayer: function (){
  
-            if (/*this.startTime === true*/ !this.gameover && !this.pauseFlag && !this.stopped ){
+            if (!this.gameover && !this.pauseFlag && !this.stopped ){
                 if (this.keydown["a"]) {
                         if (this.player.x  - this.player.radius > 0){
-                            this.player.x -= this.player.speedX;
+                            this.player.x -= this.HORIZONTAL_SPEED;
                             this.player.sprite.url = this.resources.playerLeftImg;
                         }
                 }
                 if (this.keydown["d"]){
                     if (this.player.x + this.player.radius < this.GAME_WIDTH){
-                            this.player.x += this.player.speedX;
+                            this.player.x += this.HORIZONTAL_SPEED;
                             this.player.sprite.url = this.resources.playerRightImg;
                     }
                 }
                 if (this.keydown["p"]){
-                    /*if (this.gameMechanic.howManyBullets(this.player.bullets, this.GAME_HEIGHT, 0.5) < 1){
-                        this.player.launchBullet(this);
-                    }*/
                     if (this.bulletTimer > this.BULLET_TIMEOUT){
                         this.player.launchBullet(this , 1);
                         this.bulletTimer = 0;
@@ -130,13 +125,22 @@ function(Class, Player, GameMechanic, Resources){
                     }
                 }
                 if(this.keydown["q"]) {
-                	if( this.bulletTimer > this.BULLET_TIMEOUT && this.player.bonusBullets > 0) {
+                	if( this.bulletTimer > this.BULLET_TIMEOUT && this.player.bonusBullets[0] > 0) {
                 		this.player.launchBullet(this , 2);
                 		this.bulletTimer = 0;	
-                		this.player.bonusBullets -=1;
+                		this.player.bonusBullets[0] -=1;
                 	}
               
                 }
+                if(this.keydown["e"]) {
+                	if( this.bulletTimer > this.BULLET_TIMEOUT && this.player.bonusBullets[1] > 0) {
+                		this.player.launchBullet(this , 3);
+                		this.bulletTimer = 0;	
+                		this.player.bonusBullets[1] -=1;
+                	}
+              
+                }
+                
             }
         },
 
@@ -180,11 +184,10 @@ function(Class, Player, GameMechanic, Resources){
                 this.asteroidTimer += 1;
                 this.bulletTimer += 1;
                 this.bonusTimer +=1;
-                this.draw();       
+                this.gameMechanic.draw(this);       
                 this.gameMechanic.update(this);
                 return;
             }
-			//this.context.clearRect(0, 0, this.GAME_WIDTH, this.GAME_HEIGHT);
 	        this.context.font = "bold " + this.FONT_SIZE + "px sans-serif"; 
             if(this.stopped)
             {
@@ -201,26 +204,11 @@ function(Class, Player, GameMechanic, Resources){
         	}
         },
  
-        draw: function(){
-            this.context.clearRect(0, 0, this.GAME_WIDTH, this.GAME_HEIGHT);
-            this.player.draw(this.context, 0, -10);
-            this.context.font = "bold " + this.FONT_SIZE + "px sans-serif";
-            this.gameMechanic.drawObjects(this.player.bullets, this.GAME_HEIGHT, this.context, -5);
-            this.gameMechanic.drawObjects(this.asteroids, this.GAME_HEIGHT, this.context); 
-            if (this.bangs.length != 0) 
-                this.gameMechanic.drawObjects(this.bangs, this.GAME_HEIGHT, this.context);
-            this.context.fillText("Score: " + this.player.score, 10, this.FONT_SIZE * 1.1);
-            this.context.fillText(this.player.bonusBullets , this.GAME_WIDTH - this.FONT_SIZE * 2 , this.FONT_SIZE * 1.1);
-            this.gameMechanic.drawObjects(this.bonuses , this.GAME_HEIGHT , this.context , 0 , -20);
-        },
- 
         endGame: function(){
 	            this.asteroidTimer = 0;
                 this.bulletTimer = 0;
-	            //this.startTime = false;
-	            //this.firstTime = false;
 	            this.player.score = 0;
-	            this.player.bonusBullets = 0;
+	            this.player.bonusBullets = [0 , 0];
 	            this.player.x = this.PLAYER_START_X;
 	            this.player.y = this.PLAYER_START_Y;
 	            while (this.asteroids.length > 0)
@@ -241,7 +229,7 @@ function(Class, Player, GameMechanic, Resources){
                 {
                     this.gameMechanic.deleteObject(this.bangs, 0);   
                 }
-                
+
 	            while (this.keydown.length > 0)
 	            {
 	                this.keydown.deleteObject(this.keydown, 0);   
