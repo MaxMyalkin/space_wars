@@ -16,13 +16,13 @@ define([
         },
         render: function () {
             this.$el.html(this.template);
-            var game = Game();        
+            this.game = Game();        
         },
         show: function () {
             this.render();
         },
         hide: function () {
-        	
+        	this.game = null;
         }
  
     });

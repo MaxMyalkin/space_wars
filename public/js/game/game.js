@@ -94,16 +94,12 @@ function(Class, Player, GameMechanic, Resources){
  
             if (!this.gameover && !this.pauseFlag && !this.stopped ){
                 if (this.keydown["a"]) {
-                        if (this.player.x  - this.player.radius > 0){
-                            this.player.x -= this.HORIZONTAL_SPEED;
-                            this.player.sprite.url = this.resources.playerLeftImg;
-                        }
+                	this.player.move(-this.HORIZONTAL_SPEED , 0 , this.GAME_WIDTH , this.GAME_HEIGHT);
+                    this.player.sprite.url = this.resources.playerLeftImg;
                 }
-                if (this.keydown["d"]){
-                    if (this.player.x + this.player.radius < this.GAME_WIDTH){
-                            this.player.x += this.HORIZONTAL_SPEED;
-                            this.player.sprite.url = this.resources.playerRightImg;
-                    }
+        		if (this.keydown["d"]){
+                    this.player.move(this.HORIZONTAL_SPEED , 0 , this.GAME_WIDTH , this.GAME_HEIGHT);
+                    this.player.sprite.url = this.resources.playerRightImg;
                 }
                 if (this.keydown["p"]){
                     if (this.bulletTimer > this.BULLET_TIMEOUT){
@@ -115,14 +111,10 @@ function(Class, Player, GameMechanic, Resources){
                     this.player.sprite.url = this.resources.playerImg;
                 }
                 if (this.keydown["w"]) {
-                    if (this.player.y - this.player.radius > 0){
-                        this.player.y -= this.FORWARD_SPEED;
-                    }
+                	this.player.move(0 , -this.FORWARD_SPEED , this.GAME_WIDTH , this.GAME_HEIGHT);
                 }
                 if (this.keydown["s"]) {
-                    if (this.player.y + this.player.radius < this.GAME_HEIGHT){
-                        this.player.y += this.BACK_SPEED;
-                    }
+                	this.player.move(0 , this.BACK_SPEED , this.GAME_WIDTH , this.GAME_HEIGHT);
                 }
                 if(this.keydown["q"]) {
                 	if( this.bulletTimer > this.BULLET_TIMEOUT && this.player.bonusBullets[0] > 0) {
@@ -211,29 +203,10 @@ function(Class, Player, GameMechanic, Resources){
 	            this.player.bonusBullets = [0 , 0];
 	            this.player.x = this.PLAYER_START_X;
 	            this.player.y = this.PLAYER_START_Y;
-	            while (this.asteroids.length > 0)
-	            {
-	                this.gameMechanic.deleteObject(this.asteroids, 0);   
-	            }
-	            while (this.player.bullets.length > 0)
-	            {
-	                this.gameMechanic.deleteObject(this.player.bullets, 0);   
-	            }
-
-	            while (this.bonuses.length > 0)
-	            {
-	                this.gameMechanic.deleteObject(this.bonuses, 0);   
-	            }
-
-                while (this.bangs.length > 0)
-                {
-                    this.gameMechanic.deleteObject(this.bangs, 0);   
-                }
-
-	            while (this.keydown.length > 0)
-	            {
-	                this.keydown.deleteObject(this.keydown, 0);   
-	            }
+	            this.asteroids = [];
+	            this.player.bullets = [];
+	            this.bangs = [];
+	            this.keydown = [];
 	            this.gameover = true;
 	            this.setBtnText();    
         }
