@@ -9,7 +9,7 @@ define([
 ){
  
     var View = Backbone.View.extend({
-        el: $("#page"),
+        el: "#game",
         template: tmpl,
         initialize: function () {
              
@@ -20,12 +20,15 @@ define([
         },
         show: function () {
             this.render();
+            //this.trigger("show1");
         },
         hide: function () {
         	this.game = null;
         }
  
     });
- 
-    return new View();
+
+    var game = new View();
+ 	game.on();
+    return game;
 });

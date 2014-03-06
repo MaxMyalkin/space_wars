@@ -9,7 +9,7 @@ define([
 
     var View = Backbone.View.extend({
         template: tmpl,
-        el: $("#page"),
+        el: "#main",
         initialize: function () {
 
         },
@@ -18,6 +18,7 @@ define([
         },
         show: function () {
             this.render();
+            this.trigger("show");
 
         },
         hide: function () {
