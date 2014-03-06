@@ -1,6 +1,6 @@
-define(['classy'
+define(['classy', 'game/audio'
  ], 
-function(Class
+function(Class, Sound
  ){
 	var resources = Class.$extend({
 		__init__: function(){
@@ -58,6 +58,9 @@ function(Class
 			this.bonus2Img.src = "/images/secondbonus.png";
 			this.bonus2RealD = 20;
 			this.bonus2ImgD = 12;
+
+			this.attackSound = new Sound("/sounds/attack.mp3", 5);
+
 
 		},
 		get: function(url){

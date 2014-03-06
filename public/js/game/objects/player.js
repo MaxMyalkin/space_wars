@@ -17,6 +17,7 @@ function(AbstractObject,
 		    var rocket = new Bullet("#ffffff", this.x, 
 		        this.y - game.PLAYER_RADIUS, game.resources, game.ROCKET_SPEED , type);
 		    this.bullets.push(rocket);
+		    game.resources.attackSound.playSound();
 		}
 	});
 
