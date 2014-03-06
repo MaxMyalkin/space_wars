@@ -6,6 +6,6 @@
     	<a id="restart" class='btn btn_header'>Start</a>
     	
     </div>
-    	<canvas id='game' class="game-screen"></canvas>
+    	<canvas id='gameField' class="game-screen"></canvas>
 
 </fest:template>

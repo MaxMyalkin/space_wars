@@ -14,10 +14,10 @@
 	height: 100%;
 	  }
 
- #page {
+#game, #scoreboard, #main{
   	height: 100%;
   	text-align: center;
-  }
+}
 
   .game-screen {
   	width: 900px;

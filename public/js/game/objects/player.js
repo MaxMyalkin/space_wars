@@ -18,6 +18,13 @@ function(AbstractObject,
 		        this.y - game.PLAYER_RADIUS, game.resources, game.ROCKET_SPEED , type);
 		    this.bullets.push(rocket);
 		    game.resources.attackSound.playSound();
+		},
+
+		move: function(x , y , width , height) {
+			if( this.x + x <= width - this.radius && this.x + x >= this.radius)
+				this.x += x;
+			if( this.y + y <= height - this.radius && this.y + y >= this.radius)
+				this.y +=y;
 		}
 	});
 

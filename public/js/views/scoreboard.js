@@ -10,7 +10,7 @@ define([
     Player
 ){
     var ScoreboardView = Backbone.View.extend({
-        el: "#page",
+        el: "#scoreboard",
         template: tmplScore,
         scoreboard: Scoreboard,
         initialize: function () {
@@ -29,17 +29,18 @@ define([
             for (var i = 0; i < players.length; i++) {
                 var player =new Player(players[i]);
                 this.scoreboard.add(player);
-            };
-;
+            }
         },
         render: function () {
             this.$el.html(this.template({scoreboard: this.scoreboard.models}));
         },
         show: function () {
             this.render();
+            this.$el.show();
+            this.trigger("show", args=["scoreboard"]);
         },
         hide: function () {
-            
+            this.$el.hide();
         }
     });
     return new ScoreboardView();
