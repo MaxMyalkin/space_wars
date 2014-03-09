@@ -4,26 +4,22 @@ function(AbstractObject){
 		__init__: function(color, x, y, resources, constSpeed ){
 			this.type = Math.floor(Math.random()*3) + 1;
 			this.health = this.type;
-			var src;
-			var radius; 
+			var resource; 
 			switch(this.type){
 				case 1:
-					src = resources.smallAsteroidImg;
-					radius = resources.smallAsteroidImgD/2;
+					resource = resources.smallAsteroid;
 					break;
 				case 2:
-					src = resources.mediumAsteroidImg;
-					radius = resources.mediumAsteroidImgD/2;
+					resource = resources.mediumAsteroid;
 					break;
 				case 3:
-					src = resources.bigAsteroidImg;
-					radius = resources.bigAsteroidImgD/2;
+					resource = resources.bigAsteroid;
 					break;
 				default:
 					break;
 			}
-			var asteroidPosition = Math.random()*( x - 2 * radius ) + radius;
-			this.$super(color, asteroidPosition, y, radius, src);
+			var asteroidPosition = Math.random()*( x - 2 * resource.radius ) + resource.radius;
+			this.$super(color, asteroidPosition, y, resource);
     		this.initMotion(0 , constSpeed / this.type );	
     		this.initRotation(0, 1);
 		}

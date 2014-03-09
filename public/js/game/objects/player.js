@@ -5,17 +5,16 @@ function(AbstractObject,
  Bullet
  ){
 	var Player = AbstractObject.$extend({
-		__init__: function(color, x, y, radius, src){
-			this.$super(color, x, y, radius, "");
+		__init__: function(color, x, y, resource){
+			this.$super(color, x, y, resource);
     		this.score = 0;
     		this.bullets = [];
     		this.bonusBullets = [0, 0];
-    		this.initAnimation(src, 95, 100 ,0.3, [0,1,2,3]);
 		},
 
 		launchBullet: function(game , type){
 		    var rocket = new Bullet("#ffffff", this.x, 
-		        this.y - game.PLAYER_RADIUS, game.resources, game.ROCKET_SPEED , type);
+		        this.y - game.player.radius, game.resources, game.ROCKET_SPEED , type);
 		    this.bullets.push(rocket);
 		    game.resources.attackSound.playSound();
 		},

@@ -1,9 +1,6 @@
 define(['classy', 'game/objects/player', 'game/mechanics', 'game/resources'], 
 function(Class, Player, GameMechanic, Resources){
- /* TODO multiplayer
-		sounds
-		multiplayer
-        bonuses +-
+ /* TODO 
          */
     var Game = Class.$extend({
          
@@ -15,9 +12,9 @@ function(Class, Player, GameMechanic, Resources){
             this.GAME_WIDTH = 1024;
             this.GAME_HEIGHT = 768;
             
-            this.PLAYER_RADIUS = this.resources.playerImgD/2;
-            this.PLAYER_START_X = this.GAME_WIDTH/2;
-            this.PLAYER_START_Y = this.GAME_HEIGHT - this.PLAYER_RADIUS - 10;
+            //this.PLAYER_RADIUS = this.resources.playerImgD/2;
+            this.PLAYER_START_X = this.GAME_WIDTH/2 - this.resources.playerDirect.radius/2;
+            this.PLAYER_START_Y = this.GAME_HEIGHT - this.resources.playerDirect.radius;
             this.ROCKET_SPEED = 10;
             this.ASTEROID_SPEED = 5;
 
@@ -50,7 +47,7 @@ function(Class, Player, GameMechanic, Resources){
             this.context.fillStyle = "#ffffff";
             this.context.debug = DEBUG;
             this.player = new Player("#ffffff", this.PLAYER_START_X, this.PLAYER_START_Y, 
-                this.PLAYER_RADIUS, this.resources.playerImg);
+                 this.resources.playerDirect);
                        
             var game = this;
             $(document).bind("keydown", function(event) {
@@ -95,11 +92,11 @@ function(Class, Player, GameMechanic, Resources){
             if (!this.gameover && !this.pauseFlag && !this.stopped ){
                 if (this.keydown["a"]) {
                 	this.player.move(-this.HORIZONTAL_SPEED , 0 , this.GAME_WIDTH , this.GAME_HEIGHT);
-                    this.player.sprite.url = this.resources.playerLeftImg;
+                    this.player.resource = this.resources.playerLeft;
                 }
         		if (this.keydown["d"]){
                     this.player.move(this.HORIZONTAL_SPEED , 0 , this.GAME_WIDTH , this.GAME_HEIGHT);
-                    this.player.sprite.url = this.resources.playerRightImg;
+                    this.player.resource = this.resources.playerRight;
                 }
                 if (this.keydown["p"]){
                     if (this.bulletTimer > this.BULLET_TIMEOUT){
@@ -108,7 +105,7 @@ function(Class, Player, GameMechanic, Resources){
                     }
                 }
                 if (!this.keydown["a"] && !this.keydown["d"]){
-                    this.player.sprite.url = this.resources.playerImg;
+                    this.player.resource = this.resources.playerDirect;
                 }
                 if (this.keydown["w"]) {
                 	this.player.move(0 , -this.FORWARD_SPEED , this.GAME_WIDTH , this.GAME_HEIGHT);
@@ -140,7 +137,9 @@ function(Class, Player, GameMechanic, Resources){
             if (flag){
                 var game = this;
                 this.interval = setInterval(function(){ game.play(); game.movePlayer(); }, 1000 / this.DELAY);
-            }else{
+            }
+            else
+            {
                 clearInterval(this.interval);
             }
         },
@@ -201,6 +200,7 @@ function(Class, Player, GameMechanic, Resources){
 	            this.asteroidTimer = 0;
                 this.bulletTimer = 0;
 	            this.player.score = 0;
+	            this.bonusTimer = 0;
 	            this.player.bonusBullets = [0 , 0];
 	            this.player.x = this.PLAYER_START_X;
 	            this.player.y = this.PLAYER_START_Y;

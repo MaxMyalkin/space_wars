@@ -17,9 +17,6 @@ define([
     	
     	}
     });
-    var scores = new Scoreboard();
-    scores.on("add", function(Score) {
-        console.log("«" + Score.get("name") + "» добавлен");
-    });
-    return scores;
+
+    return new Scoreboard();
 });

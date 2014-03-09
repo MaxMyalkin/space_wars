@@ -15,19 +15,13 @@ function(Class,
             object.splice(index, 1);
         },
 
-        drawObjects: function (object, gameHeight, context, dx, dy){
-            if (dx === undefined){
-                dx = 0;
-            }
-            if (dy === undefined){
-                dy = 0;
-            }
+        drawObjects: function (object, gameHeight, context){
             for (var i = 0; i < object.length; i++)
             {
-                object[i].draw(context, dx, dy);
-                if ((object[i].y + object[i].height < 0) 
-                    || (object[i].y - object[i].height > gameHeight) || 
-                    (object[i].sprite != undefined && object[i].sprite.once && object[i].sprite.wasPlayed))
+                object[i].draw(context);
+                if ((object[i].y + object[i].radius < 0) 
+                   || (object[i].y - object[i].radius > gameHeight) || 
+                   ( object[i].resource != undefined && object[i].resource.sprite != undefined && object[i].resource.sprite.wasPlayed))
                 {
                     this.deleteObject(object, i); 
                 }
@@ -79,7 +73,7 @@ function(Class,
                         {
                             toDeleteAster.push(j);
                             game.bangs.push(new BigBang("#ffffff", game.asteroids[j].x, game.asteroids[j].y, 
-                                game.asteroids[j].radius, game.resources.bigBangImg));
+                                game.resources, game.player.bullets[i].type));
                             game.player.score += game.asteroids[j].type;
                             break;
                         }
@@ -117,24 +111,25 @@ function(Class,
 
         draw: function(game){
             game.context.clearRect(0, 0, game.GAME_WIDTH, game.GAME_HEIGHT);
-            game.player.draw(game.context, 0, -10);
+            
+            game.player.draw(game.context);
             game.context.font = "bold " + game.FONT_SIZE + "px sans-serif";
-            this.drawObjects(game.player.bullets, game.GAME_HEIGHT, game.context, -5);
+            this.drawObjects(game.player.bullets, game.GAME_HEIGHT, game.context);
             this.drawObjects(game.asteroids, game.GAME_HEIGHT, game.context); 
             if (game.bangs.length != 0) 
                 game.gameMechanic.drawObjects(game.bangs, game.GAME_HEIGHT, game.context);
+            this.drawObjects(game.bonuses , game.GAME_HEIGHT , game.context );
             this.drawInfo(game);
-            this.drawObjects(game.bonuses , game.GAME_HEIGHT , game.context , 0 , 0);
             
         },
 
         drawInfo: function(game) {
         	game.context.fillText("Score: " + game.player.score, 10, game.FONT_SIZE * 1.1);
-        	game.context.drawImage(game.resources.bulletImg , game.GAME_WIDTH - game.FONT_SIZE * 3 , game.FONT_SIZE / 3);
+        	game.resources.secondTypeBonus.draw(game.context , game.GAME_WIDTH - game.FONT_SIZE * 3 , 50 );
         	game.context.fillText("∞" , game.GAME_WIDTH - game.FONT_SIZE * 2 , game.FONT_SIZE * 1.1);
-        	game.context.drawImage(game.resources.bonusImg , game.GAME_WIDTH - game.FONT_SIZE * 3 , game.FONT_SIZE * 1.3);
+        	game.resources.firstTypeBonus.draw(game.context , game.GAME_WIDTH - game.FONT_SIZE * 3 , 100);
             game.context.fillText(game.player.bonusBullets[0] , game.GAME_WIDTH - game.FONT_SIZE * 2 , 2 * game.FONT_SIZE * 1.1);
-            game.context.drawImage(game.resources.bonus2Img , game.GAME_WIDTH - game.FONT_SIZE * 3 , game.FONT_SIZE * 2.5 );
+            game.resources.secondTypeBonus.draw(game.context , game.GAME_WIDTH - game.FONT_SIZE * 3 , 150);
             game.context.fillText(game.player.bonusBullets[1] , game.GAME_WIDTH - game.FONT_SIZE * 2 , 3 * game.FONT_SIZE * 1.1);
         },
 

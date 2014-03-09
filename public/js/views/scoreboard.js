@@ -22,7 +22,7 @@ define([
                 {name: "maxim", score: 988},
                 {name: "sergey", score: 788},
                 {name: "ivan", score: 178},
-                {name: "anton", score: 1178},p
+                {name: "anton", score: 1178},
                 {name: "ilya", score: 1000},
                 {name: "sergey2", score: 748},
                 {name: "ivan2", score: 1780},
