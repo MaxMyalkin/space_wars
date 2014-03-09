@@ -14,6 +14,7 @@
 	height: 100%;
 	  }
 
+
 #game, #scoreboard, #main{
   	height: 100%;
   	text-align: center;
@@ -51,6 +52,11 @@
 	padding: 0;
  }
 
+
+ .menu__image {
+ 	width: 120%;
+ 	margin-left: 200px;
+ }
 
 .header {
 	width: 100%;

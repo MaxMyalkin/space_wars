@@ -15,13 +15,13 @@ define([
         template: tmpl,
         _name: "game",
         initialize: function () {
-            this.render();
             this.hide();
         },
         render: function () {
             this.$el.html(this.template);
         },
         show: function () {
+            this.render();
             this.game = Game(); 
             $.event.trigger({
                 type: "show",
