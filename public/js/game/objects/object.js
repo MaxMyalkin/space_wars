@@ -4,52 +4,43 @@ function(Class,
 	Sprite
 	){
 	var AbstractObject = Class.$extend({
-		__init__: function(color, x, y, radius, img){
+		__init__: function(color, x, y, resource){
 			this.color = color; 
     		this.x = x; 
-    		this.y = y; 
-    		this.radius = radius;
-    		if (img != undefined) { 
-                this.img = img;
+    		this.y = y; 	
+    		if (resource != undefined) { 
+                this.resource = resource;
+                this.radius = resource.radius;
             }
 		},
 
-		draw: function(context, x, y) {
-                if (x == undefined)
-                    x = 0;
-                if (y == undefined)
-                    y = 0;
-                
+		draw: function(context) {
                 if (context.debug === true)
                     this.drawCircle(context);
-                
-                if (this.sprite != undefined){
-                    this.sprite.render(context , this.x - this.radius + x, this.y - this.radius + y );
-                    return;
-                }
 
-                if (this.deltaAngle != 0){
-                    context.save();
-                    context.translate(this.x, this.y);
-                    this.Angle += this.deltaAngle;
-                    context.rotate(this.Angle*Math.PI/180);
-                    context.translate(-this.x, -this.y);
-                    context.drawImage(this.img, this.x - this.radius + x, this.y - this.radius + y);
-                    context.restore();
-                    return;
+                if(this.resource != undefined)
+                {
+                	if (this.deltaAngle != 0) {
+	                    context.save();
+	                    context.translate(this.x, this.y);
+	                    this.Angle += this.deltaAngle;
+	                    context.rotate(this.Angle*Math.PI/180);
+	                    
+	                    context.translate(-this.x, -this.y);
+	                    this.resource.draw(context , this.x , this.y);
+	                    context.restore(); 
+                	}
+                	else
+                		this.resource.draw(context , this.x , this.y);
+                	//this.resource.draw(context , this.x , this.y);
                 }
-                context.drawImage(this.img, this.x - this.radius + x, this.y - this.radius + y);
-            
+                
     	},
         
     	initMotion: function(speedX, speedY){
     		this.speedX = speedX;
             this.speedY = speedY;
     	},	
-
-    	initAnimation: function(src , sizeX , sizeY , speed , frames, direction, once) {
-    		this.sprite = new Sprite(src, sizeX , sizeY, speed, frames, direction, once);
-    	},
 
         initRotation: function(startAngle, delta){
             this.Angle = startAngle;

@@ -5,28 +5,22 @@ function(AbstractObject){
 			this.type = type;
 			this.damage = this.type; 
 			var radius;
-    		var src = "";
+			var resource;
 			switch(this.type){
 				case 1:
-					src = resources.redBulletImg;
-					radius = resources.redBulletD/2;
-					this.initAnimation(src, 20, 50, 0.3, [4, 5, 6, 7], "vertical");
+					resource = resources.firstTypeBullet;
 					break;
 				case 2:
-					src = resources.greenBulletImg;
-					radius = resources.greenBulletD/2;
-					this.initAnimation(src, 20, 50, 0.3, [0, 1, 2, 3], "vertical");
+					resource = resources.secondTypeBullet;
 					break;
 				case 3:
-					src = resources.redBulletImg;
-					radius = resources.redBulletD/2;
-					this.initAnimation(src, 20, 50, 0.3, [4, 5, 6, 7], "vertical");
+					resource = resources.thirdTypeBullet;
 					break;
 				default:
 					break;
 			}		
     		this.initMotion(0 , constSpeed * this.type / 2 );
-			this.$super(color, x, y, radius, src);
+			this.$super(color, x, y, resource);
 		}
 	});
 	

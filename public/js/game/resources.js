@@ -1,64 +1,40 @@
-define(['classy', 'game/audio'
+define(['classy',
+	'game/audio',
+	'game/objects/resource'
  ], 
-function(Class, Sound
+function(Class, 
+	Sound, 
+	Resource
  ){
 	var resources = Class.$extend({
 		__init__: function(){
+
+//radius, src , isAnimation , dx , dy , speed , width , height , singleAnimation , frames
+			this.smallAsteroid = new Resource(23 ,"/images/smallAsteroid.png" , false , 0 , 2);
+
+			this.bigAsteroid = new Resource(47 ,"/images/bigAsteroid.png" , false , 0 , 0);
+
+			this.mediumAsteroid = new Resource(40 , "/images/mediumAsteroid.png" , false , 0 , 0);
+
+			this.playerLeft = new Resource(47 ,"/images/shipLeft.png" , true , 0 , 20 , 0.3 , 95 , 100 , false , [0 , 1 , 2 , 3] , true);
+
+			this.playerRight = new Resource(47 ,"/images/shipRight.png" , true , 0 , 20 , 0.3 , 95 , 100 , false , [0 , 1 , 2 , 3] , true);
+
+
+			this.playerDirect = new Resource(47 , "/images/shipDirect.png" , true , 0 , 20 , 0.3 , 95 , 100 , false , [0 , 1 , 2 , 3] , true);
 			
-			this.smallAsteroidImg = new Image();
-			this.smallAsteroidImg.src = "/images/smallAsteroid.png";
-			this.smallAsteroidRealD = 46;
-			this.smallAsteroidImgD = 46;
+			this.firstTypeBullet = new Resource(12 ,"/images/rocket.png" , true , 0 , -2 , 0.3 , 20 , 50 , false , [4 , 5 , 6 , 7] , false);	
 
-			this.bigAsteroidImg = new Image();
-			this.bigAsteroidImg.src = "/images/bigAsteroid.png";
-			this.bigAsteroidImgD = 94;
-			this.bigAsteroidRealD = 94;
-
-			this.mediumAsteroidImg = new Image();
-			this.mediumAsteroidImg.src = "/images/mediumAsteroid.png";
-			this.mediumAsteroidRealD = 80;
-			this.mediumAsteroidImgD = 80;
-
-			this.playerLeftImg = new Image();
-			this.playerLeftImg.src = "/images/shipLeft.png";
-
-			this.playerRightImg = new Image();
-			this.playerRightImg.src = "/images/shipRight.png";
-
-			this.playerImg = new Image();
-			this.playerImg.src = "/images/shipDirect.png";
-			this.playerRealD = 95;
-			this.playerImgD = 95;
+			this.secondTypeBullet = new Resource(12 , "/images/rocket.png" , true , -2 , 0 , 0.3 , 20 , 50 , false , [0 , 1 , 2 , 3] , false);
 			
-			this.redBulletImg = new Image();	
-			this.redBulletImg.src = "/images/rocket.png";
-			this.redBulletRealD = 20;
-			this.redBulletD = 12;
+			this.thirdTypeBullet = new Resource(12 ,"/images/rocket.png" , true , -2 , 0 , 0.3 , 20 , 50 , false , [4 , 5 , 6 , 7] , false);
 
-			this.bigBangImg = new Image();
-			this.bigBangImg.src = "/images/explosions.png";
-			this.bigBangRealD = 84;
-			this.bigBangD = 84;
+			this.firstTypeBang = new Resource(42 ,"/images/explosions.png" , true , 0 , 0 , 0.25 , 84 , 84 , true , [0 , 1 , 2 , 3 , 4 , 5 , 6] , true);
 
-			this.greenBulletImg = new Image();
-			this.greenBulletImg.src = "/images/rocket.png";
-			this.greenBulletRealD = 20;
-			this.greenBulletD = 12;
-
-			this.bulletImg = new Image();
-			this.bulletImg.src = "/images/secondbonus.png";
-
-			this.bonusImg = new Image();
-			this.bonusImg.src = "/images/firstbonus.png";
-			this.bonusRealD = 20;
-			this.bonusImgD = 12;
-
-			this.bonus2Img = new Image();
-			this.bonus2Img.src = "/images/secondbonus.png";
-			this.bonus2RealD = 20;
-			this.bonus2ImgD = 12;
-
+			this.firstTypeBonus = new Resource(20 , "/images/firstbonus.png" , false , 10 , -5);
+			
+			this.secondTypeBonus = new Resource(20 , "/images/secondbonus.png" , false , 10 , 0);
+			
 			this.attackSound = new Sound("/sounds/attack.mp3", 5);
 
 

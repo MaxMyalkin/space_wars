@@ -21,7 +21,7 @@ define(['backbone',
         	this.viewManager = viewManager; 
         },
         defaultActions: function () {
-	          mainScreen.show();
+	        mainScreen.show();
         },
         scoreboardAction: function () {
             scoreboardScreen.show();
