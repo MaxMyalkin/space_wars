@@ -1,27 +1,33 @@
 define([
     'backbone',
     'tmpl/game',
-     'game/game'
+    'game/game',
+    'views/viewManager',
 ], function(
     Backbone,
     tmpl,
-    Game
+    Game,
+    ViewManager
 ){
  
     var View = Backbone.View.extend({
         el: "#game",
         template: tmpl,
+        _name: "game",
         initialize: function () {
-             
+            this.render();
+            this.hide();
         },
         render: function () {
             this.$el.html(this.template);
-            this.game = Game();        
         },
         show: function () {
-            this.render();
+            this.game = Game(); 
+            $.event.trigger({
+                type: "show",
+                _name: this._name
+            }); 
             this.$el.show();
-            this.trigger("show", args=["game"]);
         },
         hide: function () {
         	this.game = null;
@@ -30,7 +36,5 @@ define([
  
     });
 
-    var game = new View();
- 	game.on();
-    return game;
+    return new View();
 });
