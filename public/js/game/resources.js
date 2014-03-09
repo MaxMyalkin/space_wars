@@ -36,6 +36,7 @@ function(Class,
 			
 			this.attackSound = new Sound("/sounds/attack.mp3", 5);
 
+			this.bangSound = new Sound("/sounds/boom.mp3", 5);
 
 		},
 
