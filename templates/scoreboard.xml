@@ -1,7 +1,7 @@
 <fest:template xmlns:fest="http://fest.mail.ru"
     context_name="json">
     <div class="menu">
-    	<h1 class="header header_blue">EPIC GAME</h1>
+    	<h1 class="header header_blue">Space wars</h1>
     	<h1 class="menu__title">SCORE BOARD</h1>
 
         <table class="menu__table">
