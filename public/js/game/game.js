@@ -11,7 +11,6 @@ function(Class, Player, GameMechanic, Resources){
             this.DELAY = 50;
             this.GAME_WIDTH = 1024;
             this.GAME_HEIGHT = 768;
-            
             //this.PLAYER_RADIUS = this.resources.playerImgD/2;
             this.PLAYER_START_X = this.GAME_WIDTH/2 - this.resources.playerDirect.radius/2;
             this.PLAYER_START_Y = this.GAME_HEIGHT - this.resources.playerDirect.radius;
@@ -172,6 +171,7 @@ function(Class, Player, GameMechanic, Resources){
  
         play: function(){
             if ( !this.gameover && !this.pauseFlag && !this.stopped) {
+                
                 this.asteroidTimer += 1;
                 this.bulletTimer += 1;
                 this.bonusTimer +=1;

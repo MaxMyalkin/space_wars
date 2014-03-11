@@ -42,6 +42,8 @@ function(Class,
             {
                 game.asteroids[i].y += game.asteroids[i].speedY;
                 if (this.collision(game.player, game.asteroids[i], 0.95)){
+
+                    game.resources.bangSound.playSound();
                     game.endGame();
                 }
                 
@@ -75,6 +77,7 @@ function(Class,
                             game.bangs.push(new BigBang("#ffffff", game.asteroids[j].x, game.asteroids[j].y, 
                                 game.resources, game.player.bullets[i].type));
                             game.player.score += game.asteroids[j].type;
+                            game.resources.bangSound.playSound();
                             break;
                         }
                         game.asteroids[j].health -= game.player.bullets[i].damage;
