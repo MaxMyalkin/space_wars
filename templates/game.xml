@@ -1,13 +1,12 @@
 <fest:template xmlns:fest="http://fest.mail.ru"
     context_name="json">
     <div class="header header_game">
-    	<a id="backBtn" href='/#' class='btn btn_header'>&#9668 BACK</a>
-    	<a id="pause" class='btn btn_header'>Pause</a>
-    	<a id="restart" class='btn btn_header'>Start</a>
-    	
+    	<a id="backBtn" href='/#' class='btn btn_thin'>&#9668 BACK</a>
+    	<a id="pause" class='btn btn_thin'>Pause</a>
+    	<a id="restart" class='btn btn_thin'>Start</a>
     </div>
-    <div class="game-screen">
-    	<canvas id='gameField'></canvas>
-		<div id="gameOver"></div>
+    <div>
+    	<canvas id='gameField' class= "game-screen"/>
+		<div id="gameOver" class="form"></div>
 	</div>
 </fest:template>

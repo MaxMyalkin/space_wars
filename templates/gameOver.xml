@@ -1,14 +1,21 @@
 <fest:template xmlns:fest="http://fest.mail.ru"
     context_name="json">
 
+<div class="gameOverForm">
+	<div class="gameOverForm__text">Your score is<fest:space /> <fest:value>json.score</fest:value></div>
     <form id="gameOverForm">
-    	<input type= "text" name="name"/>
+    	<div class="gameOverForm__text">
+    		<label class="label">Your name:</label>
+    		<input type= "text" name="name"/>
+    	</div>
     	<input type="hidden" name="score">
     		<fest:attributes>
     			<fest:attribute name='value' value='{json.score}'/> 
     		</fest:attributes>
     	</input>
-    	<button type="submit">Отправить</button>
+    	<button type="submit" class="btn btn_thin">Save</button>
+    	
    </form>
-   <p><fest:value>json.score</fest:value></p>
+</div>
+   
 </fest:template>

@@ -1,40 +1,51 @@
-  @font-face {
-    font-family: Yahoo; /* Гарнитура шрифта */
-    src: url(fonts/Yahoo.ttf); /* Путь к файлу со шрифтом */
-   }
+@font-face {
+	font-family: Yahoo; 
+	src: url(fonts/Yahoo.ttf); 
+}
 
-  html {
-		height: 100%;
-	}
-  body {
-  	background-color: #000000;
-  	background: url(../images/stars.gif);
-  	margin: 0;
+html {
+	height: 100%;
+}
+
+body {
+	background-color: #000000;
+	background: url(../images/stars.gif);
+	margin: 0;
 	padding: 0;
 	height: 100%;
-	  }
-.hidden{
-	height: 0px;
-	width: 0px;
-	margin: 0px;
+	font-family:Yahoo;
 }
 
 #game, #scoreboard, #main{
   	height: 100%;
   	text-align: center;
 }
-#gameOver{
-	z-index: 1;
-	position: absolute;
-	color: white;
-	left: 50%;
-	top: 50%;
+
+/* -------------form-----------*/
+.gameOverForm {
+	background-color: #f2e8c9;
+	height: 90%;
+	width: 90%;
+	padding: 5%;
+	border-radius:20px;
 }
 
-#gameField{
-	z-index: 2;
-	width:100%;
-	height: 100%;
+.form {
+	position: absolute;
+	left: 35%;
+	top: 35%;
+	width: 30%;
+	min-width: 360px;
+	height: 20%;
+	min-height: 200px;
+}
+
+.gameOverForm__text {
+	width: 100%;
+	font-size:8pt;
+	margin:	auto;
+	height: 30px;
+	margin-bottom: 20px;
 }
 
   .game-screen {
@@ -50,6 +61,11 @@
 }
 /* menu */
 
+
+.label {
+	margin-right: 20px;
+}
+
  .menu {
 	width : 40%;
 	min-width: 600px;
@@ -58,7 +74,6 @@
 	margin: auto;
 	margin-top: 0;
 	background-color: #f2e8c9;
-	font-family: Yahoo , Arial;
  }
 
  .menu__item {
@@ -114,7 +129,7 @@
 	margin: 20px;
 	display: inline-block;
 	text-decoration: none;
-	font-family: Yahoo , Arial;
+	font-family: Yahoo;
 }
 
 .btn:hover {
@@ -133,7 +148,7 @@
 	line-height: 60px;
 }
 
-.btn_header {
+.btn_thin {
 	font-size: 15px;
 	height: 40px;
 	width: 150px;
@@ -152,7 +167,6 @@
 
 table ,.menu__table {
 	width: 90%;
-	height: 50%;
 	text-align: left;
 	margin: auto;
 	border-collapse: collapse;

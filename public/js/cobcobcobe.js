@@ -14,15 +14,12 @@ function(Score, Scoreboard, ScoreboardView, Router) {
 							{name: msg["name"], score: msg["score"]}
 						);
 					Scoreboard.add(player);
-					//ScoreboardView.show();
-					//Router.scoreboardAction();
 					window.location = "/#scoreboard";
 				}
 			})
 			.fail(
 				function(msg){alert("aa");}
-				)
-			
+			)
 	}
 	return cobcobcobe;
 });
