@@ -1,5 +1,9 @@
-define(['classy', 'game/objects/player', 'game/mechanics', 'game/resources'], 
-function(Class, Player, GameMechanic, Resources){
+define(['classy', 
+    'game/objects/player', 
+    'game/mechanics', 
+    'game/resources',
+    'views/gameOver'], 
+function(Class, Player, GameMechanic, Resources, GameOver){
  /* TODO 
          */
     var Game = Class.$extend({
@@ -63,6 +67,8 @@ function(Class, Player, GameMechanic, Resources){
             this.backBtn = document.getElementById("backBtn");
             this.backBtn.onclick = this.endGame.bind(game);
             this.interval;
+            this.gameOver = new GameOver();
+            this.showGameOverScreen = false;
             this.reloading(true);
            	this.setBtnText();
         },
@@ -209,7 +215,10 @@ function(Class, Player, GameMechanic, Resources){
 	            this.bangs = [];
 	            this.keydown = [];
 	            this.gameover = true;
-	            this.setBtnText();    
+                if (this.showGameOverScreen)
+	               this.gameOver.show();
+                this.setBtnText();   
+
         }
  
     });

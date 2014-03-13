@@ -44,6 +44,7 @@ function(Class,
                 if (this.collision(game.player, game.asteroids[i], 0.95)){
 
                     game.resources.bangSound.playSound();
+                    game.showGameOverScreen = true;
                     game.endGame();
                 }
                 
