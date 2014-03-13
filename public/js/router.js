@@ -34,5 +34,6 @@ define(['backbone',
         }
     });
 
-    return new Router();
+    var router = new Router();
+    return router;
 });

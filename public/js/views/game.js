@@ -3,6 +3,7 @@ define([
     'tmpl/game',
     'game/game',
     'views/viewManager',
+    'cobcobcobe'
 ], function(
     Backbone,
     tmpl,
@@ -36,5 +37,6 @@ define([
  
     });
 
-    return new View();
+    var view = new View();
+    return view;
 });

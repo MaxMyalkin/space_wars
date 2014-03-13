@@ -14,10 +14,10 @@ define([
     var ScoreboardView = Backbone.View.extend({
         el: "#scoreboard",
         template: tmplScore,
-        scoreboard: Scoreboard,
+        //scoreboard: Scoreboard,
         _name: "scoreboard",
         initialize: function () {
-            var players = [
+            /*var players = [
                 {name: "max", score: 888},
                 {name: "maxim", score: 988},
                 {name: "sergey", score: 788},
@@ -32,14 +32,17 @@ define([
             for (var i = 0; i < players.length; i++) {
                 var player = new Player(players[i]);
                 this.scoreboard.add(player);
-            }
+            }*/
             this.render();
             this.hide();
         },
         render: function () {
-            this.$el.html(this.template({scoreboard: this.scoreboard.models}));
+        	Scoreboard.url = '/scores'
+        	Scoreboard.fetch();
+            this.$el.html(this.template({scoreboard: Scoreboard.models}));
         },
         show: function () {
+        	this.render();
             $.event.trigger({
                 type: "show",
                 _name: this._name
@@ -50,6 +53,7 @@ define([
             this.$el.hide();
         }
     });
-    return new ScoreboardView();
+    var view = new ScoreboardView();
+    return view;
 
 });

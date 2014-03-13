@@ -203,6 +203,8 @@ function(Class, Player, GameMechanic, Resources, GameOver){
  
         endGame: function(){
                 //this.context.clearRect(0, 0, this.GAME_WIDTH, this.GAME_HEIGHT);
+                if (this.showGameOverScreen)
+	               this.gameOver.show(this.player.score);
 	            this.asteroidTimer = 0;
                 this.bulletTimer = 0;
 	            this.player.score = 0;
@@ -215,8 +217,7 @@ function(Class, Player, GameMechanic, Resources, GameOver){
 	            this.bangs = [];
 	            this.keydown = [];
 	            this.gameover = true;
-                if (this.showGameOverScreen)
-	               this.gameOver.show();
+	            
                 this.setBtnText();   
 
         }

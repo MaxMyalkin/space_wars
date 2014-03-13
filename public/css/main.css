@@ -25,7 +25,7 @@
 }
 #gameOver{
 	z-index: 1;
-	position: relative;
+	position: absolute;
 	color: white;
 	left: 50%;
 	top: 50%;
@@ -46,6 +46,7 @@
 	border-color: #f2e8c9;
 	border-top: 0;
 	border-width: 10px;
+	margin: auto;
 }
 /* menu */
 

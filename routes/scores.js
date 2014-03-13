@@ -138,5 +138,6 @@ module.exports = {
 
 		res.writeHead(404, 'Not Found');
 		res.end();
-	}
+	},
+
 };

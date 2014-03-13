@@ -23,5 +23,6 @@ define([
 
     });
 
-    return new View();
+    var viewManager = new View();
+    return viewManager;
 });

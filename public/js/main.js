@@ -6,7 +6,7 @@ require.config({
         underscore: "lib/underscore",
         backbone: "lib/backbone",
         classy: "lib/classy",
-        easeljs: "lib/easeljs"
+        easeljs: "lib/easeljs",
     },
     shim: {
         'backbone': {

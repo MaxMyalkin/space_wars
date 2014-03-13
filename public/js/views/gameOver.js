@@ -2,10 +2,12 @@ define([
     'backbone',
     'tmpl/gameOver',
     'views/viewManager',
+    'cobcobcobe'
 ], function(
     Backbone,
     tmpl,
-    ViewManager
+    ViewManager,
+    Cobcobcobe
 ){
  
     var View = Backbone.View.extend({
@@ -16,11 +18,14 @@ define([
             
             _.bindAll(this, "render", "show", "hide");
         },
-        render: function () {
-            this.$el.html(this.template);
+        render: function (score) {
+            this.$el.html(this.template({score: score}));
+            var form = $('#gameOverForm');
+            //var form = 'gameOverForm';
+            form.on("submit" , Cobcobcobe);
         },
-        show: function () {
-            this.render();
+        show: function (score) {
+            this.render(score);
             this.$el.show();
         },
         hide: function () {
