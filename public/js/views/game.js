@@ -20,8 +20,10 @@ define([
         },
         render: function () {
             this.$el.html(this.template);
+            $('#overlay').hide();
         },
         show: function () {
+
             this.render();
             this.game = Game(); 
             $.event.trigger({

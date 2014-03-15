@@ -34,9 +34,9 @@ function(Class,
 			
 			this.secondTypeBonus = new Resource(20 , "/images/secondbonus.png" , false , 10 , 0);
 			
-			this.attackSound = new Sound("/sounds/attack.mp3", 5);
+			this.attackSound = new Sound("/sounds/attack.ogg", 5);
 
-			this.bangSound = new Sound("/sounds/boom.mp3", 5);
+			this.bangSound = new Sound("/sounds/boom.ogg", 5);
 
 		},
 
