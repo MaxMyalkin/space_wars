@@ -20,15 +20,17 @@ define([
         },
         render: function (score) {
             this.$el.html(this.template({score: score}));
-            var form = $('#gameOverForm');
-            //var form = 'gameOverForm';
-            form.on("submit" , Cobcobcobe);
+            var game = this;
+            $('.btn_close').click( function() { game.hide() } );
+            $('#gameOverForm').on("submit" , Cobcobcobe);
         },
         show: function (score) {
+        	$('#overlay').show();
             this.render(score);
             this.$el.show();
         },
         hide: function () {
+        	$('#overlay').hide();
             this.$el.hide();
         }
  

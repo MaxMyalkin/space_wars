@@ -16,6 +16,19 @@ body {
 	font-family:Yahoo;
 }
 
+
+#overlay {
+  background-color: #000; /* Чёрный фон */
+  height: 100%; /* Высота максимальна */
+  left: 0; /* Нулевой отступ слева */
+  opacity: 0.50; /* Степень прозрачности */
+  position: fixed; /* Фиксированное положение */
+  top: 0; /* Нулевой отступ сверху */
+  width: 100%; /* Ширина максимальна */
+  z-index: 99; /* Заведомо быть НАД другими элементами */
+}
+
+
 #game, #scoreboard, #main{
   	height: 100%;
   	text-align: center;
@@ -31,6 +44,7 @@ body {
 }
 
 .form {
+	z-index: 100;
 	position: absolute;
 	left: 35%;
 	top: 35%;
@@ -161,6 +175,15 @@ body {
 	height: 80px;
 	width: 50%;
 	line-height: 80px;
+}
+
+.btn_close {
+	font-size: 10px;
+	height: 30px;
+	width: 30px;
+	border-radius: 20px;
+	margin: 0;
+	float: right;
 }
 
 /*scoreboard*/
