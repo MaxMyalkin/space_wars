@@ -8,5 +8,6 @@
     <div>
     	<canvas id='gameField' class= "game-screen"/>
 		<div id="gameOver" class="form"></div>
+		<div id="overlay"></div>
 	</div>
 </fest:template>

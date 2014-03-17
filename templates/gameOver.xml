@@ -2,18 +2,19 @@
     context_name="json">
 
 <div class="gameOverForm">
+	<button id="closeBtn" class="btn btn_close">x</button><br/>
 	<div class="gameOverForm__text">Your score is<fest:space /> <fest:value>json.score</fest:value></div>
     <form id="gameOverForm">
     	<div class="gameOverForm__text">
     		<label class="label">Your name:</label>
-    		<input id="nameField" type= "text" name="name"/>
+    		<input id="nameField" maxlength="50" type="text" name="name"/>
     	</div>
     	<input id="scoreField" type="hidden" name="score">
     		<fest:attributes>
     			<fest:attribute name='value' value='{json.score}'/> 
     		</fest:attributes>
     	</input>
-    	<button type="submit" class="btn btn_thin">Save</button>
+    	<button id="submitBtn" type="submit" class="btn btn_thin">Save</button>
    </form>
    <div id="error" class="gameOverForm__text"></div>
 </div>
