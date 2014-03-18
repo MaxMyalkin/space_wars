@@ -11,11 +11,18 @@ function(Class,
 
     var GameMechanic = Class.$extend({
         
+        deleteObjectArray: function (object, array) {
+            for (var i = 0; i < array.length; i++) {
+                    this.deleteObject(object, array[i]);
+            };
+        },
+
         deleteObject: function (object, index){
             object.splice(index, 1);
         },
 
         drawObjects: function (object, gameHeight, context){
+            var toDelete = [];
             for (var i = 0; i < object.length; i++)
             {
                 object[i].draw(context);
@@ -23,9 +30,10 @@ function(Class,
                    || (object[i].y - object[i].radius > gameHeight) || 
                    ( object[i].resource != undefined && object[i].resource.sprite != undefined && object[i].resource.sprite.wasPlayed))
                 {
-                    this.deleteObject(object, i); 
+                    toDelete.push(i); 
                 }
             };
+            this.deleteObjectArray(object, toDelete);
         },
 
         update: function(game){
@@ -100,17 +108,12 @@ function(Class,
 	            	}
             }
 
-            for (var i = 0; i < toDeleteBonus.length; i++) {
-                    this.deleteObject(game.bonuses, toDeleteBonus[i]);
-            };
+            this.deleteObjectArray(game.bonuses, toDeleteBonus);
 
-            for (var i = 0; i < toDeleteBullet.length; i++) {
-                    this.deleteObject(game.player.bullets, toDeleteBullet[i]);
-            };
-         
-            for (var i = 0; i < toDeleteAster.length; i++) {
-                    this.deleteObject(game.asteroids, toDeleteAster[i]);
-            };
+            this.deleteObjectArray(game.player.bullets, toDeleteBullet);
+
+            this.deleteObjectArray(game.asteroids, toDeleteAster);
+
         },
 
         draw: function(game){

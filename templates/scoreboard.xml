@@ -4,27 +4,10 @@
     	<h1 class="header header_blue">Space wars</h1>
     	<h1 class="menu__title">SCORE BOARD</h1>
 
-        <table class="menu__table">
-            <tr>
-                <th>#</th>
-                <th>Name</th>
-                <th>Score</th>
-            </tr>
-    		<fest:for iterate="json.scoreboard" index="i">
-                <tr>
-                    <td>
-                        <fest:value>i + 1</fest:value>
-                    </td>
-		        	<td>
-                        <fest:value>json.scoreboard[i].get('name')</fest:value>
-                    </td>
-                    <td>
-                        <fest:value>json.scoreboard[i].get('score')</fest:value>
-                    </td>
-                </tr>
-		    </fest:for>
-        </table>
+        <div id="scoreTable"></div>
+
     	<a href="/#" class="btn btn_small">&#9668 BACK</a>
+        <div id="error"></div>
     </div>
 
 </fest:template>

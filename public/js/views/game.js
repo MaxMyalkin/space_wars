@@ -2,8 +2,7 @@ define([
     'backbone',
     'tmpl/game',
     'game/game',
-    'views/viewManager',
-    'cobcobcobe'
+    'views/viewManager'
 ], function(
     Backbone,
     tmpl,
@@ -19,8 +18,8 @@ define([
             this.hide();
         },
         render: function () {
-            this.$el.html(this.template);
-            $('#overlay').hide();
+            this.$el.html(this.template);      
+            $("#overlay").hide();
         },
         show: function () {
 
