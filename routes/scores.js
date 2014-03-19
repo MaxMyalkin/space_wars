@@ -3,7 +3,7 @@ var scores = [],
 
 function sortScores(){
 	scores.sort(function(a,b){
-		return Number(a.score) < Number(b.score);
+		return b.score - a.score;
 	});
 }
 
