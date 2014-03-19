@@ -1,11 +1,13 @@
 define([
     'backbone',
     'tmpl/scoreTable',
-    'collections/scores'
+    'collections/scores',
+    'localStorageFunc'
 ], function(
     Backbone,
     tmpl,
-    Scoreboard
+    Scoreboard,
+    Storage
 ){
  
     var View = Backbone.View.extend({
@@ -17,16 +19,16 @@ define([
         },
 
         render: function () {
+            Storage.update();
             var self = this;
-
+            Scoreboard.url = "/scores";
+            Scoreboard.fetch();        
             $.ajax({
                 url : '/scores?limit=10',
                 type: 'get',
                 dataType: 'JSON',
                 success: function(response)
                 {
-                    Scoreboard.url = "/scores";
-                    Scoreboard.fetch();
                     self.$el.html(self.template({scoreboard: response}));
                 }
             })
@@ -46,6 +48,8 @@ define([
         }
  
     });
+
+    
 
     return View;
 
