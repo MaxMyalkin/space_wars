@@ -13,32 +13,34 @@ define([
     }
 
     function setJSON(key, value) {
-        localStorage[key] = value;
+        localStorage[key] = JSON.stringify(value);
     }
 
     function getJSON(key) {
         var value = localStorage[key];
-        return value ? value : "[]";
+        return value ? JSON.parse(value) : null;
     }
 
     function update(){
-        var storage = localStorage["scores"];
-        storage = storage.substring(0, storage.length-2) + "]";
-        var scores = JSON.parse(storage);
-        for (var i = scores.length - 1; i >= 0; i--){
-            $.ajax({
-                url : '/scores',
-                type: 'post',
-                dataType: 'JSON',
-                data: scores[i],
-                success: function(response)
-                {
-                    scores.splice(i, 1);
-                }
-            })
+        var scores = getJSON('scores');
+        if (scores != null){
+            for (var i = scores.length - 1; i >= 0; i--)
+            {
+                $.ajax({
+                    url : '/scores',
+                    type: 'post',
+                    dataType: 'JSON',
+                    data: scores[i],
+                    success: function(response)
+                    {
+                        scores.splice(i, 1);
+                        setJSON("scores", scores);
+                    }
+                })
+            }
+
         }
-        scores = JSON.stringify(scores);
-        setJSON("scores", scores);
+        
     }
 
     return {

@@ -60,18 +60,20 @@ define([
                     url : '/scores',
                     type: 'post',
                     data: data,
-                    dataType: 'json',
-                    success: function(msg){
-                        var scores = Storage.getJSON('scores');
-                        var player = JSON.stringify(_player);
-                        scores = scores.substring(0, scores.length - 1);
-                        scores = scores + player + ",]";
-                        Storage.setJSON('scores', scores);
-                    }
+                    dataType: 'json'
                 })
                 .fail(
                     function(msg){
-                        
+                        var scores = Storage.getJSON('scores');
+                        var newScores = [];
+                        if (scores === null){
+                            newScores.push(_player);
+                        }
+                        else {
+                            newScores = scores; 
+                            newScores.push(_player);
+                        }
+                        Storage.setJSON('scores', newScores);
                     }
                 )
                 $('.btn').prop("disabled", false);

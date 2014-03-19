@@ -30,6 +30,7 @@ define([
                 success: function(response)
                 {
                     self.$el.html(self.template({scoreboard: response}));
+                    $("#error").html("");
                 }
             })
             .fail(
