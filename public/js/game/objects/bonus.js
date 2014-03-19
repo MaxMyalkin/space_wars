@@ -16,7 +16,6 @@ function(AbstractObject){
 			}		
 			this.$super(color, x, y, resource);
     		this.initRotation(0,3);	
-    		//this.initMotion(0, 0);
     		this.time = 0;
 		}
 	});

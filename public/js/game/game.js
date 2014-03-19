@@ -15,7 +15,6 @@ function(Class, Player, GameMechanic, Resources, GameOver){
             this.DELAY = 50;
             this.GAME_WIDTH = 1024;
             this.GAME_HEIGHT = 768;
-            //this.PLAYER_RADIUS = this.resources.playerImgD/2;
             this.PLAYER_START_X = this.GAME_WIDTH/2 - this.resources.playerDirect.radius/2;
             this.PLAYER_START_Y = this.GAME_HEIGHT - this.resources.playerDirect.radius;
             this.ROCKET_SPEED = 10;
@@ -60,12 +59,12 @@ function(Class, Player, GameMechanic, Resources, GameOver){
                 game.keydown[String.fromCharCode(event.which).toLowerCase()] = false;
             });
 
-            this.restart = document.getElementById("restart");
-            this.restart.onclick = this.restartGame.bind(game);
-            this.pauseBtn = document.getElementById("pause");
-            this.pauseBtn.onclick = this.pauseGame.bind(game);
-            this.backBtn = document.getElementById("backBtn");
-            this.backBtn.onclick = this.endGame.bind(game);
+            this.restart = $("#restart");
+            this.restart.click(this.restartGame.bind(game));
+            this.pauseBtn = $("#pause");
+            this.pauseBtn.click(this.pauseGame.bind(game));
+            this.backBtn = $("#backBtn");
+            this.backBtn.click(this.endGame.bind(game));
             this.interval;
             this.gameOver = new GameOver();
             this.showGameOverScreen = false;
@@ -76,19 +75,19 @@ function(Class, Player, GameMechanic, Resources, GameOver){
         setBtnText: function() {
         	
         	if (this.pauseFlag) {
-        		this.pauseBtn.innerHTML = "Continue";
+        		this.pauseBtn.html("Continue");
         	}
         	else {
-        		this.pauseBtn.innerHTML = "Pause";
+        		this.pauseBtn.html("Pause");
         	}
         	if (this.gameover) {
-        		this.restart.innerHTML = "Restart";
+        		this.restart.html("Restart");
         	}
         	if(this.stopped){
-        		this.restart.innerHTML = "Play";
+        		this.restart.html("Play");
         	}
         	else {
-        		this.restart.innerHTML = "Restart";	
+        		this.restart.html("Restart");	
         	}
         },
 
@@ -196,14 +195,9 @@ function(Class, Player, GameMechanic, Resources, GameOver){
         		this.context.fillText("Game Paused" ,this.GAME_WIDTH / 2 - this.FONT_SIZE * 3, this.GAME_HEIGHT / 2);
         		return;
         	}
-        	if(this.gameover){
-        		this.context.fillText("gameover" ,this.GAME_WIDTH / 2 - this.FONT_SIZE * 3, this.GAME_HEIGHT / 2);
-        		return;
-        	}
         },
  
         endGame: function(){
-                //this.context.clearRect(0, 0, this.GAME_WIDTH, this.GAME_HEIGHT);
                 if (this.showGameOverScreen) {
                 	this.gameOver.show(this.player.score);
                 }

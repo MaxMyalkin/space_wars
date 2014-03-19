@@ -3,11 +3,10 @@
     <div class="menu">
     	<h1 class="header header_blue">Space wars</h1>
     	<h1 class="menu__title">SCORE BOARD</h1>
-
         <div id="scoreTable"></div>
 
     	<a href="/#" class="btn btn_small">&#9668 BACK</a>
-        <div id="error"></div>
+        <div id="scoreError"></div>
     </div>
 
 </fest:template>

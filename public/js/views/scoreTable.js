@@ -1,11 +1,13 @@
 define([
     'backbone',
     'tmpl/scoreTable',
-    'collections/scores'
+    'collections/scores',
+    'localStorageFunc'
 ], function(
     Backbone,
     tmpl,
-    Scoreboard
+    Scoreboard,
+    Storage
 ){
  
     var View = Backbone.View.extend({
@@ -17,24 +19,27 @@ define([
         },
 
         render: function () {
+            Storage.update();
+            Scoreboard.url = "/scores";
+            Scoreboard.fetch();
+            this.$el.html('<img src="/images/ajax-loader.gif" alt="Loading..." />');        
             var self = this;
-
             $.ajax({
                 url : '/scores?limit=10',
                 type: 'get',
                 dataType: 'JSON',
-                success: function(response)
-                {
-                    Scoreboard.url = "/scores";
-                    Scoreboard.fetch();
+                
+                success: function(response) {
                     self.$el.html(self.template({scoreboard: response}));
+                    $("#scoreError").html("");
+                    self.$el.show();
+                },
+
+                error: function(response){
+                	self.hide();
+                    $("#scoreError").html("Server unreachable");
                 }
             })
-            .fail(
-                function(msg){
-                    $("#error").html("Server unreachable");
-                }
-            )
         },
 
         show: function () {
@@ -42,10 +47,12 @@ define([
         },
 
         hide: function () {
-        	
+        	this.$el.hide();
         }
  
     });
+
+    
 
     return View;
 

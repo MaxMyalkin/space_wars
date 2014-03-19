@@ -46,7 +46,6 @@ function(Class){
             	dx += frame * this.sizeX;
             else
                 dy += frame * this.sizeY;
-            console.log(x , y);
             context.drawImage(this.src,
                           dx, dy,
                           this.sizeX, this.sizeY,

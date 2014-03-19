@@ -32,7 +32,6 @@ function(Class,
                 	}
                 	else
                 		this.resource.draw(context , this.x , this.y);
-                	//this.resource.draw(context , this.x , this.y);
                 }
                 
     	},

@@ -16,7 +16,7 @@
     	</input>
     	<button id="submitBtn" type="submit" class="btn btn_thin">Save</button>
    </form>
-   <div id="error" class="gameOverForm__text"></div>
+   <div id="formError" class="gameOverForm__text"></div>
 </div>
    
 </fest:template>

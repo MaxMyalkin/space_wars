@@ -3,13 +3,15 @@ define([
     'tmpl/gameOver',
     'views/viewManager',
     'models/score',
-    'collections/scores'
+    'collections/scores',
+    'localStorageFunc'
 ], function(
     Backbone,
     tmpl,
     ViewManager,
     Score,
-    Scoreboard
+    Scoreboard,
+    Storage
 ){
  
     var View = Backbone.View.extend({
@@ -24,7 +26,7 @@ define([
             this.$el.html(this.template({score: score}));
             var game = this;
             $('.btn_close').click( function() { game.hide() } );
-            $('#gameOverForm').on("submit" , Cobcobcobe);
+            $('#gameOverForm').on("submit" , postScores);
         },
 
         show: function (score) {
@@ -40,14 +42,16 @@ define([
  
     });
 
-    function cobcobcobe(event) {
+    function postScores(event) {
             event.preventDefault();
-
             var data = $(this).serialize();
-            var _name = $("#nameField").val();
-            if (_name != ""){
-                var player = new Score({name: _name, score: $(scoreField).val()});
-                Scoreboard.add(player);
+            var name = $("#nameField").val();
+            var score = $("#scoreField").val();
+            var player = new Score({name: name, score: score});
+            Scoreboard.add(player);
+            player = {
+                'name': name,
+                'score': score
             }
             $('.btn').prop("disabled", true);
             $.ajax({
@@ -55,18 +59,25 @@ define([
                 type: 'post',
                 data: data,
                 dataType: 'json',
-                success: function(msg)
-                {
+                success : function(response) {
+                	$('.btn').prop("disabled", false);
+            		window.location = "/#scoreboard";
+                },
+
+                error: function(response) {
+                	if(response.status === 400)
+                	{
+                		$("#formError").html("Type your name");
+                	}
+                	else {
+                    	var scores = Storage.getJSON('scores');
+                        scores.push(player);
+                        Storage.setJSON('scores', scores);
+            			window.location = "/#scoreboard";
+                    }
                     $('.btn').prop("disabled", false);
-                    window.location = "/#scoreboard";
                 }
-            })
-            .fail(
-                function(msg){
-                    $("#error").html("Type your name");
-                    $('.btn').prop("disabled", false);
-                }
-            )
+            })     
     }
 
     return View;
