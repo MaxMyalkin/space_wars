@@ -9,7 +9,7 @@ function(Class, Player, GameMechanic, Resources, GameOver){
     var Game = Class.$extend({
          
         __init__: function (){
-            var DEBUG = false;
+            var DEBUG = true;
             this.resources = new Resources();
             //Константы
             this.DELAY = 50;
@@ -132,6 +132,18 @@ function(Class, Player, GameMechanic, Resources, GameOver){
                 		this.player.bonusBullets[1] -=1;
                 	}
               
+                }
+                if(this.context.debug)
+                {
+                	if(this.keydown['z']){
+                		this.showGameOverScreen = true;
+                		this.endGame();
+                	}
+                	if(this.keydown['x']){
+                		for (var i = this.player.bonusBullets.length - 1; i >= 0; i--) {
+                			this.player.bonusBullets[i] += 1;
+                		};
+                	}
                 }
                 
             }
