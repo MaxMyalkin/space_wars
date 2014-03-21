@@ -16,11 +16,11 @@ function(Class,
 
 			this.mediumAsteroid = new Resource(40 , "/images/mediumAsteroid.png" , false , 0 , 0);
 
-			this.playerLeft = new Resource(47 ,"/images/shipLeft.png" , true , 0 , 20 , 0.3 , 95 , 100 , false , [0 , 1 , 2 , 3] , true);
+			this.playerLeft = new Resource(130 ,"/images/shipLeft.png" , true , 0 , 20 , 0.3 , 262 , 312 , false , [0 , 1 , 2 , 3 , 4] , true);
 
-			this.playerRight = new Resource(47 ,"/images/shipRight.png" , true , 0 , 20 , 0.3 , 95 , 100 , false , [0 , 1 , 2 , 3] , true);
+			this.playerRight = new Resource(130 ,"/images/shipRight.png" , true , 0 , 20 , 0.3 , 262 , 312 , false , [0 , 1 , 2 , 3 , 4] , true);
 
-			this.playerDirect = new Resource(47 , "/images/shipDirect.png" , true , 0 , 20 , 0.3 , 95 , 100 , false , [0 , 1 , 2 , 3] , true);
+			this.playerDirect = new Resource(130 , "/images/shipDirect.png" , true , 0 , 20 , 0.3 , 262 , 312 , false , [0 , 1 , 2 , 3 , 4] , true);
 			
 			this.firstTypeBullet = new Resource(12 ,"/images/rocket.png" , true , 0 , -2 , 0.3 , 20 , 50 , false , [4 , 5 , 6 , 7] , false);	
 
@@ -53,13 +53,13 @@ function(Class,
             		return new Resource(12 ,"/images/rocket.png" , true , -2 , 0 , 0.3 , 20 , 50 , false , [4 , 5 , 6 , 7] , false);
             	break;
             	case "firstTypeBang":
-            		return new Resource(42 ,"/images/explosions.png" , true , 0 , 0 , 0.25 , 84 , 84 , true , [0 , 1 , 2 , 3 , 4 , 5 , 6] , true);
+            		return new Resource(0 ,"/images/bang1.png" , true , 0 , 0 , 0.25 , 94 , 94 , true , [0 , 1 , 2 , 3 , 4 , 5 , 6 , 7 , 8 , 9 , 10 , 11 , 12 , 13 , 14] , true);
             	break;
             	case "secondTypeBang":
-            		return new Resource(42 ,"/images/explosions.png" , true , 0 , 0 , 0.25 , 84 , 84 , true , [0 , 1 , 2 , 3 , 4 , 5 , 6] , true);
+            		return new Resource(0 ,"/images/bang2.png" , true , 0 , 0 , 0.4 , 81 , 62 , true , [0 , 1 , 2 , 3 , 4 , 5 , 6 , 7 , 8 , 9] , true);
             	break;
             	case "thirdTypeBang":
-            		return new Resource(42 ,"/images/explosions.png" , true , 0 , 0 , 0.25 , 84 , 84 , true , [0 , 1 , 2 , 3 , 4 , 5 , 6] , true);
+            		return new Resource(0 ,"/images/bang3.png" , true , 0 , 0 , 0.5 , 93 , 100 , true , [0 , 1 , 2 , 3 , 4 , 5 , 6 , 7 , 8 , 9 , 10 , 11 , 12 , 13 , 14 , 15 , 16 , 17 , 18 , 19, 20, 21 , 22 , 23 , 24 , 25 , 26 , 27 , 28 , 29] , true);
             	break;
             }
         }
