@@ -9,7 +9,7 @@ function(Class, Player, GameMechanic, Resources, GameOver){
     var Game = Class.$extend({
          
         __init__: function (){
-            var DEBUG = true;
+            var DEBUG = false;
             this.resources = new Resources();
             //Константы
             this.DELAY = 50;
@@ -211,6 +211,7 @@ function(Class, Player, GameMechanic, Resources, GameOver){
 	            this.asteroids = [];
 	            this.player.bullets = [];
 	            this.bangs = [];
+                this.bonuses = [];
 	            this.keydown = [];
 	            this.gameover = true;
 	            
