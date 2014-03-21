@@ -5,10 +5,11 @@ function(AbstractObject,
  Bullet
  ){
 	var Player = AbstractObject.$extend({
-		__init__: function(color, x, y, resource){
+		__init__: function(color, width, height, resource){
 			this.type = 0;
 			this.setProperties();
-			this.$super(color, x, y, resource[this.type][0]);
+			this.$super(color, 0 , 0, resource[this.type][0]);
+			this.setStartPosition(width , height); // можно в базовый послать х=0 у=0, а здесь они изменятся всё равно
     		this.score = 0;
     		this.bullets = [];
     		this.bonusBullets = [0, 0];
@@ -55,6 +56,11 @@ function(AbstractObject,
 					this.damageMultiplier = 2;
 					break;
 			}
+		},
+
+		setStartPosition: function(width , height) {
+			this.x = (width - this.radius)/2;
+			this.y = (height - this.radius);
 		}
 
 	});

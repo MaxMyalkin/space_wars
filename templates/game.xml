@@ -6,8 +6,36 @@
     	<a id="restart" class='btn btn_thin game_button'></a>
     </div>
     <div>
+    	<div class="info">
+    		<div class='info__header'>score:<fest:space/><span id='score'>9999</span></div>
+    		<div class='info__bullets'>
+    			<div class='info__header'>bullets</div>
+    			<div class= "info__bullets__bullet-type">
+    				<img class="info__bullets__img" src='/images/bullet/secondbonus.png'/>
+    				<div class='info__text'>unlim</div>
+    			</div>
+    			<div class= "info__bullets__bullet-type">
+    				<img class="info__bullets__img" src='/images/bullet/firstbonus.png'/>
+    				<div class='info__text first-bonus'>10</div>
+    			</div>
+    			<div class= "info__bullets__bullet-type">
+    				<img class="info__bullets__img" src='/images/bullet/secondbonus.png'/>
+    				<div class='info__text second-bonus'>20</div>
+    			</div>
+    		</div>
+    		<div class='info__ship'>
+    			<div class='info__header '>ship</div>
+    			<img class='info__ship__img' id='ship-img'/>
+    			<div class='info__ship__properties'>
+    				<div class='info__text'>Size:<fest:space/><span id="ship-size">60</span> </div>
+    				<div class='info__text'>hspeed:<fest:space/><span id="ship-hspeed">20</span></div>
+    				<div class='info__text'>vspeed:<fest:space/><span id="ship-vspeed">20</span></div>
+    				<div class='info__text'>damage(x):<fest:space/><span id="ship-multiplier">20</span></div>
+    			</div>
+    		</div>
+    	</div>
     	<canvas id='gameField' class= "game-screen"/>
 		<div id="gameOver" class="form"></div>
-		<div id="overlay"></div>
+		<div class="overlay"></div>
 	</div>
 </fest:template>

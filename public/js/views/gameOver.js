@@ -30,13 +30,13 @@ define([
         },
 
         show: function (score) {
-        	$('#overlay').show();
+        	$('.overlay').show();
             this.render(score);
             this.$el.show();
         },
 
         hide: function () {
-        	$('#overlay').hide();
+        	$('.overlay').hide();
             this.$el.hide();
         }
  

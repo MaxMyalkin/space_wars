@@ -19,7 +19,7 @@ define([
         },
         render: function () {
             this.$el.html(this.template);      
-            $("#overlay").hide();
+            $(".overlay").hide();
         },
         show: function () {
 

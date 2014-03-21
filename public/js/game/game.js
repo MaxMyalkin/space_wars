@@ -9,14 +9,11 @@ function(Class, Player, GameMechanic, Resources, GameOver){
     var Game = Class.$extend({
          
         __init__: function (){
-            var DEBUG = true;
             this.resources = new Resources();
             //Константы
             this.DELAY = 50;
             this.GAME_WIDTH = 1024;
             this.GAME_HEIGHT = 768;
-            this.PLAYER_START_X = this.GAME_WIDTH/2 - this.resources.player[0][0].radius/2;
-            this.PLAYER_START_Y = this.GAME_HEIGHT - this.resources.player[0][0].radius;
             this.ROCKET_SPEED = 10;
             this.ASTEROID_SPEED = 5;
 
@@ -29,8 +26,6 @@ function(Class, Player, GameMechanic, Resources, GameOver){
             this.bulletTimer = 0;
             this.asteroidTimer = 0;
             this.bonusTimer = 0;         
-            this.firstTime = true;
-            this.startTime = false;
             this.pauseFlag = false;
             this.stopped = true;
             this.asteroids = [];
@@ -43,8 +38,8 @@ function(Class, Player, GameMechanic, Resources, GameOver){
             canvas.height = this.GAME_HEIGHT;
             this.context = canvas.getContext("2d");
             this.context.fillStyle = "#ffffff";
-            this.context.debug = DEBUG;
-            this.player = new Player("#ffffff", this.PLAYER_START_X, this.PLAYER_START_Y, 
+            this.context.debug = false;														//режим отладки перенесен сюда
+            this.player = new Player("#ffffff", this.GAME_WIDTH, this.GAME_HEIGHT, 
                  this.resources.player);
                        
             var game = this;
@@ -62,10 +57,13 @@ function(Class, Player, GameMechanic, Resources, GameOver){
             this.backBtn = $("#backBtn");
             this.backBtn.click(this.endGame.bind(game));
             this.interval;
-            this.gameOver = new GameOver();
-            this.showGameOverScreen = false;
+            this.gameOverForm = new GameOver();
+            this.gameover = false;
             this.reloading(true);
            	this.setBtnText();
+           	this.setBulletInfo();
+           	this.setShipInfo();
+           	this.setScore();
         },
 
         setBtnText: function() {
@@ -115,6 +113,7 @@ function(Class, Player, GameMechanic, Resources, GameOver){
                 		this.player.launchBullet(this , 2);
                 		this.bulletTimer = 0;	
                 		this.player.bonusBullets[0] -=1;
+                		this.setBulletInfo();
                 	}
               
                 }
@@ -123,27 +122,31 @@ function(Class, Player, GameMechanic, Resources, GameOver){
                 		this.player.launchBullet(this , 3);
                 		this.bulletTimer = 0;	
                 		this.player.bonusBullets[1] -=1;
+                		this.setBulletInfo();
                 	}
               
                 }
                 
                 if(this.keydown["1"]){
                     this.player.changeTypeOfShip(this.resources.player , 0 , this.GAME_WIDTH , this.GAME_HEIGHT);
+                    this.setShipInfo();
                 }
                 if(this.keydown["2"]){
-                    this.player.changeTypeOfShip(this.resources.player , 1 , this.GAME_WIDTH , this.GAME_HEIGHT);    
+                    this.player.changeTypeOfShip(this.resources.player , 1 , this.GAME_WIDTH , this.GAME_HEIGHT);
+                    this.setShipInfo();    
                 }
 
                 if(this.context.debug)
                 {
                 	if(this.keydown['z']){
-                		this.showGameOverScreen = true;
+                		this.gameover = true;
                 		this.endGame();
                 	}
                 	if(this.keydown['x']){
                 		for (var i = this.player.bonusBullets.length - 1; i >= 0; i--) {
                 			this.player.bonusBullets[i] += 1;
                 		};
+                		this.setBulletInfo();
                 	}
                 }
             }
@@ -155,15 +158,13 @@ function(Class, Player, GameMechanic, Resources, GameOver){
                 this.interval = setInterval(function(){ game.play(); game.movePlayer(); }, 1000 / this.DELAY);
             }
             else
-            {
                 clearInterval(this.interval);
-            }
         },
  
         restartGame: function(){
             if (this.pauseFlag)
                 this.reloading(true);
-            this.showGameOverScreen = false;
+            this.gameover = false;
         	this.endGame();
             this.pauseFlag = false;
             this.stopped = false;
@@ -187,7 +188,7 @@ function(Class, Player, GameMechanic, Resources, GameOver){
         }, 
  
         play: function(){
-            if ( !this.pauseFlag && !this.stopped && !this.showGameOverScreen) {
+            if ( !this.pauseFlag && !this.stopped && !this.gameover) {
                 
                 this.asteroidTimer += 1;
                 this.bulletTimer += 1;
@@ -209,24 +210,50 @@ function(Class, Player, GameMechanic, Resources, GameOver){
         },
  
         endGame: function(){
-                if (this.showGameOverScreen) {
-                	this.gameOver.show(this.player.score);
+                if (this.gameover) {
+                	this.gameOverForm.show(this.player.score);
                 }
 	            this.asteroidTimer = 0;
                 this.bulletTimer = 0;
 	            this.player.score = 0;
 	            this.bonusTimer = 0;
 	            this.player.bonusBullets = [0 , 0];
-	            this.player.x = this.PLAYER_START_X;
-	            this.player.y = this.PLAYER_START_Y;
+	            this.player.setStartPosition(this.GAME_WIDTH , this.GAME_HEIGHT);
 	            this.player.changeTypeOfShip(this.resources.player , 0 , this.GAME_WIDTH , this.GAME_HEIGHT);
 	            this.asteroids = [];
 	            this.player.bullets = [];
 	            this.bangs = [];
                 this.bonuses = [];
 	            this.keydown = [];
-                this.setBtnText();   
+                this.setBtnText();
+                this.setBulletInfo();
+                this.setShipInfo();
+                this.setScore();
+        },
 
+        setBulletInfo: function() {
+        	$('.first-bonus').html(this.player.bonusBullets[0]);
+        	$('.second-bonus').html(this.player.bonusBullets[1]);
+        },
+
+        setShipInfo: function() {
+        	$('#ship-size').html(this.player.resource.radius);
+        	$('#ship-hspeed').html(this.player.hspeed);
+        	$('#ship-vspeed').html(this.player.vspeed);
+        	$('#ship-multiplier').html(this.player.damageMultiplier);
+        	switch(this.player.type) {
+        		case 0:
+        			$('#ship-img').attr('src' , '/images/ship/second/info.png');
+        			break;
+        		case 1:
+        			$('#ship-img').attr('src' , '/images/ship/first/info.png');
+        			break;
+        	}
+        	
+        },
+
+        setScore: function() {
+        	$('#score').html(this.player.score);
         }
  
     });

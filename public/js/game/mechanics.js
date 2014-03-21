@@ -52,7 +52,7 @@ function(Class,
                 if (this.collision(game.player, game.asteroids[i], 0.95)){
 
                     game.resources.bangSound.playSound();
-                    game.showGameOverScreen = true;
+                    game.gameover = true;
                     game.endGame();
                 }
                 
@@ -86,6 +86,7 @@ function(Class,
                             game.bangs.push(new BigBang("#ffffff", game.asteroids[j].x, game.asteroids[j].y, 
                                 game.resources, game.player.bullets[i].type));
                             game.player.score += game.asteroids[j].type;
+                            game.setScore();
                             game.resources.bangSound.playSound();
                             break;
                         }
@@ -100,6 +101,7 @@ function(Class,
             	{
             		toDeleteBonus.push(i);
             		game.player.bonusBullets[game.bonuses[i].type - 1] += 5;
+            		game.setBulletInfo();
             	}
             	else
 	            	if(game.bonuses[i].time > game.BONUS_TERMINATE)
@@ -126,18 +128,7 @@ function(Class,
             if (game.bangs.length != 0) 
                 game.gameMechanic.drawObjects(game.bangs, game.GAME_HEIGHT, game.context);
             this.drawObjects(game.bonuses , game.GAME_HEIGHT , game.context );
-            this.drawInfo(game);
             
-        },
-
-        drawInfo: function(game) {
-        	game.context.fillText("Score: " + game.player.score, 10, game.FONT_SIZE * 1.1);
-        	game.resources.secondTypeBonus.draw(game.context , game.GAME_WIDTH - game.FONT_SIZE * 3 , 50 );
-        	game.context.fillText("∞" , game.GAME_WIDTH - game.FONT_SIZE * 2 , game.FONT_SIZE * 1.1);
-        	game.resources.firstTypeBonus.draw(game.context , game.GAME_WIDTH - game.FONT_SIZE * 3 , 100);
-            game.context.fillText(game.player.bonusBullets[0] , game.GAME_WIDTH - game.FONT_SIZE * 2 , 2 * game.FONT_SIZE * 1.1);
-            game.resources.secondTypeBonus.draw(game.context , game.GAME_WIDTH - game.FONT_SIZE * 3 , 150);
-            game.context.fillText(game.player.bonusBullets[1] , game.GAME_WIDTH - game.FONT_SIZE * 2 , 3 * game.FONT_SIZE * 1.1);
         },
 
         createAsteroid: function(game){
@@ -164,6 +155,9 @@ function(Class,
                 return false;
             }
         }
+
+        
+
     });
 
     return GameMechanic;
