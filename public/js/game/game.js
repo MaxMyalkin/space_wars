@@ -9,14 +9,14 @@ function(Class, Player, GameMechanic, Resources, GameOver){
     var Game = Class.$extend({
          
         __init__: function (){
-            var DEBUG = false;
+            var DEBUG = true;
             this.resources = new Resources();
             //Константы
             this.DELAY = 50;
             this.GAME_WIDTH = 1024;
             this.GAME_HEIGHT = 768;
-            this.PLAYER_START_X = this.GAME_WIDTH/2 - this.resources.playerDirect.radius/2;
-            this.PLAYER_START_Y = this.GAME_HEIGHT - this.resources.playerDirect.radius;
+            this.PLAYER_START_X = this.GAME_WIDTH/2 - this.resources.player[0][0].radius/2;
+            this.PLAYER_START_Y = this.GAME_HEIGHT - this.resources.player[0][0].radius;
             this.ROCKET_SPEED = 10;
             this.ASTEROID_SPEED = 5;
 
@@ -49,7 +49,7 @@ function(Class, Player, GameMechanic, Resources, GameOver){
             this.context.fillStyle = "#ffffff";
             this.context.debug = DEBUG;
             this.player = new Player("#ffffff", this.PLAYER_START_X, this.PLAYER_START_Y, 
-                 this.resources.playerDirect);
+                 this.resources.player);
                        
             var game = this;
             $(document).bind("keydown", function(event) {
@@ -96,11 +96,11 @@ function(Class, Player, GameMechanic, Resources, GameOver){
             if (!this.gameover && !this.pauseFlag && !this.stopped ){
                 if (this.keydown["a"]) {
                 	this.player.move(-this.HORIZONTAL_SPEED , 0 , this.GAME_WIDTH , this.GAME_HEIGHT);
-                    this.player.resource = this.resources.playerLeft;
+                    this.player.resource = this.resources.player[this.player.type][1];
                 }
         		if (this.keydown["d"]){
                     this.player.move(this.HORIZONTAL_SPEED , 0 , this.GAME_WIDTH , this.GAME_HEIGHT);
-                    this.player.resource = this.resources.playerRight;
+                    this.player.resource = this.resources.player[this.player.type][2];
                 }
                 if (this.keydown["p"]){
                     if (this.bulletTimer > this.BULLET_TIMEOUT){
@@ -109,7 +109,7 @@ function(Class, Player, GameMechanic, Resources, GameOver){
                     }
                 }
                 if (!this.keydown["a"] && !this.keydown["d"]){
-                    this.player.resource = this.resources.playerDirect;
+                    this.player.resource = this.resources.player[this.player.type][0];
                 }
                 if (this.keydown["w"]) {
                 	this.player.move(0 , -this.FORWARD_SPEED , this.GAME_WIDTH , this.GAME_HEIGHT);
@@ -132,6 +132,14 @@ function(Class, Player, GameMechanic, Resources, GameOver){
                 		this.player.bonusBullets[1] -=1;
                 	}
               
+                }
+                if(this.keydown["1"]){
+                    this.player.type = 0;
+                    this.player.changeTypeOfShip(this.resources.player);
+                }
+                if(this.keydown["2"]){
+                    this.player.type = 1;
+                    this.player.changeTypeOfShip(this.resources.player);    
                 }
                 
             }

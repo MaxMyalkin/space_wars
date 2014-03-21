@@ -16,12 +16,19 @@ function(Class,
 
 			this.mediumAsteroid = new Resource(40 , "/images/mediumAsteroid.png" , false , 0 , 0);
 
-			this.playerLeft = new Resource(73 ,"/images/shipLeft.png" , true , 0 , 20 , 0.3, 146 , 174 , false , [0 , 1 , 2 , 3 , 4, 3, 2, 1] , true);
+			this.player = [
+				[	
+					new Resource(47 , "/images/shipDirect1.png" , true , 0 , 20 , 0.3 , 95 , 100 , false , [0 , 1 , 2 , 3] , true),
+					new Resource(47 ,"/images/shipLeft1.png" , true , 0 , 20 , 0.3 , 95 , 100 , false , [0 , 1 , 2 , 3] , true),
+					new Resource(47 ,"/images/shipRight1.png" , true , 0 , 20 , 0.3 , 95 , 100 , false , [0 , 1 , 2 , 3] , true)
+				],
+				[
+					new Resource(73 , "/images/shipDirect.png" , true , 0 , 20 , 0.3 , 146 , 174 , false , [0 , 1 , 2 , 3 , 4, 3, 2, 1] , true),
+					new Resource(73 ,"/images/shipLeft.png" , true , 0 , 20 , 0.3, 146 , 174 , false , [0 , 1 , 2 , 3 , 4, 3, 2, 1] , true),
+					new Resource(73 ,"/images/shipRight.png" , true , 0 , 20 , 0.3 , 146 , 174 , false , [0 , 1 , 2 , 3 , 4, 3, 2, 1] , true)
+				]
+			];
 
-			this.playerRight = new Resource(73 ,"/images/shipRight.png" , true , 0 , 20 , 0.3 , 146 , 174 , false , [0 , 1 , 2 , 3 , 4, 3, 2, 1] , true);
-
-			this.playerDirect = new Resource(73 , "/images/shipDirect.png" , true , 0 , 20 , 0.3 , 146 , 174 , false , [0 , 1 , 2 , 3 , 4, 3, 2, 1] , true);
-			
 			this.firstTypeBang = new Resource(42 ,"/images/explosions.png" , true , 0 , 0 , 0.25 , 84 , 84 , true , [0 , 1 , 2 , 3 , 4 , 5 , 6] , true);
 
 			this.firstTypeBonus = new Resource(20 , "/images/firstbonus.png" , false , 10 , -5);

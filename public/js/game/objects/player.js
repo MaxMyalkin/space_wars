@@ -6,7 +6,8 @@ function(AbstractObject,
  ){
 	var Player = AbstractObject.$extend({
 		__init__: function(color, x, y, resource){
-			this.$super(color, x, y, resource);
+			this.type = 0;
+			this.$super(color, x, y, resource[this.type][0]);
     		this.score = 0;
     		this.bullets = [];
     		this.bonusBullets = [0, 0];
@@ -17,6 +18,10 @@ function(AbstractObject,
 		        this.y - game.player.radius, game.resources, game.ROCKET_SPEED , type);
 		    this.bullets.push(rocket);
 		    game.resources.attackSound.playSound();
+		},
+
+		changeTypeOfShip: function(resource){
+			this.radius = resource[this.type][0].radius;
 		},
 
 		move: function(x , y , width , height) {
