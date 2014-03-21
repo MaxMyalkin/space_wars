@@ -3,7 +3,7 @@ function(AbstractObject){
 	var Asteroid = AbstractObject.$extend({
 		__init__: function(color, x, y, resources, constSpeed ){
 			this.type = Math.floor(Math.random()*3) + 1;
-			this.health = this.type;
+			this.health = Math.floor(this.type * 1.5);
 			var resource; 
 			switch(this.type){
 				case 1:

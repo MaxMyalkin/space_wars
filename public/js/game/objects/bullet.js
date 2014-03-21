@@ -1,9 +1,9 @@
 define(['game/objects/object'], 
 function(AbstractObject){
 	var Bullet = AbstractObject.$extend({
-		__init__: function(color, x, y, resources, constSpeed , type){
+		__init__: function(color, x, y, resources, constSpeed , type , damageMultiplier){
 			this.type = type;
-			this.damage = this.type; 
+			this.damage = type * damageMultiplier; 
 			var radius;
 			var resource;
 			switch(this.type){

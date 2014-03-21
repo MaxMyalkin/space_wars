@@ -15,15 +15,12 @@ function(Class, Player, GameMechanic, Resources, GameOver){
             this.DELAY = 50;
             this.GAME_WIDTH = 1024;
             this.GAME_HEIGHT = 768;
-            this.PLAYER_START_X = this.GAME_WIDTH/2 - this.resources.playerDirect.radius/2;
-            this.PLAYER_START_Y = this.GAME_HEIGHT - this.resources.playerDirect.radius;
+            this.PLAYER_START_X = this.GAME_WIDTH/2 - this.resources.player[0][0].radius/2;
+            this.PLAYER_START_Y = this.GAME_HEIGHT - this.resources.player[0][0].radius;
             this.ROCKET_SPEED = 10;
             this.ASTEROID_SPEED = 5;
 
             this.FONT_SIZE = 50;
-            this.HORIZONTAL_SPEED = 7;
-            this.FORWARD_SPEED = 10;
-            this.BACK_SPEED = 7;
             this.ASTEROID_TIMEOUT = 50;
             this.BULLET_TIMEOUT = 25;
             this.BONUS_TIMEOUT = 500;
@@ -35,7 +32,6 @@ function(Class, Player, GameMechanic, Resources, GameOver){
             this.firstTime = true;
             this.startTime = false;
             this.pauseFlag = false;
-            this.gameover = false;
             this.stopped = true;
             this.asteroids = [];
             this.keydown = [];
@@ -49,7 +45,7 @@ function(Class, Player, GameMechanic, Resources, GameOver){
             this.context.fillStyle = "#ffffff";
             this.context.debug = DEBUG;
             this.player = new Player("#ffffff", this.PLAYER_START_X, this.PLAYER_START_Y, 
-                 this.resources.playerDirect);
+                 this.resources.player);
                        
             var game = this;
             $(document).bind("keydown", function(event) {
@@ -80,9 +76,6 @@ function(Class, Player, GameMechanic, Resources, GameOver){
         	else {
         		this.pauseBtn.html("Pause");
         	}
-        	if (this.gameover) {
-        		this.restart.html("Restart");
-        	}
         	if(this.stopped){
         		this.restart.html("Play");
         	}
@@ -93,14 +86,14 @@ function(Class, Player, GameMechanic, Resources, GameOver){
 
         movePlayer: function (){
  
-            if (!this.gameover && !this.pauseFlag && !this.stopped ){
+            if (!this.pauseFlag && !this.stopped ){
                 if (this.keydown["a"]) {
-                	this.player.move(-this.HORIZONTAL_SPEED , 0 , this.GAME_WIDTH , this.GAME_HEIGHT);
-                    this.player.resource = this.resources.playerLeft;
+                	this.player.move(-this.player.hspeed , 0 , this.GAME_WIDTH , this.GAME_HEIGHT);
+                    this.player.resource = this.resources.player[this.player.type][1];
                 }
         		if (this.keydown["d"]){
-                    this.player.move(this.HORIZONTAL_SPEED , 0 , this.GAME_WIDTH , this.GAME_HEIGHT);
-                    this.player.resource = this.resources.playerRight;
+                    this.player.move(this.player.hspeed , 0 , this.GAME_WIDTH , this.GAME_HEIGHT);
+                    this.player.resource = this.resources.player[this.player.type][2];
                 }
                 if (this.keydown["p"]){
                     if (this.bulletTimer > this.BULLET_TIMEOUT){
@@ -109,13 +102,13 @@ function(Class, Player, GameMechanic, Resources, GameOver){
                     }
                 }
                 if (!this.keydown["a"] && !this.keydown["d"]){
-                    this.player.resource = this.resources.playerDirect;
+                    this.player.resource = this.resources.player[this.player.type][0];
                 }
                 if (this.keydown["w"]) {
-                	this.player.move(0 , -this.FORWARD_SPEED , this.GAME_WIDTH , this.GAME_HEIGHT);
+                	this.player.move(0 , -this.player.vspeed , this.GAME_WIDTH , this.GAME_HEIGHT);
                 }
                 if (this.keydown["s"]) {
-                	this.player.move(0 , this.BACK_SPEED , this.GAME_WIDTH , this.GAME_HEIGHT);
+                	this.player.move(0 , this.player.hspeed , this.GAME_WIDTH , this.GAME_HEIGHT);
                 }
                 if(this.keydown["q"]) {
                 	if( this.bulletTimer > this.BULLET_TIMEOUT && this.player.bonusBullets[0] > 0) {
@@ -133,6 +126,14 @@ function(Class, Player, GameMechanic, Resources, GameOver){
                 	}
               
                 }
+                
+                if(this.keydown["1"]){
+                    this.player.changeTypeOfShip(this.resources.player , 0 , this.GAME_WIDTH , this.GAME_HEIGHT);
+                }
+                if(this.keydown["2"]){
+                    this.player.changeTypeOfShip(this.resources.player , 1 , this.GAME_WIDTH , this.GAME_HEIGHT);    
+                }
+
                 if(this.context.debug)
                 {
                 	if(this.keydown['z']){
@@ -145,7 +146,6 @@ function(Class, Player, GameMechanic, Resources, GameOver){
                 		};
                 	}
                 }
-                
             }
         },
 
@@ -165,14 +165,13 @@ function(Class, Player, GameMechanic, Resources, GameOver){
                 this.reloading(true);
             this.showGameOverScreen = false;
         	this.endGame();
-            this.gameover = false;
             this.pauseFlag = false;
             this.stopped = false;
             this.setBtnText();
         },
  
         pauseGame: function(){
-	            if(!this.gameover && !this.stopped){
+	            if(!this.stopped){
 		            if (this.pauseFlag ){
 		                this.pauseFlag = false;
                         this.reloading(true);
@@ -188,7 +187,7 @@ function(Class, Player, GameMechanic, Resources, GameOver){
         }, 
  
         play: function(){
-            if ( !this.gameover && !this.pauseFlag && !this.stopped) {
+            if ( !this.pauseFlag && !this.stopped && !this.showGameOverScreen) {
                 
                 this.asteroidTimer += 1;
                 this.bulletTimer += 1;
@@ -220,13 +219,12 @@ function(Class, Player, GameMechanic, Resources, GameOver){
 	            this.player.bonusBullets = [0 , 0];
 	            this.player.x = this.PLAYER_START_X;
 	            this.player.y = this.PLAYER_START_Y;
+	            this.player.changeTypeOfShip(this.resources.player , 0 , this.GAME_WIDTH , this.GAME_HEIGHT);
 	            this.asteroids = [];
 	            this.player.bullets = [];
 	            this.bangs = [];
                 this.bonuses = [];
 	            this.keydown = [];
-	            this.gameover = true;
-	            
                 this.setBtnText();   
 
         }
