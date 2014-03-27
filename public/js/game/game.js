@@ -241,6 +241,9 @@ function(Class, Player, GameMechanic, Resources, GameOver){
         	$('#ship-hspeed').html(this.player.hspeed);
         	$('#ship-vspeed').html(this.player.vspeed);
         	$('#ship-multiplier').html(this.player.damageMultiplier);
+        	$('.first_bullet').attr('src' , '/images/ship/second/info.png');
+        	$('.second_bullet').attr('src' , '/images/ship/second/info.png');
+        	$('.third_bullet').attr('src' , '/images/ship/second/info.png');
         	switch(this.player.type) {
         		case 0:
         			$('#ship-img').attr('src' , '/images/ship/second/info.png');
