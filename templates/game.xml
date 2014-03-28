@@ -12,21 +12,21 @@
 	    		<div class='info__bullets'>
 	    			<div class='info__header'>bullets</div>
 	    			<div class= "info__bullets__bullet-type">
-	    				<img class="info__bullets__img first_bullet" />
+	    				<canvas id='first_bullet' class="info__bullets__img" ></canvas>
 	    				<div class='info__text'>unlim</div>
 	    			</div>
 	    			<div class= "info__bullets__bullet-type">
-	    				<img class="info__bullets__img second_bullet"/>
+	    				<canvas id='second_bullet' class="info__bullets__img"></canvas>
 	    				<div class='info__text first-bonus'>10</div>
 	    			</div>
 	    			<div class= "info__bullets__bullet-type">
-	    				<img class="info__bullets__img third_bullet" />
+	    				<canvas id='third_bullet' class="info__bullets__img" ></canvas>
 	    				<div class='info__text second-bonus'>20</div>
 	    			</div>
 	    		</div>
 	    		<div class='info__ship'>
 	    			<div class='info__header '>ship</div>
-	    			<img class='info__ship__img' id='ship-img'/>
+	    			<canvas class='info__ship__img' id='ship_img'></canvas>
 	    			<div class='info__ship__properties'>
 	    				<div class='info__text'>Size:<fest:space/><span id="ship-size">60</span> </div>
 	    				<div class='info__text'>hspeed:<fest:space/><span id="ship-hspeed">20</span></div>
