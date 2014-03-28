@@ -8,8 +8,8 @@ function(Class, Player, GameMechanic, Resources, GameOver){
          */
     var Game = Class.$extend({
          
-        __init__: function (){
-            this.resources = new Resources();
+        __init__: function (res){
+            this.resources = res;
             //Константы
             this.DELAY = 50;
             this.GAME_WIDTH = 1024;
