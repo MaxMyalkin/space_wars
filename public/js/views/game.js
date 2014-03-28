@@ -2,12 +2,14 @@ define([
     'backbone',
     'tmpl/game',
     'game/game',
-    'views/viewManager'
+    'views/viewManager',
+    'game/resources'
 ], function(
     Backbone,
     tmpl,
     Game,
-    ViewManager
+    ViewManager,
+    Resource
 ){
  
     var View = Backbone.View.extend({
@@ -16,6 +18,9 @@ define([
         _name: "game",
         initialize: function () {
             this.hide();
+            // ... 
+            this.resources = new Resource();
+            // ...
         },
         render: function () {
             this.$el.html(this.template);      
@@ -24,7 +29,7 @@ define([
         show: function () {
 
             this.render();
-            this.game = Game(); 
+            this.game = Game(this.resources); 
             $.event.trigger({
                 type: "show",
                 _name: this._name

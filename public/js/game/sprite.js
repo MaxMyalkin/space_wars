@@ -29,6 +29,7 @@ function(Class){
  
         render: function(context , x , y ,radius , ddx , ddy) {
             this.update();
+            this.wasPlayed = false;
             var frame;
  
             if(this.speed > 0) {
@@ -52,9 +53,16 @@ function(Class){
                           x - radius - ddx, y - radius - ddy,
                           this.sizeX, this.sizeY);
             if (this.isSingle && frame === max - 1){
+                this.gotoZeroFrame();
                 this.wasPlayed = true;
+
             }
+        },
+
+        gotoZeroFrame: function(){
+            this._index = 0;
         }
+
     });
     return Sprite;
 });

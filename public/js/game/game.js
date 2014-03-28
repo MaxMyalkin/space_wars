@@ -7,10 +7,9 @@ function(Class, Player, GameMechanic, Resources, GameOver){
  /* TODO 
          */
     var Game = Class.$extend({
-         
-        __init__: function (){
-
-            this.resources = new Resources();
+    
+        __init__: function (res){
+            this.resources = res;
             //Константы
             this.DELAY = 50;
             this.GAME_WIDTH = 1024;
@@ -173,6 +172,11 @@ function(Class, Player, GameMechanic, Resources, GameOver){
             this.pauseFlag = false;
             this.stopped = false;
             this.setBtnText();
+
+            this.drawBulletImg();
+            this.setBulletInfo();
+            this.setShipInfo();
+            this.setScore();
         },
  
         pauseGame: function(){
@@ -230,31 +234,29 @@ function(Class, Player, GameMechanic, Resources, GameOver){
                 this.bonuses = [];
 	            this.keydown = [];
                 this.setBtnText();
-                this.setBulletInfo();
-                this.setShipInfo();
-                this.setScore();
+                
         },
 
         drawBulletImg: function(){
         	var canvas = document.getElementById("first_bullet");
-        	canvas.width = this.resources.firstTypeBonus.img.width
-        	canvas.height = this.resources.firstTypeBonus.img.height
-            context = canvas.getContext("2d");
-            context.drawImage(this.resources.firstTypeBonus.img,0,0)
-
-
-            canvas = document.getElementById("second_bullet");
         	canvas.width = this.resources.secondTypeBonus.img.width
         	canvas.height = this.resources.secondTypeBonus.img.height
             context = canvas.getContext("2d");
             context.drawImage(this.resources.secondTypeBonus.img,0,0)
 
 
-            canvas = document.getElementById("third_bullet");
+            canvas = document.getElementById("second_bullet");
         	canvas.width = this.resources.firstTypeBonus.img.width
         	canvas.height = this.resources.firstTypeBonus.img.height
             context = canvas.getContext("2d");
             context.drawImage(this.resources.firstTypeBonus.img,0,0)
+
+
+            canvas = document.getElementById("third_bullet");
+        	canvas.width = this.resources.secondTypeBonus.img.width
+        	canvas.height = this.resources.secondTypeBonus.img.height
+            context = canvas.getContext("2d");
+            context.drawImage(this.resources.secondTypeBonus.img,0,0)
         },
 
         setBulletInfo: function() {
