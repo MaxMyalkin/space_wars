@@ -9,6 +9,7 @@ function(Class, Player, GameMechanic, Resources, GameOver){
     var Game = Class.$extend({
          
         __init__: function (){
+
             this.resources = new Resources();
             //Константы
             this.DELAY = 50;
@@ -41,7 +42,7 @@ function(Class, Player, GameMechanic, Resources, GameOver){
             this.context.debug = false;														//режим отладки перенесен сюда
             this.player = new Player("#ffffff", this.GAME_WIDTH, this.GAME_HEIGHT, 
                  this.resources.player);
-                       
+
             var game = this;
             $(document).bind("keydown", function(event) {
                 game.keydown[String.fromCharCode(event.which).toLowerCase()] = true;
@@ -61,9 +62,12 @@ function(Class, Player, GameMechanic, Resources, GameOver){
             this.gameover = false;
             this.reloading(true);
            	this.setBtnText();
-           	this.setBulletInfo();
+
+           	this.drawBulletImg();
+            this.setBulletInfo();
            	this.setShipInfo();
            	this.setScore();
+           	
         },
 
         setBtnText: function() {
@@ -231,6 +235,28 @@ function(Class, Player, GameMechanic, Resources, GameOver){
                 this.setScore();
         },
 
+        drawBulletImg: function(){
+        	var canvas = document.getElementById("first_bullet");
+        	canvas.width = this.resources.firstTypeBonus.img.width
+        	canvas.height = this.resources.firstTypeBonus.img.height
+            context = canvas.getContext("2d");
+            context.drawImage(this.resources.firstTypeBonus.img,0,0)
+
+
+            canvas = document.getElementById("second_bullet");
+        	canvas.width = this.resources.secondTypeBonus.img.width
+        	canvas.height = this.resources.secondTypeBonus.img.height
+            context = canvas.getContext("2d");
+            context.drawImage(this.resources.secondTypeBonus.img,0,0)
+
+
+            canvas = document.getElementById("third_bullet");
+        	canvas.width = this.resources.firstTypeBonus.img.width
+        	canvas.height = this.resources.firstTypeBonus.img.height
+            context = canvas.getContext("2d");
+            context.drawImage(this.resources.firstTypeBonus.img,0,0)
+        },
+
         setBulletInfo: function() {
         	$('.first-bonus').html(this.player.bonusBullets[0]);
         	$('.second-bonus').html(this.player.bonusBullets[1]);
@@ -241,15 +267,19 @@ function(Class, Player, GameMechanic, Resources, GameOver){
         	$('#ship-hspeed').html(this.player.hspeed);
         	$('#ship-vspeed').html(this.player.vspeed);
         	$('#ship-multiplier').html(this.player.damageMultiplier);
-        	$('.first_bullet').attr('src' , '/images/ship/second/info.png');
-        	$('.second_bullet').attr('src' , '/images/ship/second/info.png');
-        	$('.third_bullet').attr('src' , '/images/ship/second/info.png');
+
+            canvas = document.getElementById("ship_img");
+            context = canvas.getContext("2d");
         	switch(this.player.type) {
         		case 0:
-        			$('#ship-img').attr('src' , '/images/ship/second/info.png');
+        			canvas.width = this.resources.firstTypeShip.img.width
+        			canvas.height = this.resources.firstTypeShip.img.height
+        			context.drawImage(this.resources.firstTypeShip.img,0,0)
         			break;
         		case 1:
-        			$('#ship-img').attr('src' , '/images/ship/first/info.png');
+        			canvas.width = this.resources.secondTypeShip.img.width
+        			canvas.height = this.resources.secondTypeShip.img.height
+        			context.drawImage(this.resources.secondTypeShip.img,0,0)
         			break;
         	}
         	

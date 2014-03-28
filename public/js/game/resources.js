@@ -19,20 +19,22 @@ function(Class,
 
 			this.player = [
 				[	
-					new Resource(47 , "/images/ship/second/direct.png" , true , 0 , 20 , 0.3 , 95 , 100 , false , [0 , 1 , 2 , 3] , true),
-					new Resource(47 ,"/images/ship/second/left.png" , true , 0 , 20 , 0.3 , 95 , 100 , false , [0 , 1 , 2 , 3] , true),
-					new Resource(47 ,"/images/ship/second/right.png" , true , 0 , 20 , 0.3 , 95 , 100 , false , [0 , 1 , 2 , 3] , true)
+					new Resource(47 , "/images/ship/first/direct.png" , true , 0 , 20 , 0.3 , 95 , 100 , false , [0 , 1 , 2 , 3] , true),
+					new Resource(47 ,"/images/ship/first/left.png" , true , 0 , 20 , 0.3 , 95 , 100 , false , [0 , 1 , 2 , 3] , true),
+					new Resource(47 ,"/images/ship/first/right.png" , true , 0 , 20 , 0.3 , 95 , 100 , false , [0 , 1 , 2 , 3] , true)
 				],
 				[
-					new Resource(73 , "/images/ship/first/direct.png" , true , 0 , 20 , 0.3 , 146 , 174 , false , [0 , 1 , 2 , 3 , 4, 3, 2, 1] , true),
-					new Resource(73 ,"/images/ship/first/left.png" , true , 0 , 20 , 0.3, 146 , 174 , false , [0 , 1 , 2 , 3 , 4, 3, 2, 1] , true),
-					new Resource(73 ,"/images/ship/first/right.png" , true , 0 , 20 , 0.3 , 146 , 174 , false , [0 , 1 , 2 , 3 , 4, 3, 2, 1] , true)
+					new Resource(73 , "/images/ship/second/direct.png" , true , 0 , 20 , 0.3 , 146 , 174 , false , [0 , 1 , 2 , 3 , 4, 3, 2, 1] , true),
+					new Resource(73 ,"/images/ship/second/left.png" , true , 0 , 20 , 0.3, 146 , 174 , false , [0 , 1 , 2 , 3 , 4, 3, 2, 1] , true),
+					new Resource(73 ,"/images/ship/second/right.png" , true , 0 , 20 , 0.3 , 146 , 174 , false , [0 , 1 , 2 , 3 , 4, 3, 2, 1] , true)
 				]
 			];
 
 			this.firstTypeBonus = new Resource(20 , "/images/bullet/firstbonus.png" , false , 10 , -5);
-			
 			this.secondTypeBonus = new Resource(20 , "/images/bullet/secondbonus.png" , false , 10 , 0);
+
+			this.firstTypeShip = new Resource(20 , "/images/ship/first/info.png" , false , 10 , -5);
+			this.secondTypeShip = new Resource(20 , "/images/ship/second/info.png" , false , 10 , 0);
 			
 			this.attackSound = new Sound("/sounds/attack.ogg", 5);
 
@@ -48,7 +50,6 @@ function(Class,
             			[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29] , true);
 
 			this.arrays = ResourceArray;
-			alert();
 			this.arrays.set("firstTypeBullet", new Resource(12 ,"/images/bullet/rocket.png" , true , 0 , -2 , 0.3 , 20 , 50 , false , [4 , 5 , 6 , 7, 6, 5, 4] , false), 30);
 
 
