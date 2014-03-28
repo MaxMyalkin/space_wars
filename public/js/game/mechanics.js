@@ -44,9 +44,9 @@ function(Class,
 
         update: function(game){
             if (game.asteroidTimer == game.ASTEROID_TIMEOUT) {
-                if (game.level < 2.5 )
-                    game.level += 0.05;
-                for (var i = 0; i < game.level; i++)
+                if (game.level < 2.5)
+                    game.level += 0.025;
+                for (var i = 0; i < game.level - 1; i++)
                     this.createAsteroid(game);
             }
 
