@@ -23,6 +23,7 @@ function(Class, Player, GameMechanic, Resources, GameOver){
             this.BONUS_TIMEOUT = 500;
  			this.BONUS_TERMINATE = 200 
             //Переменные
+            this.level = 0;
             this.bulletTimer = 0;
             this.asteroidTimer = 0;
             this.bonusTimer = 0;         

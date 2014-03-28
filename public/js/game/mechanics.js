@@ -10,8 +10,14 @@ function(Class,
  ){
 
     var GameMechanic = Class.$extend({
-        
+        sortArray: function(array){
+                array.sort(function(a,b){
+                return b - a;
+            })
+        },
+
         deleteObjectArray: function (object, array) {
+            this.sortArray(array);
             for (var i = 0; i < array.length; i++) {
                     this.deleteObject(object, array[i]);
             };
@@ -37,11 +43,16 @@ function(Class,
         },
 
         update: function(game){
+            if (game.asteroidTimer == game.ASTEROID_TIMEOUT) {
+                if (game.level < 2.5 )
+                    game.level += 0.05;
+                for (var i = 0; i < game.level; i++)
+                    this.createAsteroid(game);
+            }
+
             if (game.asteroidTimer % 1 === 0)
                 this.collisionTest(game);
-            if (game.asteroidTimer == game.ASTEROID_TIMEOUT) {
-                this.createAsteroid(game);
-            }
+            
             if (game.bonusTimer == game.BONUS_TIMEOUT) {
                 this.createBonus(game);
             }
@@ -49,12 +60,14 @@ function(Class,
             for (var i = 0; i < game.asteroids.length; i++)  
             {
                 game.asteroids[i].y += game.asteroids[i].speedY;
+                
                 if (this.collision(game.player, game.asteroids[i], 0.95)){
 
                     game.resources.bangSound.playSound();
                     game.gameover = true;
                     game.endGame();
                 }
+                
                 
             }
 
@@ -133,9 +146,8 @@ function(Class,
 
         createAsteroid: function(game){
             game.asteroidTimer = 0;
-            var asteroid = new Asteroid("#ffffff", game.GAME_WIDTH, 0 , game.resources, game.ASTEROID_SPEED); 
+            var asteroid = new Asteroid("#ffffff", game.GAME_WIDTH, 0 , game.resources, game.ASTEROID_SPEED*game.level); 
             game.asteroids.push(asteroid);
-            delete asteroid;
         },
 
         createBonus: function(game){
