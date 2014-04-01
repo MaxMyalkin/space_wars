@@ -10,7 +10,6 @@ function(Class, Player, GameMechanic, Resources, GameOver){
     
         __init__: function (){
             this.resources = new Resources();
-            //alert('a');
             //Константы
 
             this.DELAY = 50;
@@ -218,7 +217,7 @@ function(Class, Player, GameMechanic, Resources, GameOver){
 	        this.context.font = "bold " + this.FONT_SIZE + "px sans-serif"; 
             if(this.stopped)
             {
-	            this.context.fillText("Qlik play button" ,this.GAME_WIDTH / 2 - this.FONT_SIZE * 4, this.GAME_HEIGHT / 2);
+	            this.context.fillText("Click play button" ,this.GAME_WIDTH / 2 - this.FONT_SIZE * 4, this.GAME_HEIGHT / 2);
 	            return;
        		}
         	if(this.pauseFlag) {
@@ -245,7 +244,6 @@ function(Class, Player, GameMechanic, Resources, GameOver){
                 this.bonuses = [];
 	            this.keydown = [];
                 this.stoppedFunc();
-                //this.setBtnText();
 
                 
         },

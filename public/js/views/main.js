@@ -17,7 +17,8 @@ define([
             this.hide();
         },
         render: function () {
-             this.$el.html(this.template);            
+             this.$el.html(this.template);
+             $('#LLLoading').hide();            
         },
         show: function () {
             $.event.trigger({
