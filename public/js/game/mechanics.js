@@ -61,11 +61,14 @@ function(Class,
             {
                 game.asteroids[i].y += game.asteroids[i].speedY;
                 
-                if (this.collision(game.player, game.asteroids[i], 0.95)){
+                if (game.context.debug != true)
+                {
+                    if (this.collision(game.player, game.asteroids[i], 0.95)){
 
-                    game.resources.bangSound.playSound();
-                    game.gameover = true;
-                    game.endGame();
+                        game.resources.bangSound.playSound();
+                        game.gameover = true;
+                        game.endGame();
+                    }
                 }
                 
                 

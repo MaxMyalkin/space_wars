@@ -8,8 +8,9 @@ function(Class, Player, GameMechanic, Resources, GameOver){
          */
     var Game = Class.$extend({
     
-        __init__: function (res){
-            this.resources = res;
+        __init__: function (){
+            this.resources = new Resources();
+            //alert('a');
             //Константы
             this.DELAY = 50;
             this.GAME_WIDTH = 1024;
@@ -21,7 +22,7 @@ function(Class, Player, GameMechanic, Resources, GameOver){
             this.ASTEROID_TIMEOUT = 50;
             this.BULLET_TIMEOUT = 25;
             this.BONUS_TIMEOUT = 500;
- 			this.BONUS_TERMINATE = 200 
+ 			this.BONUS_TERMINATE = 200;
             //Переменные
             this.level = 1;
             this.bulletTimer = 0;
@@ -56,7 +57,13 @@ function(Class, Player, GameMechanic, Resources, GameOver){
             this.pauseBtn = $("#pause");
             this.pauseBtn.click(this.pauseGame.bind(game));
             this.backBtn = $("#backBtn");
-            this.backBtn.click(this.endGame.bind(game));
+            this.backBtn.click(
+                function(){
+                    game.context.clearRect(0, 0, game.GAME_WIDTH, game.GAME_HEIGHT);
+                    game.endGame.bind(game);
+                    game.stopped = true;
+                }
+                );
             this.interval;
             this.gameOverForm = new GameOver();
             this.gameover = false;
@@ -71,7 +78,6 @@ function(Class, Player, GameMechanic, Resources, GameOver){
         },
 
         setBtnText: function() {
-        	
         	if (this.pauseFlag) {
         		this.pauseBtn.html("Continue");
         	}
@@ -209,7 +215,7 @@ function(Class, Player, GameMechanic, Resources, GameOver){
 	        this.context.font = "bold " + this.FONT_SIZE + "px sans-serif"; 
             if(this.stopped)
             {
-	            this.context.fillText("Click play" ,this.GAME_WIDTH / 2 - this.FONT_SIZE * 3, this.GAME_HEIGHT / 2);
+	            this.context.fillText("Qlik play" ,this.GAME_WIDTH / 2 - this.FONT_SIZE * 3, this.GAME_HEIGHT / 2);
 	            return;
        		}
         	if(this.pauseFlag) {
@@ -293,6 +299,6 @@ function(Class, Player, GameMechanic, Resources, GameOver){
         }
  
     });
-     
+    
     return Game;
 });

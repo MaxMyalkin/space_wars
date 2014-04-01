@@ -17,9 +17,13 @@ define([
         template: tmpl,
         _name: "game",
         initialize: function () {
-            this.hide();
-            // ... 
+            this.render();
             this.resources = new Resource();
+            this.game = new Game(this.resources);
+            this.$el.hide();
+            // ... 
+            
+            
             // ...
         },
         render: function () {
@@ -27,9 +31,8 @@ define([
             $(".overlay").hide();
         },
         show: function () {
-
-            this.render();
-            this.game = Game(this.resources); 
+            //this.render();
+            this.game;
             $.event.trigger({
                 type: "show",
                 _name: this._name
@@ -37,7 +40,6 @@ define([
             this.$el.show();
         },
         hide: function () {
-        	this.game = null;
             this.$el.hide();
         }
  

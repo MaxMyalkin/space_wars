@@ -24,8 +24,8 @@ define([
 
         render: function (score) {
             this.$el.html(this.template({score: score}));
-            var game = this;
-            $('.btn_close').click( function() { game.hide() } );
+            var gameOverForm = this;
+            $('.btn_close').click( function() { gameOverForm.hide() } );
             $('#gameOverForm').on("submit" , postScores);
         },
 
