@@ -77,7 +77,9 @@ define([
                     }
                     $('.btn').prop("disabled", false);
                 }
-            })     
+            });
+            $('.overlay').hide();
+            $('#gameOver').hide();
     }
 
     return View;

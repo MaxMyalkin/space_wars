@@ -39,6 +39,5 @@ define([
  
     });
 
-    var view = new View();
-    return view;
+    return new View();
 });

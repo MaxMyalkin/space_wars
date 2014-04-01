@@ -32,6 +32,7 @@ function(Class,
 
 			this.firstTypeBonus = new Resource(20 , "/images/bullet/firstbonus.png" , false , 10 , -5);
 			this.secondTypeBonus = new Resource(20 , "/images/bullet/secondbonus.png" , false , 10 , 0);
+			this.bullet = new Resource(20 , "/images/bullet/bullet.png" , false , 10 , 0);
 
 			this.firstTypeShip = new Resource(20 , "/images/ship/first/info.png" , false , 10 , -5);
 			this.secondTypeShip = new Resource(20 , "/images/ship/second/info.png" , false , 10 , 0);
@@ -42,7 +43,7 @@ function(Class,
 
 			this.arrays = ResourceArray;
 
-			this.arrays.set("firstTypeBullet", 12 ,"/images/bullet/rocket.png" , true , 0 , -2 , 0.3 , 20 , 50 , false , [4 , 5 , 6 , 7, 6, 5, 4] , false, 5);
+			this.arrays.set("firstTypeBullet", 12 ,"/images/bullet/rocket2.png" , true , 0 , -2 , 0.3 , 20 , 50 , false , [4 , 5 , 6 , 7] , false, 5);
 			this.arrays.set("secondTypeBullet", 12 , "/images/bullet/rocket.png" , true , -2 , 0 , 0.3 , 20 , 50 , false , [0 , 1 , 2 , 3] , false, 5);
 			this.arrays.set("thirdTypeBullet", 12 ,"/images/bullet/rocket.png" , true , -2 , 0 , 0.3 , 20 , 50 , false , [4 , 5 , 6 , 7] , false, 5);
 			

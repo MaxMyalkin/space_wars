@@ -52,7 +52,6 @@ define([
         hide: function () {
         	this.$el.hide();
         }
- 
     });
 
     

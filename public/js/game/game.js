@@ -63,6 +63,7 @@ function(Class, Player, GameMechanic, Resources, GameOver){
                     game.context.clearRect(0, 0, game.GAME_WIDTH, game.GAME_HEIGHT);
                     game.endGame.bind(game);
                     game.stopped = true;
+                    game.setBtnText();
                 }
                 );
             this.interval;
@@ -174,6 +175,7 @@ function(Class, Player, GameMechanic, Resources, GameOver){
             if (this.pauseFlag)
                 this.reloading(true);
             this.gameover = false;
+
         	this.endGame();
             this.pauseFlag = false;
             this.stopped = false;
@@ -216,7 +218,7 @@ function(Class, Player, GameMechanic, Resources, GameOver){
 	        this.context.font = "bold " + this.FONT_SIZE + "px sans-serif"; 
             if(this.stopped)
             {
-	            this.context.fillText("Click play button" ,this.GAME_WIDTH / 2 - this.FONT_SIZE * 4, this.GAME_HEIGHT / 2);
+	            this.context.fillText("Qlik play button" ,this.GAME_WIDTH / 2 - this.FONT_SIZE * 4, this.GAME_HEIGHT / 2);
 	            return;
        		}
         	if(this.pauseFlag) {
@@ -229,6 +231,7 @@ function(Class, Player, GameMechanic, Resources, GameOver){
                 if (this.gameover) {
                 	this.gameOverForm.show(this.player.score);
                 }
+                this.level = 1;
 	            this.asteroidTimer = 0;
                 this.bulletTimer = 0;
 	            this.player.score = 0;
@@ -241,16 +244,24 @@ function(Class, Player, GameMechanic, Resources, GameOver){
 	            this.bangs = [];
                 this.bonuses = [];
 	            this.keydown = [];
-                this.setBtnText();
+                this.stoppedFunc();
+                //this.setBtnText();
+
                 
+        },
+
+        stoppedFunc: function(){
+            this.context.clearRect(0, 0, this.GAME_WIDTH, this.GAME_HEIGHT);
+            this.stopped = true;
+            this.setBtnText();
         },
 
         drawBulletImg: function(){
         	var canvas = document.getElementById("first_bullet");
-        	canvas.width = this.resources.secondTypeBonus.img.width
-        	canvas.height = this.resources.secondTypeBonus.img.height
+        	canvas.width = this.resources.bullet.img.width
+        	canvas.height = this.resources.bullet.img.height
             context = canvas.getContext("2d");
-            context.drawImage(this.resources.secondTypeBonus.img,0,0)
+            context.drawImage(this.resources.bullet.img,0,0)
 
 
             canvas = document.getElementById("second_bullet");
