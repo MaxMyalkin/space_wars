@@ -18,20 +18,14 @@ define([
         _name: "game",
         initialize: function () {
             this.render();
-            this.resources = new Resource();
-            this.game = new Game(this.resources);
+            this.game = new Game();
             this.$el.hide();
-            // ... 
-            
-            
-            // ...
         },
         render: function () {
             this.$el.html(this.template);      
             $(".overlay").hide();
         },
         show: function () {
-            //this.render();
             this.game;
             $.event.trigger({
                 type: "show",

@@ -22,24 +22,27 @@ define([
             Storage.update();
             Scoreboard.url = "/scores";
             Scoreboard.fetch();
-            this.$el.html('<img src="/images/ajax-loader.gif" alt="Loading..." />');        
+            this.$el.html('<img src="/images/ajax-loader.gif" alt="Loading..." />');
             var self = this;
-            $.ajax({
-                url : '/scores?limit=10',
-                type: 'get',
-                dataType: 'JSON',
-                
-                success: function(response) {
-                    self.$el.html(self.template({scoreboard: response}));
-                    $("#scoreError").html("");
-                    self.$el.show();
-                },
+            setTimeout(function() {
+                $.ajax({
+                    url : '/scores?limit=10',
+                    type: 'get',
+                    dataType: 'JSON',
+                    
+                    success: function(response) {
+                        self.$el.html(self.template({scoreboard: response}));
+                        $("#scoreError").html("");
+                        self.$el.show();
+                    },
 
-                error: function(response){
-                	self.hide();
-                    $("#scoreError").html("Server unreachable");
-                }
-            })
+                    error: function(response){
+                        self.hide();
+                        $("#scoreError").html("Server unreachable");
+                    }
+                })
+            },1000)        
+            
         },
 
         show: function () {
