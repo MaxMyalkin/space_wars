@@ -6,28 +6,28 @@ define([
     Backbone,
     tmpl,
     viewManager
-){
+) {
 
     var View = Backbone.View.extend({
         template: tmpl,
         el: "#main",
         _name: "main",
-        initialize: function () {
+        initialize: function() {
             this.render();
             this.hide();
         },
-        render: function () {
-             this.$el.html(this.template);         
+        render: function() {
+            this.$el.html(this.template);
         },
-        show: function () {
+        show: function() {
             $.event.trigger({
                 type: "show",
                 _name: this._name
-            }); 
+            });
             this.$el.show();
             $('#LLLoading').hide();
         },
-        hide: function () {
+        hide: function() {
             this.$el.hide();
         }
 

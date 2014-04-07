@@ -1,23 +1,23 @@
-define(['classy'], 
-function(Class){
-	var Sound = Class.$extend({
-		__init__: function(src, times){
-			this.array = [];
-			
-			for (var i = 0; i < times; i++){
-				var sound = new Audio();
-				sound.src = src;
-				this.array.push(sound);
-			}
-			this.currentSound = 0;
-		},
+define(['classy'],
+    function(Class) {
+        var Sound = Class.$extend({
+            __init__: function(src, times) {
+                this.array = [];
 
-		playSound: function(){
-			this.array[this.currentSound].play();
-			this.currentSound = (this.currentSound + 1) % this.array.length;
-		}
+                for (var i = 0; i < times; i++) {
+                    var sound = new Audio();
+                    sound.src = src;
+                    this.array.push(sound);
+                }
+                this.currentSound = 0;
+            },
 
-	});
-	
-	return Sound;
-});
+            playSound: function() {
+                this.array[this.currentSound].play();
+                this.currentSound = (this.currentSound + 1) % this.array.length;
+            }
+
+        });
+
+        return Sound;
+    });

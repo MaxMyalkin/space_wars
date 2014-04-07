@@ -1,4 +1,4 @@
-module.exports = function (grunt) {
+module.exports = function(grunt) {
     grunt.initConfig({
         watch: {
             fest: {
@@ -9,11 +9,11 @@ module.exports = function (grunt) {
                 }
             },
             express: {
-                files:  [
+                files: [
                     'routes/**/*.js',
                     'app.js'
                 ],
-                tasks:  [ 'express' ],
+                tasks: ['express'],
                 options: {
                     spawn: false
                 }
@@ -47,10 +47,11 @@ module.exports = function (grunt) {
                     dest: 'public/js/tmpl'
                 }],
                 options: {
-                    template: function (data) {
+                    template: function(data) {
                         return grunt.template.process(
-                            'define(function () { return <%= contents %> ; });',
-                            {data: data}
+                            'define(function () { return <%= contents %> ; });', {
+                                data: data
+                            }
                         );
                     }
                 }

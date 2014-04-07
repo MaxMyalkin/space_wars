@@ -1,12 +1,10 @@
-define([
-], function(
-){
-    function getID(){
+define([], function() {
+    function getID() {
         var curID = getJSON("id");
-        if (curID === null){
+        if (curID === null) {
             setJSON("id", 0);
             return 0;
-        }else{
+        } else {
             setJSON("id", Number(curID) + 1);
             return Number(curID) + 1;
         }
@@ -21,18 +19,17 @@ define([
         return value ? JSON.parse(value) : [];
     }
 
-    function update(){
+    function update() {
         var scores = getJSON('scores');
-        if (scores != null){
-            for (var i = scores.length - 1; i >= 0; i--)
-            {
+        if (scores != null) {
+            for (var i = scores.length - 1; i >= 0; i--) {
                 $.ajax({
-                    url : '/scores',
+                    url: '/scores',
                     type: 'post',
                     dataType: 'JSON',
+                    async: false,
                     data: scores[i],
-                    success: function(response)
-                    {
+                    success: function(response) {
                         scores.splice(i, 1);
                         setJSON("scores", scores);
                     }
@@ -40,7 +37,7 @@ define([
             }
 
         }
-        
+
     }
 
     return {

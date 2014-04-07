@@ -10,33 +10,33 @@ define([
     Game,
     ViewManager,
     Resource
-){
- 
+) {
+
     var View = Backbone.View.extend({
         el: "#game",
         template: tmpl,
         _name: "game",
-        initialize: function () {
+        initialize: function() {
             this.render();
             this.game = new Game();
             this.$el.hide();
         },
-        render: function () {
-            this.$el.html(this.template);      
+        render: function() {
+            this.$el.html(this.template);
             $(".overlay").hide();
         },
-        show: function () {
+        show: function() {
             this.game;
             $.event.trigger({
                 type: "show",
                 _name: this._name
-            }); 
+            });
             this.$el.show();
         },
-        hide: function () {
+        hide: function() {
             this.$el.hide();
         }
- 
+
     });
 
     return new View();

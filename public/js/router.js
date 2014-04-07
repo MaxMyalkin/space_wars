@@ -1,15 +1,15 @@
 define(['backbone',
- 'views/main', 
- 'views/scoreboard', 
- 'views/game',
- 'views/viewManager'
+    'views/main',
+    'views/scoreboard',
+    'views/game',
+    'views/viewManager'
 
-], function(Backbone, 
-    mainScreen, 
-    scoreboardScreen, 
+], function(Backbone,
+    mainScreen,
+    scoreboardScreen,
     gameScreen,
     viewManager
-){
+) {
     var currentScreen = "";
     var Router = Backbone.Router.extend({
         routes: {
@@ -18,17 +18,17 @@ define(['backbone',
             '*default': 'defaultActions'
         },
         initialize: function() {
-        	this.viewManager = viewManager; 
+            this.viewManager = viewManager;
         },
-        defaultActions: function () {
+        defaultActions: function() {
             viewManager.addView(mainScreen._name, mainScreen);
-	        mainScreen.show();
+            mainScreen.show();
         },
-        scoreboardAction: function () {
+        scoreboardAction: function() {
             viewManager.addView(scoreboardScreen._name, scoreboardScreen);
             scoreboardScreen.show();
         },
-        gameAction: function () {
+        gameAction: function() {
             viewManager.addView(gameScreen._name, gameScreen);
             gameScreen.show();
         }
