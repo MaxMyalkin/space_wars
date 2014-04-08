@@ -7,7 +7,7 @@
    		<div id="loading"><img src="/images/ajax-loader.gif" alt="Loading..." /></div>
         <div id="scoreTable"></div>
 
-    	<a href="/#" class="btn btn_small">&#9668 BACK</a>
+    	<a href="/#" class="btn_small">&#9668 BACK</a>
         <div id="scoreError"></div>
     </div>
 

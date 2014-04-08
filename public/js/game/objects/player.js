@@ -51,22 +51,29 @@ define(['game/objects/object',
 
             updateSpeed: function(left, right, up, down) {
 
-                if (this.leftspeed + left <= this.maxhspeed && this.leftspeed + left >= 0) {
-                    this.leftspeed += left;
-                }
+                this.leftspeed += left;
+                if (this.leftspeed > this.maxhspeed)
+                    this.leftspeed = this.maxhspeed;
+                if (this.leftspeed < 0)
+                    this.leftspeed = 0;
 
-                if (this.rightspeed + right <= this.maxhspeed && this.rightspeed + right >= 0) {
-                    this.rightspeed += right;
-                }
+                this.rightspeed += right;
+                if (this.rightspeed > this.maxhspeed)
+                    this.rightspeed = this.maxhspeed;
+                if (this.rightspeed < 0)
+                    this.rightspeed = 0;
 
-                if (this.frontspeed + up <= this.maxvspeed && this.frontspeed + up >= 0) {
-                    this.frontspeed += up;
-                }
+                this.frontspeed += up;
+                if (this.frontspeed > this.maxvspeed)
+                    this.frontspeed = this.maxvspeed;
+                if (this.frontspeed < 0)
+                    this.frontspeed = 0;
 
-                if (this.backspeed + down <= this.maxvspeed && this.backspeed + down >= 0) {
-                    this.backspeed += down;
-                }
-
+                this.backspeed += down;
+                if (this.backspeed > this.maxvspeed)
+                    this.backspeed = this.maxvspeed;
+                if (this.backspeed < 0)
+                    this.backspeed = 0;
             },
 
             setProperties: function() {
@@ -75,11 +82,15 @@ define(['game/objects/object',
                         this.maxhspeed = 10;
                         this.maxvspeed = 10;
                         this.damageMultiplier = 1;
+                        this.acceleration = 0.5;
+                        this.deceleration = 0.3;
                         break;
                     case 1:
-                        this.maxhspeed = 15;
-                        this.maxvspeed = 15;
+                        this.maxhspeed = 7;
+                        this.maxvspeed = 7;
                         this.damageMultiplier = 2;
+                        this.acceleration = 0.3;
+                        this.deceleration = 0.4;
                         break;
                 }
             },

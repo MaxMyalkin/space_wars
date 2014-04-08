@@ -14,6 +14,13 @@ module.exports = function(grunt) {
         },
 
         watch: {
+            sass: {
+                files: ['public/css/*.scss'],
+                tasks: ['sass'],
+                options: {
+                    atBegin: true
+                }
+            },
             fest: {
                 files: ['templates/*.xml'],
                 tasks: ['fest'],
@@ -33,8 +40,7 @@ module.exports = function(grunt) {
             },
             server: {
                 files: [
-                    'public/js/**/*.js',
-                    'public/css/**/*.css'
+                    'public/js/**/*.js'
                 ],
                 options: {
                     interrupt: true,

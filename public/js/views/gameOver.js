@@ -51,42 +51,46 @@ define([
         var data = $(this).serialize();
         var name = $("#nameField").val();
         var score = $("#scoreField").val();
-        var player = new Score({
-            name: name,
-            score: score
-        });
-        Scoreboard.add(player);
-        player = {
-            'name': name,
-            'score': score
-        }
-        $('.btn').prop("disabled", true);
-        $.ajax({
-            url: '/scores',
-            type: 'post',
-            data: data,
-            dataType: 'json',
-            success: function(response) {
-                $('.btn').prop("disabled", false);
-                window.location = "/#scoreboard";
-                $('.overlay').hide();
-                $('#gameOver').hide();
-            },
-
-            error: function(response) {
-                if (response.status === 400) {
-                    $("#formError").html("Type your name");
-                } else {
+        if (name == '') {
+            $("#formError").html("Type your name");
+        } else {
+            var player = new Score({
+                name: name,
+                score: score
+            });
+            Scoreboard.add(player);
+            player = {
+                'name': name,
+                'score': score
+            }
+            $('.btn').prop("disabled", true);
+            $('#nameField').prop("disabled", true);
+            $.ajax({
+                url: '/scores',
+                type: 'post',
+                data: data,
+                dataType: 'json',
+                success: function(response) {
+                    $('.btn').prop("disabled", false);
+                    window.location = "/#scoreboard";
+                    $('.btn').prop("disabled", false);
+                    $('#nameField').prop("disabled", false);
+                    $('.overlay').hide();
+                    $('#gameOver').hide();
+                },
+                error: function(response) {
                     var scores = Storage.getJSON('scores');
                     scores.push(player);
                     Storage.setJSON('scores', scores);
                     window.location = "/#scoreboard";
+                    $('.btn').prop("disabled", false);
+                    $('#nameField').prop("disabled", false);
                     $('.overlay').hide();
                     $('#gameOver').hide();
                 }
-                $('.btn').prop("disabled", false);
-            }
-        });
+            });
+
+        }
 
     }
 
