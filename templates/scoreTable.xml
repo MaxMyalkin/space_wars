@@ -1,14 +1,13 @@
 <fest:template xmlns:fest="http://fest.mail.ru"
     context_name="json">
     <table class="menu__table">
-            <theader>
+            <thead>
                 <tr>
                     <th>#</th>
                     <th>Name</th>
                     <th>Score</th>
                 </tr>
-                
-            </theader>
+            </thead>
             <tbody>
                 <fest:for iterate="json.scoreboard" index="i">
                     <tr>

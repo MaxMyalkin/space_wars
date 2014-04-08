@@ -8,10 +8,8 @@ define(['classy',
         /* TODO 
  выбор звука в зависимости от браузера
  сделать нормальную загрузку в начале игры
- отображать текущую сложность
  не пускать по 2/3 одинаковых астероида одновременно
  что-то сделать со взрывами? взрывают корабль к примеру или другие астероиды
- моргание астероидов при попадании ракеты
          */
 
         var Game = Class.$extend({
@@ -31,8 +29,6 @@ define(['classy',
                 this.BULLET_TIMEOUT = 25;
                 this.BONUS_TIMEOUT = 500;
                 this.BONUS_TERMINATE = 200;
-                this.acceleration = 0.5;
-                this.deceleration = 0.3;
                 //Переменные
                 this.level = 1;
                 this.bulletTimer = 0;
@@ -50,7 +46,7 @@ define(['classy',
                 canvas.height = this.GAME_HEIGHT;
                 this.context = canvas.getContext("2d");
                 this.context.fillStyle = "#ffffff";
-                this.context.debug = false; //режим отладки перенесен сюда
+                this.context.debug = true; //режим отладки перенесен сюда
                 this.player = new Player("#ffffff", this.GAME_WIDTH, this.GAME_HEIGHT,
                     this.resources.player);
 
@@ -105,20 +101,20 @@ define(['classy',
 
                     if (this.keydown["a"]) {
                         this.player.resource = this.resources.player[this.player.type][1];
-                        this.player.updateSpeed(this.acceleration, 0, 0, 0);
+                        this.player.updateSpeed(this.player.acceleration, 0, 0, 0);
                     }
 
                     if (!this.keydown["a"]) {
-                        this.player.updateSpeed(-this.deceleration, 0, 0, 0);
+                        this.player.updateSpeed(-this.player.deceleration, 0, 0, 0);
                     }
 
                     if (this.keydown["d"]) {
                         this.player.resource = this.resources.player[this.player.type][2];
-                        this.player.updateSpeed(0, this.acceleration, 0, 0);
+                        this.player.updateSpeed(0, this.player.acceleration, 0, 0);
                     }
 
                     if (!this.keydown["d"]) {
-                        this.player.updateSpeed(0, -this.deceleration, 0, 0);
+                        this.player.updateSpeed(0, -this.player.deceleration, 0, 0);
                     }
 
                     if (this.keydown["p"]) {
@@ -133,18 +129,18 @@ define(['classy',
                     }
 
                     if (!this.keydown["w"]) {
-                        this.player.updateSpeed(0, 0, -this.deceleration, 0);
+                        this.player.updateSpeed(0, 0, -this.player.deceleration, 0);
                     }
 
                     if (!this.keydown["s"]) {
-                        this.player.updateSpeed(0, 0, 0, -this.deceleration);
+                        this.player.updateSpeed(0, 0, 0, -this.player.deceleration);
                     }
 
                     if (this.keydown["w"]) {
-                        this.player.updateSpeed(0, 0, this.acceleration, 0);
+                        this.player.updateSpeed(0, 0, this.player.acceleration, 0);
                     }
                     if (this.keydown["s"]) {
-                        this.player.updateSpeed(0, 0, 0, this.acceleration);
+                        this.player.updateSpeed(0, 0, 0, this.player.acceleration);
                     }
 
                     if (this.keydown["q"]) {
@@ -311,10 +307,22 @@ define(['classy',
                 $('.second-bonus').html(this.player.bonusBullets[1]);
             },
 
+            setLevelInfo: function() {
+                var load = (this.level - 1) / 0.015 + '%';
+                var load_el = $('.info__level');
+                if (parseInt(load) <= 100)
+                    load_el.css('background-color', 'red');
+                if (parseInt(load) < 70)
+                    load_el.css('background-color', 'yellow');
+                if (parseInt(load) < 40)
+                    load_el.css('background-color', 'green');
+                load_el.width(load);
+            },
+
             setShipInfo: function() {
                 $('#ship-size').html(this.player.resource.radius);
-                $('#ship-hspeed').html(this.player.hspeed);
-                $('#ship-vspeed').html(this.player.vspeed);
+                $('#ship-hspeed').html(this.player.maxhspeed);
+                $('#ship-vspeed').html(this.player.maxvspeed);
                 $('#ship-multiplier').html(this.player.damageMultiplier);
 
                 canvas = document.getElementById("ship_img");

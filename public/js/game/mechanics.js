@@ -33,7 +33,7 @@ define(['classy',
 
                     //---------------------------------------------------------------------------------------
 
-                    if (object[i].damaged && object[i].whileDamaged > object[i].damagedTimeout){
+                    if (object[i].damaged && object[i].whileDamaged > object[i].damagedTimeout) {
                         object[i].initDamaged();
                         object[i].resource = object[i].normalRes;
                     }
@@ -52,8 +52,11 @@ define(['classy',
             update: function(game) {
 
                 if (game.asteroidTimer == game.ASTEROID_TIMEOUT) {
-                    if (game.level < 2.5)
+                    if (game.level < 2.5) {
                         game.level += 0.025;
+                        game.setLevelInfo();
+                    }
+
                     for (var i = 0; i < game.level - 1; i++)
                         this.createAsteroid(game);
                 }
@@ -70,7 +73,7 @@ define(['classy',
 
                     //-----------------------------------------------------------------------------------------------------
 
-                    if (game.asteroids[i].damaged){
+                    if (game.asteroids[i].damaged) {
                         game.asteroids[i].whileDamaged += 1;
                     }
 
@@ -112,7 +115,7 @@ define(['classy',
 
                             game.asteroids[j].resource = game.asteroids[j].damagedRes;
                             game.asteroids[j].damaged = true;
-                            
+
                             //------------------------------------------------------------------------------
 
                             if (game.asteroids[j].health <= game.player.bullets[i].damage) {
