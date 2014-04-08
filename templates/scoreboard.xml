@@ -3,6 +3,8 @@
     <div class="menu">
     	<h1 class="header header_blue">Space wars</h1>
     	<h1 class="menu__title">SCORE BOARD</h1>
+
+   		<div id="loading"><img src="/images/ajax-loader.gif" alt="Loading..." /></div>
         <div id="scoreTable"></div>
 
     	<a href="/#" class="btn btn_small">&#9668 BACK</a>

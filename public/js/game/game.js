@@ -40,7 +40,7 @@ function(Class, Player, GameMechanic, Resources, GameOver){
             canvas.height = this.GAME_HEIGHT;
             this.context = canvas.getContext("2d");
             this.context.fillStyle = "#ffffff";
-            this.context.debug = false;														//режим отладки перенесен сюда
+            this.context.debug = true;														//режим отладки перенесен сюда
             this.player = new Player("#ffffff", this.GAME_WIDTH, this.GAME_HEIGHT, 
                  this.resources.player);
 
@@ -250,6 +250,7 @@ function(Class, Player, GameMechanic, Resources, GameOver){
 
         stoppedFunc: function(){
             this.context.clearRect(0, 0, this.GAME_WIDTH, this.GAME_HEIGHT);
+            this.setScore();
             this.stopped = true;
             this.setBtnText();
         },
