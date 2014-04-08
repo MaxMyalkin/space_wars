@@ -13,6 +13,10 @@ define(['classy',
                 //radius, src , isAnimation , dx , dy , speed , width , height , singleAnimation , frames
                 this.smallAsteroid = new Resource(23, "/images/asteroid/smallAsteroid.png", false, 0, 2);
 
+                this.bigAsteroidDamaged = new Resource(47, "/images/asteroid/bigDamaged.png", false, 0, 0);
+                this.mediumAsteroidDamaged = new Resource(47, "/images/asteroid/bigDamaged.png", false, 0, 0);
+                this.smallAsteroidDamaged = new Resource(47, "/images/asteroid/bigDamaged.png", false, 0, 0);
+
                 this.bigAsteroid = new Resource(47, "/images/asteroid/bigAsteroid.png", false, 0, 0);
 
                 this.mediumAsteroid = new Resource(40, "/images/asteroid/mediumAsteroid.png", false, 0, 0);

@@ -14,7 +14,8 @@ define([
         template: tmpl,
         el: "#scoreTable",
 
-        initialize: function() {
+        initialize: function () {
+            $("#loading").hide();
             _.bindAll(this, "render", "show", "hide");
         },
 
@@ -22,7 +23,9 @@ define([
             Storage.update();
             Scoreboard.url = "/scores";
             Scoreboard.fetch();
-            this.$el.html('<img src="/images/ajax-loader.gif" alt="Loading..." />');
+            $("#loading").show();
+            $("#scoreError").html("");
+            this.$el.hide();
             var self = this;
             setTimeout(function() {
                 $.ajax({
@@ -31,16 +34,19 @@ define([
                     dataType: 'JSON',
 
                     success: function(response) {
+
                         self.$el.html(self.template({
                             scoreboard: response
                         }));
                         $("#scoreError").html("");
                         self.$el.show();
+                        $("#loading").hide();
                     },
 
                     error: function(response) {
                         self.hide();
                         $("#scoreError").html("Server unreachable");
+                        $("#loading").hide();
                     }
                 })
             }, 1000)
