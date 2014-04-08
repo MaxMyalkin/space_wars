@@ -14,8 +14,8 @@ define(['classy',
                 this.smallAsteroid = new Resource(23, "/images/asteroid/smallAsteroid.png", false, 0, 2);
 
                 this.bigAsteroidDamaged = new Resource(47, "/images/asteroid/bigDamaged.png", false, 0, 0);
-                this.mediumAsteroidDamaged = new Resource(47, "/images/asteroid/bigDamaged.png", false, 0, 0);
-                this.smallAsteroidDamaged = new Resource(47, "/images/asteroid/bigDamaged.png", false, 0, 0);
+                this.mediumAsteroidDamaged = new Resource(40, "/images/asteroid/mediumDamaged.png", false, 0, 0);
+                this.smallAsteroidDamaged = new Resource(23, "/images/asteroid/smallDamaged.png", false, 0, 2);
 
                 this.bigAsteroid = new Resource(47, "/images/asteroid/bigAsteroid.png", false, 0, 0);
 

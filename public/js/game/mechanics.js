@@ -34,7 +34,7 @@ define(['classy',
                     //---------------------------------------------------------------------------------------
 
                     if (object[i].damaged && object[i].whileDamaged > object[i].damagedTimeout){
-                        object[i].initDamaged;
+                        object[i].initDamaged();
                         object[i].resource = object[i].normalRes;
                     }
 

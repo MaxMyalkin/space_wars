@@ -26,7 +26,7 @@ define(['game/objects/object'],
 
 //----------------------------------------------------------------------------------------------------------------------------------------
                 
-                this.initDamaged;
+                this.initDamaged();
                 this.normalRes = this.resource;
                 
 
@@ -38,7 +38,7 @@ define(['game/objects/object'],
 
             initDamaged: function(){
                 this.whileDamaged = 0;
-                this.damagedTimeout = 100;
+                this.damagedTimeout = 10;
                 this.damaged = false;
             }
 
