@@ -8,18 +8,18 @@ define([
     tmpl,
     Scoreboard,
     Storage
-){
- 
+) {
+
     var View = Backbone.View.extend({
         template: tmpl,
         el: "#scoreTable",
-        
+
         initialize: function () {
             $("#loading").hide();
             _.bindAll(this, "render", "show", "hide");
         },
 
-        render: function () {
+        render: function() {
             Storage.update();
             Scoreboard.url = "/scores";
             Scoreboard.fetch();
@@ -29,38 +29,40 @@ define([
             var self = this;
             setTimeout(function() {
                 $.ajax({
-                    url : '/scores?limit=10',
+                    url: '/scores?limit=10',
                     type: 'get',
                     dataType: 'JSON',
-                    
+
                     success: function(response) {
-                        
-                        self.$el.html(self.template({scoreboard: response}));
+
+                        self.$el.html(self.template({
+                            scoreboard: response
+                        }));
                         $("#scoreError").html("");
                         self.$el.show();
                         $("#loading").hide();
                     },
 
-                    error: function(response){
+                    error: function(response) {
                         self.hide();
                         $("#scoreError").html("Server unreachable");
                         $("#loading").hide();
                     }
                 })
-            },1000)        
-            
+            }, 1000)
+
         },
 
-        show: function () {
-        	this.render();
+        show: function() {
+            this.render();
         },
 
-        hide: function () {
-        	this.$el.hide();
+        hide: function() {
+            this.$el.hide();
         }
     });
 
-    
+
 
     return View;
 
