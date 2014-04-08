@@ -7,7 +7,6 @@ define(['classy',
     function(Class, Player, GameMechanic, Resources, GameOver) {
         /* TODO 
  выбор звука в зависимости от браузера
- плавное ускорение/замедление
  сделать нормальную загрузку в начале игры
  отображать текущую сложность
  не пускать по 2/3 одинаковых астероида одновременно
@@ -32,7 +31,8 @@ define(['classy',
                 this.BULLET_TIMEOUT = 25;
                 this.BONUS_TIMEOUT = 500;
                 this.BONUS_TERMINATE = 200;
-                this.FRICTION = 0.5;
+                this.acceleration = 0.5;
+                this.deceleration = 0.3;
                 //Переменные
                 this.level = 1;
                 this.bulletTimer = 0;
@@ -105,20 +105,20 @@ define(['classy',
 
                     if (this.keydown["a"]) {
                         this.player.resource = this.resources.player[this.player.type][1];
-                        this.player.updateSpeed(this.FRICTION, 0, 0, 0);
+                        this.player.updateSpeed(this.acceleration, 0, 0, 0);
                     }
 
                     if (!this.keydown["a"]) {
-                        this.player.updateSpeed(-this.FRICTION, 0, 0, 0);
+                        this.player.updateSpeed(-this.deceleration, 0, 0, 0);
                     }
 
                     if (this.keydown["d"]) {
                         this.player.resource = this.resources.player[this.player.type][2];
-                        this.player.updateSpeed(0, this.FRICTION, 0, 0);
+                        this.player.updateSpeed(0, this.acceleration, 0, 0);
                     }
 
                     if (!this.keydown["d"]) {
-                        this.player.updateSpeed(0, -this.FRICTION, 0, 0);
+                        this.player.updateSpeed(0, -this.deceleration, 0, 0);
                     }
 
                     if (this.keydown["p"]) {
@@ -133,18 +133,18 @@ define(['classy',
                     }
 
                     if (!this.keydown["w"]) {
-                        this.player.updateSpeed(0, 0, -this.FRICTION, 0);
+                        this.player.updateSpeed(0, 0, -this.deceleration, 0);
                     }
 
                     if (!this.keydown["s"]) {
-                        this.player.updateSpeed(0, 0, 0, -this.FRICTION);
+                        this.player.updateSpeed(0, 0, 0, -this.deceleration);
                     }
 
                     if (this.keydown["w"]) {
-                        this.player.updateSpeed(0, 0, this.FRICTION, 0);
+                        this.player.updateSpeed(0, 0, this.acceleration, 0);
                     }
                     if (this.keydown["s"]) {
-                        this.player.updateSpeed(0, 0, 0, this.FRICTION);
+                        this.player.updateSpeed(0, 0, 0, this.acceleration);
                     }
 
                     if (this.keydown["q"]) {
