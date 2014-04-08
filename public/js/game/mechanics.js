@@ -30,6 +30,16 @@ define(['classy',
             drawObjects: function(object, gameHeight, context) {
                 var toDelete = [];
                 for (var i = 0; i < object.length; i++) {
+
+                    //---------------------------------------------------------------------------------------
+
+                    if (object[i].damaged && object[i].whileDamaged > object[i].damagedTimeout){
+                        object[i].initDamaged;
+                        object[i].resource = object[i].normalRes;
+                    }
+
+                    //---------------------------------------------------------------------------------------
+
                     object[i].draw(context);
                     if ((object[i].y + object[i].radius < 0) || (object[i].y - object[i].radius > gameHeight) ||
                         (object[i].resource != undefined && object[i].resource.sprite != undefined && object[i].resource.sprite.wasPlayed)) {
@@ -40,6 +50,7 @@ define(['classy',
             },
 
             update: function(game) {
+
                 if (game.asteroidTimer == game.ASTEROID_TIMEOUT) {
                     if (game.level < 2.5)
                         game.level += 0.025;
@@ -56,6 +67,14 @@ define(['classy',
 
                 for (var i = 0; i < game.asteroids.length; i++) {
                     game.asteroids[i].y += game.asteroids[i].speedY;
+
+                    //-----------------------------------------------------------------------------------------------------
+
+                    if (game.asteroids[i].damaged){
+                        game.asteroids[i].whileDamaged += 1;
+                    }
+
+                    //-----------------------------------------------------------------------------------------------------
 
                     if (game.context.debug != true) {
                         if (this.collision(game.player, game.asteroids[i], 0.95)) {
@@ -88,6 +107,14 @@ define(['classy',
                     for (var j = 0; j < game.asteroids.length; j++) {
                         if (this.collision(game.player.bullets[i], game.asteroids[j])) {
                             toDeleteBullet.push(i);
+
+                            //------------------------------------------------------------------------------
+
+                            game.asteroids[j].resource = game.asteroids[j].damagedRes;
+                            game.asteroids[j].damaged = true;
+                            
+                            //------------------------------------------------------------------------------
+
                             if (game.asteroids[j].health <= game.player.bullets[i].damage) {
                                 toDeleteAster.push(j);
                                 game.bangs.push(new BigBang("#ffffff", game.asteroids[j].x, game.asteroids[j].y,
