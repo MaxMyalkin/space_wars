@@ -9,10 +9,14 @@ define(['game/objects/object',
                 this.type = 0;
                 this.setProperties();
                 this.$super(color, 0, 0, resource[this.type][0]);
-                this.setStartPosition(width, height); // можно в базовый послать х=0 у=0, а здесь они изменятся всё равно
+                this.setStartPosition(width, height);
                 this.score = 0;
                 this.bullets = [];
                 this.bonusBullets = [0, 0];
+                this.leftspeed = 0;
+                this.rightspeed = 0;
+                this.frontspeed = 0;
+                this.backspeed = 0;
             },
 
             launchBullet: function(game, type) {
@@ -36,23 +40,45 @@ define(['game/objects/object',
                 this.setProperties();
             },
 
-            move: function(x, y, width, height) {
+            move: function(width, height) {
+                var x = this.rightspeed - this.leftspeed;
+                var y = -this.frontspeed + this.backspeed;
                 if (this.x + x <= width - this.radius && this.x + x >= this.radius)
                     this.x += x;
                 if (this.y + y <= height - this.radius && this.y + y >= this.radius)
                     this.y += y;
             },
 
+            updateSpeed: function(left, right, up, down) {
+
+                if (this.leftspeed + left <= this.maxhspeed && this.leftspeed + left >= 0) {
+                    this.leftspeed += left;
+                }
+
+                if (this.rightspeed + right <= this.maxhspeed && this.rightspeed + right >= 0) {
+                    this.rightspeed += right;
+                }
+
+                if (this.frontspeed + up <= this.maxvspeed && this.frontspeed + up >= 0) {
+                    this.frontspeed += up;
+                }
+
+                if (this.backspeed + down <= this.maxvspeed && this.backspeed + down >= 0) {
+                    this.backspeed += down;
+                }
+
+            },
+
             setProperties: function() {
                 switch (this.type) {
                     case 0:
-                        this.hspeed = 10;
-                        this.vspeed = 10;
+                        this.maxhspeed = 10;
+                        this.maxvspeed = 10;
                         this.damageMultiplier = 1;
                         break;
                     case 1:
-                        this.hspeed = 15;
-                        this.vspeed = 15;
+                        this.maxhspeed = 15;
+                        this.maxvspeed = 15;
                         this.damageMultiplier = 2;
                         break;
                 }
@@ -61,8 +87,16 @@ define(['game/objects/object',
             setStartPosition: function(width, height) {
                 this.x = (width - this.radius) / 2;
                 this.y = (height - this.radius);
-            }
+            },
 
+            resetAll: function() {
+                this.score = 0;
+                this.bonusBullets = [0, 0];
+                this.frontspeed = 0;
+                this.backspeed = 0;
+                this.leftspeed = 0;
+                this.rightspeed = 0;
+            }
         });
 
         return Player;

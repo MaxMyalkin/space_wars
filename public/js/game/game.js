@@ -32,6 +32,7 @@ define(['classy',
                 this.BULLET_TIMEOUT = 25;
                 this.BONUS_TIMEOUT = 500;
                 this.BONUS_TERMINATE = 200;
+                this.FRICTION = 0.5;
                 //Переменные
                 this.level = 1;
                 this.bulletTimer = 0;
@@ -101,29 +102,51 @@ define(['classy',
             movePlayer: function() {
 
                 if (!this.pauseFlag && !this.stopped) {
+
                     if (this.keydown["a"]) {
-                        this.player.move(-this.player.hspeed, 0, this.GAME_WIDTH, this.GAME_HEIGHT);
                         this.player.resource = this.resources.player[this.player.type][1];
+                        this.player.updateSpeed(this.FRICTION, 0, 0, 0);
                     }
+
+                    if (!this.keydown["a"]) {
+                        this.player.updateSpeed(-this.FRICTION, 0, 0, 0);
+                    }
+
                     if (this.keydown["d"]) {
-                        this.player.move(this.player.hspeed, 0, this.GAME_WIDTH, this.GAME_HEIGHT);
                         this.player.resource = this.resources.player[this.player.type][2];
+                        this.player.updateSpeed(0, this.FRICTION, 0, 0);
                     }
+
+                    if (!this.keydown["d"]) {
+                        this.player.updateSpeed(0, -this.FRICTION, 0, 0);
+                    }
+
                     if (this.keydown["p"]) {
                         if (this.bulletTimer > this.BULLET_TIMEOUT) {
                             this.player.launchBullet(this, 1);
                             this.bulletTimer = 0;
                         }
                     }
-                    if (!this.keydown["a"] && !this.keydown["d"]) {
+
+                    if (!this.keydown["a"] && !this.keydown["d"] || this.keydown["a"] && this.keydown["d"]) {
                         this.player.resource = this.resources.player[this.player.type][0];
                     }
+
+                    if (!this.keydown["w"]) {
+                        this.player.updateSpeed(0, 0, -this.FRICTION, 0);
+                    }
+
+                    if (!this.keydown["s"]) {
+                        this.player.updateSpeed(0, 0, 0, -this.FRICTION);
+                    }
+
                     if (this.keydown["w"]) {
-                        this.player.move(0, -this.player.vspeed, this.GAME_WIDTH, this.GAME_HEIGHT);
+                        this.player.updateSpeed(0, 0, this.FRICTION, 0);
                     }
                     if (this.keydown["s"]) {
-                        this.player.move(0, this.player.hspeed, this.GAME_WIDTH, this.GAME_HEIGHT);
+                        this.player.updateSpeed(0, 0, 0, this.FRICTION);
                     }
+
                     if (this.keydown["q"]) {
                         if (this.bulletTimer > this.BULLET_TIMEOUT && this.player.bonusBullets[0] > 0) {
                             this.player.launchBullet(this, 2);
@@ -165,6 +188,7 @@ define(['classy',
                         }
                     }
                 }
+                this.player.move(this.GAME_WIDTH, this.GAME_HEIGHT)
             },
 
             reloading: function(flag) {
@@ -239,9 +263,8 @@ define(['classy',
                 this.level = 1;
                 this.asteroidTimer = 0;
                 this.bulletTimer = 0;
-                this.player.score = 0;
+                this.player.resetAll();
                 this.bonusTimer = 0;
-                this.player.bonusBullets = [0, 0];
                 this.player.setStartPosition(this.GAME_WIDTH, this.GAME_HEIGHT);
                 this.player.changeTypeOfShip(this.resources.player, 0, this.GAME_WIDTH, this.GAME_HEIGHT);
                 this.asteroids = [];
