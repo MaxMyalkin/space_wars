@@ -30,15 +30,10 @@ define(['classy',
             drawObjects: function(object, gameHeight, context) {
                 var toDelete = [];
                 for (var i = 0; i < object.length; i++) {
-
-                    //---------------------------------------------------------------------------------------
-
                     if (object[i].damaged && object[i].whileDamaged > object[i].damagedTimeout) {
                         object[i].initDamaged();
                         object[i].resource = object[i].normalRes;
                     }
-
-                    //---------------------------------------------------------------------------------------
 
                     object[i].draw(context);
                     if ((object[i].y + object[i].radius < 0) || (object[i].y - object[i].radius > gameHeight) ||
@@ -71,13 +66,9 @@ define(['classy',
                 for (var i = 0; i < game.asteroids.length; i++) {
                     game.asteroids[i].y += game.asteroids[i].speedY;
 
-                    //-----------------------------------------------------------------------------------------------------
-
                     if (game.asteroids[i].damaged) {
                         game.asteroids[i].whileDamaged += 1;
                     }
-
-                    //-----------------------------------------------------------------------------------------------------
 
                     if (game.context.debug != true) {
                         if (this.collision(game.player, game.asteroids[i], 0.95)) {
@@ -106,21 +97,18 @@ define(['classy',
                 var toDeleteAster = [];
                 var toDeleteBullet = [];
                 var toDeleteBonus = [];
+                var toCreateBang = [];
                 for (var i = 0; i < game.player.bullets.length; i++) {
                     for (var j = 0; j < game.asteroids.length; j++) {
                         if (this.collision(game.player.bullets[i], game.asteroids[j])) {
                             toDeleteBullet.push(i);
 
-                            //------------------------------------------------------------------------------
-
                             game.asteroids[j].resource = game.asteroids[j].damagedRes;
                             game.asteroids[j].damaged = true;
 
-                            //------------------------------------------------------------------------------
-
                             if (game.asteroids[j].health <= game.player.bullets[i].damage) {
                                 toDeleteAster.push(j);
-                                game.bangs.push(new BigBang("#ffffff", game.asteroids[j].x, game.asteroids[j].y,
+                                toCreateBang.push(new BigBang("#ffffff", game.asteroids[j].x, game.asteroids[j].y,
                                     game.resources, game.player.bullets[i].type));
                                 game.player.score += game.asteroids[j].type;
                                 game.setScore();
@@ -132,16 +120,35 @@ define(['classy',
                     }
                 }
 
+                for (var i = game.bangs.length - 1; i >= 0; i--) {
+                    for (var j = game.asteroids.length - 1; j >= 0; j--) {
+                        if (this.collision(game.asteroids[j], game.bangs[i])) {
+                            game.asteroids[j].health -= 0.1;
+                            if (game.asteroids[j].health <= 0) {
+                                toDeleteAster.push(j);
+                                toCreateBang.push(new BigBang("#ffffff", game.asteroids[j].x, game.asteroids[j].y,
+                                    game.resources, 1));
+                            };
+                        };
+                    };
+                };
+
+
+
                 for (var i = 0; i < game.bonuses.length; i++) {
                     if (this.collision(game.player, game.bonuses[i])) {
                         toDeleteBonus.push(i);
                         game.player.bonusBullets[game.bonuses[i].type - 1] += 5;
                         game.setBulletInfo();
-                    } else
-                    if (game.bonuses[i].time > game.BONUS_TERMINATE) {
-                        toDeleteBonus.push(i);
-                    }
-                }
+                    } else {
+                        if (game.bonuses[i].time > game.BONUS_TERMINATE)
+                            toDeleteBonus.push(i);
+                    };
+                };
+
+                for (var i = toCreateBang.length - 1; i >= 0; i--) {
+                    game.bangs.push(toCreateBang[i]);
+                };
 
                 this.deleteObjectArray(game.bonuses, toDeleteBonus);
 
@@ -158,8 +165,7 @@ define(['classy',
                 game.context.font = "bold " + game.FONT_SIZE + "px sans-serif";
                 this.drawObjects(game.player.bullets, game.GAME_HEIGHT, game.context);
                 this.drawObjects(game.asteroids, game.GAME_HEIGHT, game.context);
-                if (game.bangs.length != 0)
-                    game.gameMechanic.drawObjects(game.bangs, game.GAME_HEIGHT, game.context);
+                this.drawObjects(game.bangs, game.GAME_HEIGHT, game.context);
                 this.drawObjects(game.bonuses, game.GAME_HEIGHT, game.context);
 
             },
