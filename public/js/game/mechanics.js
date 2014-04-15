@@ -30,6 +30,7 @@ define(['classy',
             drawObjects: function(object, gameHeight, context) {
                 var toDelete = [];
                 for (var i = 0; i < object.length; i++) {
+
                     if (object[i].damaged && object[i].whileDamaged > object[i].damagedTimeout) {
                         object[i].initDamaged();
                         object[i].resource = object[i].normalRes;
