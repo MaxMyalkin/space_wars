@@ -13,6 +13,15 @@ body {
   height: 100%;
   font-family: Yahoo, serif; }
 
+.loader {
+  display: none;
+  width: 200px;
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); }
+
 .overlay {
   background-color: #777;
   top: 0;

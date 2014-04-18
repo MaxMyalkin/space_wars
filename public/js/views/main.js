@@ -15,18 +15,21 @@ define([
         initialize: function() {
             this.render();
             this.hide();
+            $('.loader').hide();
         },
+
         render: function() {
             this.$el.html(this.template);
         },
+
         show: function() {
             $.event.trigger({
                 type: "show",
                 _name: this._name
             });
             this.$el.show();
-            $('#LLLoading').hide();
         },
+
         hide: function() {
             this.$el.hide();
         }

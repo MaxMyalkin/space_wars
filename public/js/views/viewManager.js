@@ -12,7 +12,6 @@ define([
                 _.each(self.views, function(value, key) {
                     if (event._name !== key) {
                         value.hide();
-                        $('#LLLoading').hide();
                     }
                 });
             });

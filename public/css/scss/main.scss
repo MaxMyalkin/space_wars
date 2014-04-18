@@ -3,6 +3,13 @@
   	src: url(fonts/Yahoo.ttf); 
 }
 
+@mixin transform($value) {
+  -webkit-transform: translate($value,$value );
+   -moz-transform: translate($value, $value);
+   transform: translate($value, $value);  
+}
+
+
 $font-family : Yahoo, serif;
 $main-color: #f2e8c9;
 $blue: #082567;
@@ -20,6 +27,14 @@ body {
   	padding: 0;
   	height: 100%;
   	font-family: $font-family; 
+}
+
+.loader {
+  display: none;
+  width:200px;
+  position: absolute;
+  top: 50%;
+  @include transform(-50%);
 }
 
 .overlay {

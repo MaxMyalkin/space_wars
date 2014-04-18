@@ -23,9 +23,11 @@ define([
             this.scoreTable = new ScoreTable(); //Только после рендера основной вьюшки можем создать scoreTable
             this.hide();
         },
+
         render: function() {
             this.$el.html(this.template);
         },
+
         show: function() {
             this.$el.show();
             this.scoreTable.show();
@@ -35,6 +37,7 @@ define([
             });
 
         },
+
         hide: function() {
             this.$el.hide();
         }

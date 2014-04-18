@@ -5,11 +5,10 @@ define(['classy',
         Sprite
     ) {
         var Resource = Class.$extend({
-            __init__: function(radius, src, isAnimation, dx, dy, speed, width, height, singleAnimation, frames, isHorizontal) {
+            __init__: function(radius, img, isAnimation, dx, dy, speed, width, height, singleAnimation, frames, isHorizontal) {
                 this.radius = radius;
                 this.isAnimation = isAnimation;
-                this.img = new Image();
-                this.img.src = src;
+                this.img = img;
                 if (isAnimation) {
                     if (speed === undefined)
                         speed = 0;

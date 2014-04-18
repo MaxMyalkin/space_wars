@@ -13,7 +13,6 @@ define(['classy'],
             },
 
             playSound: function() {
-                //this.array[this.currentSound].oncanplaythrough = console.log("CAN");
                 this.array[this.currentSound].play();
                 this.currentSound = (this.currentSound + 1) % this.array.length;
             }
