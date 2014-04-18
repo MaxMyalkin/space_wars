@@ -10,7 +10,6 @@ define(['classy',
     ) {
         var resources = Class.$extend({
             __init__: function() {
-                $('.loader').
                 this.array = [];
                 //radius, src , isAnimation , dx , dy , speed , width , height , singleAnimation , frames
                 this.smallAsteroid = new Resource(23, "/images/asteroid/smallAsteroid.png", false, 0, 2);

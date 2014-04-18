@@ -18,7 +18,9 @@
 	    <div id="main"></div>
 	    <div id="scoreboard"></div>
 	    <div id="game"></div>
-		<script data-main="js/main" src="js/lib/require.js"></script>
+		<fest:if test="json.development">
+			<script data-main="js/main" src="js/lib/require.js"></script>
+		</fest:if>
 		<fest:if test="!json.development">
 			<script>
 				console.time('load');

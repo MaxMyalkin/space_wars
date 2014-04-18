@@ -87,7 +87,7 @@ module.exports = function(grunt) {
                     separator: ';\n'
                 },
                 src: ['public/js/lib/almond.js', 'public/js/build/main.js'],
-                dest: 'public/js/build.min.js'
+                dest: 'public/js/build/main.js'
             }
         },
 
