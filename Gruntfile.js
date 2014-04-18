@@ -5,8 +5,8 @@ module.exports = function(grunt) {
             css: {
                 files: [{
                     expand: true,
-                    cwd: 'public/css',
-                    src: '*.scss',
+                    cwd: 'public/css/scss',
+                    src: 'main.scss',
                     dest: 'public/css',
                     ext: '.css'
                 }]
@@ -15,7 +15,7 @@ module.exports = function(grunt) {
 
         watch: {
             sass: {
-                files: ['public/css/*.scss'],
+                files: ['public/css/scss/main.scss'],
                 tasks: ['sass'],
                 options: {
                     atBegin: true
@@ -71,6 +71,16 @@ module.exports = function(grunt) {
             }
         },
 
+        cssmin: {
+            minify: {
+                expand: true,
+                cwd: 'public/css/',
+                src: ['*.css', '!*.min.css'],
+                dest: 'public/css/',
+                ext: '.min.css'
+            }
+        },
+
         concat: {
             build: { /* Подзадача */
                 options: {
@@ -90,6 +100,7 @@ module.exports = function(grunt) {
                 }
             }
         },
+
         fest: {
             templates: {
                 files: [{
@@ -118,10 +129,11 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-requirejs');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.registerTask('default', ['express', 'watch']);
     grunt.registerTask(
         'build', [
-            'fest', 'requirejs:build',
+            'cssmin', 'fest', 'sass', 'requirejs:build',
             'concat:build', 'uglify:build'
         ]
     );

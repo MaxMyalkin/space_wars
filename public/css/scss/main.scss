@@ -1,0 +1,59 @@
+@font-face {
+  	font-family: Yahoo;
+  	src: url(fonts/Yahoo.ttf); 
+}
+
+$font-family : Yahoo, serif;
+$main-color: #f2e8c9;
+$blue: #082567;
+$red: #B22222;
+$green: #33FF00;
+
+html {
+  	height: 100%;
+  	text-align: center; 
+}
+
+body {
+  	background: url(../images/stars.gif);
+  	margin: 0;
+  	padding: 0;
+  	height: 100%;
+  	font-family: $font-family; 
+}
+
+.overlay {
+  	background-color: #777;
+  	top:0;
+  	height: 100%;
+  	opacity: 0.50;
+  	position: fixed;
+  	width: 100%;
+  	z-index: 99; 
+}
+
+#game, #scoreboard, #main {
+  	height: 100%; 
+}
+
+.game-screen {
+  	width: 900px;
+  	min-width: 900px;
+  	height: 675px;
+  	min-height: 675px;
+  	border: solid;
+  	border-color: $main-color;
+  	border-top: 0;
+  	border-width: 10px;
+  	margin: auto; 
+}
+
+@import "button";
+@import "form";
+@import "info-bar";
+@import "menu";
+
+
+
+
+

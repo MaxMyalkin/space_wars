@@ -10,15 +10,15 @@ define(['classy',
     ) {
         var resources = Class.$extend({
             __init__: function() {
+                $('.loader').
+                this.array = [];
                 //radius, src , isAnimation , dx , dy , speed , width , height , singleAnimation , frames
                 this.smallAsteroid = new Resource(23, "/images/asteroid/smallAsteroid.png", false, 0, 2);
 
                 this.bigAsteroidDamaged = new Resource(47, "/images/asteroid/bigDamaged.png", false, 0, 0);
                 this.mediumAsteroidDamaged = new Resource(40, "/images/asteroid/mediumDamaged.png", false, 0, 0);
                 this.smallAsteroidDamaged = new Resource(23, "/images/asteroid/smallDamaged.png", false, 0, 2);
-
                 this.bigAsteroid = new Resource(47, "/images/asteroid/bigAsteroid.png", false, 0, 0);
-
                 this.mediumAsteroid = new Resource(40, "/images/asteroid/mediumAsteroid.png", false, 0, 0);
 
                 this.player = [
@@ -55,12 +55,14 @@ define(['classy',
                 this.arrays.set("secondTypeBang", 32, "/images/bang/bang2.png", true, 0, 0, 0.4, 81, 62, true, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], true, 5);
                 this.arrays.set("thirdTypeBang", 50, "/images/bang/bang3.png", true, 0, 0, 0.4, 93, 100, true, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], true, 5);
 
+
+
             },
 
             //Анимированные ресурсы
             get: function(resource) {
                 return this.arrays.getCurrent(resource);
-            }
+            },
 
         });
 
@@ -77,7 +79,7 @@ define(['classy',
             }
             return temp;
 
-        }
+        };
 
         return resources;
 

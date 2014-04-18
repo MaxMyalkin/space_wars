@@ -1,0 +1,61 @@
+/*buttons*/
+
+
+.btn {
+  	background-color: $blue;
+  	font-size: 12px;
+  	font-family: $font-family;
+  	color: white;
+  	border-radius: 10px;
+  	margin: 20px;
+  	display: inline-block;
+  	text-decoration: none;
+  	text-align: center;
+  	&:hover{
+  		text-decoration: underline;
+  	};
+  	&:active{
+  		text-decoration: underline;
+  		background-color: $red; 
+  	};
+}
+
+.btn_small {
+	@extend .btn;
+	$line: 60px;
+  	font-size: 20px;
+  	height: $line;
+  	width: 20%;
+  	line-height: $line; 
+}
+
+.btn_thin {
+	@extend .btn;
+	$line: 40px;
+	font-size: 15px;
+	height: $line;
+	width: 150px;
+	line-height: $line;
+	margin: 0 20px 0; 
+}
+
+.btn_big {
+	@extend .btn;
+	$line: 80px;
+  	font-size: 25px;
+  	height: $line;
+  	width: 50%;
+  	line-height: $line; 
+}
+
+.btn_close {
+  	@extend .btn;
+  	$line: 30px;
+  	font-size: 10px;
+  	line-height: $line;
+  	height: $line;
+  	width: 30px;
+  	border-radius: 20px;
+  	margin: 0;
+  	float: right; 
+}

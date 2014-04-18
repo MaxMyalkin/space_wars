@@ -193,9 +193,6 @@ define(['classy',
                     return false;
                 }
             }
-
-
-
         });
 
         return GameMechanic;

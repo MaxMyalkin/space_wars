@@ -25,6 +25,62 @@ body {
 #game, #scoreboard, #main {
   height: 100%; }
 
+.game-screen {
+  width: 900px;
+  min-width: 900px;
+  height: 675px;
+  min-height: 675px;
+  border: solid;
+  border-color: #f2e8c9;
+  border-top: 0;
+  border-width: 10px;
+  margin: auto; }
+
+/*buttons*/
+.btn, .btn_small, .btn_thin, .btn_big, .btn_close {
+  background-color: #082567;
+  font-size: 12px;
+  font-family: Yahoo, serif;
+  color: white;
+  border-radius: 10px;
+  margin: 20px;
+  display: inline-block;
+  text-decoration: none;
+  text-align: center; }
+  .btn:hover, .btn_small:hover, .btn_thin:hover, .btn_big:hover, .btn_close:hover {
+    text-decoration: underline; }
+  .btn:active, .btn_small:active, .btn_thin:active, .btn_big:active, .btn_close:active {
+    text-decoration: underline;
+    background-color: firebrick; }
+
+.btn_small {
+  font-size: 20px;
+  height: 60px;
+  width: 20%;
+  line-height: 60px; }
+
+.btn_thin {
+  font-size: 15px;
+  height: 40px;
+  width: 150px;
+  line-height: 40px;
+  margin: 0 20px 0; }
+
+.btn_big {
+  font-size: 25px;
+  height: 80px;
+  width: 50%;
+  line-height: 80px; }
+
+.btn_close {
+  font-size: 10px;
+  line-height: 30px;
+  height: 30px;
+  width: 30px;
+  border-radius: 20px;
+  margin: 0;
+  float: right; }
+
 /* -------------form-----------*/
 .gameOverForm {
   background-color: #f2e8c9;
@@ -50,17 +106,6 @@ body {
   height: 20%;
   min-height: 200px; }
 
-.game-screen {
-  width: 900px;
-  min-width: 900px;
-  height: 675px;
-  min-height: 675px;
-  border: solid;
-  border-color: #f2e8c9;
-  border-top: 0;
-  border-width: 10px;
-  margin: auto; }
-
 .info {
   color: white;
   width: 200px;
@@ -75,12 +120,8 @@ body {
     height: 60px;
     line-height: 50px; }
   .info__bullets__img {
-    height: 50px;
-    width: 20px;
     float: left;
     margin-right: 20px; }
-  .info__bullets__ship__img {
-    height: 100px; }
   .info__text {
     margin-bottom: 10px; }
   .info__header {
@@ -150,48 +191,3 @@ body {
   text-align: left;
   min-width: 820px;
   /* экран игры + рамка*/ }
-
-/*buttons*/
-.btn, .btn_small, .btn_thin, .btn_big, .btn_close {
-  background-color: #082567;
-  font-size: 12px;
-  font-family: Yahoo, serif;
-  color: white;
-  border-radius: 10px;
-  margin: 20px;
-  display: inline-block;
-  text-decoration: none;
-  text-align: center; }
-  .btn:hover, .btn_small:hover, .btn_thin:hover, .btn_big:hover, .btn_close:hover {
-    text-decoration: underline; }
-  .btn:active, .btn_small:active, .btn_thin:active, .btn_big:active, .btn_close:active {
-    text-decoration: underline;
-    background-color: firebrick; }
-
-.btn_small {
-  font-size: 20px;
-  height: 60px;
-  width: 20%;
-  line-height: 60px; }
-
-.btn_thin {
-  font-size: 15px;
-  height: 40px;
-  width: 150px;
-  line-height: 40px;
-  margin: 0 20px 0; }
-
-.btn_big {
-  font-size: 25px;
-  height: 80px;
-  width: 50%;
-  line-height: 80px; }
-
-.btn_close {
-  font-size: 10px;
-  line-height: 30px;
-  height: 30px;
-  width: 30px;
-  border-radius: 20px;
-  margin: 0;
-  float: right; }
