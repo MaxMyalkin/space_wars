@@ -41,9 +41,10 @@ define(['classy',
                 this.firstTypeShip = new Resource(20, "/images/ship/first/info.png", false, 10, -5);
                 this.secondTypeShip = new Resource(20, "/images/ship/second/info.png", false, 10, 0);
 
-                this.attackSound = new Sound("/sounds/attack.ogg", 5);
+                //OGG, MP3, WAV
+                this.attackSound = this.DJCheckTheSound(["/sounds/attack.ogg", "/sounds/attack.mp3", "/sounds/attack.wav"]);
 
-                this.bangSound = new Sound("/sounds/boom.ogg", 5);
+                this.bangSound = this.DJCheckTheSound(["/sounds/attack.ogg", "/sounds/attack.mp3", "/sounds/attack.wav"]);
 
                 this.arrays = ResourceArray;
 
@@ -60,6 +61,19 @@ define(['classy',
             //Анимированные ресурсы
             get: function(resource) {
                 return this.arrays.getCurrent(resource);
+            },
+
+            DJCheckTheSound: function(soundsArray){
+                var audio = new Audio();
+                var types = ['audio/ogg', 'audio/mp3', 'audio/wav'];
+                for (var i = 0; i < types.length; i++){
+                    if (audio.canPlayType(types[i]) == "probably") return new Sound(soundsArray[i], 5);
+                }
+                for (var i = 0; i < types.length; i++){
+                    if (audio.canPlayType(types[i]) == "maybe") return new Sound(soundsArray[i], 5);
+                }
+                return new Sound(soundsArray[0], 5);
+                   
             }
 
         });
