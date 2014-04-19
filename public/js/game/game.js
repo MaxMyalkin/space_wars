@@ -15,8 +15,9 @@ define(['classy',
 
         var Game = Class.$extend({
 
-            __init__: function() {
-                this.resources = new Resources();
+            __init__: function(resources) {
+                this.resources = resources;
+
                 //Константы
 
                 this.DELAY = 50;

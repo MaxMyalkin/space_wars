@@ -5,7 +5,9 @@ require.config({
         jquery: "lib/jquery",
         underscore: "lib/underscore",
         backbone: "lib/backbone",
-        classy: "lib/classy"
+        classy: "lib/classy",
+        preload: "lib/preload.min",
+        soundjs: "lib/soundjs"
     },
     shim: {
         'backbone': {
@@ -17,7 +19,14 @@ require.config({
         },
         'classy': {
             exports: 'Class'
+        },
+        'preload': {
+            exports: 'createjs'
+        },
+        'soundjs': {
+            exports: 'createjs'
         }
+
     }
 });
 

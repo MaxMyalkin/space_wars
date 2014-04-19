@@ -1,8 +1,10 @@
 define(['game/objects/object',
         'game/objects/bullet',
+        'soundjs'
     ],
     function(AbstractObject,
-        Bullet
+        Bullet,
+        SoundJS
     ) {
         var Player = AbstractObject.$extend({
             __init__: function(color, width, height, resource) {
@@ -23,7 +25,8 @@ define(['game/objects/object',
                 var rocket = new Bullet("#ffffff", this.x,
                     this.y - game.player.radius, game.resources, game.ROCKET_SPEED, type, this.damageMultiplier);
                 this.bullets.push(rocket);
-                game.resources.attackSound.playSound();
+                //game.resources.attackSound.playSound();
+                SoundJS.Sound.play("attackSound");
             },
 
             changeTypeOfShip: function(resource, type, width, height) {

@@ -1,12 +1,14 @@
 define(['classy',
         'game/objects/asteroid',
         'game/objects/bonus',
-        'game/objects/bigBang'
+        'game/objects/bigBang',
+        'soundjs'
     ],
     function(Class,
         Asteroid,
         Bonus,
-        BigBang
+        BigBang,
+        SoundJS
     ) {
 
         var GameMechanic = Class.$extend({
@@ -74,7 +76,8 @@ define(['classy',
                     if (game.context.debug != true) {
                         if (this.collision(game.player, game.asteroids[i], 0.95)) {
 
-                            game.resources.bangSound.playSound();
+                            //game.resources.bangSound.playSound();
+                            SoundJS.Sound.play("bangSound");
 
                             game.gameover = true;
                             game.endGame();
@@ -113,7 +116,8 @@ define(['classy',
                                     game.resources, game.player.bullets[i].type));
                                 game.player.score += game.asteroids[j].type;
                                 game.setScore();
-                                game.resources.bangSound.playSound();
+                                //game.resources.bangSound.playSound();
+                                SoundJS.Sound.play("bangSound");
                                 break;
                             }
                             game.asteroids[j].health -= game.player.bullets[i].damage;
@@ -193,9 +197,6 @@ define(['classy',
                     return false;
                 }
             }
-
-
-
         });
 
         return GameMechanic;

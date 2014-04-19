@@ -19,17 +19,17 @@ define(['backbone',
         },
         initialize: function() {
             this.viewManager = viewManager;
+            viewManager.addView(mainScreen._name, mainScreen);
+            viewManager.addView(scoreboardScreen._name, scoreboardScreen);
+            viewManager.addView(gameScreen._name, gameScreen);
         },
         defaultActions: function() {
-            viewManager.addView(mainScreen._name, mainScreen);
             mainScreen.show();
         },
         scoreboardAction: function() {
-            viewManager.addView(scoreboardScreen._name, scoreboardScreen);
             scoreboardScreen.show();
         },
         gameAction: function() {
-            viewManager.addView(gameScreen._name, gameScreen);
             gameScreen.show();
         }
     });

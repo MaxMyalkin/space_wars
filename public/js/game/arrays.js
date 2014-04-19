@@ -18,35 +18,35 @@ define(['classy', 'game/objects/resource'],
                 this.currentThirdTypeBang = 0;
             },
 
-            set: function(type, radius, src, isAnimation, dx, dy, speed, width, height, singleAnimation, frames, isHorizontal, times) {
+            set: function(type, radius, img, isAnimation, dx, dy, speed, width, height, singleAnimation, frames, isHorizontal, times) {
                 arrayToSet = null;
                 switch (type) {
                     case "firstTypeBullet":
-                        this.firstTypeBullet = this.setArray(radius, src, isAnimation, dx, dy, speed, width, height, singleAnimation, frames, isHorizontal, times);
+                        this.firstTypeBullet = this.setArray(radius, img, isAnimation, dx, dy, speed, width, height, singleAnimation, frames, isHorizontal, times);
                         break;
                     case "secondTypeBullet":
-                        this.secondTypeBullet = this.setArray(radius, src, isAnimation, dx, dy, speed, width, height, singleAnimation, frames, isHorizontal, times);
+                        this.secondTypeBullet = this.setArray(radius, img, isAnimation, dx, dy, speed, width, height, singleAnimation, frames, isHorizontal, times);
                         break;
                     case "thirdTypeBullet":
-                        this.thirdTypeBullet = this.setArray(radius, src, isAnimation, dx, dy, speed, width, height, singleAnimation, frames, isHorizontal, times);
+                        this.thirdTypeBullet = this.setArray(radius, img, isAnimation, dx, dy, speed, width, height, singleAnimation, frames, isHorizontal, times);
                         break;
                     case "firstTypeBang":
-                        this.firstTypeBang = this.setArray(radius, src, isAnimation, dx, dy, speed, width, height, singleAnimation, frames, isHorizontal, times);
+                        this.firstTypeBang = this.setArray(radius, img, isAnimation, dx, dy, speed, width, height, singleAnimation, frames, isHorizontal, times);
                         break;
                     case "secondTypeBang":
-                        this.secondTypeBang = this.setArray(radius, src, isAnimation, dx, dy, speed, width, height, singleAnimation, frames, isHorizontal, times);
+                        this.secondTypeBang = this.setArray(radius, img, isAnimation, dx, dy, speed, width, height, singleAnimation, frames, isHorizontal, times);
                         break;
                     case "thirdTypeBang":
-                        this.thirdTypeBang = this.setArray(radius, src, isAnimation, dx, dy, speed, width, height, singleAnimation, frames, isHorizontal, times);
+                        this.thirdTypeBang = this.setArray(radius, img, isAnimation, dx, dy, speed, width, height, singleAnimation, frames, isHorizontal, times);
                         break;
                 }
             },
 
-            setArray: function(radius, src, isAnimation, dx, dy, speed, width, height, singleAnimation, frames, isHorizontal, times) {
+            setArray: function(radius, img, isAnimation, dx, dy, speed, width, height, singleAnimation, frames, isHorizontal, times) {
                 array = [];
                 array[0] = 1; //Current frame in [0] element
                 for (var i = 0; i < times; i++) {
-                    res = new Resource(radius, src, isAnimation, dx, dy, speed, width, height, singleAnimation, frames, isHorizontal, frames)
+                    res = new Resource(radius, img, isAnimation, dx, dy, speed, width, height, singleAnimation, frames, isHorizontal, frames)
                     array.push(res);
                 }
                 return array;

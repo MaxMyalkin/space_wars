@@ -18,20 +18,31 @@ define([
         _name: "game",
         initialize: function() {
             this.render();
-            this.game = new Game();
             this.$el.hide();
+            var self = this;
+            $(document).on("createGame", function(event) {
+                self.game = new Game(event.resource);
+                self.show();
+            });
         },
         render: function() {
             this.$el.html(this.template);
             $(".overlay").hide();
         },
+
         show: function() {
-            this.game;
             $.event.trigger({
                 type: "show",
                 _name: this._name
             });
-            this.$el.show();
+
+            if (this.resources === undefined) {
+                this.$el.hide();
+                this.resources = new Resource();
+                $('.loader').show();
+            } else {
+                this.$el.show();
+            }
         },
         hide: function() {
             this.$el.hide();
