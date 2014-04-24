@@ -8,6 +8,9 @@ require.config({
         classy: "lib/classy",
         preload: "lib/preload.min",
         soundjs: "lib/soundjs"
+        Connector: "lib/Connector",
+        FnQuery: "lib/FnQuery",
+        "socket.io": "/socket.io/socket.io"
     },
     shim: {
         'backbone': {
@@ -25,6 +28,8 @@ require.config({
         },
         'soundjs': {
             exports: 'createjs'
+        "socket.io": {
+            exports: "io"
         }
 
     }
