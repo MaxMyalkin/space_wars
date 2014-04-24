@@ -16,12 +16,16 @@ define(['classy',
         var Game = Class.$extend({
 
             __init__: function(resources) {
-                //--------------------------------------------------------------------------
 
+
+
+                //--------------------------------------------------------------------------
+                _.bindAll(this, "messageRecieved");
                 this.server = new Connection({
                     remote: '/console'
                 });
                 var self = this;
+                //if(выбран мобильник)
                 this.server.onReady(function() {
                     self.server.getToken("", function(answer) {
                         console.log('token= ' + answer);
@@ -97,8 +101,6 @@ define(['classy',
                 this.gameover = false;
                 this.reloading(true);
                 this.setBtnText();
-
-
                 this.setScore();
 
             },
@@ -119,12 +121,17 @@ define(['classy',
 
             messageRecieved: function(data, answer) {
                 console.log(data.alpha + ' ' + data.beta + ' ' + data.gamma);
+                if (data.alpha > 45 && data.alpha < 90)
+                    this.player.updateSpeed((90 - data.alpha) / 5, 0, 0, 0);
+                if (data.alpha > 90 && data.alpha < 135)
+                    this.player.updateSpeed(0, (data.alpha - 90) / 5, 0, 0);
+                if (data.gamma > 0 && data.gamma < 45)
+                    this.player.updateSpeed(0, 0, 0, (data.gamma) / 5);
+                if (data.gamma > 45 && data.gamma < 90)
+                    this.player.updateSpeed(0, 0, (data.gamma - 45) / 5, 0);
             },
 
             movePlayer: function() {
-                this.server.send(this.player.x + "  " + this.player.y, function(answer) {
-                    console.log(answer);
-                });
                 if (!this.pauseFlag && !this.stopped) {
 
                     if (this.keydown["a"]) {

@@ -14,7 +14,6 @@ require(['js/main.js', 'js/lib/Connector.js', 'js/lib/deviceapi-normaliser'], fu
             beta: current_position.beta,
             gamma: current_position.gamma
         });
-        //console.log(current_position.alpha + ' ' + current_position.gamma);
     };
 
     server.onReady(function() {

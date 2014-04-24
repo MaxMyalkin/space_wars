@@ -1,46 +1,59 @@
 <fest:template xmlns:fest="http://fest.mail.ru"
     context_name="json">
-    <div class="header header_game">
-    	<a id="backBtn" href='/#' class='btn_thin game_button'>&#9668 BACK</a>
-    	<a id="pause" class='btn_thin game_button'></a>
-    	<a id="restart" class='btn_thin game_button'></a>
+    
+    <div id='selectForm' class='startForm'>
+    	 <input type="radio" name="gametype" value="ie">Smartphone<Br>
+		 <input type="radio" name="gametype" value="opera">PC<Br>
+		 <button>Confirm</button>
     </div>
-    <div>
+
+	<div id='tokenForm' class='startForm'>
+   		 <p>Here is your token:<fest:space/><span id='token'></span>></p>
+   	</div>
+
+    <div id='gameDiv'>
+	    <div class="header header_game">
+	    	<a id="backBtn" href='/#' class='btn_thin game_button'>&#9668 BACK</a>
+	    	<a id="pause" class='btn_thin game_button'></a>
+	    	<a id="restart" class='btn_thin game_button'></a>
+	    </div>
 	    <div>
-	    	<div class="info">
-	    		<div class='info__header'>score:<fest:space/><span id='score'>0</span></div>
-	    		
-	    		<div class='info__bullets'>
-	    			<div class='info__header'>bullets</div>
-	    			<div class= "info__bullets__bullet-type">
-	    				<canvas style='width: 20px; height:50px;' id='first_bullet' class="info__bullets__img" ></canvas>
-	    				<div class='info__text'>∞</div>
-	    			</div>
-	    			<div class= "info__bullets__bullet-type">
-	    				<canvas style='width: 20px; height:50px;' id='second_bullet' class="info__bullets__img"></canvas>
-	    				<div class='info__text first-bonus'>0</div>
-	    			</div>
-	    			<div class= "info__bullets__bullet-type">
-	    				<canvas style='width: 20px; height:50px;' id='third_bullet' class="info__bullets__img" ></canvas>
-	    				<div class='info__text second-bonus'>0</div>
-	    			</div>
-	    		</div>
-	    		<div class='info__ship'>
-	    			<div class='info__header '>ship</div>
-	    			<canvas style='height: 100px;' class='info__ship__img' id='ship_img'></canvas>
-	    			<div class='info__ship__properties'>
-	    				<div class='info__text'>Size:<fest:space/><span id="ship-size">0</span> </div>
-	    				<div class='info__text'>hspeed:<fest:space/><span id="ship-hspeed">0</span></div>
-	    				<div class='info__text'>vspeed:<fest:space/><span id="ship-vspeed">0</span></div>
-	    				<div class='info__text'>multi:<fest:space/><span id="ship-multiplier">0</span></div>
-	    			</div>
-	    		</div>
-	    		<div class='info__text'>Level</div>
-	    		<div class='info__level'></div>
-	    	</div>
-	    	<canvas id='gameField' class= "game-screen"/>
-	</div>
-		<div id="gameOver" class="form"></div>
-		<div class="overlay"></div>
+		    <div>
+		    	<div class="info">
+		    		<div class='info__header'>score:<fest:space/><span id='score'>0</span></div>
+		    		
+		    		<div class='info__bullets'>
+		    			<div class='info__header'>bullets</div>
+		    			<div class= "info__bullets__bullet-type">
+		    				<canvas style='width: 20px; height:50px;' id='first_bullet' class="info__bullets__img" ></canvas>
+		    				<div class='info__text'>∞</div>
+		    			</div>
+		    			<div class= "info__bullets__bullet-type">
+		    				<canvas style='width: 20px; height:50px;' id='second_bullet' class="info__bullets__img"></canvas>
+		    				<div class='info__text first-bonus'>0</div>
+		    			</div>
+		    			<div class= "info__bullets__bullet-type">
+		    				<canvas style='width: 20px; height:50px;' id='third_bullet' class="info__bullets__img" ></canvas>
+		    				<div class='info__text second-bonus'>0</div>
+		    			</div>
+		    		</div>
+		    		<div class='info__ship'>
+		    			<div class='info__header '>ship</div>
+		    			<canvas style='height: 100px;' class='info__ship__img' id='ship_img'></canvas>
+		    			<div class='info__ship__properties'>
+		    				<div class='info__text'>Size:<fest:space/><span id="ship-size">0</span> </div>
+		    				<div class='info__text'>hspeed:<fest:space/><span id="ship-hspeed">0</span></div>
+		    				<div class='info__text'>vspeed:<fest:space/><span id="ship-vspeed">0</span></div>
+		    				<div class='info__text'>multi:<fest:space/><span id="ship-multiplier">0</span></div>
+		    			</div>
+		    		</div>
+		    		<div class='info__text'>Level</div>
+		    		<div class='info__level'></div>
+		    	</div>
+		    	<canvas id='gameField' class= "game-screen"/>
+		</div>
+			<div id="gameOver" class="form"></div>
+			<div class="overlay"></div>
+		</div>
 	</div>
 </fest:template>
