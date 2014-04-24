@@ -65,7 +65,7 @@ module.exports = function(grunt) {
         uglify: {
             build: { /* Подзадача */
                 files: [{
-                    src: ['public/js/build/main.js'],
+                    src: ['public/js/build.js'],
                     dest: 'public/js/build.min.js'
                 }]
             }

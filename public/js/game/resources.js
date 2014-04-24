@@ -2,13 +2,15 @@ define(['classy',
         'game/audio',
         'game/objects/resource',
         'game/arrays',
-        'preload'
+        'preload',
+        'soundjs'
     ],
     function(Class,
         Sound,
         Resource,
         ResourceArray,
-        Loader
+        Loader,
+        SoundJS
     ) {
         var resources = Class.$extend({
             __init__: function() {
@@ -17,11 +19,16 @@ define(['classy',
                 //radius, src , isAnimation , dx , dy , speed , width , height , singleAnimation , frames
 
                 this.queue = new Loader.LoadQueue();
+                this.queue.installPlugin(SoundJS.Sound);
                 this.queue.on("complete", this.handleComplete, this);
                 this.queue.on("progress", function(event) {
                     $('.loader').width(event.progress * 100 + '%');
 
                 }, this);
+
+                var bangSound = this.DJCheckTheSoundTitle(["/sounds/attack.ogg", "/sounds/attack.mp3", "/sounds/attack.wav"]);
+                var attackSound = this.DJCheckTheSoundTitle(["/sounds/attack.ogg", "/sounds/attack.mp3", "/sounds/attack.wav"]);
+
                 this.queue.loadManifest([{
                     id: "smallAsteroid",
                     src: "/images/asteroid/smallAsteroid.png"
@@ -88,7 +95,14 @@ define(['classy',
                 }, {
                     id: "bang3",
                     src: "/images/bang/bang3.png"
-                }]);
+                }, {
+                    id: "bangSound",
+                    src: bangSound
+                }, {
+                    id: "attackSound",
+                    src: attackSound
+                }
+                ]);
 
 
             },
@@ -99,6 +113,10 @@ define(['classy',
             },
 
             handleComplete: function() {
+
+                //this.attackSound = this.queue.getResult("attackSound");//this.DJCheckTheSound(["/sounds/attack.ogg", "/sounds/attack.mp3", "/sounds/attack.wav"]);
+                //this.bangSound = this.queue.getResult("bangSound"); //this.DJCheckTheSound(["/sounds/attack.ogg", "/sounds/attack.mp3", "/sounds/attack.wav"]);
+                
                 this.smallAsteroid = new Resource(23, this.queue.getResult("smallAsteroid"), false, 0, 2);
                 this.bigAsteroid = new Resource(47, this.queue.getResult("bigAsteroid"), false, 0, 0);
                 this.mediumAsteroid = new Resource(40, this.queue.getResult("mediumAsteroid"), false, 0, 0);
@@ -128,9 +146,8 @@ define(['classy',
                 this.secondTypeShip = new Resource(20, this.queue.getResult("secondTypeShip"), false, 10, 0);
 
                 //OGG, MP3, WAV
-                this.attackSound = this.DJCheckTheSound(["/sounds/attack.ogg", "/sounds/attack.mp3", "/sounds/attack.wav"]);
 
-                this.bangSound = this.DJCheckTheSound(["/sounds/attack.ogg", "/sounds/attack.mp3", "/sounds/attack.wav"]);
+                
 
                 this.arrays = ResourceArray;
 
@@ -162,23 +179,23 @@ define(['classy',
                 }
                 return new Sound(soundsArray[0], 5);
 
+            },
+
+            DJCheckTheSoundTitle: function(soundsArray) {
+                var audio = new Audio();
+                var types = ['audio/ogg', 'audio/mp3', 'audio/wav'];
+                for (var i = 0; i < types.length; i++) {
+                    if (audio.canPlayType(types[i]) == "probably") return soundsArray[i];
+                }
+                for (var i = 0; i < types.length; i++) {
+                    if (audio.canPlayType(types[i]) == "maybe") return soundsArray[i];
+                }
+                return soundsArray[0];
+
             }
         });
 
-        function clone(obj) {
-            if (obj == null || typeof(obj) != 'object') {
-                return obj;
-            }
-            var temp = {};
-            for (var key in obj) {
-                if (key = "img") {
-                    temp[key] = obj[key]
-                } else
-                    temp[key] = clone(obj[key]);
-            }
-            return temp;
-
-        };
+ 
 
         return resources;
 
