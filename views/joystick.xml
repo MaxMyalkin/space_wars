@@ -10,6 +10,15 @@
 	</head>
 	<body>
 		Hello world!
+		<br/>
+		<input id='token' name='token' type='text'/>
+		<button id='submit' type='submit'>Click</button>
+		<button id='btn'>Отправить сообщение</button>
 	</body>
+	<script type="text/javascript" src="js/lib/require.js"></script>
+	<script type="text/javascript" src="js/lib/jquery.js"></script>
+	<script type="text/javascript" src="js/joystick/joystick.js"></script>
+
+
 </html>
 </fest:template>

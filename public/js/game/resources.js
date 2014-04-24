@@ -22,7 +22,7 @@ define(['classy',
                 this.queue.installPlugin(SoundJS.Sound);
                 this.queue.on("complete", this.handleComplete, this);
                 this.queue.on("progress", function(event) {
-                    $('.loader').val(event.progress * 100);
+                    $('.loader').width(event.progress * 100 + '%');
 
                 }, this);
 
