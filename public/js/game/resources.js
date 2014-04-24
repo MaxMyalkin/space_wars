@@ -19,7 +19,7 @@ define(['classy',
                 this.queue = new Loader.LoadQueue();
                 this.queue.on("complete", this.handleComplete, this);
                 this.queue.on("progress", function(event) {
-                    $('.loader').val(event.progress * 100);
+                    $('.loader').width(event.progress * 100 + '%');
 
                 }, this);
                 this.queue.loadManifest([{

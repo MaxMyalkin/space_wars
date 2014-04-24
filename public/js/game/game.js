@@ -2,20 +2,39 @@ define(['classy',
         'game/objects/player',
         'game/mechanics',
         'game/resources',
-        'views/gameOver'
+        'views/gameOver',
+        'lib/Connector'
     ],
-    function(Class, Player, GameMechanic, Resources, GameOver) {
+    function(Class, Player, GameMechanic, Resources, GameOver, Connection) {
         /* TODO 
  выбор звука в зависимости от браузера
  сделать нормальную загрузку в начале игры
  астероиды разлетаются в стороны при взрыве
  появление одинаковых астероидов
-
          */
 
         var Game = Class.$extend({
 
             __init__: function(resources) {
+                //--------------------------------------------------------------------------
+
+                this.server = new Connection({
+                    remote: '/console'
+                });
+                var self = this;
+                this.server.onReady(function() {
+                    self.server.getToken("", function(answer) {
+                        console.log('token= ' + answer);
+                    });
+
+                    self.server.on('player-joined', function(data) {
+                        console.log(data.guid); // guid инициализированной связки
+                    });
+
+                    self.server.on('message', self.messageRecieved);
+                });
+                //--------------------------------------------------------------------------
+
                 this.resources = resources;
 
                 //Константы
@@ -97,8 +116,15 @@ define(['classy',
                 }
             },
 
-            movePlayer: function() {
 
+            messageRecieved: function(data, answer) {
+                console.log(data.alpha + ' ' + data.beta + ' ' + data.gamma);
+            },
+
+            movePlayer: function() {
+                this.server.send(this.player.x + "  " + this.player.y, function(answer) {
+                    console.log(answer);
+                });
                 if (!this.pauseFlag && !this.stopped) {
 
                     if (this.keydown["a"]) {

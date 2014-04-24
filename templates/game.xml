@@ -8,31 +8,31 @@
     <div>
 	    <div>
 	    	<div class="info">
-	    		<div class='info__header'>score:<fest:space/><span id='score'>9999</span></div>
+	    		<div class='info__header'>score:<fest:space/><span id='score'>0</span></div>
 	    		
 	    		<div class='info__bullets'>
 	    			<div class='info__header'>bullets</div>
 	    			<div class= "info__bullets__bullet-type">
 	    				<canvas style='width: 20px; height:50px;' id='first_bullet' class="info__bullets__img" ></canvas>
-	    				<div class='info__text'>unlim</div>
+	    				<div class='info__text'>∞</div>
 	    			</div>
 	    			<div class= "info__bullets__bullet-type">
 	    				<canvas style='width: 20px; height:50px;' id='second_bullet' class="info__bullets__img"></canvas>
-	    				<div class='info__text first-bonus'>10</div>
+	    				<div class='info__text first-bonus'>0</div>
 	    			</div>
 	    			<div class= "info__bullets__bullet-type">
 	    				<canvas style='width: 20px; height:50px;' id='third_bullet' class="info__bullets__img" ></canvas>
-	    				<div class='info__text second-bonus'>20</div>
+	    				<div class='info__text second-bonus'>0</div>
 	    			</div>
 	    		</div>
 	    		<div class='info__ship'>
 	    			<div class='info__header '>ship</div>
 	    			<canvas style='height: 100px;' class='info__ship__img' id='ship_img'></canvas>
 	    			<div class='info__ship__properties'>
-	    				<div class='info__text'>Size:<fest:space/><span id="ship-size">60</span> </div>
-	    				<div class='info__text'>hspeed:<fest:space/><span id="ship-hspeed">20</span></div>
-	    				<div class='info__text'>vspeed:<fest:space/><span id="ship-vspeed">20</span></div>
-	    				<div class='info__text'>multi:<fest:space/><span id="ship-multiplier">20</span></div>
+	    				<div class='info__text'>Size:<fest:space/><span id="ship-size">0</span> </div>
+	    				<div class='info__text'>hspeed:<fest:space/><span id="ship-hspeed">0</span></div>
+	    				<div class='info__text'>vspeed:<fest:space/><span id="ship-vspeed">0</span></div>
+	    				<div class='info__text'>multi:<fest:space/><span id="ship-multiplier">0</span></div>
 	    			</div>
 	    		</div>
 	    		<div class='info__text'>Level</div>
