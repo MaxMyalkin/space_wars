@@ -47,24 +47,18 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
     var current_position;
 
     function updategyro(e) {
-
         current_position = deviceOrientation(e);
-        
-        if ((current_position.alpha != null) && 
-            (Math.abs(currentGamma - current_position.gamma) < 3 || Math.abs(currentAlpha - current_position.alpha) < 3)){
-            server.send({
-                type: 'control',
-                startAlpha: startPosAlpha, 
-                alpha: current_position.alpha,
-                beta: current_position.beta,
-                gamma: current_position.gamma
-            });
-            currentAlpha = current_position.alpha;
-            currentGamma = current_position.gamma;
-        }
+        server.send({
+            type: 'control',
+            startAlpha: startPosAlpha, 
+            alpha: current_position.alpha,
+            beta: current_position.beta,
+            gamma: current_position.gamma
+        });
+        currentAlpha = current_position.alpha;
+        currentGamma = current_position.gamma;
         $("#alpha").html(current_position.alpha);
         $("#gamma").html(current_position.gamma);
-
    };
 
 

@@ -37,19 +37,23 @@ body {
 }
 
 .button {
+	position: absolute;
+	top: 50%;
+	left: 90%;
+
 	@media screen and (min-width : 320px) {
 	 	width: 30%;
-	 	height: 30%;
-	 	margin: 10%;
+	 	height: 60%;
+	 	border-radius: 30px;
+	 	left: 80%;
 	}
 
 	@media screen and (min-width : 1224px) {
 	 	width: 10%;
 	 	height: 10%;
-	 	margin: 10%;
+	 	border-radius: 30px;
 	}
-	background-color: #EBEDEB;
-	border-radius: 40px;
-	float: right;
 
+	background-color: #EBEDEB;
+	@include transform(-50%);
 }

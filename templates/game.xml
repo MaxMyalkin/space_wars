@@ -4,8 +4,8 @@
 	<div id='selectForm' class='form'>
 		<div class="gameOverForm">
 			<div>Choose device:</div>
-		    <a id='pc'><img style='height: 100px; margin:50px;' src='images/pc.png' alt='pc'/></a>
-		    <a id='smart'><img style='height: 100px;margin:50px;' src='images/mobile.png' alt='smartphone'/></a>
+		    <a id='pc'><img style='height: 100px; float:left; margin-left: 50px;' src='images/pc.png' alt='pc'/></a>
+		    <a id='smart'><img style='height: 100px; float:right; margin-right: 50px;' src='images/mobile.png' alt='smartphone'/></a>
 		</div>
 	</div>
 
