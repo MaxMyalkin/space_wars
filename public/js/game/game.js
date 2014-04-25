@@ -16,29 +16,14 @@ define(['classy',
         var Game = Class.$extend({
 
             __init__: function(resources) {
-
-
-
-                //--------------------------------------------------------------------------
+                $('#pc').on('click', this.PCSelection);
+                $('#smart').on('click', this.SmartSelection);
                 _.bindAll(this, "messageRecieved");
-                this.server = new Connection({
-                    remote: '/console'
-                });
-                var self = this;
-                //if(выбран мобильник)
-                this.server.onReady(function() {
-                    self.server.getToken("", function(answer) {
-                        console.log('token= ' + answer);
-                    });
-
-                    self.server.on('player-joined', function(data) {
-                        console.log(data.guid); // guid инициализированной связки
-                    });
-
-                    self.server.on('message', self.messageRecieved);
-                });
-                //--------------------------------------------------------------------------
-
+                $('#selectFrom').show();
+                $('.overlay').show();
+                $('#tokenForm').hide();
+                $('#gameOver').hide();
+                $('#gameDiv').hide();
                 this.resources = resources;
 
                 //Константы
@@ -90,6 +75,8 @@ define(['classy',
                 this.backBtn = $("#backBtn");
                 this.backBtn.click(
                     function() {
+                        $('#selectForm').show();
+                        $('#gameDiv').hide();
                         game.context.clearRect(0, 0, game.GAME_WIDTH, game.GAME_HEIGHT);
                         game.endGame.bind(game);
                         game.stopped = true;
@@ -103,6 +90,41 @@ define(['classy',
                 this.setBtnText();
                 this.setScore();
 
+            },
+
+            PCSelection: function() {
+                $('#gameDiv').show();
+                $('.overlay').hide();
+                $('#selectForm').hide();
+                return false;
+            },
+
+            SmartSelection: function() {
+                this.server = new Connection({
+                    remote: '/console'
+                });
+                var self = this;
+                var tokenForm = $('#tokenForm');
+                var selectForm = $('#selectForm');
+                this.server.onReady(function() {
+                    self.server.getToken(function(answer) {
+                        console.log('token= ' + answer);
+                        tokenForm.show();
+                        $('#token').html(answer);
+
+                    });
+
+                    self.server.on('player-joined', function(data) {
+                        console.log(data.guid); // guid инициализированной связки
+                        $('#gameDiv').show();
+                        tokenForm.hide();
+                        $('.overlay').hide();
+                    });
+
+                    self.server.on('message', self.messageRecieved);
+                    selectForm.hide();
+                    return false;
+                });
             },
 
             setBtnText: function() {
