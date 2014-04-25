@@ -4,18 +4,26 @@ module.exports = function(grunt) {
         sass: {
             css: {
                 files: [{
-                    expand: true,
-                    cwd: 'public/css/scss',
-                    src: 'main.scss',
-                    dest: 'public/css',
-                    ext: '.css'
-                }]
+                        expand: true,
+                        cwd: 'public/css/scss/pc',
+                        src: 'main.scss',
+                        dest: 'public/css',
+                        ext: '_console.css'
+                    }, {
+                        expand: true,
+                        cwd: 'public/css/scss/joystick',
+                        src: 'main.scss',
+                        dest: 'public/css',
+                        ext: '_joystick.css'
+                    }
+
+                ]
             }
         },
 
         watch: {
             sass: {
-                files: ['public/css/scss/main.scss'],
+                files: ['public/css/scss/pc/main.scss', 'public/css/scss/joystick/main.scss'],
                 tasks: ['sass'],
                 options: {
                     atBegin: true
@@ -50,7 +58,7 @@ module.exports = function(grunt) {
         },
 
         requirejs: {
-            build: { /* Подзадача */
+            build: {
                 options: {
                     almond: true,
                     baseUrl: "public/js",
@@ -63,7 +71,7 @@ module.exports = function(grunt) {
         },
 
         uglify: {
-            build: { /* Подзадача */
+            build: {
                 files: [{
                     src: ['public/js/build.js'],
                     dest: 'public/js/build.min.js'

@@ -16,26 +16,15 @@ define(['classy',
         var Game = Class.$extend({
 
             __init__: function(resources) {
-                //--------------------------------------------------------------------------
-                _.bindAll(this, "messageRecieved");
-                this.server = new Connection({
-                    remote: '/console'
-                });
-                var self = this;
-                //if(выбран мобильник)
-                this.server.onReady(function() {
-                    self.server.getToken("", function(answer) {
-                        console.log('token= ' + answer);
-                    });
 
-                    self.server.on('player-joined', function(data) {
-                        console.log(data.guid); // guid инициализированной связки
-                    });
-
-                    self.server.on('message', self.messageRecieved);
-                });
-                //--------------------------------------------------------------------------
-
+                $('#pc').on('click', this.PCSelection);
+                $('#smart').on('click', this.SmartSelection);
+               _.bindAll(this, "messageRecieved");
+                $('#selectFrom').show();
+                $('.overlay').show();
+                $('#tokenForm').hide();
+                $('#gameOver').hide();
+                $('#gameDiv').hide();
                 this.resources = resources;
 
                 this.prevX = 0;
@@ -89,12 +78,15 @@ define(['classy',
                 this.backBtn = $("#backBtn");
                 this.backBtn.click(
                     function() {
+                        $('#selectForm').show();
+                        $('#gameDiv').hide();
                         game.context.clearRect(0, 0, game.GAME_WIDTH, game.GAME_HEIGHT);
                         game.endGame.bind(game);
                         game.stopped = true;
                         game.setBtnText();
                     }
                 );
+
                 this.interval;
                 this.gameOverForm = new GameOver();
                 this.gameover = false;
@@ -102,6 +94,43 @@ define(['classy',
                 this.setBtnText();
                 this.setScore();
 
+            },
+
+            PCSelection: function() {
+                $('#gameDiv').show();
+                $('.overlay').hide();
+                $('#selectForm').hide();
+                return false;
+            },
+
+            SmartSelection: function() {
+                this.server = new Connection({
+                    remote: '/console'
+                });
+                var self = this;
+                var tokenForm = $('#tokenForm');
+                var selectForm = $('#selectForm');
+                this.server.onReady(function() {
+                    self.server.getToken(function(answer) {
+                        console.log('token= ' + answer);
+                        tokenForm.show();
+                        $('#token').html(answer);
+
+                    });
+
+                    self.server.on('player-joined', function(data) {
+                        console.log(data.guid); // guid инициализированной связки
+                        $('#gameDiv').show();
+                        tokenForm.hide();
+                        $('.overlay').hide();
+                    });
+
+                    self.server.on('message', mobileHelper.messageRecieved)
+                    
+                    selectForm.hide();
+                    return false;
+                });
+                
             },
 
             setBtnText: function() {
@@ -119,17 +148,6 @@ define(['classy',
 
 
             messageRecieved: function(data, answer) {
-                /*
-                console.log(data.alpha + ' ' + data.beta + ' ' + data.gamma);
-                if (data.alpha > 45 && data.alpha < 90)
-                    this.player.updateSpeed((90 - data.alpha) / 5, 0, 0, 0);
-                if (data.alpha > 90 && data.alpha < 135)
-                    this.player.updateSpeed(0, (data.alpha - 90) / 5, 0, 0);
-                if (data.gamma > 0 && data.gamma < 45)
-                    this.player.updateSpeed(0, 0, 0, (data.gamma) / 5);
-                if (data.gamma > 45 && data.gamma < 90)
-                    this.player.updateSpeed(0, 0, (data.gamma - 45) / 5, 0);
-                */
                 var x = 0;
                 var y = 0;
                 var alphaStart = Math.floor(data.startAlpha);

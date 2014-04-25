@@ -1,11 +1,43 @@
-require(['js/main.js', 'js/lib/Connector.js', 'js/lib/deviceapi-normaliser'], function(main, Connection) {
+require.config({
+    urlArgs: "_=" + (new Date()).getTime(),
+    baseUrl: "js",
+    paths: {
+        jquery: "/js/lib/jquery",
+        underscore: "/js/lib/underscore",
+        backbone: "/js/lib/backbone",
+        Connector: "/js/lib/Connector",
+        FnQuery: "/js/lib/FnQuery",
+        device_orientation: "js/lib/deviceapi-normaliser",
+        "socket.io": "/socket.io/socket.io"
+    },
+    shim: {
+        'backbone': {
+            deps: ['underscore', 'jquery'],
+            exports: 'Backbone'
+        },
+        'underscore': {
+            exports: '_'
+        },
+        "socket.io": {
+            exports: "io"
+        },
+        "device_orientation": {
+            exports: "deviceOrientation"
+        }
+    }
+});
+
+require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection) {
     window.addEventListener("deviceorientation", updategyro, false);
+    window.addEventListener('orientationchange', changeOrientation);
     mo.init();
     $("#param").html("browser: "+mo._browser+" os: "+mo._os+" normalise: "+mo.normalise+" orientation: "+mo.orientation);
 
     var server = new Connection({
         remote: '/player'
     });
+    $('#errorForm').hide();
+    $('#mainscreen').show();
 
     var currentAlpha = 0;
     var currentGamma = 0;
@@ -15,6 +47,7 @@ require(['js/main.js', 'js/lib/Connector.js', 'js/lib/deviceapi-normaliser'], fu
     var current_position;
 
     function updategyro(e) {
+
         current_position = deviceOrientation(e);
         
         if ((current_position.alpha != null) && 
@@ -31,20 +64,13 @@ require(['js/main.js', 'js/lib/Connector.js', 'js/lib/deviceapi-normaliser'], fu
         }
         $("#alpha").html(current_position.alpha);
         $("#gamma").html(current_position.gamma);
-        
-
 
    };
+
 
     server.onReady(function() {
         server.on('message', function(data) {
             console.log(data);
-        });
-    });
-
-    $("#btn").click(function() {
-        server.send($('#token').val(), function(answer) {
-            console.log(answer);
         });
     });
 
@@ -54,9 +80,31 @@ require(['js/main.js', 'js/lib/Connector.js', 'js/lib/deviceapi-normaliser'], fu
         server.bind({
             token: $('#token').val()
         }, function(answer) {
-            console.log(answer);
-
+            if (answer.status == 'success') {
+                $('#tokenForm').hide();
+            } else {
+                $('.error').html(answer.status);
+            }
         });
+        return false;
+    });
 
-    })
+    function changeOrientation() {
+        if (window.orientation % 180 == 0) {
+            // portrait, вывести сообщение об ошибке и остановить игру. 
+            $('#errorForm').show();
+            $('#mainscreen').hide();
+            server.send({
+                type: 'portrait'
+            });
+        } else {
+            // landscape если игра остановлена продолжить
+            server.send({
+                type: 'landscape'
+            });
+            $('#mainscreen').show();
+            $('#errorForm').hide();
+
+        }
+    };
 });

@@ -6,19 +6,35 @@
 		<title>
 			<fest:value>json.title</fest:value>
 		</title>
-		<meta name="viewport" content="..." />
+		<fest:if test="!json.development">
+			<link rel="stylesheet" type="text/css" href="css/main_joystick.min.css" />
+		</fest:if>
+		<fest:if test="json.development">
+			<link rel="stylesheet" type="text/css" href="css/main_joystick.css" />
+		</fest:if>
+		<meta name="viewport" content="
+		    initial-scale=1.0,
+		    user-scalable=no,
+		    maximum-scale=1,
+		    minimum-scale=1"/>	
 	</head>
 	<body>
-		Hello world!
-		<br/>
-		<input id='token' name='token' type='text'/>
-		<button id='submit' type='submit'>Click</button>
-		<button id='btn'>Отправить сообщение</button>
-		<div id="alpha"></div>
-		<div id="gamma"></div>
-		<div id="param"></div>
-		
-		
+
+		<div style='color: white' id='alpha'></div>
+		<div id='beta' style='color: white'></div>
+		<div id='gamma' style='color: white'></div>
+		<div id='mainscreen'>
+			<div id='tokenForm' class='form'>
+				<input id='token' name='token' type='text'/>
+				<button id='submit' type='submit'>Click</button>
+				<p class='error'></p>
+			</div>
+		</div>
+		<div id='errorForm' class='form'>
+				 
+			<p class='error'>Please turn your device</p>
+		</div>
+		<div class='button'>Shoot</div>
 	</body>
 	<script type="text/javascript" src="js/lib/require.js"></script>
 	<script type="text/javascript" src="js/lib/jquery.js"></script>
