@@ -153,6 +153,9 @@ define(['classy',
                 var gamma = Math.floor(data.gamma);
                 var k = 0.5;
                 var moveX = this.getDirectionX(alphaStart, alpha);
+                if (Math.abs(moveX) > this.player.maxhspeed){
+                    moveX.differ = this.player.maxhspeed;
+                }
                 if (moveX.direct === "left"){
                     x -= moveX.differ * k;
                 }
@@ -160,17 +163,32 @@ define(['classy',
                     x += moveX.differ * k;
                 }
                 if (moveX.direct === undefined){
-                    alert("ПОВЕРНИ МОБИЛУ НОРМАЛЬНО, МРАЗЬ");
+                    alert("Поверните телефон прямо");
                 }
                 var moveY = this.getDirectionY(gammaStart, gamma);
-                y += moveY * k;
+                if (moveY.differ > this.player.maxvspeed){
+                    moveY.differ = this.player.maxvspeed;
+                }
+                if (moveY.direct === "up"){
+                    y -= moveY.differ * k / 2;
+                }
+                if (moveY.direct === "down"){
+                    y += moveY.differ * k / 2;
+                }
 
                 this.player.joystickMove(this.GAME_WIDTH, this.GAME_HEIGHT, x, y);
             },
 
             getDirectionY: function(startPos, pos){
                 var diff = pos - startPos;
-                return -diff;
+                var dir = "up";
+                if (diff < 0)
+                    dir = "down";
+                diff = Math.abs(diff);
+                return {
+                    differ: diff,
+                    direct: dir
+                }
             },
 
             getDirectionX: function(startPos, pos){
@@ -188,9 +206,9 @@ define(['classy',
                 
                 var difference = this.diff(startPos, pos); 
                 if (this.inDiapazon(pos, left, startPos))
-                    dir = "left";
-                if (this.inDiapazon(pos, right, startPos))
                     dir = "right";
+                if (this.inDiapazon(pos, right, startPos))
+                    dir = "left";
                 return {
                     start: startPos,
                     left: left,
