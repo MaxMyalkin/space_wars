@@ -22,6 +22,7 @@ define(['classy',
                     remote: '/console'
                 });
                 var self = this;
+                //if(выбран мобильник)
                 this.server.onReady(function() {
                     self.server.getToken("", function(answer) {
                         console.log('token= ' + answer);
@@ -37,6 +38,8 @@ define(['classy',
 
                 this.resources = resources;
 
+                this.prevX = 0;
+                this.prevY = 0;
                 //Константы
 
                 this.DELAY = 50;
@@ -97,8 +100,6 @@ define(['classy',
                 this.gameover = false;
                 this.reloading(true);
                 this.setBtnText();
-
-
                 this.setScore();
 
             },
@@ -118,15 +119,78 @@ define(['classy',
 
 
             messageRecieved: function(data, answer) {
+                /*
                 console.log(data.alpha + ' ' + data.beta + ' ' + data.gamma);
                 if (data.alpha > 45 && data.alpha < 90)
-                    this.player.updateSpeed((90 - data.alpha) / 5 , 0, 0, 0);
+                    this.player.updateSpeed((90 - data.alpha) / 5, 0, 0, 0);
                 if (data.alpha > 90 && data.alpha < 135)
-                    this.player.updateSpeed(0, (data.alpha) / 5, 0, 0);
+                    this.player.updateSpeed(0, (data.alpha - 90) / 5, 0, 0);
                 if (data.gamma > 0 && data.gamma < 45)
                     this.player.updateSpeed(0, 0, 0, (data.gamma) / 5);
                 if (data.gamma > 45 && data.gamma < 90)
-                    this.player.updateSpeed(0, 0, 0, (data.gamma - 45) / 5);
+                    this.player.updateSpeed(0, 0, (data.gamma - 45) / 5, 0);
+                */
+                var x = 0;
+                var y = 0;
+                var alphaStart = Math.floor(data.startAlpha);
+                var alpha = Math.floor(data.alpha);
+                var k = 0.5;
+                var move = this.getDirection(alphaStart, alpha);
+                if (move.direct === "left"){
+                    x -= move.differ * k;
+                }
+                if (move.direct === "right"){
+                    x += move.differ * k;
+                }
+                if (move.direct === undefined){
+                    alert("ПОВЕРНИ МОБИЛУ НОРМАЛЬНО, МРАЗЬ");
+                }
+                this.player.joystickMove(this.GAME_WIDTH, this.GAME_HEIGHT, x, y);
+            },
+
+            getDirection: function(startPos, pos){
+                var dir;
+                var left = (startPos + 90);
+                var right = (startPos - 90);
+                if (startPos < 90){
+                    left = (startPos + 90);
+                    right = (startPos - 90) + 360;
+                }else
+                if (startPos > 270){
+                    right = (startPos - 90);
+                    left = (startPos + 90) % 360;
+                }
+                
+                var difference = this.diff(startPos, pos); 
+                if (this.inDiapazon(pos, left, startPos))
+                    dir = "left";
+                if (this.inDiapazon(pos, right, startPos))
+                    dir = "right";
+                return {
+                    start: startPos,
+                    left: left,
+                    right: right,
+                    differ: difference,
+                    direct: dir
+                }
+            },
+
+            diff: function(startPos, pos){
+                var result1 = Math.abs(startPos - pos);
+                var result2 = Math.abs(startPos - pos);
+                if (startPos > 270){
+                    result1 = 360 - startPos + pos;
+                    result2 = Math.abs(startPos - pos);
+                }
+                if (startPos < 90){
+                    result1 = startPos + (360 - pos);
+                    result2 = Math.abs(startPos - pos);
+                }
+                return Math.min(result1, result2);
+            },
+
+            inDiapazon: function(x, a, b){
+                return (90 - this.diff(x, a)) === this.diff(x, b);
             },
 
             movePlayer: function() {
@@ -217,7 +281,11 @@ define(['classy',
                         }
                     }
                 }
-                this.player.move(this.GAME_WIDTH, this.GAME_HEIGHT)
+
+
+                //this.player.move(this.GAME_WIDTH, this.GAME_HEIGHT)
+            
+
             },
 
             reloading: function(flag) {

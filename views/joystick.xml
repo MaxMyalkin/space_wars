@@ -14,6 +14,11 @@
 		<input id='token' name='token' type='text'/>
 		<button id='submit' type='submit'>Click</button>
 		<button id='btn'>Отправить сообщение</button>
+		<div id="alpha"></div>
+		<div id="gamma"></div>
+		<div id="param"></div>
+		
+		
 	</body>
 	<script type="text/javascript" src="js/lib/require.js"></script>
 	<script type="text/javascript" src="js/lib/jquery.js"></script>
