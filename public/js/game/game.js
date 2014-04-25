@@ -16,8 +16,14 @@ define(['classy',
         var Game = Class.$extend({
 
             __init__: function(resources) {
-                $('#pc').on('click', this.PCSelection);
-                $('#smart').on('click', this.SmartSelection);
+                var game = this;
+                $('#pc').on('click', function() {
+                    $('#gameDiv').show();
+                    $('.overlay').hide();
+                    $('#selectForm').hide();
+                    return false;
+                });
+                $('#smart').click(this.SmartSelection.bind(game));
                 _.bindAll(this, "messageRecieved");
                 $('#selectFrom').show();
                 $('.overlay').show();
@@ -60,7 +66,7 @@ define(['classy',
                 this.player = new Player("#ffffff", this.GAME_WIDTH, this.GAME_HEIGHT,
                     this.resources.player);
 
-                var game = this;
+
                 $(document).bind("keydown", function(event) {
                     game.keydown[String.fromCharCode(event.which).toLowerCase()] = true;
                 });
@@ -92,13 +98,6 @@ define(['classy',
 
             },
 
-            PCSelection: function() {
-                $('#gameDiv').show();
-                $('.overlay').hide();
-                $('#selectForm').hide();
-                return false;
-            },
-
             SmartSelection: function() {
                 this.server = new Connection({
                     remote: '/console'
@@ -107,21 +106,21 @@ define(['classy',
                 var tokenForm = $('#tokenForm');
                 var selectForm = $('#selectForm');
                 this.server.onReady(function() {
-                    self.server.getToken(function(answer) {
+                    this.getToken(function(answer) {
                         console.log('token= ' + answer);
                         tokenForm.show();
                         $('#token').html(answer);
 
                     });
 
-                    self.server.on('player-joined', function(data) {
+                    this.on('player-joined', function(data) {
                         console.log(data.guid); // guid инициализированной связки
                         $('#gameDiv').show();
                         tokenForm.hide();
                         $('.overlay').hide();
                     });
 
-                    self.server.on('message', self.messageRecieved);
+                    this.on('message', self.messageRecieved);
                     selectForm.hide();
                     return false;
                 });
