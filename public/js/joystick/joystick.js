@@ -43,20 +43,25 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
     var currentGamma = 0;
 
     var startPosAlpha = 0;
+    var startPosGamma = 0;
 
     var current_position;
 
     function updategyro(e) {
         current_position = deviceOrientation(e);
-        server.send({
-            type: 'control',
-            startAlpha: startPosAlpha, 
-            alpha: current_position.alpha,
-            beta: current_position.beta,
-            gamma: current_position.gamma
-        });
-        currentAlpha = current_position.alpha;
-        currentGamma = current_position.gamma;
+        if (Math.abs(currentAlpha - current_position.alpha) > 1 || Math.abs(currentGamma - current_position.gamma) > 1){
+            server.send({
+                type: 'control',
+                startAlpha: startPosAlpha, 
+                startGamma: startPosGamma,
+                alpha: current_position.alpha,
+                gamma: current_position.gamma
+            });
+            currentAlpha = current_position.alpha;
+            currentGamma = current_position.gamma;
+        }
+        
+        
         $("#alpha").html(current_position.alpha);
         $("#gamma").html(current_position.gamma);
    };
@@ -71,6 +76,9 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
     $('#submit').click(function() {
         var currentPos = current_position;
         startPosAlpha = currentPos.alpha;
+        startPosGamma = currentPos.gamma;
+        currentAlpha = startPosAlpha;
+        currentGamma = startPosGamma;
         server.bind({
             token: $('#token').val()
         }, function(answer) {

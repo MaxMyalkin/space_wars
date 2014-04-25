@@ -148,22 +148,32 @@ define(['classy',
                 var x = 0;
                 var y = 0;
                 var alphaStart = Math.floor(data.startAlpha);
+                var gammaStart = Math.floor(data.startGamma);
                 var alpha = Math.floor(data.alpha);
+                var gamma = Math.floor(data.gamma);
                 var k = 0.5;
-                var move = this.getDirection(alphaStart, alpha);
-                if (move.direct === "left"){
-                    x -= move.differ * k;
+                var moveX = this.getDirectionX(alphaStart, alpha);
+                if (moveX.direct === "left"){
+                    x -= moveX.differ * k;
                 }
-                if (move.direct === "right"){
-                    x += move.differ * k;
+                if (moveX.direct === "right"){
+                    x += moveX.differ * k;
                 }
-                if (move.direct === undefined){
+                if (moveX.direct === undefined){
                     alert("ПОВЕРНИ МОБИЛУ НОРМАЛЬНО, МРАЗЬ");
                 }
+                var moveY = this.getDirectionY(gammaStart, gamma);
+                y += moveY * k;
+
                 this.player.joystickMove(this.GAME_WIDTH, this.GAME_HEIGHT, x, y);
             },
 
-            getDirection: function(startPos, pos){
+            getDirectionY: function(startPos, pos){
+                var diff = pos - startPos;
+                return -diff;
+            },
+
+            getDirectionX: function(startPos, pos){
                 var dir;
                 var left = (startPos + 90);
                 var right = (startPos - 90);
@@ -298,8 +308,8 @@ define(['classy',
                 }
 
 
-                //this.player.move(this.GAME_WIDTH, this.GAME_HEIGHT)
-            
+                this.player.move(this.GAME_WIDTH, this.GAME_HEIGHT);
+                this.player.joystickMove(this.GAME_WIDTH, this.GAME_HEIGHT, this.player.joystickX, this.player.joystickY);
 
             },
 

@@ -19,6 +19,8 @@ define(['game/objects/object',
                 this.rightspeed = 0;
                 this.frontspeed = 0;
                 this.backspeed = 0;
+                this.joystickX = 0;
+                this.joystickY = 0;
             },
 
             launchBullet: function(game, type) {
@@ -30,6 +32,8 @@ define(['game/objects/object',
             },
 
             joystickMove: function(width, height, x, y){
+                this.joystickX = x;
+                this.joystickY = y;
                 if (this.x + x <= width - this.radius && this.x + x >= this.radius)
                     this.x += x;
                 if (this.y + y <= height - this.radius && this.y + y >= this.radius)
