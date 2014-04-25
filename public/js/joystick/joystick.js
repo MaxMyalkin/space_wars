@@ -35,21 +35,43 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
         remote: '/player'
     });
     $('#errorForm').hide();
-    $('#mainscreen').show();
+    $('#mainscreen').hide();
+    $('#shoot').on('click', function() {
+        server.send({ // прикрутить тип патронов
+            type: 'shoot'
+        });
+    });
+    $('#start').on('click', function() {
+        server.send({ // прикрутить тип патронов
+            type: 'start'
+        });
+    });
+    $('#restart').on('click', function() {
+        server.send({ // прикрутить тип патронов
+            type: 'restart'
+        });
+    });
 
+    var currentAlpha = 0;
+    var currentGamma = 0;
+
+    var startPosAlpha = 0;
+
+    var current_position;
 
     function updategyro(e) {
-        var current_position = deviceOrientation(e);
-        $('#alpha').html(current_position.alpha);
-        $('#beta').html(current_position.beta);
-        $('#gamma').html(current_position.gamma);
+        current_position = deviceOrientation(e);
         server.send({
             type: 'control',
+            startAlpha: startPosAlpha,
             alpha: current_position.alpha,
             beta: current_position.beta,
             gamma: current_position.gamma
         });
+        currentAlpha = current_position.alpha;
+        currentGamma = current_position.gamma;
     };
+
 
     server.onReady(function() {
         server.on('message', function(data) {
@@ -58,6 +80,8 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
     });
 
     $('#submit').click(function() {
+        var currentPos = current_position;
+        startPosAlpha = currentPos.alpha;
         server.bind({
             token: $('#token').val()
         }, function(answer) {

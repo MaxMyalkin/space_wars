@@ -1,4 +1,8 @@
+@font-face {
+  font-family: Yahoo;
+  src: url(fonts/Yahoo.ttf); }
 html {
+  font-family: Yahoo, serif;
   background: #C98887;
   height: 100%; }
 
@@ -27,24 +31,35 @@ body {
       width: 40%;
       height: 40%; } }
 
-.button {
+.shadow, .button {
+  -moz-box-shadow: 0px 0px 30px 3px #000000;
+  -webkit-box-shadow: 0px 0px 30px 3px #000000;
+  box-shadow: 0px 0px 30px 3px #000000; }
+
+.buttons {
   position: absolute;
-  top: 50%;
-  background-color: #EBEDEB;
-  -webkit-transform: translate(-50%, -50%);
-  -moz-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%); }
+  top: 30%;
+  width: 100%;
+  height: 30%; }
+
+.button {
+  text-align: center;
+  float: left;
+  height: 100%;
+  background-color: #EBEDEB; }
   @media screen and (min-width: 320px) {
     .button {
       width: 20%;
-      height: 60%;
       border-radius: 30px;
-      margin-left: 10%;
-      margin-right: 10%; } }
+      margin-left: 10%; } }
   @media screen and (min-width: 1224px) {
     .button {
       width: 10%;
-      height: 10%;
       margin-left: 20%;
-      margin-right: 20%;
       border-radius: 30px; } }
+  .button__text {
+    position: relative;
+    top: 50%;
+    -webkit-transform: translate(0px, -50%);
+    -moz-transform: translate(0px, -50%);
+    transform: translate(0px, -50%); }

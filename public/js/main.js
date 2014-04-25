@@ -1,4 +1,5 @@
 require.config({
+
     urlArgs: "_=" + (new Date()).getTime(),
     baseUrl: "js",
     paths: {
@@ -40,6 +41,7 @@ require.config({
     }
 });
 
+
 define([
     'router'
 ], function(
@@ -47,3 +49,4 @@ define([
 ) {
     Backbone.history.start();
 });
+

@@ -29,6 +29,13 @@ define(['game/objects/object',
                 SoundJS.Sound.play("attackSound");
             },
 
+            joystickMove: function(width, height, x, y){
+                if (this.x + x <= width - this.radius && this.x + x >= this.radius)
+                    this.x += x;
+                if (this.y + y <= height - this.radius && this.y + y >= this.radius)
+                    this.y += y;
+            },
+
             changeTypeOfShip: function(resource, type, width, height) {
                 this.type = type;
                 this.radius = resource[this.type][0].radius;

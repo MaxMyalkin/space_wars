@@ -19,6 +19,7 @@
 		    minimum-scale=1"/>	
 	</head>
 	<body>
+
 		<div style='color: white' id='alpha'></div>
 		<div id='beta' style='color: white'></div>
 		<div id='gamma' style='color: white'></div>
@@ -30,12 +31,13 @@
 			</div>
 		</div>
 		<div id='errorForm' class='form'>
-				 
 			<p class='error'>Please turn your device</p>
 		</div>
-		<div class='button'>Restart</div>
-		<div class='button'>Play</div>
-		<div class='button'>Shoot</div>
+		<div class='buttons'>
+			<div class='button' id='restart'><div class='button__text'>Restart</div></div>
+			<div class='button' id='start'><div class='button__text'>Start</div></div>
+			<div class='button' id='shoot'><div class='button__text'>Shoot</div></div>
+		</div>
 	</body>
 	<script type="text/javascript" src="js/lib/require.js"></script>
 	<script type="text/javascript" src="js/lib/jquery.js"></script>
