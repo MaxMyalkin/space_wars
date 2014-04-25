@@ -145,25 +145,69 @@ define(['classy',
 
 
             messageRecieved: function(data, answer) {
-                var x = 0;
-                var y = 0;
-                var alphaStart = Math.floor(data.startAlpha);
-                var alpha = Math.floor(data.alpha);
-                var k = 0.5;
-                var move = this.getDirection(alphaStart, alpha);
-                if (move.direct === "left") {
-                    x -= move.differ * k;
+                var game = this;
+                if (data.type === 'pause') {
+                    this.pauseGame();
                 }
-                if (move.direct === "right") {
-                    x += move.differ * k;
+
+                if (data.type === 'restart') {
+                    this.restartGame();
                 }
-                if (move.direct === undefined) {
-                    alert("ПОВЕРНИ МОБИЛУ НОРМАЛЬНО, МРАЗЬ");
+
+                if (data.type === 'shoot') {
+                    if (this.bulletTimer > this.BULLET_TIMEOUT) {
+                        this.player.launchBullet(this, 1);
+                        this.bulletTimer = 0;
+                    }
                 }
-                this.player.joystickMove(this.GAME_WIDTH, this.GAME_HEIGHT, x, y);
+
+                if (data.type === 'move') {
+                    var x = 0;
+                    var y = 0;
+                    var alphaStart = Math.floor(data.startAlpha);
+                    var gammaStart = Math.floor(data.startGamma);
+                    var alpha = Math.floor(data.alpha);
+                    var gamma = Math.floor(data.gamma);
+                    var k = 0.5;
+
+                    var moveX = this.getDirectionX(alphaStart, alpha);
+                    if (Math.abs(moveX) > this.player.maxhspeed) {
+                        moveX.differ = this.player.maxhspeed;
+                    }
+                    if (moveX.direct === "left") {
+                        x -= moveX.differ * k;
+                    }
+                    if (moveX.direct === "right") {
+                        x += moveX.differ * k;
+                    }
+                    var moveY = this.getDirectionY(gammaStart, gamma);
+                    if (moveY.differ > this.player.maxvspeed) {
+                        moveY.differ = this.player.maxvspeed;
+                    }
+                    if (moveY.direct === "up") {
+                        y -= moveY.differ * k / 2;
+                    }
+                    if (moveY.direct === "down") {
+                        y += moveY.differ * k / 2;
+                    }
+
+                    this.player.joystickMove(this.GAME_WIDTH, this.GAME_HEIGHT, x, y);
+                }
             },
 
-            getDirection: function(startPos, pos) {
+            getDirectionY: function(startPos, pos) {
+                var diff = pos - startPos;
+                var dir = "up";
+                if (diff < 0)
+                    dir = "down";
+                diff = Math.abs(diff);
+                return {
+                    differ: diff,
+                    direct: dir
+                }
+            },
+
+            getDirectionX: function(startPos, pos) {
                 var dir;
                 var left = (startPos + 90);
                 var right = (startPos - 90);
@@ -178,9 +222,9 @@ define(['classy',
 
                 var difference = this.diff(startPos, pos);
                 if (this.inDiapazon(pos, left, startPos))
-                    dir = "left";
-                if (this.inDiapazon(pos, right, startPos))
                     dir = "right";
+                if (this.inDiapazon(pos, right, startPos))
+                    dir = "left";
                 return {
                     start: startPos,
                     left: left,
@@ -296,10 +340,8 @@ define(['classy',
                         }
                     }
                 }
-
-
-                //this.player.move(this.GAME_WIDTH, this.GAME_HEIGHT)
-
+                this.player.move(this.GAME_WIDTH, this.GAME_HEIGHT);
+                this.player.joystickMove(this.GAME_WIDTH, this.GAME_HEIGHT, this.player.joystickX, this.player.joystickY);
 
             },
 

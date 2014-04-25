@@ -35,41 +35,57 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
         remote: '/player'
     });
     $('#errorForm').hide();
-    $('#mainscreen').hide();
+    $('.buttons').hide();
+    $('#mainscreen').show();
+
     $('#shoot').on('click', function() {
         server.send({ // прикрутить тип патронов
             type: 'shoot'
         });
     });
-    $('#start').on('click', function() {
-        server.send({ // прикрутить тип патронов
-            type: 'start'
+
+    $('#pause').on('click', function() {
+        server.send({
+            type: 'pause'
         });
+        setBtnText();
     });
     $('#restart').on('click', function() {
-        server.send({ // прикрутить тип патронов
+        server.send({
             type: 'restart'
         });
+        setBtnText();
     });
+
+
+    var stopped = true;
+    var pause = false;
 
     var currentAlpha = 0;
     var currentGamma = 0;
 
     var startPosAlpha = 0;
+    var startPosGamma = 0;
 
     var current_position;
 
     function updategyro(e) {
         current_position = deviceOrientation(e);
-        server.send({
-            type: 'control',
-            startAlpha: startPosAlpha,
-            alpha: current_position.alpha,
-            beta: current_position.beta,
-            gamma: current_position.gamma
-        });
-        currentAlpha = current_position.alpha;
-        currentGamma = current_position.gamma;
+        if (Math.abs(currentAlpha - current_position.alpha) > 1 || Math.abs(currentGamma - current_position.gamma) > 1) {
+            server.send({
+                type: 'move',
+                startAlpha: startPosAlpha,
+                startGamma: startPosGamma,
+                alpha: current_position.alpha,
+                gamma: current_position.gamma
+            });
+            currentAlpha = current_position.alpha;
+            currentGamma = current_position.gamma;
+        }
+
+
+        $("#alpha").html(current_position.alpha);
+        $("#gamma").html(current_position.gamma);
     };
 
 
@@ -82,11 +98,15 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
     $('#submit').click(function() {
         var currentPos = current_position;
         startPosAlpha = currentPos.alpha;
+        startPosGamma = currentPos.gamma;
+        currentAlpha = startPosAlpha;
+        currentGamma = startPosGamma;
         server.bind({
             token: $('#token').val()
         }, function(answer) {
             if (answer.status == 'success') {
                 $('#tokenForm').hide();
+                $('.buttons').show();
             } else {
                 $('.error').html(answer.status);
             }
@@ -100,8 +120,9 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
             $('#errorForm').show();
             $('#mainscreen').hide();
             server.send({
-                type: 'portrait'
+                type: 'pause'
             });
+            setBtnText();
         } else {
             // landscape если игра остановлена продолжить
             server.send({
@@ -112,4 +133,20 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
 
         }
     };
+
+    function setBtnText() {
+        var pauseBtn = $('.button__text.pause');
+        var restart = $('.button__text.restart');
+        if (pause) {
+            pauseBtn.html("go");
+        } else {
+            pauseBtn.html("Pause");
+        }
+        if (stopped) {
+            restart.html("");
+        } else {
+            restart.html("Restart");
+        }
+    }
+
 });
