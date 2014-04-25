@@ -28,16 +28,21 @@ body {
       height: 40%; } }
 
 .button {
+  position: absolute;
+  top: 50%;
+  left: 90%;
   background-color: #EBEDEB;
-  border-radius: 40px;
-  float: right; }
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); }
   @media screen and (min-width: 320px) {
     .button {
       width: 30%;
-      height: 30%;
-      margin: 10%; } }
+      height: 60%;
+      border-radius: 30px;
+      left: 80%; } }
   @media screen and (min-width: 1224px) {
     .button {
       width: 10%;
       height: 10%;
-      margin: 10%; } }
+      border-radius: 30px; } }
