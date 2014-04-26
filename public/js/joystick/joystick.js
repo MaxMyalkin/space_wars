@@ -45,7 +45,7 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
     var bulletSwitcher = document.getElementById('bulletSwitcher');
     var bullet1 = document.getElementById('bullet1');
     var bullet2 = document.getElementById('bullet2');
-    var bullet3 = document.getElementById('bullet3'); 
+    var bullet3 = document.getElementById('bullet3');
 
     var shipSwitcher = document.getElementById('shipSwitcher');
     var ship1 = document.getElementById('ship1');
@@ -54,6 +54,8 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
     ship1.addEventListener("touchstart", function(event){
         event.preventDefault();
         currentPressed = [];
+        $('#shipSwitcher .active').removeClass('active');
+        $('#ship1').addClass('active');
         server.send({
             type: 'ship1'
         });
@@ -62,16 +64,18 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
     ship2.addEventListener("touchstart", function(event){
         event.preventDefault();
         currentPressed = [];
+        $('#shipSwitcher .active').removeClass('active');
+        $('#ship2').addClass('active');
         server.send({
             type: 'ship2'
         });
     });
 
-    shootBtn.addEventListener("touchstart", function(event){
+    shootBtn.addEventListener("touchstart", function(event) {
         event.preventDefault();
     });
 
-    bulletSwitcher.addEventListener("touchstart", function(event){
+    bulletSwitcher.addEventListener("touchstart", function(event) {
         event.preventDefault();
     })
 
@@ -116,6 +120,7 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
     });
     $('#errorForm').hide();
     $('.buttons').hide();
+    $('.switchers').hide();
     $('#mainscreen').show();
 
 
@@ -144,8 +149,6 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
             currentGamma = current_position.gamma;
         }
 
-
-        //$("#alpha").html(current_position.alpha);
         $("#betta").html(current_position.beta);
         $("#gamma").html(current_position.gamma);
     };
@@ -174,6 +177,7 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
             if (answer.status == 'success') {
                 $('#tokenForm').hide();
                 $('.buttons').show();
+                $('.switchers').show();
                 gameStarted = true;
             } else {
                 $('.error').html(answer.status);
@@ -225,11 +229,11 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
     };
 
 
-    function touchStart(event){
+    function touchStart(event) {
         fingers = event.touches.length;
         var shoot = null;
         var bullet = null;
-        for (var i = 0; i < fingers; i++){
+        for (var i = 0; i < fingers; i++) {
             if (bulletSwitcher.contains(event.touches[i].target))
                 bullet = event.touches[i];
             if (shootBtn.contains(event.touches[i].target))
@@ -249,20 +253,24 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
             })
             checkBullet(bullet.target);
         }
-            
+
     };
 
 
-    function checkBullet(target){
-        switch(target){
+    function checkBullet(target) {
+        $("#bulletSwitcher .active").removeClass("active");
+        switch (target) {
             case bullet1:
                 bulletType = 1;
+                $('#bullet1').addClass("active");
                 break;
             case bullet2:
                 bulletType = 2;
+                $('#bullet2').addClass("active");
                 break;
             case bullet3:
                 bulletType = 3;
+                $('#bullet3').addClass("active");
                 break;
         }
 
@@ -274,26 +282,26 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
             server.send({
                 type: "shoot",
                 bulletType: bulletType
-            }, function(answer){
-                if (answer === "shootACK"){
+            }, function(answer) {
+                if (answer === "shootACK") {
                     canShoot = false;
                 }
             });
         }
     }, 50);
 
-    function touchEnd(event){
+    function touchEnd(event) {
         var touches = event.changedTouches;
         var toDelete = [];
         for (var i = 0; i < touches.length; i++)
-            for (var j = 0; j < currentPressed.length; j++){
+            for (var j = 0; j < currentPressed.length; j++) {
                 if (touches[i].identifier === currentPressed[j].identifier)
                     toDelete.push(j);
             }
         deleteEndedTouches(toDelete);
     };
 
-    function deleteEndedTouches(indexes){
+    function deleteEndedTouches(indexes) {
         sortArray(indexes);
         for (var i = 0; i < indexes.length; i++) {
             currentPressed.splice(indexes[i], 1);
@@ -306,17 +314,17 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
         })
     };
 
-    function isElementInCurrentPressed(element){
-        for (var i = 0; i < currentPressed.length; i++){
+    function isElementInCurrentPressed(element) {
+        for (var i = 0; i < currentPressed.length; i++) {
             if (element.contains(currentPressed[i].target))
                 return true;
         }
         return false;
     };
 
-    function getIdentifierFromCurrentPressed(type){
-        for (var i = 0; i < currentPressed.length; i++){
-            if (currentPressed[i].type === type){
+    function getIdentifierFromCurrentPressed(type) {
+        for (var i = 0; i < currentPressed.length; i++) {
+            if (currentPressed[i].type === type) {
                 return currentPressed[i].identifier;
             }
         }

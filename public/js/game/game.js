@@ -163,15 +163,15 @@ define(['classy',
                 }
 
                 if (data.type === 'shoot') {
-                    answer(this.launchBullet(data.bulletType));                    
+                    answer(this.launchBullet(data.bulletType));
                 }
 
-                if (data.type === "ship1"){
+                if (data.type === "ship1") {
                     this.player.changeTypeOfShip(this.resources.player, 0, this.GAME_WIDTH, this.GAME_HEIGHT);
                     this.setShipInfo();
                 }
 
-                if (data.type === "ship2"){
+                if (data.type === "ship2") {
                     this.player.changeTypeOfShip(this.resources.player, 1, this.GAME_WIDTH, this.GAME_HEIGHT);
                     this.setShipInfo();
                 }
@@ -353,9 +353,9 @@ define(['classy',
 
             },
 
-            launchBullet: function(type){
-                if (this.bulletTimer > this.BULLET_TIMEOUT){
-                    if (type === 1){
+            launchBullet: function(type) {
+                if (this.bulletTimer > this.BULLET_TIMEOUT) {
+                    if (type === 1) {
                         this.player.launchBullet(this, 1);
                         this.bulletTimer = 0;
                         return "shootACK";
@@ -369,7 +369,7 @@ define(['classy',
                     }
                 }
                 return "shootNAK";
-                
+
             },
 
             reloading: function(flag) {
