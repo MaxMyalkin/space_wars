@@ -21,16 +21,18 @@
 	</head>
 	<body>
 		<div style='color: white' id='alpha'></div>
-		<div id='beta' style='color: white'></div>
+		<div id='betta' style='color: white'></div>
 		<div id='gamma' style='color: white'></div>
+		<div id='fingers' style='color: white'></div>
 		<div id='mainscreen'>
 			<div id='tokenForm' class='form'>
 				<div class='form__text' for='token'>Your token:</div>
 				<input id='token' type='text'/>
 				<p class='error form__text_error'>asdas</p>
 				<div id='submit' class='form__btn'><div class='button__text'>Submit</div></div>
-				
 			</div>
+
+			
 		</div>
 		<div id='errorForm' class='form'>
 			<p class='error form__text_error'>Please turn your device</p>
@@ -40,6 +42,22 @@
 			<div class='button' id='pause'><div class='button__text pause'>Pause</div></div>
 			<div class='button' id='shoot'><div class='button__text shoot'>Shoot</div></div>
 		</div>
+
+		<div class='selectors'>
+			<div class='switcher'>
+			    <label  class='switcher-label switcher-off' for='off1'>off</label>
+			    <input id='off1' class='switcher-radio-off' type='radio' name='value1' value='off'/>
+			    
+			    <label class='switcher-label switcher-neutral' for='neutral1'>neutral</label>
+			    <input id='neutral1' class='switcher-radio-neutral' type='radio' name='value1' value='neutral' checked="checked"/>
+			    
+			    <label class='switcher-label switcher-on' for='on1'>on</label>
+			    <input id='on1' class='switcher-radio-on' type='radio' name='value1' value='on'/>
+			    <div class='switcher-slider'></div>
+			</div>
+		</div>
+		
+
 	</body>
 	<script type="text/javascript" src="js/lib/require.js"></script>
 	<script type="text/javascript" src="js/lib/jquery.js"></script>
