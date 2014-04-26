@@ -41,23 +41,21 @@
 		</div>
 		<div class='buttons'>
 			<div class='button' id='restart'><div class='button__text start'>Start</div></div>
-				
-			
 			<div class='button' id='pause'><div class='button__text pause'>Pause</div></div>
 			<div class='button' id='shoot'><div class='button__text shoot'>Shoot</div></div>
-			<br/>
-			<div class='switcher' id='bulletSwitcher'>
-				<div id="bullet1">bullet1</div>
-				<div id="bullet2">bullet2</div>
-				<div id="bullet3">bullet3</div>
-			</div>
-			<br/>
-			<div class='switcher' id='shipSwitcher'>
-				<div id="ship1">ship1</div>
-				<div id="ship2">ship2</div>
-			</div>
 		</div>
 		
+		<div class='switchers'>
+			<div class='switcher-group' id='bulletSwitcher'>
+				<div id="bullet1" class='switcher active'><div class='button__text'>b1</div></div>
+				<div id="bullet2" class='switcher'><div class='button__text'>b2</div></div>
+				<div id="bullet3" class='switcher'><div class='button__text'>b3</div></div>
+			</div>
+			<div class='switcher-group' id='shipSwitcher'>
+				<div id="ship1" class='switcher active'><div class='button__text'>s1</div></div>
+				<div id="ship2" class='switcher'><div class='button__text'>s2</div></div>
+			</div>
+		</div>
 
 		
 

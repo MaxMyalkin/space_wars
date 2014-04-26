@@ -48,9 +48,9 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
     var bulletSwitcher = document.getElementById('bulletSwitcher');
     var bullet1 = document.getElementById('bullet1');
     var bullet2 = document.getElementById('bullet2');
-    var bullet3 = document.getElementById('bullet3'); 
+    var bullet3 = document.getElementById('bullet3');
 
-    shootBtn.addEventListener("touchstart", function(event){
+    shootBtn.addEventListener("touchstart", function(event) {
         event.preventDefault();
     });
 
@@ -96,6 +96,7 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
     });
     $('#errorForm').hide();
     $('.buttons').hide();
+    $('.switchers').hide();
     $('#mainscreen').show();
 
 
@@ -124,8 +125,6 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
             currentGamma = current_position.gamma;
         }
 
-
-        //$("#alpha").html(current_position.alpha);
         $("#betta").html(current_position.beta);
         $("#gamma").html(current_position.gamma);
     };
@@ -151,6 +150,7 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
             if (answer.status == 'success') {
                 $('#tokenForm').hide();
                 $('.buttons').show();
+                $('.switchers').show();
                 gameStarted = true;
             } else {
                 $('.error').html(answer.status);
@@ -202,11 +202,11 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
     };
 
 
-    function touchStart(event){
+    function touchStart(event) {
         fingers = event.touches.length;
         var shoot = null;
         var bullet = null;
-        for (var i = 0; i < fingers; i++){
+        for (var i = 0; i < fingers; i++) {
             if (bulletSwitcher.contains(event.touches[i].target))
                 bullet = event.touches[i].identifier;
             if (shootBtn.contains(event.touches[i].target))
@@ -214,7 +214,7 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
         }
         if (shoot != null)
             currentPressed.push({
-                
+
             })
 
         /*
@@ -247,17 +247,17 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
                     checkBullet(target1, target2);
                 }
         }*/
-        
+
     };
 
 
-    function checkBullet(target1, target2){
+    function checkBullet(target1, target2) {
         var target;
         if (bulletSwitcher.contains(target1))
             target = target1;
         if (bulletSwitcher.contains(target2))
             target = target2;
-        switch(target){
+        switch (target) {
             case bullet1:
                 bulletType = 1;
                 break;
@@ -271,9 +271,9 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
 
     };
 
-    function targetContains(event, element){
-        for (var i = 0; i < event.length; i++){
-            if (element.contains(event[i].target)) 
+    function targetContains(event, element) {
+        for (var i = 0; i < event.length; i++) {
+            if (element.contains(event[i].target))
                 return true;
         }
         return false;
@@ -293,7 +293,7 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
 
     }, 50);
 
-    function touchEnd(event){
+    function touchEnd(event) {
         /*if (gameStarted)
 =======
     function touchEnd(event) {
