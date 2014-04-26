@@ -99,7 +99,6 @@ define(['classy',
                 this.reloading(true);
                 this.setBtnText();
                 this.setScore();
-
             },
 
             SmartSelection: function() {
@@ -114,7 +113,6 @@ define(['classy',
                         console.log('token= ' + answer);
                         tokenForm.show();
                         $('#token').html(answer);
-
                     });
 
                     this.on('player-joined', function(data) {
@@ -148,10 +146,18 @@ define(['classy',
                 var game = this;
                 if (data.type === 'pause') {
                     this.pauseGame();
+                    answer(this.pauseFlag);
                 }
 
                 if (data.type === 'restart') {
                     this.restartGame();
+                    answer(this.stopped);
+                }
+
+                if (data.type === 'portrait') {
+                    if (!this.pauseFlag)
+                        this.pauseGame();
+                    answer(this.pauseFlag);
                 }
 
                 if (data.type === 'shoot') {

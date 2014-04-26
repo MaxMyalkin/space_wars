@@ -31,6 +31,9 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
     window.addEventListener("deviceorientation", updategyro, false);
     window.addEventListener('orientationchange', changeOrientation);
     mo.init();
+
+    var stopped = true;
+    var pause = false;
     var server = new Connection({
         remote: '/player'
     });
@@ -47,19 +50,22 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
     $('#pause').on('click', function() {
         server.send({
             type: 'pause'
+        }, function(data) {
+            pause = data;
+            setBtnText();
         });
-        setBtnText();
     });
+
     $('#restart').on('click', function() {
         server.send({
             type: 'restart'
+        }, function(data) {
+            stopped = data;
+            setBtnText();
         });
-        setBtnText();
     });
 
 
-    var stopped = true;
-    var pause = false;
 
     var currentAlpha = 0;
     var currentGamma = 0;
@@ -95,12 +101,12 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
         });
     });
 
-    $('#submit').click(function() {
-        var currentPos = current_position;
-        startPosAlpha = currentPos.alpha;
-        startPosGamma = currentPos.gamma;
-        currentAlpha = startPosAlpha;
-        currentGamma = startPosGamma;
+    $('#submit').on('click', function() {
+        //var currentPos = current_position;
+        //startPosAlpha = currentPos.alpha;
+        //startPosGamma = currentPos.gamma;
+        //currentAlpha = startPosAlpha;
+        //currentGamma = startPosGamma;
         server.bind({
             token: $('#token').val()
         }, function(answer) {
@@ -116,12 +122,17 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
 
     function changeOrientation() {
         if (window.orientation % 180 == 0) {
-            // portrait, вывести сообщение об ошибке и остановить игру. 
             $('#errorForm').show();
             $('#mainscreen').hide();
+
             server.send({
-                type: 'pause'
-            });
+                    type: 'portrait'
+                },
+                function(data) {
+                    pause = data;
+                    setBtnText();
+                });
+
             setBtnText();
         } else {
             // landscape если игра остановлена продолжить
@@ -136,14 +147,14 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
 
     function setBtnText() {
         var pauseBtn = $('.button__text.pause');
-        var restart = $('.button__text.restart');
+        var restart = $('.button__text.start');
         if (pause) {
-            pauseBtn.html("go");
+            pauseBtn.html("Go");
         } else {
             pauseBtn.html("Pause");
         }
         if (stopped) {
-            restart.html("");
+            restart.html("Start");
         } else {
             restart.html("Restart");
         }

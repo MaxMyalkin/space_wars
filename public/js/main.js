@@ -49,4 +49,3 @@ define([
 ) {
     Backbone.history.start();
 });
-
