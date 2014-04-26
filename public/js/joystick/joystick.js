@@ -52,6 +52,7 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
     var ship2 = document.getElementById('ship2');
 
     ship1.addEventListener("touchstart", function(event){
+        event.preventDefault();
         currentPressed = [];
         server.send({
             type: 'ship1'
@@ -59,6 +60,7 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
     });
 
     ship2.addEventListener("touchstart", function(event){
+        event.preventDefault();
         currentPressed = [];
         server.send({
             type: 'ship2'
