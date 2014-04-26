@@ -151,27 +151,27 @@ define(['classy',
                 }
 
                 if (data.type === 'restart') {
+                    this.gameOverForm.hide();
                     this.restartGame();
                 }
 
                 if (data.type === 'shoot') {
-                    if (this.bulletTimer > this.BULLET_TIMEOUT) {
-                        this.player.launchBullet(this, 1);
-                        this.bulletTimer = 0;
-                    }
+                    this.player.launchBullet(this, 1);
+                    this.bulletTimer = 0;
+                    
                 }
 
                 if (data.type === 'move') {
                     var x = 0;
                     var y = 0;
-                    var alphaStart = Math.floor(data.startAlpha);
+                    var betaStart = Math.floor(data.startBeta);
                     var gammaStart = Math.floor(data.startGamma);
-                    var alpha = Math.floor(data.alpha);
+                    var beta = Math.floor(data.beta);
                     var gamma = Math.floor(data.gamma);
                     var k = 0.5;
 
-                    var moveX = this.getDirectionX(alphaStart, alpha);
-                    if (Math.abs(moveX) > this.player.maxhspeed) {
+                    var moveX = this.getDirectionX(betaStart, beta);
+                    if (moveX.differ > this.player.maxhspeed) {
                         moveX.differ = this.player.maxhspeed;
                     }
                     if (moveX.direct === "left") {
@@ -185,10 +185,10 @@ define(['classy',
                         moveY.differ = this.player.maxvspeed;
                     }
                     if (moveY.direct === "up") {
-                        y -= moveY.differ * k / 2;
+                        y -= moveY.differ * k;
                     }
                     if (moveY.direct === "down") {
-                        y += moveY.differ * k / 2;
+                        y += moveY.differ * k;
                     }
 
                     this.player.joystickMove(this.GAME_WIDTH, this.GAME_HEIGHT, x, y);
@@ -207,7 +207,19 @@ define(['classy',
                 }
             },
 
-            getDirectionX: function(startPos, pos) {
+            getDirectionX: function(startPos, pos){
+                var diff = pos - startPos;
+                var dir = "right";
+                if (diff < 0)
+                    dir = "left";
+                diff = Math.abs(diff);
+                return {
+                    differ: diff,
+                    direct: dir
+                }
+            },
+
+            getDirectionXwithAlpha: function(startPos, pos) {
                 var dir;
                 var left = (startPos + 90);
                 var right = (startPos - 90);
@@ -341,6 +353,14 @@ define(['classy',
                     }
                 }
                 this.player.move(this.GAME_WIDTH, this.GAME_HEIGHT);
+                
+                if (Math.abs(this.player.joystickX) > Math.abs(this.player.maxhspeed / 10)){
+                    if (this.player.joystickX > 0)
+                    this.player.resource = this.resources.player[this.player.type][2];
+                    if (this.player.joystickX < 0)
+                        this.player.resource = this.resources.player[this.player.type][1];
+                }
+                
                 this.player.joystickMove(this.GAME_WIDTH, this.GAME_HEIGHT, this.player.joystickX, this.player.joystickY);
 
             },
@@ -388,6 +408,11 @@ define(['classy',
             },
 
             play: function() {
+                if (this.bulletTimer === this.BULLET_TIMEOUT) {
+                    this.server.send({
+                        type: "canShoot"
+                    })
+                }
                 this.drawBulletImg();
                 this.setShipInfo();
                 if (!this.pauseFlag && !this.stopped && !this.gameover) {

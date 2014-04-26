@@ -32,6 +32,7 @@ define(['game/objects/object',
             },
 
             joystickMove: function(width, height, x, y){
+                
                 this.joystickX = x;
                 this.joystickY = y;
                 if (this.x + x <= width - this.radius && this.x + x >= this.radius)

@@ -28,6 +28,47 @@ require.config({
 });
 
 require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection) {
+
+    var gameStarted = false;
+    var fingers = 0;
+    var currentPressed = null;
+    var canShoot = false;
+    //var shootBtn = $('#shoot')[0];
+
+    var shootBtn = document.getElementById('shoot');
+    var pauseBtn = document.getElementById('pause');
+    var restartBtn = document.getElementById('restart');
+
+    var bullet1 = document.getElementById('off1');
+    var bullet2 = document.getElementById('neutral1');
+    var bullet3 = document.getElementById('on1'); 
+
+    pauseBtn.addEventListener("touchstart", function(event){
+        event.preventDefault();
+        currentPressed = null;
+        server.send({
+            type: 'pause'
+        });
+        setBtnText();
+    });
+
+    restartBtn.addEventListener("touchstart", function(event){
+        event.preventDefault();
+        currentPressed = null;
+        var currentPos = current_position;
+        startPosBeta = currentPos.beta;
+        startPosGamma = currentPos.gamma;
+        currentBeta = startPosBeta;
+        currentGamma = startPosGamma;
+        server.send({
+            type: 'restart'
+        });
+        setBtnText();
+    });
+
+    window.addEventListener("touchstart", touchStart);
+    window.addEventListener("touchend", touchEnd);
+
     window.addEventListener("deviceorientation", updategyro, false);
     window.addEventListener('orientationchange', changeOrientation);
     mo.init();
@@ -38,68 +79,58 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
     $('.buttons').hide();
     $('#mainscreen').show();
 
+/*
     $('#shoot').on('click', function() {
         server.send({ // прикрутить тип патронов
             type: 'shoot'
         });
     });
-
-    $('#pause').on('click', function() {
-        server.send({
-            type: 'pause'
-        });
-        setBtnText();
-    });
-    $('#restart').on('click', function() {
-        server.send({
-            type: 'restart'
-        });
-        setBtnText();
-    });
-
-
+*/
     var stopped = true;
     var pause = false;
 
-    var currentAlpha = 0;
+    var currentBeta = 0;
     var currentGamma = 0;
 
-    var startPosAlpha = 0;
+    var startPosBeta = 0;
     var startPosGamma = 0;
 
     var current_position;
 
     function updategyro(e) {
         current_position = deviceOrientation(e);
-        if (Math.abs(currentAlpha - current_position.alpha) > 1 || Math.abs(currentGamma - current_position.gamma) > 1) {
+        if (Math.abs(currentBeta - current_position.beta) > 2 || Math.abs(currentGamma - current_position.gamma) > 2) {
             server.send({
                 type: 'move',
-                startAlpha: startPosAlpha,
+                startBeta: startPosBeta,
                 startGamma: startPosGamma,
-                alpha: current_position.alpha,
+                beta: current_position.beta,
                 gamma: current_position.gamma
             });
-            currentAlpha = current_position.alpha;
+            currentBeta = current_position.beta;
             currentGamma = current_position.gamma;
         }
 
 
-        $("#alpha").html(current_position.alpha);
+        //$("#alpha").html(current_position.alpha);
+        $("#betta").html(current_position.beta);
         $("#gamma").html(current_position.gamma);
     };
 
 
     server.onReady(function() {
         server.on('message', function(data) {
-            console.log(data);
+            if (data.type === "canShoot"){
+                canShoot = true;
+            }
         });
     });
 
     $('#submit').click(function() {
         var currentPos = current_position;
-        startPosAlpha = currentPos.alpha;
+        startPosBeta = currentPos.beta;
         startPosGamma = currentPos.gamma;
-        currentAlpha = startPosAlpha;
+        currentBeta = startPosBeta;
         currentGamma = startPosGamma;
         server.bind({
             token: $('#token').val()
@@ -107,10 +138,13 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
             if (answer.status == 'success') {
                 $('#tokenForm').hide();
                 $('.buttons').show();
+                gameStarted = true;
             } else {
                 $('.error').html(answer.status);
             }
         });
+
+
         return false;
     });
 
@@ -147,6 +181,46 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
         } else {
             restart.html("Restart");
         }
-    }
+    };
+
+    function touchStart(event){
+        if (gameStarted)
+            event.preventDefault();
+        fingers = event.touches.length;
+        if (fingers === 1){
+            var target = event.touches[0].target;
+            currentPressed = {
+                target: target,
+                pressed: true
+            };
+            currentPressed.target.addEventListener("touchend", touchEnd);
+        }
+        if (fingers === 2){
+
+        }
+        
+    };
+
+    var interval = setInterval(function() {
+        $("#fingers").html(fingers);
+        if (currentPressed != null){
+            if (canShoot && shootBtn.contains(currentPressed.target) && currentPressed.pressed === true){
+                canShoot = false;
+                server.send({
+                    type: "shoot"
+                });
+            }
+        }
+        
+    }, 50);
+
+    function touchEnd(event){
+        if (gameStarted)
+            event.preventDefault();
+        fingers = event.touches.length;
+        currentPressed.pressed = false;
+        //var target = event.targetTouches[0].target;
+
+    };
 
 });
