@@ -33,11 +33,8 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
 
     var gameStarted = false;
     var fingers = 0;
-    var currentPressed = null;
-    var canShoot = false;
-
-    var shootFingerIdentifier = null;
-    var switchBulletIdentifier = null;
+    var currentPressed = [];
+    var canShoot = true;
     //var shootBtn = $('#shoot')[0];
 
 
@@ -50,14 +47,35 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
     var bullet2 = document.getElementById('bullet2');
     var bullet3 = document.getElementById('bullet3'); 
 
+    var shipSwitcher = document.getElementById('shipSwitcher');
+    var ship1 = document.getElementById('ship1');
+    var ship2 = document.getElementById('ship2');
+
+    ship1.addEventListener("touchstart", function(event){
+        currentPressed = [];
+        server.send({
+            type: 'ship1'
+        });
+    });
+
+    ship2.addEventListener("touchstart", function(event){
+        currentPressed = [];
+        server.send({
+            type: 'ship2'
+        });
+    });
+
     shootBtn.addEventListener("touchstart", function(event){
         event.preventDefault();
     });
 
+    bulletSwitcher.addEventListener("touchstart", function(event){
+        event.preventDefault();
+    })
 
     pauseBtn.addEventListener("touchstart", function(event) {
         event.preventDefault();
-        currentPressed = null;
+        currentPressed = [];
         server.send({
             type: 'pause'
         }, function(data) {
@@ -69,7 +87,7 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
 
     restartBtn.addEventListener("touchstart", function(event) {
         event.preventDefault();
-        currentPressed = null;
+        currentPressed = [];
         var currentPos = current_position;
         startPosBeta = currentPos.beta;
         startPosGamma = currentPos.gamma;
@@ -135,6 +153,9 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
         server.on('message', function(data) {
             if (data.type === "canShoot") {
                 canShoot = true;
+            }
+            if (data.type === "shootACK") {
+                canShoot = false;
             }
         });
     });
@@ -208,55 +229,29 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
         var bullet = null;
         for (var i = 0; i < fingers; i++){
             if (bulletSwitcher.contains(event.touches[i].target))
-                bullet = event.touches[i].identifier;
+                bullet = event.touches[i];
             if (shootBtn.contains(event.touches[i].target))
-                shoot = event.touches[i].identifier;
+                shoot = event.touches[i];
         }
         if (shoot != null)
             currentPressed.push({
-                
+                type: "shoot",
+                target: shoot.target,
+                identifier: shoot.identifier
             })
-
-        /*
-        if (fingers === 1){
-=======
-    function touchStart(event) {
-        if (gameStarted)
-            event.preventDefault();
-        fingers = event.touches.length;
-        if (fingers === 1) {
->>>>>>> ea099ff4c4138d28759a7dd1bae391e6176dbfcc
-            var target = event.touches[0].target;
-            currentPressed = {
-                target: target,
-                pressed: true
-            };
-            currentPressed.target.addEventListener("touchend", touchEnd);
-            if (bulletSwitcher.contains(currentPressed.target)){
-                checkBullet(currentPressed.target, null);
-            }
+        if (bullet != null){
+            currentPressed.push({
+                type: "bullet",
+                target: bullet.target,
+                identifier: bullet.identifier
+            })
+            checkBullet(bullet.target);
         }
-<<<<<<< HEAD
-        
             
-        if (fingers === 2){
-            var target1 = event.touches[0].target;
-            var target2 = event.touches[1].target;
-            if ( (bulletSwitcher.contains(target1) || bulletSwitcher.contains(target2))
-                && (shootBtn.contains(target1) || shootBtn.contains(target2)) ){
-                    checkBullet(target1, target2);
-                }
-        }*/
-        
     };
 
 
-    function checkBullet(target1, target2){
-        var target;
-        if (bulletSwitcher.contains(target1))
-            target = target1;
-        if (bulletSwitcher.contains(target2))
-            target = target2;
+    function checkBullet(target){
         switch(target){
             case bullet1:
                 bulletType = 1;
@@ -271,38 +266,58 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
 
     };
 
-    function targetContains(event, element){
-        for (var i = 0; i < event.length; i++){
-            if (element.contains(event[i].target)) 
-                return true;
-        }
-        return false;
-    }
-
     var interval = setInterval(function() {
         $("#fingers").html(fingers);
-        if (currentPressed != null) {
-            if (canShoot && shootBtn.contains(currentPressed.target) && currentPressed.pressed === true) {
-                canShoot = false;
-                server.send({
-                    type: "shoot",
-                    bulletType: bulletType
-                });
-            }
+        if (canShoot && isElementInCurrentPressed(shootBtn)) {
+            server.send({
+                type: "shoot",
+                bulletType: bulletType
+            }, function(answer){
+                if (answer === "shootACK"){
+                    canShoot = false;
+                }
+            });
         }
-
     }, 50);
 
     function touchEnd(event){
-        /*if (gameStarted)
-=======
-    function touchEnd(event) {
-        if (gameStarted)
->>>>>>> ea099ff4c4138d28759a7dd1bae391e6176dbfcc
-            event.preventDefault();
-        */
-        fingers = event.touches.length;
-        currentPressed.pressed = false;
+        var touches = event.changedTouches;
+        var toDelete = [];
+        for (var i = 0; i < touches.length; i++)
+            for (var j = 0; j < currentPressed.length; j++){
+                if (touches[i].identifier === currentPressed[j].identifier)
+                    toDelete.push(j);
+            }
+        deleteEndedTouches(toDelete);
+    };
+
+    function deleteEndedTouches(indexes){
+        sortArray(indexes);
+        for (var i = 0; i < indexes.length; i++) {
+            currentPressed.splice(indexes[i], 1);
+        };
+    };
+
+    function sortArray(array) {
+        array.sort(function(a, b) {
+            return b - a;
+        })
+    };
+
+    function isElementInCurrentPressed(element){
+        for (var i = 0; i < currentPressed.length; i++){
+            if (element.contains(currentPressed[i].target))
+                return true;
+        }
+        return false;
+    };
+
+    function getIdentifierFromCurrentPressed(type){
+        for (var i = 0; i < currentPressed.length; i++){
+            if (currentPressed[i].type === type){
+                return currentPressed[i].identifier;
+            }
+        }
     };
 
 });
