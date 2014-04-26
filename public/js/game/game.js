@@ -3,7 +3,8 @@ define(['classy',
         'game/mechanics',
         'game/resources',
         'views/gameOver',
-        'lib/Connector'
+        'lib/Connector',
+        'serverFunc'
     ],
     function(Class, Player, GameMechanic, Resources, GameOver, Connection) {
         /* TODO 
@@ -18,12 +19,14 @@ define(['classy',
             __init__: function(resources) {
 
                 var game = this;
+
                 $('#pc').on('click', function() {
                     $('#gameDiv').show();
                     $('.overlay').hide();
                     $('#selectForm').hide();
                     return false;
                 });
+
                 $('#smart').click(this.SmartSelection.bind(game));
                 _.bindAll(this, "messageRecieved");
                 $('#selectFrom').show();
@@ -31,6 +34,23 @@ define(['classy',
                 $('#tokenForm').hide();
                 $('#gameOver').hide();
                 $('#gameDiv').hide();
+
+                this.server = new Connection({
+                    server: ['getToken', 'bind'],
+                    remote: '/console'
+                });
+
+                this.server.on('message', this.messageRecieved);
+                this.server.on('reconnect', reconnect.bind(game));
+                this.server.on('disconnect', disconnect.bind(game));
+                this.server.on('player-joined', function(data) {
+                    console.log(data.guid); // guid инициализированной связки
+                    localStorage.setItem('guid', data.guid);
+                    $('#gameDiv').show();
+                    $('#tokenForm').hide();
+                    $('.overlay').hide();
+                });
+
                 this.resources = resources;
 
                 this.prevX = 0;
@@ -99,35 +119,14 @@ define(['classy',
                 this.reloading(true);
                 this.setBtnText();
                 this.setScore();
-
             },
 
             SmartSelection: function() {
-                this.server = new Connection({
-                    remote: '/console'
-                });
+                init.call(this);
                 var self = this;
                 var tokenForm = $('#tokenForm');
                 var selectForm = $('#selectForm');
-                this.server.onReady(function() {
-                    this.getToken(function(answer) {
-                        console.log('token= ' + answer);
-                        tokenForm.show();
-                        $('#token').html(answer);
-
-                    });
-
-                    this.on('player-joined', function(data) {
-                        console.log(data.guid); // guid инициализированной связки
-                        $('#gameDiv').show();
-                        tokenForm.hide();
-                        $('.overlay').hide();
-                    });
-                    this.on('message', self.messageRecieved);
-                    selectForm.hide();
-                    return false;
-                });
-
+                selectForm.hide();
             },
 
             setBtnText: function() {
@@ -148,15 +147,25 @@ define(['classy',
                 var game = this;
                 if (data.type === 'pause') {
                     this.pauseGame();
+                    answer(this.pauseFlag);
                 }
 
                 if (data.type === 'restart') {
                     this.gameOverForm.hide();
                     this.restartGame();
+                    answer(this.stopped);
+                }
+
+                if (data.type === 'portrait') {
+                    if (!this.pauseFlag)
+                        this.pauseGame();
+                    answer(this.pauseFlag);
                 }
 
                 if (data.type === 'shoot') {
+
                     this.launchBullet(data.bulletType);                    
+
                 }
 
                 if (data.type === 'move') {
@@ -205,7 +214,7 @@ define(['classy',
                 }
             },
 
-            getDirectionX: function(startPos, pos){
+            getDirectionX: function(startPos, pos) {
                 var diff = pos - startPos;
                 var dir = "right";
                 if (diff < 0)
@@ -213,33 +222,6 @@ define(['classy',
                 diff = Math.abs(diff);
                 return {
                     differ: diff,
-                    direct: dir
-                }
-            },
-
-            getDirectionXwithAlpha: function(startPos, pos) {
-                var dir;
-                var left = (startPos + 90);
-                var right = (startPos - 90);
-                if (startPos < 90) {
-                    left = (startPos + 90);
-                    right = (startPos - 90) + 360;
-                } else
-                if (startPos > 270) {
-                    right = (startPos - 90);
-                    left = (startPos + 90) % 360;
-                }
-
-                var difference = this.diff(startPos, pos);
-                if (this.inDiapazon(pos, left, startPos))
-                    dir = "right";
-                if (this.inDiapazon(pos, right, startPos))
-                    dir = "left";
-                return {
-                    start: startPos,
-                    left: left,
-                    right: right,
-                    differ: difference,
                     direct: dir
                 }
             },
@@ -351,14 +333,14 @@ define(['classy',
                     }
                 }
                 this.player.move(this.GAME_WIDTH, this.GAME_HEIGHT);
-                
-                if (Math.abs(this.player.joystickX) > Math.abs(this.player.maxhspeed / 10)){
+
+                if (Math.abs(this.player.joystickX) > Math.abs(this.player.maxhspeed / 10)) {
                     if (this.player.joystickX > 0)
-                    this.player.resource = this.resources.player[this.player.type][2];
+                        this.player.resource = this.resources.player[this.player.type][2];
                     if (this.player.joystickX < 0)
                         this.player.resource = this.resources.player[this.player.type][1];
                 }
-                
+
                 this.player.joystickMove(this.GAME_WIDTH, this.GAME_HEIGHT, this.player.joystickX, this.player.joystickY);
 
             },
@@ -468,8 +450,6 @@ define(['classy',
                 this.bonuses = [];
                 this.keydown = [];
                 this.stoppedFunc();
-
-
             },
 
             stoppedFunc: function() {

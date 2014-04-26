@@ -27,15 +27,19 @@ require.config({
     }
 });
 
+
 require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection) {
     var bulletType = 1;
+
     var gameStarted = false;
     var fingers = 0;
     var currentPressed = null;
     var canShoot = false;
+
     var shootFingerIdentifier = null;
     var switchBulletIdentifier = null;
     //var shootBtn = $('#shoot')[0];
+
 
     var shootBtn = document.getElementById('shoot');
     var pauseBtn = document.getElementById('pause');
@@ -50,16 +54,20 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
         event.preventDefault();
     });
 
-    pauseBtn.addEventListener("touchstart", function(event){
+
+    pauseBtn.addEventListener("touchstart", function(event) {
         event.preventDefault();
         currentPressed = null;
         server.send({
             type: 'pause'
+        }, function(data) {
+            pause = data;
+            setBtnText();
         });
-        setBtnText();
+
     });
 
-    restartBtn.addEventListener("touchstart", function(event){
+    restartBtn.addEventListener("touchstart", function(event) {
         event.preventDefault();
         currentPressed = null;
         var currentPos = current_position;
@@ -69,16 +77,20 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
         currentGamma = startPosGamma;
         server.send({
             type: 'restart'
+        }, function(data) {
+            stopped = data;
+            setBtnText();
         });
-        setBtnText();
     });
 
     window.addEventListener("touchstart", touchStart);
     window.addEventListener("touchend", touchEnd);
-
     window.addEventListener("deviceorientation", updategyro, false);
     window.addEventListener('orientationchange', changeOrientation);
     mo.init();
+
+    var stopped = true;
+    var pause = false;
     var server = new Connection({
         remote: '/player'
     });
@@ -86,13 +98,7 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
     $('.buttons').hide();
     $('#mainscreen').show();
 
-/*
-    $('#shoot').on('click', function() {
-        server.send({ // прикрутить тип патронов
-            type: 'shoot'
-        });
-    });
-*/
+
     var stopped = true;
     var pause = false;
 
@@ -127,7 +133,7 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
 
     server.onReady(function() {
         server.on('message', function(data) {
-            if (data.type === "canShoot"){
+            if (data.type === "canShoot") {
                 canShoot = true;
             }
         });
@@ -157,12 +163,17 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
 
     function changeOrientation() {
         if (window.orientation % 180 == 0) {
-            // portrait, вывести сообщение об ошибке и остановить игру. 
             $('#errorForm').show();
             $('#mainscreen').hide();
+
             server.send({
-                type: 'pause'
-            });
+                    type: 'portrait'
+                },
+                function(data) {
+                    pause = data;
+                    setBtnText();
+                });
+
             setBtnText();
         } else {
             // landscape если игра остановлена продолжить
@@ -177,18 +188,19 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
 
     function setBtnText() {
         var pauseBtn = $('.button__text.pause');
-        var restart = $('.button__text.restart');
+        var restart = $('.button__text.start');
         if (pause) {
-            pauseBtn.html("go");
+            pauseBtn.html("Go");
         } else {
             pauseBtn.html("Pause");
         }
         if (stopped) {
-            restart.html("");
+            restart.html("Start");
         } else {
             restart.html("Restart");
         }
     };
+
 
     function touchStart(event){
         fingers = event.touches.length;
@@ -207,6 +219,13 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
 
         /*
         if (fingers === 1){
+=======
+    function touchStart(event) {
+        if (gameStarted)
+            event.preventDefault();
+        fingers = event.touches.length;
+        if (fingers === 1) {
+>>>>>>> ea099ff4c4138d28759a7dd1bae391e6176dbfcc
             var target = event.touches[0].target;
             currentPressed = {
                 target: target,
@@ -217,6 +236,7 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
                 checkBullet(currentPressed.target, null);
             }
         }
+<<<<<<< HEAD
         
             
         if (fingers === 2){
@@ -229,6 +249,7 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
         }*/
         
     };
+
 
     function checkBullet(target1, target2){
         var target;
@@ -247,7 +268,6 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
                 bulletType = 3;
                 break;
         }
-        
 
     };
 
@@ -261,8 +281,8 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
 
     var interval = setInterval(function() {
         $("#fingers").html(fingers);
-        if (currentPressed != null){
-            if (canShoot && shootBtn.contains(currentPressed.target) && currentPressed.pressed === true){
+        if (currentPressed != null) {
+            if (canShoot && shootBtn.contains(currentPressed.target) && currentPressed.pressed === true) {
                 canShoot = false;
                 server.send({
                     type: "shoot",
@@ -270,17 +290,19 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
                 });
             }
         }
-        
+
     }, 50);
 
     function touchEnd(event){
         /*if (gameStarted)
+=======
+    function touchEnd(event) {
+        if (gameStarted)
+>>>>>>> ea099ff4c4138d28759a7dd1bae391e6176dbfcc
             event.preventDefault();
         */
         fingers = event.touches.length;
         currentPressed.pressed = false;
-        //var target = event.targetTouches[0].target;
-
     };
 
 });

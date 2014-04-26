@@ -12,6 +12,7 @@
 		<fest:if test="json.development">
 			<link rel="stylesheet" type="text/css" href="css/main_joystick.css" />
 		</fest:if>
+
 		<meta name="viewport" content="
 		    initial-scale=1.0,
 		    user-scalable=no,
@@ -25,18 +26,18 @@
 		<div id='fingers' style='color: white'></div>
 		<div id='mainscreen'>
 			<div id='tokenForm' class='form'>
-				<input id='token' name='token' type='text'/>
-				<button id='submit' type='submit'>Click</button>
-				<p class='error'></p>
 
-				
+				<div class='form__text' for='token'>Your token:</div>
+				<input id='token' type='text'/>
+				<p class='error form__text_error'>asdas</p>
+				<div id='submit' class='form__btn'><div class='button__text'>Submit</div></div>
 			</div>
 			
 			
 			
 		</div>
 		<div id='errorForm' class='form'>
-			<p class='error'>Please turn your device</p>
+			<p class='error form__text_error'>Please turn your device</p>
 		</div>
 		<div class='buttons'>
 			<div class='button' id='restart'><div class='button__text start'>Start</div></div>
@@ -50,7 +51,13 @@
 				<div id="bullet2">bullet2</div>
 				<div id="bullet3">bullet3</div>
 			</div>
+			<br/>
+			<div class='switcher' id='shipSwitcher'>
+				<div id="ship1">ship1</div>
+				<div id="ship2">ship2</div>
+			</div>
 		</div>
+		
 
 		
 
