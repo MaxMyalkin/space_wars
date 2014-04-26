@@ -156,9 +156,7 @@ define(['classy',
                 }
 
                 if (data.type === 'shoot') {
-                    this.player.launchBullet(this, 1);
-                    this.bulletTimer = 0;
-                    
+                    this.launchBullet(data.bulletType);                    
                 }
 
                 if (data.type === 'move') {
@@ -363,6 +361,24 @@ define(['classy',
                 
                 this.player.joystickMove(this.GAME_WIDTH, this.GAME_HEIGHT, this.player.joystickX, this.player.joystickY);
 
+            },
+
+            launchBullet: function(type){
+                if (this.bulletTimer > this.BULLET_TIMEOUT){
+                    if (type === 1){
+                        this.player.launchBullet(this, 1);
+                        this.bulletTimer = 0;
+                        return;
+                    }
+                    if (this.player.bonusBullets[type - 2] > 0) {
+                        this.player.launchBullet(this, type);
+                        
+                        this.player.bonusBullets[type - 2] -= 1;
+                        this.setBulletInfo();
+                        this.bulletTimer = 0;
+                    }
+                }
+                
             },
 
             reloading: function(flag) {

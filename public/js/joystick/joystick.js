@@ -28,7 +28,7 @@ require.config({
 });
 
 require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection) {
-
+    var bulletType = 1;
     var gameStarted = false;
     var fingers = 0;
     var currentPressed = null;
@@ -39,9 +39,14 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
     var pauseBtn = document.getElementById('pause');
     var restartBtn = document.getElementById('restart');
 
-    var bullet1 = document.getElementById('off1');
-    var bullet2 = document.getElementById('neutral1');
-    var bullet3 = document.getElementById('on1'); 
+    var bulletSwitcher = document.getElementById('bulletSwitcher');
+    var bullet1 = document.getElementById('bullet1');
+    var bullet2 = document.getElementById('bullet2');
+    var bullet3 = document.getElementById('bullet3'); 
+
+    shootBtn.addEventListener("touchstart", function(event){
+        event.preventDefault();
+    });
 
     pauseBtn.addEventListener("touchstart", function(event){
         event.preventDefault();
@@ -184,9 +189,11 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
     };
 
     function touchStart(event){
-        if (gameStarted)
-            event.preventDefault();
         fingers = event.touches.length;
+        for (var i = 0; i < fingers; i++)
+            console.log(event.touches[i]);
+        currentPressed = _.union(currentPressed, event.touches);
+        /*
         if (fingers === 1){
             var target = event.touches[0].target;
             currentPressed = {
@@ -194,12 +201,51 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
                 pressed: true
             };
             currentPressed.target.addEventListener("touchend", touchEnd);
-        }
-        if (fingers === 2){
-
+            if (bulletSwitcher.contains(currentPressed.target)){
+                checkBullet(currentPressed.target, null);
+            }
         }
         
+            
+        if (fingers === 2){
+            var target1 = event.touches[0].target;
+            var target2 = event.touches[1].target;
+            if ( (bulletSwitcher.contains(target1) || bulletSwitcher.contains(target2))
+                && (shootBtn.contains(target1) || shootBtn.contains(target2)) ){
+                    checkBullet(target1, target2);
+                }
+        }*/
+        
     };
+
+    function checkBullet(target1, target2){
+        var target;
+        if (bulletSwitcher.contains(target1))
+            target = target1;
+        if (bulletSwitcher.contains(target2))
+            target = target2;
+        switch(target){
+            case bullet1:
+                bulletType = 1;
+                break;
+            case bullet2:
+                bulletType = 2;
+                break;
+            case bullet3:
+                bulletType = 3;
+                break;
+        }
+        
+
+    };
+
+    function targetContains(event, element){
+        for (var i = 0; i < event.length; i++){
+            if (element.contains(event[i].target)) 
+                return true;
+        }
+        return false;
+    }
 
     var interval = setInterval(function() {
         $("#fingers").html(fingers);
@@ -207,7 +253,8 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
             if (canShoot && shootBtn.contains(currentPressed.target) && currentPressed.pressed === true){
                 canShoot = false;
                 server.send({
-                    type: "shoot"
+                    type: "shoot",
+                    bulletType: bulletType
                 });
             }
         }
@@ -215,8 +262,9 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
     }, 50);
 
     function touchEnd(event){
-        if (gameStarted)
+        /*if (gameStarted)
             event.preventDefault();
+        */
         fingers = event.touches.length;
         currentPressed.pressed = false;
         //var target = event.targetTouches[0].target;
