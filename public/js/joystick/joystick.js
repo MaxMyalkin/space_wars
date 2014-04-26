@@ -33,6 +33,8 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
     var fingers = 0;
     var currentPressed = null;
     var canShoot = false;
+    var shootFingerIdentifier = null;
+    var switchBulletIdentifier = null;
     //var shootBtn = $('#shoot')[0];
 
     var shootBtn = document.getElementById('shoot');
@@ -190,9 +192,19 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
 
     function touchStart(event){
         fingers = event.touches.length;
-        for (var i = 0; i < fingers; i++)
-            console.log(event.touches[i]);
-        currentPressed = _.union(currentPressed, event.touches);
+        var shoot = null;
+        var bullet = null;
+        for (var i = 0; i < fingers; i++){
+            if (bulletSwitcher.contains(event.touches[i].target))
+                bullet = event.touches[i].identifier;
+            if (shootBtn.contains(event.touches[i].target))
+                shoot = event.touches[i].identifier;
+        }
+        if (shoot != null)
+            currentPressed.push({
+                
+            })
+
         /*
         if (fingers === 1){
             var target = event.touches[0].target;
