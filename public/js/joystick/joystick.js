@@ -43,9 +43,10 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser', 'js/joystick/serverF
     var current_position;
 
     var disconnectBtn = document.getElementById('disconnect'); // добавь обработчик
-
-    /*
+    disconnectBtn.addEventListener("touchstart", 
         function() {
+            event.preventDefault();
+            currentPressed = [];
             server.send({
                 type: 'disconnect'
             });
@@ -55,9 +56,7 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser', 'js/joystick/serverF
             controls.hide();
             tokenForm.show();
         }
-
-
-    */
+    );
     var shootBtn = document.getElementById('shoot');
     var pauseBtn = document.getElementById('pause');
     var restartBtn = document.getElementById('restart');
