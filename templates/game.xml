@@ -19,7 +19,7 @@
     <div id='errorForm' class='form'>
         <div class="gameOverForm">
             <div id='error' class="gameOverForm__text"></div><br/>
-            <a href='/#' class='btn_big'>&#9668 Back</a>
+            <a href='/#' id='toSelect' class='btn_big'>&#9668 Back</a>
         </div>
     </div>
 

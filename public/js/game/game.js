@@ -148,11 +148,12 @@ define(['classy',
             messageRecieved: function(data, answer) {
                 var game = this;
                 if (data.type === 'disconnect') {
-                    this.pauseGame();
+                    this.endGame();
                     sessionStorage.removeItem('guid');
                     $('#gameDiv').hide();
                     $('#selectForm').hide();
                     $('#tokenForm').hide();
+                    $('#gameOver').hide();
                     $('.overlay').show();
                     $('#error').html('device has been disconnected');
                     $('#errorForm').show();
@@ -456,6 +457,10 @@ define(['classy',
             },
 
             endGame: function() {
+                this.server.send({
+                    type: 'ship',
+                    value: 1
+                });
                 if (this.gameover) {
                     this.gameOverForm.show(this.player.score);
                 }

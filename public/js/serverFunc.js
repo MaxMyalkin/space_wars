@@ -16,6 +16,10 @@ $(document).ready(function() {
     error = $('#error');
     errorForm = $('#errorForm');
     token = $('#token');
+    $('#toSelect').click(function() {
+        errorForm.hide();
+        selectForm.show();
+    });
 });
 
 var hideShown = function() {
@@ -41,8 +45,8 @@ var showHidden = function() {
 var init = function() {
     if (!sessionStorage.getItem('guid')) {
         this.server.getToken(function(data) {
-            hideShown();
-            shown.push(tokenForm);
+            //hideShown();
+            //shown.push(tokenForm);
             tokenForm.show();
             token.html(data);
             errorForm.hide();
@@ -53,8 +57,8 @@ var init = function() {
 };
 
 var reconnect = function() {
-    //showHidden();
-    //hideShown();
+    if (!this.pauseFlag)
+        this.pauseGame();
     var self = this;
     if (sessionStorage.getItem('guid')) {
         this.server.bind({
@@ -62,28 +66,23 @@ var reconnect = function() {
         }, function(data) {
             if (data.status == 'success') {
                 sessionStorage.setItem('guid', data.guid);
-                hideShown();
-                shown.push(gameDiv);
+                //  hideShown();
+                //  shown.push(gameDiv);
                 gameDiv.show();
                 overlay.hide();
-} else if (data.status == 'undefined guid') {
+            } else if (data.status == 'undefined guid') {
                 sessionStorage.removeItem('guid');
                 init.call(self);
             }
         });
-    } else {
-        console.log('fuck'); // вывести все, что было скрыто
     }
 };
 
 var disconnect = function() {
-    saveShown();
-    hideShown();
-    //gameDiv.hide();
-    //selectForm.hide();
-    //tokenForm.hide();
-    shown.push(overlay);
-    shown.push(errorForm);
+    this.endGame();
+    gameDiv.hide();
+    selectForm.hide();
+    tokenForm.hide();
     overlay.show();
     error.html('server unavailable');
     errorForm.show();

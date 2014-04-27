@@ -4,20 +4,18 @@ module.exports = function(grunt) {
         sass: {
             css: {
                 files: [{
-                        expand: true,
-                        cwd: 'public/css/scss/pc',
-                        src: 'main.scss',
-                        dest: 'public/css',
-                        ext: '_console.css'
-                    }, {
-                        expand: true,
-                        cwd: 'public/css/scss/joystick',
-                        src: 'main.scss',
-                        dest: 'public/css',
-                        ext: '_joystick.css'
-                    }
-
-                ]
+                    expand: true,
+                    cwd: 'public/css/scss/pc',
+                    src: 'main.scss',
+                    dest: 'public/css',
+                    ext: '_console.css'
+                }, {
+                    expand: true,
+                    cwd: 'public/css/scss/joystick',
+                    src: 'main.scss',
+                    dest: 'public/css',
+                    ext: '_joystick.css'
+                }]
             }
         },
 
@@ -90,7 +88,7 @@ module.exports = function(grunt) {
         },
 
         concat: {
-            build: { /* Подзадача */
+            build: {
                 options: {
                     separator: ';\n'
                 },

@@ -42,10 +42,11 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser', 'js/joystick/serverF
     var startPosGamma = 0;
     var current_position;
 
-    var disconnectBtn = document.getElementById('disconnect'); // добавь обработчик
-
-    /*
+    var disconnectBtn = document.getElementById('disconnect');
+    disconnectBtn.addEventListener("touchstart",
         function() {
+            event.preventDefault();
+            currentPressed = [];
             server.send({
                 type: 'disconnect'
             });
@@ -55,7 +56,7 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser', 'js/joystick/serverF
             controls.hide();
             tokenForm.show();
         }
-    */
+    );
     var shootBtn = document.getElementById('shoot');
     var pauseBtn = document.getElementById('pause');
     var restartBtn = document.getElementById('restart');
@@ -87,6 +88,10 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser', 'js/joystick/serverF
     server.on('reconnect', reconnect.bind(server));
     server.onReady(function() {
         server.on('message', function(data) {
+            if (data.type === 'ship') {
+                $("#bulletSwitcher .active").removeClass("active");
+                $('#bullet1').addClass("active");
+            }
             if (data.type === "canShoot") {
                 canShoot = true;
             }
@@ -96,7 +101,6 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser', 'js/joystick/serverF
         });
     });
     init.call(server);
-
 
     function updategyro(e) {
         current_position = deviceOrientation(e);
@@ -112,9 +116,6 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser', 'js/joystick/serverF
             currentGamma = current_position.gamma;
         }
     };
-
-
-
 
     $('#submit').click(function() {
         var currentPos = current_position;
@@ -145,7 +146,6 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser', 'js/joystick/serverF
             errorForm.show();
             error.html('please turn your device');
             mainscreen.hide();
-
             server.send({
                     type: 'portrait'
                 },
@@ -156,7 +156,6 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser', 'js/joystick/serverF
 
             setBtnText();
         } else {
-            // landscape если игра остановлена продолжить
             server.send({
                 type: 'landscape'
             });
@@ -183,6 +182,7 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser', 'js/joystick/serverF
 
 
     function touchStart(event) {
+        fingers = event.touches.length;
         var shoot = null;
         var bullet = null;
         for (var i = 0; i < fingers; i++) {
@@ -190,19 +190,19 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser', 'js/joystick/serverF
                 bullet = event.touches[i];
             if (shootBtn.contains(event.touches[i].target))
                 shoot = event.touches[i];
-        }
+        };
         if (shoot != null)
             currentPressed.push({
                 type: "shoot",
                 target: shoot.target,
                 identifier: shoot.identifier
-            })
+            });
         if (bullet != null) {
             currentPressed.push({
                 type: "bullet",
                 target: bullet.target,
                 identifier: bullet.identifier
-            })
+            });
             checkBullet(bullet.target);
         }
 
@@ -225,7 +225,6 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser', 'js/joystick/serverF
                 $('#bullet3').addClass("active");
                 break;
         }
-
     };
 
     var interval = setInterval(function() {
