@@ -54,7 +54,7 @@ var init = function() {
 
 var reconnect = function() {
     //showHidden();
-    hideShown();
+    //hideShown();
     var self = this;
     if (sessionStorage.getItem('guid')) {
         this.server.bind({
@@ -66,7 +66,7 @@ var reconnect = function() {
                 shown.push(gameDiv);
                 gameDiv.show();
                 overlay.hide();
-            } else if (data.status == 'undefined guid') {
+} else if (data.status == 'undefined guid') {
                 sessionStorage.removeItem('guid');
                 init.call(self);
             }

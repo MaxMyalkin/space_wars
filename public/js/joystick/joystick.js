@@ -212,15 +212,19 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser', 'js/joystick/serverF
 
 
     function checkBullet(target) {
+        $("#bulletSwitcher .active").removeClass("active");
         switch (target) {
             case bullet1:
                 bulletType = 1;
+                $('#bullet1').addClass("active");
                 break;
             case bullet2:
                 bulletType = 2;
+                $('#bullet2').addClass("active");
                 break;
             case bullet3:
                 bulletType = 3;
+                $('#bullet3').addClass("active");
                 break;
         }
 
@@ -280,14 +284,20 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser', 'js/joystick/serverF
     };
 
     ship1.addEventListener("touchstart", function(event) {
+        event.preventDefault();
         currentPressed = [];
+        $('#shipSwitcher .active').removeClass('active');
+        $('#ship1').addClass('active');
         server.send({
             type: 'ship1'
         });
     });
 
     ship2.addEventListener("touchstart", function(event) {
+        event.preventDefault();
         currentPressed = [];
+        $('#shipSwitcher .active').removeClass('active');
+        $('#ship2').addClass('active');
         server.send({
             type: 'ship2'
         });
@@ -299,7 +309,7 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser', 'js/joystick/serverF
 
     bulletSwitcher.addEventListener("touchstart", function(event) {
         event.preventDefault();
-    });
+    })
 
     pauseBtn.addEventListener("touchstart", function(event) {
         event.preventDefault();

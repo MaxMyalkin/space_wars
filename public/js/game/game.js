@@ -86,7 +86,7 @@ define(['classy',
                 canvas.height = this.GAME_HEIGHT;
                 this.context = canvas.getContext("2d");
                 this.context.fillStyle = "#ffffff";
-                this.context.debug = true; //режим отладки перенесен сюда
+                this.context.debug = false; //режим отладки перенесен сюда
                 this.player = new Player("#ffffff", this.GAME_WIDTH, this.GAME_HEIGHT,
                     this.resources.player);
 

@@ -56,9 +56,6 @@
 		<div id='errorForm' class='form'>
 			<p id='error' class='form__text_error'>Please turn your device</p>
 		</div>
-		
-
-		
 
 	</body>
 	<script type="text/javascript" src="js/lib/require.js"></script>

@@ -113,6 +113,8 @@ define(['game/objects/object',
             setStartPosition: function(width, height) {
                 this.x = (width - this.radius) / 2;
                 this.y = (height - this.radius);
+                this.joystickX = 0;
+                this.joystickY = 0;
             },
 
             resetAll: function() {
