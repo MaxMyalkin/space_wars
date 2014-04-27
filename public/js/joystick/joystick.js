@@ -55,8 +55,6 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser', 'js/joystick/serverF
             controls.hide();
             tokenForm.show();
         }
-
-
     */
     var shootBtn = document.getElementById('shoot');
     var pauseBtn = document.getElementById('pause');
