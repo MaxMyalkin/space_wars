@@ -115,7 +115,6 @@ body {
       height: 30%; } }
 
 .button__text {
-  pointer-events: none;
   position: relative;
   top: 50%;
   -webkit-transform: translate(0px, -50%);
