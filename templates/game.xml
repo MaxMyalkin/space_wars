@@ -16,6 +16,13 @@
 		</div>
 	</div>
 
+    <div id='errorForm' class='form'>
+        <div class="gameOverForm">
+            <div id='error' class="gameOverForm__text"></div><br/>
+            <a href='/#' class='btn_big'>&#9668 Back</a>
+        </div>
+    </div>
+
     <div id='gameDiv'>
 	    <div class="header header_game">
 	    	<a id="backBtn" href='/#' class='btn_thin game_button'>&#9668 BACK</a>

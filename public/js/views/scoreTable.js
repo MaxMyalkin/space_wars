@@ -14,12 +14,14 @@ define([
         template: tmpl,
         el: "#scoreTable",
 
-        initialize: function () {
+        initialize: function() {
             $("#loading").hide();
             _.bindAll(this, "render", "show", "hide");
         },
 
         render: function() {
+            $('#selectForm').show();
+            $('#gameDiv').hide();
             Storage.update();
             Scoreboard.url = "/scores";
             Scoreboard.fetch();
@@ -45,7 +47,7 @@ define([
 
                     error: function(response) {
                         self.hide();
-                        $("#scoreError").html("Server unreachable");
+                        $("#scoreError").html("Server unavailable");
                         $("#loading").hide();
                     }
                 })

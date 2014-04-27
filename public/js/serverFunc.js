@@ -1,54 +1,90 @@
-    /*    // Создаем связь с сервером
-    var server = new Connector({
-        server: ['getToken', 'bind'],
-        remote: '/console'
-    });
+var gameDiv;
+var selectForm;
+var tokenForm;
+var overlay;
+var error;
+var errorForm;
+var token;
+var hidden = [];
+var shown = [];
 
-    // На подключении игрока стартуем игру
-    server.on('player-joined', function(data) {
-        // Передаем id связки консоль-джостик
-        start(data.guid);
-    });
-*/
-    // Инициализация
-    var init = function() {
-        // Если id нет
-        if (!localStorage.getItem('guid')) {
-            // Получаем токен
-            this.server.getToken(function(token) {
-                console.log('token= ' + token);
-                $('#tokenForm').show();
-                $('#token').html(token);
-            });
-        } else { // иначе
-            // переподключаемся к уже созданной связке
-            reconnect.call(this);
-        }
+$(document).ready(function() {
+    gameDiv = $('#gameDiv');
+    selectForm = $('#selectForm');
+    tokenForm = $('#tokenForm');
+    overlay = $('.overlay');
+    error = $('#error');
+    errorForm = $('#errorForm');
+    token = $('#token');
+});
+
+var hideShown = function() {
+    for (var i = 0; i < shown.length; i++) {
+        shown[i].hide();
+    }
+    shown = [];
+};
+
+var saveShown = function() {
+    for (var i = 0; i < shown.length; i++) {
+        hidden.push(shown[i]);
     };
+};
 
-    // Переподключение
-    var reconnect = function() {
-        // Используем сохранненный id связки
-        var self = this;
+var showHidden = function() {
+    for (var i = 0; i < hidden.length; i++) {
+        hidden[i].show();
+    }
+    hidden = [];
+};
+
+var init = function() {
+    if (!sessionStorage.getItem('guid')) {
+        this.server.getToken(function(data) {
+            hideShown();
+            shown.push(tokenForm);
+            tokenForm.show();
+            token.html(data);
+            errorForm.hide();
+        });
+    } else {
+        reconnect.call(this);
+    }
+};
+
+var reconnect = function() {
+    //showHidden();
+    hideShown();
+    var self = this;
+    if (sessionStorage.getItem('guid')) {
         this.server.bind({
-            guid: localStorage.getItem('guid')
+            guid: sessionStorage.getItem('guid')
         }, function(data) {
-            // Если все ок
             if (data.status == 'success') {
-                // Стартуем
-                localStorage.setItem('guid', data.guid);
-                $('#gameDiv').show();
-                $('.overlay').hide();
-                // Если связки уже нет
+                sessionStorage.setItem('guid', data.guid);
+                hideShown();
+                shown.push(gameDiv);
+                gameDiv.show();
+                overlay.hide();
             } else if (data.status == 'undefined guid') {
-                // Начинаем все заново
-                localStorage.removeItem('guid');
+                sessionStorage.removeItem('guid');
                 init.call(self);
             }
         });
-    };
+    } else {
+        console.log('fuck'); // вывести все, что было скрыто
+    }
+};
 
-    var disconnect = function() {
-        $('#gameDiv').hide();
-        $('.overlay').show();
-    };
+var disconnect = function() {
+    saveShown();
+    hideShown();
+    //gameDiv.hide();
+    //selectForm.hide();
+    //tokenForm.hide();
+    shown.push(overlay);
+    shown.push(errorForm);
+    overlay.show();
+    error.html('server unavailable');
+    errorForm.show();
+};

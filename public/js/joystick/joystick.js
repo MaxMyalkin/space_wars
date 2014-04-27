@@ -28,106 +28,77 @@ require.config({
 });
 
 
-require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection) {
+require(['js/lib/Connector.js', 'lib/deviceapi-normaliser', 'js/joystick/serverFunc.js'], function(Connection) {
     var bulletType = 1;
-
     var gameStarted = false;
     var fingers = 0;
     var currentPressed = [];
     var canShoot = true;
-    //var shootBtn = $('#shoot')[0];
+    var stopped = true;
+    var pause = false;
+    var currentBeta = 0;
+    var currentGamma = 0;
+    var startPosBeta = 0;
+    var startPosGamma = 0;
+    var current_position;
+
+    var disconnectBtn = document.getElementById('disconnect'); // добавь обработчик
+
+    /*
+        function() {
+            server.send({
+                type: 'disconnect'
+            });
+            sessionStorage.removeItem('joystick_guid');
+            console.log('disconnect');
+            mainscreen.show();
+            controls.hide();
+            tokenForm.show();
+        }
 
 
+    */
     var shootBtn = document.getElementById('shoot');
     var pauseBtn = document.getElementById('pause');
     var restartBtn = document.getElementById('restart');
-
     var bulletSwitcher = document.getElementById('bulletSwitcher');
     var bullet1 = document.getElementById('bullet1');
     var bullet2 = document.getElementById('bullet2');
     var bullet3 = document.getElementById('bullet3');
-
     var shipSwitcher = document.getElementById('shipSwitcher');
     var ship1 = document.getElementById('ship1');
     var ship2 = document.getElementById('ship2');
-
-    ship1.addEventListener("touchstart", function(event){
-        currentPressed = [];
-        server.send({
-            type: 'ship1'
-        });
-    });
-
-    ship2.addEventListener("touchstart", function(event) {
-        currentPressed = [];
-        server.send({
-            type: 'ship2'
-        });
-    });
-
-    shootBtn.addEventListener("touchstart", function(event) {
-        event.preventDefault();
-    });
-
-    bulletSwitcher.addEventListener("touchstart", function(event) {
-        event.preventDefault();
-    })
-
-    pauseBtn.addEventListener("touchstart", function(event) {
-        event.preventDefault();
-        currentPressed = [];
-        server.send({
-            type: 'pause'
-        }, function(data) {
-            pause = data;
-            setBtnText();
-        });
-
-    });
-
-    restartBtn.addEventListener("touchstart", function(event) {
-        event.preventDefault();
-        currentPressed = [];
-        var currentPos = current_position;
-        startPosBeta = currentPos.beta;
-        startPosGamma = currentPos.gamma;
-        currentBeta = startPosBeta;
-        currentGamma = startPosGamma;
-        server.send({
-            type: 'restart'
-        }, function(data) {
-            stopped = data;
-            setBtnText();
-        });
-    });
 
     window.addEventListener("touchstart", touchStart);
     window.addEventListener("touchend", touchEnd);
     window.addEventListener("deviceorientation", updategyro, false);
     window.addEventListener('orientationchange', changeOrientation);
+
     mo.init();
 
-    var stopped = true;
-    var pause = false;
+    errorForm.hide();
+    controls.hide();
+    mainscreen.hide();
+
     var server = new Connection({
         remote: '/player'
     });
-    $('#errorForm').hide();
-    $('.buttons').hide();
-    $('.switchers').hide();
-    $('#mainscreen').show();
 
+    server.on('disconnect', disconnect);
+    server.on('connect', connect);
+    server.on('reconnect', reconnect.bind(server));
+    server.onReady(function() {
+        server.on('message', function(data) {
+            if (data.type === "canShoot") {
+                canShoot = true;
+            }
+            if (data.type === "shootACK") {
+                canShoot = false;
+            }
+        });
+    });
+    init.call(server);
 
-    var stopped = true;
-    var pause = false;
-
-    var currentBeta = 0;
-    var currentGamma = 0;
-
-    var startPosBeta = 0;
-    var startPosGamma = 0;
-
-    var current_position;
 
     function updategyro(e) {
         current_position = deviceOrientation(e);
@@ -142,22 +113,10 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
             currentBeta = current_position.beta;
             currentGamma = current_position.gamma;
         }
-
-        $("#betta").html(current_position.beta);
-        $("#gamma").html(current_position.gamma);
     };
 
 
-    server.onReady(function() {
-        server.on('message', function(data) {
-            if (data.type === "canShoot") {
-                canShoot = true;
-            }
-            if (data.type === "shootACK") {
-                canShoot = false;
-            }
-        });
-    });
+
 
     $('#submit').click(function() {
         var currentPos = current_position;
@@ -169,12 +128,13 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
             token: $('#token').val()
         }, function(answer) {
             if (answer.status == 'success') {
-                $('#tokenForm').hide();
-                $('.buttons').show();
-                $('.switchers').show();
+                tokenForm.hide();
+                controls.show();
+                sessionStorage.setItem('guid_joystick', answer.guid);
                 gameStarted = true;
+
             } else {
-                $('.error').html(answer.status);
+                tokenError.html(answer.status);
             }
         });
 
@@ -184,8 +144,9 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
 
     function changeOrientation() {
         if (window.orientation % 180 == 0) {
-            $('#errorForm').show();
-            $('#mainscreen').hide();
+            errorForm.show();
+            error.html('please turn your device');
+            mainscreen.hide();
 
             server.send({
                     type: 'portrait'
@@ -201,8 +162,8 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
             server.send({
                 type: 'landscape'
             });
-            $('#mainscreen').show();
-            $('#errorForm').hide();
+            mainscreen.show();
+            errorForm.hide();
 
         }
     };
@@ -224,7 +185,6 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
 
 
     function touchStart(event) {
-        fingers = event.touches.length;
         var shoot = null;
         var bullet = null;
         for (var i = 0; i < fingers; i++) {
@@ -239,7 +199,7 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
                 target: shoot.target,
                 identifier: shoot.identifier
             })
-        if (bullet != null){
+        if (bullet != null) {
             currentPressed.push({
                 type: "bullet",
                 target: bullet.target,
@@ -267,7 +227,6 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
     };
 
     var interval = setInterval(function() {
-        $("#fingers").html(fingers);
         if (canShoot && isElementInCurrentPressed(shootBtn)) {
             server.send({
                 type: "shoot",
@@ -319,5 +278,55 @@ require(['js/lib/Connector.js', 'lib/deviceapi-normaliser'], function(Connection
             }
         }
     };
+
+    ship1.addEventListener("touchstart", function(event) {
+        currentPressed = [];
+        server.send({
+            type: 'ship1'
+        });
+    });
+
+    ship2.addEventListener("touchstart", function(event) {
+        currentPressed = [];
+        server.send({
+            type: 'ship2'
+        });
+    });
+
+    shootBtn.addEventListener("touchstart", function(event) {
+        event.preventDefault();
+    });
+
+    bulletSwitcher.addEventListener("touchstart", function(event) {
+        event.preventDefault();
+    });
+
+    pauseBtn.addEventListener("touchstart", function(event) {
+        event.preventDefault();
+        currentPressed = [];
+        server.send({
+            type: 'pause'
+        }, function(data) {
+            pause = data;
+            setBtnText();
+        });
+
+    });
+
+    restartBtn.addEventListener("touchstart", function(event) {
+        event.preventDefault();
+        currentPressed = [];
+        var currentPos = current_position;
+        startPosBeta = currentPos.beta;
+        startPosGamma = currentPos.gamma;
+        currentBeta = startPosBeta;
+        currentGamma = startPosGamma;
+        server.send({
+            type: 'restart'
+        }, function(data) {
+            stopped = data;
+            setBtnText();
+        });
+    });
 
 });

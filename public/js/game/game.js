@@ -34,9 +34,10 @@ define(['classy',
                 $('#tokenForm').hide();
                 $('#gameOver').hide();
                 $('#gameDiv').hide();
+                $('#errorForm').hide();
+
 
                 this.server = new Connection({
-                    server: ['getToken', 'bind'],
                     remote: '/console'
                 });
 
@@ -45,7 +46,7 @@ define(['classy',
                 this.server.on('disconnect', disconnect.bind(game));
                 this.server.on('player-joined', function(data) {
                     console.log(data.guid); // guid инициализированной связки
-                    localStorage.setItem('guid', data.guid);
+                    sessionStorage.setItem('guid', data.guid);
                     $('#gameDiv').show();
                     $('#tokenForm').hide();
                     $('.overlay').hide();
@@ -105,6 +106,7 @@ define(['classy',
                 this.backBtn.click(
                     function() {
                         $('#selectForm').show();
+                        $('.overlay').show();
                         $('#gameDiv').hide();
                         game.context.clearRect(0, 0, game.GAME_WIDTH, game.GAME_HEIGHT);
                         game.endGame.bind(game);
@@ -145,6 +147,17 @@ define(['classy',
 
             messageRecieved: function(data, answer) {
                 var game = this;
+                if (data.type === 'disconnect') {
+                    this.pauseGame();
+                    sessionStorage.removeItem('guid');
+                    $('#gameDiv').hide();
+                    $('#selectForm').hide();
+                    $('#tokenForm').hide();
+                    $('.overlay').show();
+                    $('#error').html('device has been disconnected');
+                    $('#errorForm').show();
+                }
+
                 if (data.type === 'pause') {
                     this.pauseGame();
                     answer(this.pauseFlag);
