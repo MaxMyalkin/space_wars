@@ -4,9 +4,10 @@ define(['classy',
         'game/resources',
         'views/gameOver',
         'lib/Connector',
+        'checking',
         'serverFunc'
     ],
-    function(Class, Player, GameMechanic, Resources, GameOver, Connection) {
+    function(Class, Player, GameMechanic, Resources, GameOver, Connection, Modernizr) {
         /* TODO 
  выбор звука в зависимости от браузера
  сделать нормальную загрузку в начале игры
@@ -19,11 +20,16 @@ define(['classy',
             __init__: function(resources) {
 
                 var game = this;
-
                 $('#pc').on('click', function() {
-                    $('#gameDiv').show();
-                    $('.overlay').hide();
-                    $('#selectForm').hide();
+                    if (Modernizr.checkConsoleFeatures()) {
+                        $('#gameDiv').show();
+                        $('.overlay').hide();
+                        $('#selectForm').hide();
+                    } else {
+                        $('#selectForm').hide();
+                        $('#error').html("some features aren't supported");
+                        $('#errorForm').show();
+                    }
                     return false;
                 });
 
@@ -124,11 +130,17 @@ define(['classy',
             },
 
             SmartSelection: function() {
-                init.call(this);
-                var self = this;
-                var tokenForm = $('#tokenForm');
-                var selectForm = $('#selectForm');
-                selectForm.hide();
+                if (Modernizr.checkConsoleFeatures()) {
+                    init.call(this);
+                    var self = this;
+                    var tokenForm = $('#tokenForm');
+                    var selectForm = $('#selectForm');
+                    selectForm.hide();
+                } else {
+                    $('#selectForm').hide();
+                    $('#error').html("some features doesn't support");
+                    $('#errorForm').show();
+                }
             },
 
             setBtnText: function() {
@@ -458,8 +470,7 @@ define(['classy',
 
             endGame: function() {
                 this.server.send({
-                    type: 'ship',
-                    value: 1
+                    type: 'ship'
                 });
                 if (this.gameover) {
                     this.gameOverForm.show(this.player.score);

@@ -133,6 +133,7 @@ define(['classy',
                                 toDeleteAster.push(j);
                                 toCreateBang.push(new BigBang("#ffffff", game.asteroids[j].x, game.asteroids[j].y,
                                     game.resources, 1));
+                                SoundJS.Sound.play("bangSound");
                             };
                         };
                     };

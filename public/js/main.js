@@ -47,25 +47,9 @@ require.config({
 
 
 define([
-    'router', 'Modernizr'
+    'router'
 ], function(
-    router, Modernizr
+    router
 ) {
-    if (!Modernizr.fontface){
-        alert("no fontface supported.");
-    }
-    if (!Modernizr.audio){
-        alert("no HTML5 Audio supported.");
-    }
-    if (!Modernizr.canvas){
-        alert("no canvas supported.");
-    }
-    if (!Modernizr.localstorage){
-        alert("no localstorage supported.");
-    }
-    if (!Modernizr.websockets){
-        alert("no websockets supported.");
-    }
-        
     Backbone.history.start();
 });
