@@ -328,6 +328,8 @@ require(['js/lib/Connector.js', 'js/checking.js', 'lib/deviceapi-normaliser', 'j
             restartBtn.addEventListener("touchstart", function(event) {
                 event.preventDefault();
                 currentPressed = [];
+                $('#shipSwitcher .active').removeClass('active');
+                $('#ship1').addClass('active');
                 var currentPos = current_position;
                 startPosBeta = currentPos.beta;
                 startPosGamma = currentPos.gamma;
