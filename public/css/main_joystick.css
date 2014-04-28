@@ -25,21 +25,22 @@ body {
   -moz-box-shadow: 0px 0px 30px 3px black;
   -webkit-box-shadow: 0px 0px 30px 3px black;
   box-shadow: 0px 0px 30px 3px black; }
-  @media screen and (min-width: 320px) {
+  @media screen and (min-width: 200px) {
     .form {
-      min-height: 250px;
       width: 80%;
-      height: 80%; } }
+      height: 90%; } }
   @media screen and (min-width: 1224px) {
     .form {
-      min-height: 300px;
       width: 40%;
       height: 60%; } }
   .form input {
     width: 50%; }
-    @media screen and (max-width: 320px) {
+    @media screen and (min-width: 320px) {
       .form input {
         margin-bottom: 5%; } }
+    @media screen and (min-width: 1224px) {
+      .form input {
+        margin-bottom: 10%; } }
   .form__text {
     width: 100%;
     margin: 3% 1% 3% 1%; }
@@ -47,18 +48,27 @@ body {
       margin-top: 3%;
       height: 3%; }
   .form__btn {
+    margin: 20px;
     width: 50%;
-    height: 30%;
     background-color: #EBEDEB;
     font-size: 12px;
     border-radius: 10px;
-    margin: 20px;
     display: inline-block;
     text-decoration: none;
     text-align: center;
     -moz-box-shadow: 0px 0px 30px 3px black;
     -webkit-box-shadow: 0px 0px 30px 3px black;
     box-shadow: 0px 0px 30px 3px black; }
+    @media screen and (min-width: 320px) {
+      .form__btn {
+        height: 20%; } }
+    @media (orientation: landscape) and (max-height: 200px) {
+      .form__btn {
+        display: none;
+        margit-top: 0px; } }
+    @media screen and (min-width: 1224px) {
+      .form__btn {
+        height: 30%; } }
     .form__btn:active {
       text-decoration: underline;
       background-color: red; }

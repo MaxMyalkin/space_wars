@@ -122,6 +122,7 @@ require(['js/lib/Connector.js', 'js/checking.js', 'lib/deviceapi-normaliser', 'j
             };
 
             $('#submit').click(function() {
+                tokenError.html("");
                 var currentPos = current_position;
                 startPosBeta = currentPos.beta;
                 startPosGamma = currentPos.gamma;

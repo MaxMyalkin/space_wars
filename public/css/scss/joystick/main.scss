@@ -30,17 +30,17 @@ body {
 }
 
 .form {
-	@media screen and (min-width : 320px) {
-	 	min-height: 250px;
+	@media screen and (min-width : 200px) {
 	 	width: 80%;
-	 	height: 80%;
+	 	height: 90%;
 	 }
 
 	 @media screen and (min-width : 1224px) {
-	 	min-height: 300px;
 	 	width: 40%;
 	 	height: 60%;
 	 }
+
+	 
 	text-align: center;
 	background-color: #C98887;
 	border-radius: 20px;
@@ -53,9 +53,14 @@ body {
   	
   	input {
   		width: 50%;
-  		@media screen and (max-width : 320px) {
+  		@media screen and (min-width : 320px) {
 	  		margin-bottom:5%;
 		}
+
+		@media screen and (min-width : 1224px) {
+	  		margin-bottom:10%;
+		}
+
   	}
 
   	&__text {
@@ -70,12 +75,25 @@ body {
   	};
 
   	&__btn {
+  		margin: 20px;
+  		@media screen and (min-width : 320px) {
+	  		height: 20%;
+		}
+
+		@media (orientation : landscape) and (max-height : 200px) {
+			display: none;
+			margit-top: 0px;
+	 	}
+
+		@media screen and (min-width : 1224px) {
+	  		height: 30%;
+		}
+		
   		width: 50%;
-  		height: 30%;
   		background-color: #EBEDEB;
 	  	font-size: 12px;
 	  	border-radius: 10px;
-	  	margin: 20px;
+	  	
 	  	display: inline-block;
 	  	text-decoration: none;
 	  	text-align: center;
