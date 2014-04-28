@@ -14,22 +14,10 @@ define(['classy',
     ) {
         var resources = Class.$extend({
             __init__: function() {
-                this.loaded = false;
-                this.array = [];
-                //radius, src , isAnimation , dx , dy , speed , width , height , singleAnimation , frames
-
-                this.queue = new Loader.LoadQueue();
-                this.queue.installPlugin(SoundJS.Sound);
-                this.queue.on("complete", this.handleComplete, this);
-                this.queue.on("progress", function(event) {
-                    $('.loader').width(event.progress * 100 + '%');
-
-                }, this);
-
                 var bangSound = this.DJCheckTheSoundTitle(["/sounds/boom.ogg", "/sounds/boom.mp3", "/sounds/boom.wav"]);
                 var attackSound = this.DJCheckTheSoundTitle(["/sounds/attack.ogg", "/sounds/attack.mp3", "/sounds/attack.wav"]);
 
-                this.queue.loadManifest([{
+                var filesToLoad = [{
                     id: "smallAsteroid",
                     src: "/images/asteroid/smallAsteroid.png"
                 }, {
@@ -102,7 +90,36 @@ define(['classy',
                     id: "attackSound",
                     src: attackSound
                 }
-                ]);
+                ];
+                this.loaded = false;
+
+                this.error = false;
+                this.array = [];
+                //radius, src , isAnimation , dx , dy , speed , width , height , singleAnimation , frames
+
+                this.queue = new Loader.LoadQueue();
+                this.queue.installPlugin(SoundJS.Sound);
+                this.queue.on("complete", this.handleComplete, this);
+                this.queue.on("progress", function(event) {
+                    $('.loader').width(event.loaded * 100 + '%');
+
+                }, this);
+                this.queue.on("error", function(event){
+
+                    $('.loader').hide();
+                    $('#game').show();                    
+                    $('#gameDiv').hide();
+                    $('#toSelect').hide();
+                    $('#errorForm').show();
+                    $('#error').html("Can't load " + event.item.type + " " + event.item.id + "." + event.item.ext);
+                    
+                    this.queue.reset();
+                }, this);
+
+
+                
+                
+                this.queue.loadManifest(filesToLoad);
 
 
             },
@@ -113,7 +130,6 @@ define(['classy',
             },
 
             handleComplete: function() {
-
                 //this.attackSound = this.queue.getResult("attackSound");//this.DJCheckTheSound(["/sounds/attack.ogg", "/sounds/attack.mp3", "/sounds/attack.wav"]);
                 //this.bangSound = this.queue.getResult("bangSound"); //this.DJCheckTheSound(["/sounds/attack.ogg", "/sounds/attack.mp3", "/sounds/attack.wav"]);
                 
