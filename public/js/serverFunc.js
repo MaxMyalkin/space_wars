@@ -20,6 +20,7 @@ $(document).ready(function() {
         errorForm.hide();
         selectForm.show();
     });
+    console.log(tokenForm);
 });
 
 var hideShown = function() {
@@ -45,8 +46,6 @@ var showHidden = function() {
 var init = function() {
     if (!sessionStorage.getItem('guid')) {
         this.server.getToken(function(data) {
-            //hideShown();
-            //shown.push(tokenForm);
             tokenForm.show();
             token.html(data);
             errorForm.hide();

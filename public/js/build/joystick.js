@@ -13079,1532 +13079,6 @@ define("backbone", ["underscore","jquery"], (function (global) {
     };
 }(this)));
 
-define('tmpl/main',[],function () { return function (__fest_context){var __fest_self=this,__fest_buf="",__fest_chunks=[],__fest_chunk,__fest_attrs=[],__fest_select,__fest_if,__fest_iterator,__fest_to,__fest_fn,__fest_html="",__fest_blocks={},__fest_params,__fest_element,__fest_debug_file="",__fest_debug_line="",__fest_debug_block="",__fest_htmlchars=/[&<>"]/g,__fest_htmlchars_test=/[&<>"]/,__fest_short_tags = {"area":true,"base":true,"br":true,"col":true,"command":true,"embed":true,"hr":true,"img":true,"input":true,"keygen":true,"link":true,"meta":true,"param":true,"source":true,"wbr":true},__fest_element_stack = [],__fest_htmlhash={"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"},__fest_jschars=/[\\'"\/\n\r\t\b\f<>]/g,__fest_jschars_test=/[\\'"\/\n\r\t\b\f<>]/,__fest_jshash={"\"":"\\\"","\\":"\\\\","/":"\\/","\n":"\\n","\r":"\\r","\t":"\\t","\b":"\\b","\f":"\\f","'":"\\'","<":"\\u003C",">":"\\u003E"},___fest_log_error;if(typeof __fest_error === "undefined"){___fest_log_error = (typeof console !== "undefined" && console.error) ? function(){return Function.prototype.apply.call(console.error, console, arguments)} : function(){};}else{___fest_log_error=__fest_error};function __fest_log_error(msg){___fest_log_error(msg+"\nin block \""+__fest_debug_block+"\" at line: "+__fest_debug_line+"\nfile: "+__fest_debug_file)}function __fest_replaceHTML(chr){return __fest_htmlhash[chr]}function __fest_replaceJS(chr){return __fest_jshash[chr]}function __fest_extend(dest, src){for(var i in src)if(src.hasOwnProperty(i))dest[i]=src[i];}function __fest_param(fn){fn.param=true;return fn}function __fest_call(fn, params,cp){if(cp)for(var i in params)if(typeof params[i]=="function"&&params[i].param)params[i]=params[i]();return fn.call(__fest_self,params)}function __fest_escapeJS(s){if (typeof s==="string") {if (__fest_jschars_test.test(s))return s.replace(__fest_jschars,__fest_replaceJS);} else if (typeof s==="undefined")return "";return s;}function __fest_escapeHTML(s){if (typeof s==="string") {if (__fest_htmlchars_test.test(s))return s.replace(__fest_htmlchars,__fest_replaceHTML);} else if (typeof s==="undefined")return "";return s;}var json=__fest_context;__fest_buf+=("<div class=\"menu\"><h1 class=\"header header_blue\">Space wars</h1><ul class=\"menu__list\"><li class=\"menu__item\"><h1 class=\"menu__title\">Main menu</h1></li><li class=\"menu__item\"><a href=\"\/#scoreboard\" class=\"btn_big\">Score board</a></li><li class=\"menu__item\"><a href=\"\/#game\" class=\"btn_big\">Start game</a></li></ul><img class=\"menu__image\" src=\"images\/shipMainMenu.png\"/></div>");__fest_to=__fest_chunks.length;if (__fest_to) {__fest_iterator = 0;for (;__fest_iterator<__fest_to;__fest_iterator++) {__fest_chunk=__fest_chunks[__fest_iterator];if (typeof __fest_chunk==="string") {__fest_html+=__fest_chunk;} else {__fest_fn=__fest_blocks[__fest_chunk.name];if (__fest_fn) __fest_html+=__fest_call(__fest_fn,__fest_chunk.params,__fest_chunk.cp);}}return __fest_html+__fest_buf;} else {return __fest_buf;}} ; });
-define('views/viewManager',[
-    'backbone',
-], function(
-    Backbone
-) {
-
-    var View = Backbone.View.extend({
-        views: {},
-        initialize: function() {
-            var self = this;
-            $(document).on("show", function(event) {
-                _.each(self.views, function(value, key) {
-                    if (event._name !== key) {
-                        value.hide();
-                    }
-                });
-            });
-        },
-
-        addView: function(name, view) {
-            this.views[name] = view;
-        }
-
-    });
-
-    var viewManager = new View();
-    return viewManager;
-});
-define('views/main',[
-    'backbone',
-    'tmpl/main',
-    'views/viewManager',
-], function(
-    Backbone,
-    tmpl,
-    viewManager
-) {
-
-    var View = Backbone.View.extend({
-        template: tmpl,
-        el: "#main",
-        _name: "main",
-        initialize: function() {
-            $('#loadingForm').hide();
-            this.render();
-            this.hide();
-
-        },
-
-        render: function() {
-            this.$el.html(this.template);
-        },
-
-        show: function() {
-            $.event.trigger({
-                type: "show",
-                _name: this._name
-            });
-            this.$el.show();
-        },
-
-        hide: function() {
-            this.$el.hide();
-        }
-
-    });
-
-    var view = new View();
-    return view;
-});
-define('tmpl/scoreboard',[],function () { return function (__fest_context){var __fest_self=this,__fest_buf="",__fest_chunks=[],__fest_chunk,__fest_attrs=[],__fest_select,__fest_if,__fest_iterator,__fest_to,__fest_fn,__fest_html="",__fest_blocks={},__fest_params,__fest_element,__fest_debug_file="",__fest_debug_line="",__fest_debug_block="",__fest_htmlchars=/[&<>"]/g,__fest_htmlchars_test=/[&<>"]/,__fest_short_tags = {"area":true,"base":true,"br":true,"col":true,"command":true,"embed":true,"hr":true,"img":true,"input":true,"keygen":true,"link":true,"meta":true,"param":true,"source":true,"wbr":true},__fest_element_stack = [],__fest_htmlhash={"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"},__fest_jschars=/[\\'"\/\n\r\t\b\f<>]/g,__fest_jschars_test=/[\\'"\/\n\r\t\b\f<>]/,__fest_jshash={"\"":"\\\"","\\":"\\\\","/":"\\/","\n":"\\n","\r":"\\r","\t":"\\t","\b":"\\b","\f":"\\f","'":"\\'","<":"\\u003C",">":"\\u003E"},___fest_log_error;if(typeof __fest_error === "undefined"){___fest_log_error = (typeof console !== "undefined" && console.error) ? function(){return Function.prototype.apply.call(console.error, console, arguments)} : function(){};}else{___fest_log_error=__fest_error};function __fest_log_error(msg){___fest_log_error(msg+"\nin block \""+__fest_debug_block+"\" at line: "+__fest_debug_line+"\nfile: "+__fest_debug_file)}function __fest_replaceHTML(chr){return __fest_htmlhash[chr]}function __fest_replaceJS(chr){return __fest_jshash[chr]}function __fest_extend(dest, src){for(var i in src)if(src.hasOwnProperty(i))dest[i]=src[i];}function __fest_param(fn){fn.param=true;return fn}function __fest_call(fn, params,cp){if(cp)for(var i in params)if(typeof params[i]=="function"&&params[i].param)params[i]=params[i]();return fn.call(__fest_self,params)}function __fest_escapeJS(s){if (typeof s==="string") {if (__fest_jschars_test.test(s))return s.replace(__fest_jschars,__fest_replaceJS);} else if (typeof s==="undefined")return "";return s;}function __fest_escapeHTML(s){if (typeof s==="string") {if (__fest_htmlchars_test.test(s))return s.replace(__fest_htmlchars,__fest_replaceHTML);} else if (typeof s==="undefined")return "";return s;}var json=__fest_context;__fest_buf+=("<div class=\"menu\"><h1 class=\"header header_blue\">Space wars</h1><h1 class=\"menu__title\">SCORE BOARD</h1><div id=\"loading\"><img src=\"\/images\/ajax-loader.gif\" alt=\"Loading...\"/></div><div id=\"scoreTable\"></div><a href=\"\/#\" class=\"btn_small\">&#9668 BACK</a><div id=\"scoreError\"></div></div>");__fest_to=__fest_chunks.length;if (__fest_to) {__fest_iterator = 0;for (;__fest_iterator<__fest_to;__fest_iterator++) {__fest_chunk=__fest_chunks[__fest_iterator];if (typeof __fest_chunk==="string") {__fest_html+=__fest_chunk;} else {__fest_fn=__fest_blocks[__fest_chunk.name];if (__fest_fn) __fest_html+=__fest_call(__fest_fn,__fest_chunk.params,__fest_chunk.cp);}}return __fest_html+__fest_buf;} else {return __fest_buf;}} ; });
-define('models/score',[
-    'backbone',
-], function(
-    Backbone
-){
-   var PlayerModel = Backbone.Model.extend({
-        defaults:
-        {
-            name: '',
-            score: 0
-        }
-    });
-    return PlayerModel;
-});
-define('collections/scores',[
-    'backbone',
-    'models/score'
-], function(
-
-    Backbone,
-    Score
-) {
-    var Scoreboard = Backbone.Collection.extend({
-        model: Score,
-
-        comparator: function(score) {
-            return -score.get("score"); // компаратор по убыванию
-        },
-
-        initialize: function() {}
-    });
-
-    var s = new Scoreboard();
-    return s;
-});
-define('tmpl/scoreTable',[],function () { return function (__fest_context){var __fest_self=this,__fest_buf="",__fest_chunks=[],__fest_chunk,__fest_attrs=[],__fest_select,__fest_if,__fest_iterator,__fest_to,__fest_fn,__fest_html="",__fest_blocks={},__fest_params,__fest_element,__fest_debug_file="",__fest_debug_line="",__fest_debug_block="",__fest_htmlchars=/[&<>"]/g,__fest_htmlchars_test=/[&<>"]/,__fest_short_tags = {"area":true,"base":true,"br":true,"col":true,"command":true,"embed":true,"hr":true,"img":true,"input":true,"keygen":true,"link":true,"meta":true,"param":true,"source":true,"wbr":true},__fest_element_stack = [],__fest_htmlhash={"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"},__fest_jschars=/[\\'"\/\n\r\t\b\f<>]/g,__fest_jschars_test=/[\\'"\/\n\r\t\b\f<>]/,__fest_jshash={"\"":"\\\"","\\":"\\\\","/":"\\/","\n":"\\n","\r":"\\r","\t":"\\t","\b":"\\b","\f":"\\f","'":"\\'","<":"\\u003C",">":"\\u003E"},___fest_log_error;if(typeof __fest_error === "undefined"){___fest_log_error = (typeof console !== "undefined" && console.error) ? function(){return Function.prototype.apply.call(console.error, console, arguments)} : function(){};}else{___fest_log_error=__fest_error};function __fest_log_error(msg){___fest_log_error(msg+"\nin block \""+__fest_debug_block+"\" at line: "+__fest_debug_line+"\nfile: "+__fest_debug_file)}function __fest_replaceHTML(chr){return __fest_htmlhash[chr]}function __fest_replaceJS(chr){return __fest_jshash[chr]}function __fest_extend(dest, src){for(var i in src)if(src.hasOwnProperty(i))dest[i]=src[i];}function __fest_param(fn){fn.param=true;return fn}function __fest_call(fn, params,cp){if(cp)for(var i in params)if(typeof params[i]=="function"&&params[i].param)params[i]=params[i]();return fn.call(__fest_self,params)}function __fest_escapeJS(s){if (typeof s==="string") {if (__fest_jschars_test.test(s))return s.replace(__fest_jschars,__fest_replaceJS);} else if (typeof s==="undefined")return "";return s;}function __fest_escapeHTML(s){if (typeof s==="string") {if (__fest_htmlchars_test.test(s))return s.replace(__fest_htmlchars,__fest_replaceHTML);} else if (typeof s==="undefined")return "";return s;}var json=__fest_context;__fest_buf+=("<table class=\"menu__table\"><thead><tr><th>#</th><th>Name</th><th>Score</th></tr></thead><tbody>");var i,__fest_to0,__fest_iterator0;try{__fest_iterator0=json.scoreboard || [];__fest_to0=__fest_iterator0.length;}catch(e){__fest_iterator0=[];__fest_to0=0;__fest_log_error(e.message);}for(i=0;i<__fest_to0;i++){__fest_buf+=("<tr><td>");try{__fest_buf+=(__fest_escapeHTML(i + 1))}catch(e){__fest_log_error(e.message + "13");}__fest_buf+=("</td><td>");try{__fest_buf+=(__fest_escapeHTML(json.scoreboard[i].name))}catch(e){__fest_log_error(e.message + "16");}__fest_buf+=("</td><td>");try{__fest_buf+=(__fest_escapeHTML(json.scoreboard[i].score))}catch(e){__fest_log_error(e.message + "19");}__fest_buf+=("</td></tr>");}__fest_buf+=("</tbody></table>");__fest_to=__fest_chunks.length;if (__fest_to) {__fest_iterator = 0;for (;__fest_iterator<__fest_to;__fest_iterator++) {__fest_chunk=__fest_chunks[__fest_iterator];if (typeof __fest_chunk==="string") {__fest_html+=__fest_chunk;} else {__fest_fn=__fest_blocks[__fest_chunk.name];if (__fest_fn) __fest_html+=__fest_call(__fest_fn,__fest_chunk.params,__fest_chunk.cp);}}return __fest_html+__fest_buf;} else {return __fest_buf;}} ; });
-define('localStorageFunc',[], function() {
-    function getID() {
-        var curID = getJSON("id");
-        if (curID === null) {
-            setJSON("id", 0);
-            return 0;
-        } else {
-            setJSON("id", Number(curID) + 1);
-            return Number(curID) + 1;
-        }
-    }
-
-    function setJSON(key, value) {
-        localStorage[key] = JSON.stringify(value);
-    }
-
-    function getJSON(key) {
-        var value = localStorage[key];
-        return value ? JSON.parse(value) : [];
-    }
-
-    function update() {
-        var scores = getJSON('scores');
-        if (scores != null) {
-            for (var i = scores.length - 1; i >= 0; i--) {
-                $.ajax({
-                    url: '/scores',
-                    type: 'post',
-                    dataType: 'JSON',
-                    async: false,
-                    data: scores[i],
-                    success: function(response) {
-                        scores.splice(i, 1);
-                        setJSON("scores", scores);
-                    }
-                })
-            }
-
-        }
-
-    }
-
-    return {
-        getID: getID,
-        setJSON: setJSON,
-        getJSON: getJSON,
-        update: update
-    }
-
-});
-define('views/scoreTable',[
-    'backbone',
-    'tmpl/scoreTable',
-    'collections/scores',
-    'localStorageFunc'
-], function(
-    Backbone,
-    tmpl,
-    Scoreboard,
-    Storage
-) {
-
-    var View = Backbone.View.extend({
-        template: tmpl,
-        el: "#scoreTable",
-
-        initialize: function() {
-            $("#loading").hide();
-            _.bindAll(this, "render", "show", "hide");
-        },
-
-        render: function() {
-            $('#selectForm').show();
-            $('#gameDiv').hide();
-            Storage.update();
-            Scoreboard.url = "/scores";
-            Scoreboard.fetch();
-            $("#loading").show();
-            $("#scoreError").html("");
-            this.$el.hide();
-            var self = this;
-            setTimeout(function() {
-                $.ajax({
-                    url: '/scores?limit=10',
-                    type: 'get',
-                    dataType: 'JSON',
-
-                    success: function(response) {
-
-                        self.$el.html(self.template({
-                            scoreboard: response
-                        }));
-                        $("#scoreError").html("");
-                        self.$el.show();
-                        $("#loading").hide();
-                    },
-
-                    error: function(response) {
-                        self.hide();
-                        $("#scoreError").html("Server unavailable");
-                        $("#loading").hide();
-                    }
-                })
-            }, 1000)
-
-        },
-
-        show: function() {
-            this.render();
-        },
-
-        hide: function() {
-            this.$el.hide();
-        }
-    });
-
-
-
-    return View;
-
-});
-define('views/scoreboard',[
-    'backbone',
-    'tmpl/scoreboard',
-    'collections/scores',
-    'models/score',
-    'views/viewManager',
-    'views/scoreTable'
-], function(
-    Backbone,
-    tmplScore,
-    Scoreboard,
-    Player,
-    viewManager,
-    ScoreTable
-) {
-    var ScoreboardView = Backbone.View.extend({
-        el: "#scoreboard",
-        template: tmplScore,
-        _name: "scoreboard",
-
-        initialize: function() {
-            this.render();
-            this.scoreTable = new ScoreTable(); //Только после рендера основной вьюшки можем создать scoreTable
-            this.hide();
-        },
-
-        render: function() {
-            this.$el.html(this.template);
-        },
-
-        show: function() {
-            this.$el.show();
-            this.scoreTable.show();
-            $.event.trigger({
-                type: "show",
-                _name: this._name
-            });
-
-        },
-
-        hide: function() {
-            this.$el.hide();
-        }
-    });
-    var view = new ScoreboardView();
-    return view;
-
-});
-define('tmpl/game',[],function () { return function (__fest_context){var __fest_self=this,__fest_buf="",__fest_chunks=[],__fest_chunk,__fest_attrs=[],__fest_select,__fest_if,__fest_iterator,__fest_to,__fest_fn,__fest_html="",__fest_blocks={},__fest_params,__fest_element,__fest_debug_file="",__fest_debug_line="",__fest_debug_block="",__fest_htmlchars=/[&<>"]/g,__fest_htmlchars_test=/[&<>"]/,__fest_short_tags = {"area":true,"base":true,"br":true,"col":true,"command":true,"embed":true,"hr":true,"img":true,"input":true,"keygen":true,"link":true,"meta":true,"param":true,"source":true,"wbr":true},__fest_element_stack = [],__fest_htmlhash={"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"},__fest_jschars=/[\\'"\/\n\r\t\b\f<>]/g,__fest_jschars_test=/[\\'"\/\n\r\t\b\f<>]/,__fest_jshash={"\"":"\\\"","\\":"\\\\","/":"\\/","\n":"\\n","\r":"\\r","\t":"\\t","\b":"\\b","\f":"\\f","'":"\\'","<":"\\u003C",">":"\\u003E"},___fest_log_error;if(typeof __fest_error === "undefined"){___fest_log_error = (typeof console !== "undefined" && console.error) ? function(){return Function.prototype.apply.call(console.error, console, arguments)} : function(){};}else{___fest_log_error=__fest_error};function __fest_log_error(msg){___fest_log_error(msg+"\nin block \""+__fest_debug_block+"\" at line: "+__fest_debug_line+"\nfile: "+__fest_debug_file)}function __fest_replaceHTML(chr){return __fest_htmlhash[chr]}function __fest_replaceJS(chr){return __fest_jshash[chr]}function __fest_extend(dest, src){for(var i in src)if(src.hasOwnProperty(i))dest[i]=src[i];}function __fest_param(fn){fn.param=true;return fn}function __fest_call(fn, params,cp){if(cp)for(var i in params)if(typeof params[i]=="function"&&params[i].param)params[i]=params[i]();return fn.call(__fest_self,params)}function __fest_escapeJS(s){if (typeof s==="string") {if (__fest_jschars_test.test(s))return s.replace(__fest_jschars,__fest_replaceJS);} else if (typeof s==="undefined")return "";return s;}function __fest_escapeHTML(s){if (typeof s==="string") {if (__fest_htmlchars_test.test(s))return s.replace(__fest_htmlchars,__fest_replaceHTML);} else if (typeof s==="undefined")return "";return s;}var json=__fest_context;__fest_buf+=("<div id=\"selectForm\" class=\"form\"><div class=\"gameOverForm\"><div>Choose device:</div><a id=\"pc\"><img style=\"height: 100px; float:left; margin-left: 50px;\" src=\"images\/pc.png\" alt=\"pc\"/></a><a id=\"smart\"><img style=\"height: 100px; float:right; margin-right: 50px;\" src=\"images\/mobile.png\" alt=\"smartphone\"/></a></div></div><div id=\"tokenForm\" class=\"form\"><div class=\"gameOverForm\"><div class=\"gameOverForm__text_big\">Here is your token:</div><br/><span id=\"token\"></span></div></div><div id=\"errorForm\" class=\"form\"><div class=\"gameOverForm\"><div id=\"error\" class=\"gameOverForm__text_big\"></div><br/><a href=\"\/#\" id=\"toSelect\" class=\"btn_big\">&#9668 Back</a></div></div><div id=\"gameDiv\"><div class=\"header header_game\"><a id=\"backBtn\" href=\"\/#\" class=\"btn_thin game_button\">&#9668 BACK</a><a id=\"pause\" class=\"btn_thin game_button\"></a><a id=\"restart\" class=\"btn_thin game_button\"></a></div><div class=\"info\"><div class=\"info__header\">score: <span id=\"score\">0</span></div><div class=\"info__bullets\"><div class=\"info__header\">bullets</div><div class=\"info__bullets__bullet-type\"><canvas style=\"width: 20px; height:50px;\" id=\"first_bullet\" class=\"info__bullets__img\"></canvas><div class=\"info__text\">∞</div></div><div class=\"info__bullets__bullet-type\"><canvas style=\"width: 20px; height:50px;\" id=\"second_bullet\" class=\"info__bullets__img\"></canvas><div class=\"info__text first-bonus\">0</div></div><div class=\"info__bullets__bullet-type\"><canvas style=\"width: 20px; height:50px;\" id=\"third_bullet\" class=\"info__bullets__img\"></canvas><div class=\"info__text second-bonus\">0</div></div></div><div class=\"info__ship\"><div class=\"info__header \">ship</div><canvas style=\"height: 100px;\" class=\"info__ship__img\" id=\"ship_img\"></canvas><div class=\"info__ship__properties\"><div class=\"info__text\">Size: <span id=\"ship-size\">0</span></div><div class=\"info__text\">hspeed: <span id=\"ship-hspeed\">0</span></div><div class=\"info__text\">vspeed: <span id=\"ship-vspeed\">0</span></div><div class=\"info__text\">multi: <span id=\"ship-multiplier\">0</span></div></div></div><div class=\"info__text\">Level</div><div class=\"info__level\"></div></div><canvas id=\"gameField\" class=\"game-screen\"></canvas></div><div id=\"gameOver\" class=\"form\"></div><div class=\"overlay\"></div>");__fest_to=__fest_chunks.length;if (__fest_to) {__fest_iterator = 0;for (;__fest_iterator<__fest_to;__fest_iterator++) {__fest_chunk=__fest_chunks[__fest_iterator];if (typeof __fest_chunk==="string") {__fest_html+=__fest_chunk;} else {__fest_fn=__fest_blocks[__fest_chunk.name];if (__fest_fn) __fest_html+=__fest_call(__fest_fn,__fest_chunk.params,__fest_chunk.cp);}}return __fest_html+__fest_buf;} else {return __fest_buf;}} ; });
-/**
- * Classy - classy classes for JavaScript
- *
- * :copyright: (c) 2011 by Armin Ronacher. 
- * :license: BSD.
- */
-
-;(function(undefined) {
-  var
-    CLASSY_VERSION = '1.4',
-    root = this,
-    old_class = root.Class,
-    disable_constructor = false;
-
-  /* we check if $super is in use by a class if we can.  But first we have to
-     check if the JavaScript interpreter supports that.  This also matches
-     to false positives later, but that does not do any harm besides slightly
-     slowing calls down. */
-  var probe_super = (function(){$super();}).toString().indexOf('$super') > 0;
-  function usesSuper(obj) {
-    return !probe_super || /\B\$super\b/.test(obj.toString());
-  }
-
-  /* helper function to set the attribute of something to a value or
-     removes it if the value is undefined. */
-  function setOrUnset(obj, key, value) {
-    if (value === undefined)
-      delete obj[key];
-    else
-      obj[key] = value;
-  }
-
-  /* gets the own property of an object */
-  function getOwnProperty(obj, name) {
-    return Object.prototype.hasOwnProperty.call(obj, name)
-      ? obj[name] : undefined;
-  }
-
-  /* instanciate a class without calling the constructor */
-  function cheapNew(cls) {
-    disable_constructor = true;
-    var rv = new cls;
-    disable_constructor = false;
-    return rv;
-  }
-
-  /* the base class we export */
-  var Class = function() {};
-
-  /* restore the global Class name and pass it to a function.  This allows
-     different versions of the classy library to be used side by side and
-     in combination with other libraries. */
-  Class.$noConflict = function() {
-    try {
-      setOrUnset(root, 'Class', old_class);
-    }
-    catch (e) {
-      // fix for IE that does not support delete on window
-      root.Class = old_class;
-    }
-    return Class;
-  };
-
-  /* what version of classy are we using? */
-  Class.$classyVersion = CLASSY_VERSION;
-
-  /* extend functionality */
-  Class.$extend = function(properties) {
-    var super_prototype = this.prototype;
-
-    /* disable constructors and instanciate prototype.  Because the
-       prototype can't raise an exception when created, we are safe
-       without a try/finally here. */
-    var prototype = cheapNew(this);
-
-    /* copy all properties of the includes over if there are any */
-    if (properties.__include__)
-      for (var i = 0, n = properties.__include__.length; i != n; ++i) {
-        var mixin = properties.__include__[i];
-        for (var name in mixin) {
-          var value = getOwnProperty(mixin, name);
-          if (value !== undefined)
-            prototype[name] = mixin[name];
-        }
-      }
- 
-    /* copy class vars from the superclass */
-    properties.__classvars__ = properties.__classvars__ || {};
-    if (prototype.__classvars__)
-      for (var key in prototype.__classvars__)
-        if (!properties.__classvars__[key]) {
-          var value = getOwnProperty(prototype.__classvars__, key);
-          properties.__classvars__[key] = value;
-        }
-
-    /* copy all properties over to the new prototype */
-    for (var name in properties) {
-      var value = getOwnProperty(properties, name);
-      if (name === '__include__' ||
-          value === undefined)
-        continue;
-
-      prototype[name] = typeof value === 'function' && usesSuper(value) ?
-        (function(meth, name) {
-          return function() {
-            var old_super = getOwnProperty(this, '$super');
-            this.$super = super_prototype[name];
-            try {
-              return meth.apply(this, arguments);
-            }
-            finally {
-              setOrUnset(this, '$super', old_super);
-            }
-          };
-        })(value, name) : value
-    }
-
-    /* dummy constructor */
-    var rv = function() {
-      if (disable_constructor)
-        return;
-      var proper_this = root === this ? cheapNew(arguments.callee) : this;
-      if (proper_this.__init__)
-        proper_this.__init__.apply(proper_this, arguments);
-      proper_this.$class = rv;
-      return proper_this;
-    }
-
-    /* copy all class vars over of any */
-    for (var key in properties.__classvars__) {
-      var value = getOwnProperty(properties.__classvars__, key);
-      if (value !== undefined)
-        rv[key] = value;
-    }
-
-    /* copy prototype and constructor over, reattach $extend and
-       return the class */
-    rv.prototype = prototype;
-    rv.constructor = rv;
-    rv.$extend = Class.$extend;
-    rv.$withData = Class.$withData;
-    return rv;
-  };
-
-  /* instanciate with data functionality */
-  Class.$withData = function(data) {
-    var rv = cheapNew(this);
-    for (var key in data) {
-      var value = getOwnProperty(data, key);
-      if (value !== undefined)
-        rv[key] = value;
-    }
-    return rv;
-  };
-
-  /* export the class */
-  root.Class = Class;
-})();
-
-define("classy", (function (global) {
-    return function () {
-        var ret, fn;
-        return ret || global.Class;
-    };
-}(this)));
-
-define('game/sprite',['classy'],
-    function(Class) {
-
-        var Sprite = Class.$extend({
-
-            __init__: function(src, sizeX, sizeY, speed, frames, isHorizontal, isSingle) {
-                if (isHorizontal === undefined)
-                    this.isHorizontal = true;
-                else
-                    this.isHorizontal = isHorizontal;
-
-                if (isSingle === undefined)
-                    this.isSingle = false;
-                else
-                    this.isSingle = isSingle;
-
-                this.sizeX = sizeX; //Размер кадра
-                this.sizeY = sizeY;
-                this.speed = speed;
-                this.frames = frames;
-                this._index = 0;
-                this.src = src;
-                this.wasPlayed = false;
-            },
-
-            update: function() {
-                this._index += this.speed;
-            },
-
-            render: function(context, x, y, radius, ddx, ddy) {
-                this.update();
-                this.wasPlayed = false;
-                var frame;
-
-                if (this.speed > 0) {
-                    var max = this.frames.length;
-                    var idx = Math.floor(this._index);
-                    frame = this.frames[idx % max];
-                } else
-                    frame = 0;
-
-                var dx = 0;
-                var dy = 0;
-
-                if (this.isHorizontal)
-                    dx += frame * this.sizeX;
-                else
-                    dy += frame * this.sizeY;
-                context.drawImage(this.src,
-                    dx, dy,
-                    this.sizeX, this.sizeY,
-                    x - radius - ddx, y - radius - ddy,
-                    this.sizeX, this.sizeY);
-                if (this.isSingle && frame === max - 1) {
-                    this.gotoZeroFrame();
-                    this.wasPlayed = true;
-
-                }
-            },
-
-            gotoZeroFrame: function() {
-                this._index = 0;
-            }
-
-        });
-        return Sprite;
-    });
-define('game/objects/object',['classy',
-        'game/sprite'
-    ],
-    function(Class,
-        Sprite
-    ) {
-        var AbstractObject = Class.$extend({
-            __init__: function(color, x, y, resource) {
-                this.color = color;
-                this.x = x;
-                this.y = y;
-                if (resource != undefined) {
-                    this.resource = resource;
-                    this.radius = resource.radius;
-                }
-            },
-
-            draw: function(context) {
-                if (context.debug === true)
-                    this.drawCircle(context);
-
-                if (this.resource != undefined) {
-                    if (this.deltaAngle != 0) {
-                        context.save();
-                        context.translate(this.x, this.y);
-                        this.Angle += this.deltaAngle;
-                        context.rotate(this.Angle * Math.PI / 180);
-
-                        context.translate(-this.x, -this.y);
-                        this.resource.draw(context, this.x, this.y);
-                        context.restore();
-                    } else
-                        this.resource.draw(context, this.x, this.y);
-                }
-
-            },
-
-            initMotion: function(speedX, speedY) {
-                this.speedX = speedX;
-                this.speedY = speedY;
-            },
-
-            initRotation: function(startAngle, delta) {
-                this.Angle = startAngle;
-                this.deltaAngle = delta;
-            },
-
-            drawCircle: function(context) {
-                context.fillStyle = this.color;
-                context.beginPath();
-                context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, false);
-                context.fill();
-            }
-
-        });
-
-        return AbstractObject;
-    });
-define('game/objects/bullet',['game/objects/object'],
-    function(AbstractObject) {
-        var Bullet = AbstractObject.$extend({
-            __init__: function(color, x, y, resources, constSpeed, type, damageMultiplier) {
-                this.type = type;
-                this.damage = type * damageMultiplier;
-                var radius;
-                var resource;
-                switch (this.type) {
-                    case 1:
-                        resource = resources.get("firstTypeBullet");
-                        break;
-                    case 2:
-                        resource = resources.get("secondTypeBullet");
-                        break;
-                    case 3:
-                        resource = resources.get("thirdTypeBullet");
-                        break;
-                    default:
-                        break;
-                }
-                this.initMotion(0, constSpeed * this.type / 2);
-                this.$super(color, x, y, resource);
-            }
-        });
-
-        return Bullet;
-    });
-/*!
-* @license SoundJS
-* Visit http://createjs.com/ for documentation, updates and examples.
-*
-* Copyright (c) 2011-2013 gskinner.com, inc.
-*
-* Distributed under the terms of the MIT license.
-* http://www.opensource.org/licenses/mit-license.html
-*
-* This notice shall be included in all copies or substantial portions of the Software.
-*/
-
-/**!
- * SoundJS FlashPlugin also includes swfobject (http://code.google.com/p/swfobject/)
- */
-
-this.createjs=this.createjs||{},function(){var a=createjs.SoundJS=createjs.SoundJS||{};a.version="0.5.2",a.buildDate="Thu, 12 Dec 2013 23:33:37 GMT"}(),this.createjs=this.createjs||{},function(){var a=function(){},b=a.prototype;a.initialize=function(a){a.addEventListener=b.addEventListener,a.on=b.on,a.removeEventListener=a.off=b.removeEventListener,a.removeAllEventListeners=b.removeAllEventListeners,a.hasEventListener=b.hasEventListener,a.dispatchEvent=b.dispatchEvent,a._dispatchEvent=b._dispatchEvent,a.willTrigger=b.willTrigger},b._listeners=null,b._captureListeners=null,b.initialize=function(){},b.addEventListener=function(a,b,c){var d;d=c?this._captureListeners=this._captureListeners||{}:this._listeners=this._listeners||{};var e=d[a];return e&&this.removeEventListener(a,b,c),e=d[a],e?e.push(b):d[a]=[b],b},b.on=function(a,b,c,d,e,f){return b.handleEvent&&(c=c||b,b=b.handleEvent),c=c||this,this.addEventListener(a,function(a){b.call(c,a,e),d&&a.remove()},f)},b.removeEventListener=function(a,b,c){var d=c?this._captureListeners:this._listeners;if(d){var e=d[a];if(e)for(var f=0,g=e.length;g>f;f++)if(e[f]==b){1==g?delete d[a]:e.splice(f,1);break}}},b.off=b.removeEventListener,b.removeAllEventListeners=function(a){a?(this._listeners&&delete this._listeners[a],this._captureListeners&&delete this._captureListeners[a]):this._listeners=this._captureListeners=null},b.dispatchEvent=function(a,b){if("string"==typeof a){var c=this._listeners;if(!c||!c[a])return!1;a=new createjs.Event(a)}if(a.target=b||this,a.bubbles&&this.parent){for(var d=this,e=[d];d.parent;)e.push(d=d.parent);var f,g=e.length;for(f=g-1;f>=0&&!a.propagationStopped;f--)e[f]._dispatchEvent(a,1+(0==f));for(f=1;g>f&&!a.propagationStopped;f++)e[f]._dispatchEvent(a,3)}else this._dispatchEvent(a,2);return a.defaultPrevented},b.hasEventListener=function(a){var b=this._listeners,c=this._captureListeners;return!!(b&&b[a]||c&&c[a])},b.willTrigger=function(a){for(var b=this;b;){if(b.hasEventListener(a))return!0;b=b.parent}return!1},b.toString=function(){return"[EventDispatcher]"},b._dispatchEvent=function(a,b){var c,d=1==b?this._captureListeners:this._listeners;if(a&&d){var e=d[a.type];if(!e||!(c=e.length))return;a.currentTarget=this,a.eventPhase=b,a.removed=!1,e=e.slice();for(var f=0;c>f&&!a.immediatePropagationStopped;f++){var g=e[f];g.handleEvent?g.handleEvent(a):g(a),a.removed&&(this.off(a.type,g,1==b),a.removed=!1)}}},createjs.EventDispatcher=a}(),this.createjs=this.createjs||{},function(){var a=function(a,b,c){this.initialize(a,b,c)},b=a.prototype;b.type=null,b.target=null,b.currentTarget=null,b.eventPhase=0,b.bubbles=!1,b.cancelable=!1,b.timeStamp=0,b.defaultPrevented=!1,b.propagationStopped=!1,b.immediatePropagationStopped=!1,b.removed=!1,b.initialize=function(a,b,c){this.type=a,this.bubbles=b,this.cancelable=c,this.timeStamp=(new Date).getTime()},b.preventDefault=function(){this.defaultPrevented=!0},b.stopPropagation=function(){this.propagationStopped=!0},b.stopImmediatePropagation=function(){this.immediatePropagationStopped=this.propagationStopped=!0},b.remove=function(){this.removed=!0},b.clone=function(){return new a(this.type,this.bubbles,this.cancelable)},b.toString=function(){return"[Event (type="+this.type+")]"},createjs.Event=a}(),this.createjs=this.createjs||{},function(){createjs.indexOf=function(a,b){for(var c=0,d=a.length;d>c;c++)if(b===a[c])return c;return-1}}(),this.createjs=this.createjs||{},function(){createjs.proxy=function(a,b){var c=Array.prototype.slice.call(arguments,2);return function(){return a.apply(b,Array.prototype.slice.call(arguments,0).concat(c))}}}(),this.createjs=this.createjs||{},function(){function a(){throw"Sound cannot be instantiated"}function b(a,b){this.init(a,b)}function c(){this.isDefault=!0,this.addEventListener=this.removeEventListener=this.removeAllEventListeners=this.dispatchEvent=this.hasEventListener=this._listeners=this._interrupt=this._playFailed=this.pause=this.resume=this.play=this._beginPlaying=this._cleanUp=this.stop=this.setMasterVolume=this.setVolume=this.mute=this.setMute=this.getMute=this.setPan=this.getPosition=this.setPosition=this.playFailed=function(){return!1},this.getVolume=this.getPan=this.getDuration=function(){return 0},this.playState=a.PLAY_FAILED,this.toString=function(){return"[Sound Default Sound Instance]"}}function d(){}var e=a;e.DELIMITER="|",e.INTERRUPT_ANY="any",e.INTERRUPT_EARLY="early",e.INTERRUPT_LATE="late",e.INTERRUPT_NONE="none",e.PLAY_INITED="playInited",e.PLAY_SUCCEEDED="playSucceeded",e.PLAY_INTERRUPTED="playInterrupted",e.PLAY_FINISHED="playFinished",e.PLAY_FAILED="playFailed",e.SUPPORTED_EXTENSIONS=["mp3","ogg","mpeg","wav","m4a","mp4","aiff","wma","mid"],e.EXTENSION_MAP={m4a:"mp4"},e.FILE_PATTERN=/^(?:(\w+:)\/{2}(\w+(?:\.\w+)*\/?))?([/.]*?(?:[^?]+)?\/)?((?:[^/?]+)\.(\w+))(?:\?(\S+)?)?$/,e.defaultInterruptBehavior=e.INTERRUPT_NONE,e.alternateExtensions=[],e._lastID=0,e.activePlugin=null,e._pluginsRegistered=!1,e._masterVolume=1,e._masterMute=!1,e._instances=[],e._idHash={},e._preloadHash={},e._defaultSoundInstance=null,e.addEventListener=null,e.removeEventListener=null,e.removeAllEventListeners=null,e.dispatchEvent=null,e.hasEventListener=null,e._listeners=null,createjs.EventDispatcher.initialize(e),e._sendFileLoadEvent=function(a){if(e._preloadHash[a])for(var b=0,c=e._preloadHash[a].length;c>b;b++){var d=e._preloadHash[a][b];if(e._preloadHash[a][b]=!0,e.hasEventListener("fileload")){var f=new createjs.Event("fileload");f.src=d.src,f.id=d.id,f.data=d.data,e.dispatchEvent(f)}}},e.getPreloadHandlers=function(){return{callback:createjs.proxy(e.initLoad,e),types:["sound"],extensions:e.SUPPORTED_EXTENSIONS}},e.registerPlugin=function(a){try{console.log("createjs.Sound.registerPlugin has been deprecated. Please use registerPlugins.")}catch(b){}return e._registerPlugin(a)},e._registerPlugin=function(a){return e._pluginsRegistered=!0,null==a?!1:a.isSupported()?(e.activePlugin=new a,!0):!1},e.registerPlugins=function(a){for(var b=0,c=a.length;c>b;b++){var d=a[b];if(e._registerPlugin(d))return!0}return!1},e.initializeDefaultPlugins=function(){return null!=e.activePlugin?!0:e._pluginsRegistered?!1:e.registerPlugins([createjs.WebAudioPlugin,createjs.HTMLAudioPlugin])?!0:!1},e.isReady=function(){return null!=e.activePlugin},e.getCapabilities=function(){return null==e.activePlugin?null:e.activePlugin._capabilities},e.getCapability=function(a){return null==e.activePlugin?null:e.activePlugin._capabilities[a]},e.initLoad=function(a,b,c,d,f){a=a.replace(f,"");var g=e.registerSound(a,c,d,!1,f);return null==g?!1:g},e.registerSound=function(a,c,d,f,g){if(!e.initializeDefaultPlugins())return!1;if(a instanceof Object&&(g=c,c=a.id,d=a.data,a=a.src),e.alternateExtensions.length)var h=e._parsePath2(a,"sound",c,d);else var h=e._parsePath(a,"sound",c,d);if(null==h)return!1;null!=g&&(a=g+a,h.src=g+h.src),null!=c&&(e._idHash[c]=h.src);var i=null;null!=d&&(isNaN(d.channels)?isNaN(d)||(i=parseInt(d)):i=parseInt(d.channels));var j=e.activePlugin.register(h.src,i);if(null!=j&&(null!=j.numChannels&&(i=j.numChannels),b.create(h.src,i),null!=d&&isNaN(d)?d.channels=h.data.channels=i||b.maxPerChannel():d=h.data=i||b.maxPerChannel(),null!=j.tag?h.tag=j.tag:j.src&&(h.src=j.src),null!=j.completeHandler&&(h.completeHandler=j.completeHandler),j.type&&(h.type=j.type)),0!=f)if(e._preloadHash[h.src]||(e._preloadHash[h.src]=[]),e._preloadHash[h.src].push({src:a,id:c,data:d}),1==e._preloadHash[h.src].length)e.activePlugin.preload(h.src,j);else if(1==e._preloadHash[h.src][0])return!0;return h},e.registerManifest=function(a,b){for(var c=[],d=0,e=a.length;e>d;d++)c[d]=createjs.Sound.registerSound(a[d].src,a[d].id,a[d].data,a[d].preload,b);return c},e.removeSound=function(a,c){if(null==e.activePlugin)return!1;if(a instanceof Object&&(a=a.src),a=e._getSrcById(a),e.alternateExtensions.length)var d=e._parsePath2(a);else var d=e._parsePath(a);if(null==d)return!1;null!=c&&(d.src=c+d.src),a=d.src;for(var f in e._idHash)e._idHash[f]==a&&delete e._idHash[f];return b.removeSrc(a),delete e._preloadHash[a],e.activePlugin.removeSound(a),!0},e.removeManifest=function(a,b){for(var c=[],d=0,e=a.length;e>d;d++)c[d]=createjs.Sound.removeSound(a[d].src,b);return c},e.removeAllSounds=function(){e._idHash={},e._preloadHash={},b.removeAll(),e.activePlugin.removeAllSounds()},e.loadComplete=function(a){if(e.alternateExtensions.length)var b=e._parsePath2(a,"sound");else var b=e._parsePath(a,"sound");return a=b?e._getSrcById(b.src):e._getSrcById(a),1==e._preloadHash[a][0]},e._parsePath=function(a,b,c,d){"string"!=typeof a&&(a=a.toString());var f=a.split(e.DELIMITER);if(f.length>1)try{console.log('createjs.Sound.DELIMITER "|" loading approach has been deprecated. Please use the new alternateExtensions property.')}catch(g){}for(var h={type:b||"sound",id:c,data:d},i=e.getCapabilities(),j=0,k=f.length;k>j;j++){var l=f[j],m=l.match(e.FILE_PATTERN);if(null==m)return!1;var n=m[4],o=m[5];if(i[o]&&createjs.indexOf(e.SUPPORTED_EXTENSIONS,o)>-1)return h.name=n,h.src=l,h.extension=o,h}return null},e._parsePath2=function(a,b,c,d){"string"!=typeof a&&(a=a.toString());var f=a.match(e.FILE_PATTERN);if(null==f)return!1;for(var g=f[4],h=f[5],i=e.getCapabilities(),j=0;!i[h];)if(h=e.alternateExtensions[j++],j>e.alternateExtensions.length)return null;a=a.replace("."+f[5],"."+h);var k={type:b||"sound",id:c,data:d};return k.name=g,k.src=a,k.extension=h,k},e.play=function(a,b,c,d,f,g,h){var i=e.createInstance(a),j=e._playInstance(i,b,c,d,f,g,h);return j||i.playFailed(),i},e.createInstance=function(c){if(!e.initializeDefaultPlugins())return e._defaultSoundInstance;if(c=e._getSrcById(c),e.alternateExtensions.length)var d=e._parsePath2(c,"sound");else var d=e._parsePath(c,"sound");var f=null;return null!=d&&null!=d.src?(b.create(d.src),f=e.activePlugin.create(d.src)):f=a._defaultSoundInstance,f.uniqueId=e._lastID++,f},e.setVolume=function(a){if(null==Number(a))return!1;if(a=Math.max(0,Math.min(1,a)),e._masterVolume=a,!this.activePlugin||!this.activePlugin.setVolume||!this.activePlugin.setVolume(a))for(var b=this._instances,c=0,d=b.length;d>c;c++)b[c].setMasterVolume(a)},e.getVolume=function(){return e._masterVolume},e.setMute=function(a){if(null==a||void 0==a)return!1;if(this._masterMute=a,!this.activePlugin||!this.activePlugin.setMute||!this.activePlugin.setMute(a))for(var b=this._instances,c=0,d=b.length;d>c;c++)b[c].setMasterMute(a);return!0},e.getMute=function(){return this._masterMute},e.stop=function(){for(var a=this._instances,b=a.length;b--;)a[b].stop()},e._playInstance=function(a,b,c,d,f,g,h){if(b instanceof Object&&(c=b.delay,d=b.offset,f=b.loop,g=b.volume,h=b.pan,b=b.interrupt),b=b||e.defaultInterruptBehavior,null==c&&(c=0),null==d&&(d=a.getPosition()),null==f&&(f=0),null==g&&(g=a.volume),null==h&&(h=a.pan),0==c){var i=e._beginPlaying(a,b,d,f,g,h);if(!i)return!1}else{var j=setTimeout(function(){e._beginPlaying(a,b,d,f,g,h)},c);a._delayTimeoutId=j}return this._instances.push(a),!0},e._beginPlaying=function(a,c,d,e,f,g){if(!b.add(a,c))return!1;var h=a._beginPlaying(d,e,f,g);if(!h){var i=createjs.indexOf(this._instances,a);return i>-1&&this._instances.splice(i,1),!1}return!0},e._getSrcById=function(a){return null==e._idHash||null==e._idHash[a]?a:e._idHash[a]},e._playFinished=function(a){b.remove(a);var c=createjs.indexOf(this._instances,a);c>-1&&this._instances.splice(c,1)},createjs.Sound=a,b.channels={},b.create=function(a,c){var d=b.get(a);return null==d?(b.channels[a]=new b(a,c),!0):!1},b.removeSrc=function(a){var c=b.get(a);return null==c?!1:(c.removeAll(),delete b.channels[a],!0)},b.removeAll=function(){for(var a in b.channels)b.channels[a].removeAll();b.channels={}},b.add=function(a,c){var d=b.get(a.src);return null==d?!1:d.add(a,c)},b.remove=function(a){var c=b.get(a.src);return null==c?!1:(c.remove(a),!0)},b.maxPerChannel=function(){return f.maxDefault},b.get=function(a){return b.channels[a]};var f=b.prototype;f.src=null,f.max=null,f.maxDefault=100,f.length=0,f.init=function(a,b){this.src=a,this.max=b||this.maxDefault,-1==this.max&&(this.max=this.maxDefault),this._instances=[]},f.get=function(a){return this._instances[a]},f.add=function(a,b){return this.getSlot(b,a)?(this._instances.push(a),this.length++,!0):!1},f.remove=function(a){var b=createjs.indexOf(this._instances,a);return-1==b?!1:(this._instances.splice(b,1),this.length--,!0)},f.removeAll=function(){for(var a=this.length-1;a>=0;a--)this._instances[a].stop()},f.getSlot=function(b){for(var c,d,e=0,f=this.max;f>e;e++){if(c=this.get(e),null==c)return!0;(b!=a.INTERRUPT_NONE||c.playState==a.PLAY_FINISHED)&&(0!=e?c.playState==a.PLAY_FINISHED||c.playState==a.PLAY_INTERRUPTED||c.playState==a.PLAY_FAILED?d=c:(b==a.INTERRUPT_EARLY&&c.getPosition()<d.getPosition()||b==a.INTERRUPT_LATE&&c.getPosition()>d.getPosition())&&(d=c):d=c)}return null!=d?(d._interrupt(),this.remove(d),!0):!1},f.toString=function(){return"[Sound SoundChannel]"},a._defaultSoundInstance=new c,d.init=function(){var a=window.navigator.userAgent;d.isFirefox=a.indexOf("Firefox")>-1,d.isOpera=null!=window.opera,d.isChrome=a.indexOf("Chrome")>-1,d.isIOS=a.indexOf("iPod")>-1||a.indexOf("iPhone")>-1||a.indexOf("iPad")>-1,d.isAndroid=a.indexOf("Android")>-1,d.isBlackberry=a.indexOf("Blackberry")>-1},d.init(),createjs.Sound.BrowserDetect=d}(),this.createjs=this.createjs||{},function(){function a(){this._init()}var b=a;b._capabilities=null,b.isSupported=function(){var a=createjs.Sound.BrowserDetect.isIOS||createjs.Sound.BrowserDetect.isAndroid||createjs.Sound.BrowserDetect.isBlackberry;return"file:"!=location.protocol||a||this._isFileXHRSupported()?(b._generateCapabilities(),null==b.context?!1:!0):!1},b._isFileXHRSupported=function(){var a=!0,b=new XMLHttpRequest;try{b.open("GET","fail.fail",!1)}catch(c){return a=!1}b.onerror=function(){a=!1},b.onload=function(){a=404==this.status||200==this.status||0==this.status&&""!=this.response};try{b.send()}catch(c){a=!1}return a},b._generateCapabilities=function(){if(null==b._capabilities){var a=document.createElement("audio");if(null==a.canPlayType)return null;if(window.webkitAudioContext)b.context=new webkitAudioContext;else{if(!window.AudioContext)return null;b.context=new AudioContext}b._compatibilitySetUp(),b.playEmptySound(),b._capabilities={panning:!0,volume:!0,tracks:-1};for(var c=createjs.Sound.SUPPORTED_EXTENSIONS,d=createjs.Sound.EXTENSION_MAP,e=0,f=c.length;f>e;e++){var g=c[e],h=d[g]||g;b._capabilities[g]="no"!=a.canPlayType("audio/"+g)&&""!=a.canPlayType("audio/"+g)||"no"!=a.canPlayType("audio/"+h)&&""!=a.canPlayType("audio/"+h)}b.context.destination.numberOfChannels<2&&(b._capabilities.panning=!1),b.dynamicsCompressorNode=b.context.createDynamicsCompressor(),b.dynamicsCompressorNode.connect(b.context.destination),b.gainNode=b.context.createGain(),b.gainNode.connect(b.dynamicsCompressorNode)}},b._compatibilitySetUp=function(){if(!b.context.createGain){b.context.createGain=b.context.createGainNode;var a=b.context.createBufferSource();a.__proto__.start=a.__proto__.noteGrainOn,a.__proto__.stop=a.__proto__.noteOff,this._panningModel=0}},b.playEmptySound=function(){var a=this.context.createBuffer(1,1,22050),b=this.context.createBufferSource();b.buffer=a,b.connect(this.context.destination),b.start(0,0,0)};var c=a.prototype;c._capabilities=null,c._volume=1,c.context=null,c._panningModel="equalpower",c.dynamicsCompressorNode=null,c.gainNode=null,c._arrayBuffers=null,c._init=function(){this._capabilities=b._capabilities,this._arrayBuffers={},this.context=b.context,this.gainNode=b.gainNode,this.dynamicsCompressorNode=b.dynamicsCompressorNode},c.register=function(a){this._arrayBuffers[a]=!0;var b=new createjs.WebAudioPlugin.Loader(a,this);return{tag:b}},c.isPreloadStarted=function(a){return null!=this._arrayBuffers[a]},c.isPreloadComplete=function(a){return!(null==this._arrayBuffers[a]||1==this._arrayBuffers[a])},c.removeSound=function(a){delete this._arrayBuffers[a]},c.removeAllSounds=function(){this._arrayBuffers={}},c.addPreloadResults=function(a,b){this._arrayBuffers[a]=b},c._handlePreloadComplete=function(){createjs.Sound._sendFileLoadEvent(this.src)},c.preload=function(a){this._arrayBuffers[a]=!0;var b=new createjs.WebAudioPlugin.Loader(a,this);b.onload=this._handlePreloadComplete,b.load()},c.create=function(a){return this.isPreloadStarted(a)||this.preload(a),new createjs.WebAudioPlugin.SoundInstance(a,this)},c.setVolume=function(a){return this._volume=a,this._updateVolume(),!0},c._updateVolume=function(){var a=createjs.Sound._masterMute?0:this._volume;a!=this.gainNode.gain.value&&(this.gainNode.gain.value=a)},c.getVolume=function(){return this._volume},c.setMute=function(){return this._updateVolume(),!0},c.toString=function(){return"[WebAudioPlugin]"},createjs.WebAudioPlugin=a}(),function(){function a(a,b){this._init(a,b)}var b=a.prototype=new createjs.EventDispatcher;b.src=null,b.uniqueId=-1,b.playState=null,b._owner=null,b._offset=0,b._delay=0,b._volume=1;try{Object.defineProperty(b,"volume",{get:function(){return this._volume},set:function(a){return null==Number(a)?!1:(a=Math.max(0,Math.min(1,a)),this._volume=a,this._updateVolume(),void 0)}})}catch(c){}b._pan=0;try{Object.defineProperty(b,"pan",{get:function(){return this._pan},set:function(a){return this._owner._capabilities.panning&&null!=Number(a)?(a=Math.max(-1,Math.min(1,a)),this._pan=a,this.panNode.setPosition(a,0,-.5),void 0):!1}})}catch(c){}b._duration=0,b._remainingLoops=0,b._delayTimeoutId=null,b._soundCompleteTimeout=null,b.gainNode=null,b.panNode=null,b.sourceNode=null,b._sourceNodeNext=null,b._muted=!1,b._paused=!1,b._startTime=0,b._endedHandler=null,b._sendEvent=function(a){var b=new createjs.Event(a);this.dispatchEvent(b)},b._init=function(a,b){this._owner=b,this.src=a,this.gainNode=this._owner.context.createGain(),this.panNode=this._owner.context.createPanner(),this.panNode.panningModel=this._owner._panningModel,this.panNode.connect(this.gainNode),this._owner.isPreloadComplete(this.src)&&(this._duration=1e3*this._owner._arrayBuffers[this.src].duration),this._endedHandler=createjs.proxy(this._handleSoundComplete,this)},b._cleanUp=function(){this.sourceNode&&this.playState==createjs.Sound.PLAY_SUCCEEDED&&(this.sourceNode=this._cleanUpAudioNode(this.sourceNode),this._sourceNodeNext=this._cleanUpAudioNode(this._sourceNodeNext)),0!=this.gainNode.numberOfOutputs&&this.gainNode.disconnect(0),clearTimeout(this._delayTimeoutId),clearTimeout(this._soundCompleteTimeout),this._startTime=0,null!=window.createjs&&createjs.Sound._playFinished(this)},b._cleanUpAudioNode=function(a){return a&&(a.stop(0),a.disconnect(this.panNode),a=null),a},b._interrupt=function(){this._cleanUp(),this.playState=createjs.Sound.PLAY_INTERRUPTED,this._paused=!1,this._sendEvent("interrupted")},b._handleSoundReady=function(){if(null!=window.createjs){if(1e3*this._offset>this.getDuration())return this.playFailed(),void 0;this._offset<0&&(this._offset=0),this.playState=createjs.Sound.PLAY_SUCCEEDED,this._paused=!1,this.gainNode.connect(this._owner.gainNode);var a=this._owner._arrayBuffers[this.src].duration;this.sourceNode=this._createAndPlayAudioNode(this._owner.context.currentTime-a,this._offset),this._duration=1e3*a,this._startTime=this.sourceNode.startTime-this._offset,this._soundCompleteTimeout=setTimeout(this._endedHandler,1e3*(a-this._offset)),0!=this._remainingLoops&&(this._sourceNodeNext=this._createAndPlayAudioNode(this._startTime,0))}},b._createAndPlayAudioNode=function(a,b){var c=this._owner.context.createBufferSource();return c.buffer=this._owner._arrayBuffers[this.src],c.connect(this.panNode),this._owner.context.currentTime,c.startTime=a+c.buffer.duration,c.start(c.startTime,b,c.buffer.duration-b),c},b.play=function(a,b,c,d,e,f){this._cleanUp(),createjs.Sound._playInstance(this,a,b,c,d,e,f)},b._beginPlaying=function(a,b,c,d){return null!=window.createjs&&this.src?(this._offset=a/1e3,this._remainingLoops=b,this.volume=c,this.pan=d,this._owner.isPreloadComplete(this.src)?(this._handleSoundReady(null),this._sendEvent("succeeded"),1):(this.playFailed(),void 0)):void 0},b.pause=function(){return this._paused||this.playState!=createjs.Sound.PLAY_SUCCEEDED?!1:(this._paused=!0,this._offset=this._owner.context.currentTime-this._startTime,this._cleanUpAudioNode(this.sourceNode),this._cleanUpAudioNode(this._sourceNodeNext),0!=this.gainNode.numberOfOutputs&&this.gainNode.disconnect(),clearTimeout(this._delayTimeoutId),clearTimeout(this._soundCompleteTimeout),!0)},b.resume=function(){return this._paused?(this._handleSoundReady(null),!0):!1},b.stop=function(){return this._cleanUp(),this.playState=createjs.Sound.PLAY_FINISHED,this._offset=0,!0},b.setVolume=function(a){return this.volume=a,!0},b._updateVolume=function(){var a=this._muted?0:this._volume;return a!=this.gainNode.gain.value?(this.gainNode.gain.value=a,!0):!1},b.getVolume=function(){return this.volume},b.setMute=function(a){return null==a||void 0==a?!1:(this._muted=a,this._updateVolume(),!0)},b.getMute=function(){return this._muted},b.setPan=function(a){return this.pan=a,this.pan!=a?!1:void 0},b.getPan=function(){return this.pan},b.getPosition=function(){if(this._paused||null==this.sourceNode)var a=this._offset;else var a=this._owner.context.currentTime-this._startTime;return 1e3*a},b.setPosition=function(a){return this._offset=a/1e3,this.sourceNode&&this.playState==createjs.Sound.PLAY_SUCCEEDED&&(this._cleanUpAudioNode(this.sourceNode),this._cleanUpAudioNode(this._sourceNodeNext),clearTimeout(this._soundCompleteTimeout)),this._paused||this.playState!=createjs.Sound.PLAY_SUCCEEDED||this._handleSoundReady(null),!0},b.getDuration=function(){return this._duration},b._handleSoundComplete=function(){return this._offset=0,0!=this._remainingLoops?(this._remainingLoops--,this._sourceNodeNext?(this._cleanUpAudioNode(this.sourceNode),this.sourceNode=this._sourceNodeNext,this._startTime=this.sourceNode.startTime,this._sourceNodeNext=this._createAndPlayAudioNode(this._startTime,0),this._soundCompleteTimeout=setTimeout(this._endedHandler,this._duration)):this._handleSoundReady(null),this._sendEvent("loop"),void 0):(null!=window.createjs&&(this._cleanUp(),this.playState=createjs.Sound.PLAY_FINISHED,this._sendEvent("complete")),void 0)},b.playFailed=function(){null!=window.createjs&&(this._cleanUp(),this.playState=createjs.Sound.PLAY_FAILED,this._sendEvent("failed"))},b.toString=function(){return"[WebAudioPlugin SoundInstance]"},createjs.WebAudioPlugin.SoundInstance=a}(),function(){function a(a,b){this._init(a,b)}var b=a.prototype;b.request=null,b.owner=null,b.progress=-1,b.src=null,b.originalSrc=null,b.result=null,b.onload=null,b.onprogress=null,b.onError=null,b._init=function(a,b){this.src=a,this.originalSrc=a,this.owner=b},b.load=function(a){null!=a&&(this.src=a),this.request=new XMLHttpRequest,this.request.open("GET",this.src,!0),this.request.responseType="arraybuffer",this.request.onload=createjs.proxy(this.handleLoad,this),this.request.onError=createjs.proxy(this.handleError,this),this.request.onprogress=createjs.proxy(this.handleProgress,this),this.request.send()},b.handleProgress=function(a,b){this.progress=a/b,null!=this.onprogress&&this.onprogress({loaded:a,total:b,progress:this.progress})},b.handleLoad=function(){this.owner.context.decodeAudioData(this.request.response,createjs.proxy(this.handleAudioDecoded,this),createjs.proxy(this.handleError,this))},b.handleAudioDecoded=function(a){this.progress=1,this.result=a,this.src=this.originalSrc,this.owner.addPreloadResults(this.src,this.result),this.onload&&this.onload()},b.handleError=function(a){this.owner.removeSound(this.src),this.onerror&&this.onerror(a)},b.toString=function(){return"[WebAudioPlugin Loader]"},createjs.WebAudioPlugin.Loader=a}(),this.createjs=this.createjs||{},function(){function a(){this._init()}var b=a;b.MAX_INSTANCES=30,b._AUDIO_READY="canplaythrough",b._AUDIO_ENDED="ended",b._AUDIO_SEEKED="seeked",b._AUDIO_STALLED="stalled",b._capabilities=null,b.enableIOS=!1,b.isSupported=function(){if(createjs.Sound.BrowserDetect.isIOS&&!b.enableIOS)return!1;b._generateCapabilities();var a=b.tag;return null==a||null==b._capabilities?!1:!0},b._generateCapabilities=function(){if(null==b._capabilities){var a=b.tag=document.createElement("audio");if(null==a.canPlayType)return null;b._capabilities={panning:!0,volume:!0,tracks:-1};for(var c=createjs.Sound.SUPPORTED_EXTENSIONS,d=createjs.Sound.EXTENSION_MAP,e=0,f=c.length;f>e;e++){var g=c[e],h=d[g]||g;b._capabilities[g]="no"!=a.canPlayType("audio/"+g)&&""!=a.canPlayType("audio/"+g)||"no"!=a.canPlayType("audio/"+h)&&""!=a.canPlayType("audio/"+h)}}};var c=a.prototype;c._capabilities=null,c._audioSources=null,c.defaultNumChannels=2,c.loadedHandler=null,c._init=function(){this._capabilities=b._capabilities,this._audioSources={}},c.register=function(a,b){this._audioSources[a]=!0;for(var c=createjs.HTMLAudioPlugin.TagPool.get(a),d=null,e=b||this.defaultNumChannels,f=0;e>f;f++)d=this._createTag(a),c.add(d);if(d.id=a,this.loadedHandler=createjs.proxy(this._handleTagLoad,this),d.addEventListener&&d.addEventListener("canplaythrough",this.loadedHandler),null==d.onreadystatechange)d.onreadystatechange=this.loadedHandler;else{var g=d.onreadystatechange;d.onreadystatechange=function(){g(),this.loadedHandler()}}return{tag:d,numChannels:e}},c._handleTagLoad=function(a){a.target.removeEventListener&&a.target.removeEventListener("canplaythrough",this.loadedHandler),a.target.onreadystatechange=null,a.target.src!=a.target.id&&createjs.HTMLAudioPlugin.TagPool.checkSrc(a.target.id)},c._createTag=function(a){var b=document.createElement("audio");return b.autoplay=!1,b.preload="none",b.src=a,b},c.removeSound=function(a){delete this._audioSources[a],createjs.HTMLAudioPlugin.TagPool.remove(a)},c.removeAllSounds=function(){this._audioSources={},createjs.HTMLAudioPlugin.TagPool.removeAll()},c.create=function(a){if(!this.isPreloadStarted(a)){var b=createjs.HTMLAudioPlugin.TagPool.get(a),c=this._createTag(a);c.id=a,b.add(c),this.preload(a,{tag:c})}return new createjs.HTMLAudioPlugin.SoundInstance(a,this)},c.isPreloadStarted=function(a){return null!=this._audioSources[a]},c.preload=function(a,b){this._audioSources[a]=!0,new createjs.HTMLAudioPlugin.Loader(a,b.tag)},c.toString=function(){return"[HTMLAudioPlugin]"},createjs.HTMLAudioPlugin=a}(),function(){function a(a,b){this._init(a,b)}var b=a.prototype=new createjs.EventDispatcher;b.src=null,b.uniqueId=-1,b.playState=null,b._owner=null,b.loaded=!1,b._offset=0,b._delay=0,b._volume=1;try{Object.defineProperty(b,"volume",{get:function(){return this._volume},set:function(a){null!=Number(a)&&(a=Math.max(0,Math.min(1,a)),this._volume=a,this._updateVolume())}})}catch(c){}b.pan=0,b._duration=0,b._remainingLoops=0,b._delayTimeoutId=null,b.tag=null,b._muted=!1,b._paused=!1,b._endedHandler=null,b._readyHandler=null,b._stalledHandler=null,b.loopHandler=null,b._init=function(a,b){this.src=a,this._owner=b,this._endedHandler=createjs.proxy(this._handleSoundComplete,this),this._readyHandler=createjs.proxy(this._handleSoundReady,this),this._stalledHandler=createjs.proxy(this._handleSoundStalled,this),this.loopHandler=createjs.proxy(this.handleSoundLoop,this)},b._sendEvent=function(a){var b=new createjs.Event(a);this.dispatchEvent(b)},b._cleanUp=function(){var a=this.tag;if(null!=a){a.pause(),a.removeEventListener(createjs.HTMLAudioPlugin._AUDIO_ENDED,this._endedHandler,!1),a.removeEventListener(createjs.HTMLAudioPlugin._AUDIO_READY,this._readyHandler,!1),a.removeEventListener(createjs.HTMLAudioPlugin._AUDIO_SEEKED,this.loopHandler,!1);try{a.currentTime=0}catch(b){}createjs.HTMLAudioPlugin.TagPool.setInstance(this.src,a),this.tag=null}clearTimeout(this._delayTimeoutId),null!=window.createjs&&createjs.Sound._playFinished(this)},b._interrupt=function(){null!=this.tag&&(this.playState=createjs.Sound.PLAY_INTERRUPTED,this._cleanUp(),this._paused=!1,this._sendEvent("interrupted"))},b.play=function(a,b,c,d,e,f){this._cleanUp(),createjs.Sound._playInstance(this,a,b,c,d,e,f)},b._beginPlaying=function(a,b,c,d){if(null==window.createjs)return-1;var e=this.tag=createjs.HTMLAudioPlugin.TagPool.getInstance(this.src);return null==e?(this.playFailed(),-1):(e.addEventListener(createjs.HTMLAudioPlugin._AUDIO_ENDED,this._endedHandler,!1),this._offset=a,this.volume=c,this.pan=d,this._updateVolume(),this._remainingLoops=b,4!==e.readyState?(e.addEventListener(createjs.HTMLAudioPlugin._AUDIO_READY,this._readyHandler,!1),e.addEventListener(createjs.HTMLAudioPlugin._AUDIO_STALLED,this._stalledHandler,!1),e.preload="auto",e.load()):this._handleSoundReady(null),this._sendEvent("succeeded"),1)},b._handleSoundStalled=function(){this._cleanUp(),this._sendEvent("failed")},b._handleSoundReady=function(){if(null!=window.createjs){if(this._duration=1e3*this.tag.duration,this.playState=createjs.Sound.PLAY_SUCCEEDED,this._paused=!1,this.tag.removeEventListener(createjs.HTMLAudioPlugin._AUDIO_READY,this._readyHandler,!1),this._offset>=this.getDuration())return this.playFailed(),void 0;this._offset>0&&(this.tag.currentTime=.001*this._offset),-1==this._remainingLoops&&(this.tag.loop=!0),0!=this._remainingLoops&&(this.tag.addEventListener(createjs.HTMLAudioPlugin._AUDIO_SEEKED,this.loopHandler,!1),this.tag.loop=!0),this.tag.play()}},b.pause=function(){return this._paused||this.playState!=createjs.Sound.PLAY_SUCCEEDED||null==this.tag?!1:(this._paused=!0,this.tag.pause(),clearTimeout(this._delayTimeoutId),!0)},b.resume=function(){return this._paused&&null!=this.tag?(this._paused=!1,this.tag.play(),!0):!1},b.stop=function(){return this._offset=0,this.pause(),this.playState=createjs.Sound.PLAY_FINISHED,this._cleanUp(),!0},b.setMasterVolume=function(){return this._updateVolume(),!0},b.setVolume=function(a){return this.volume=a,!0},b._updateVolume=function(){if(null!=this.tag){var a=this._muted||createjs.Sound._masterMute?0:this._volume*createjs.Sound._masterVolume;return a!=this.tag.volume&&(this.tag.volume=a),!0}return!1},b.getVolume=function(){return this.volume},b.setMasterMute=function(){return this._updateVolume(),!0},b.setMute=function(a){return null==a||void 0==a?!1:(this._muted=a,this._updateVolume(),!0)},b.getMute=function(){return this._muted},b.setPan=function(){return!1},b.getPan=function(){return 0},b.getPosition=function(){return null==this.tag?this._offset:1e3*this.tag.currentTime},b.setPosition=function(a){if(null==this.tag)this._offset=a;else{this.tag.removeEventListener(createjs.HTMLAudioPlugin._AUDIO_SEEKED,this.loopHandler,!1);try{this.tag.currentTime=.001*a}catch(b){return!1}this.tag.addEventListener(createjs.HTMLAudioPlugin._AUDIO_SEEKED,this.loopHandler,!1)}return!0},b.getDuration=function(){return this._duration},b._handleSoundComplete=function(){this._offset=0,null!=window.createjs&&(this.playState=createjs.Sound.PLAY_FINISHED,this._cleanUp(),this._sendEvent("complete"))},b.handleSoundLoop=function(){this._offset=0,this._remainingLoops--,0==this._remainingLoops&&(this.tag.loop=!1,this.tag.removeEventListener(createjs.HTMLAudioPlugin._AUDIO_SEEKED,this.loopHandler,!1)),this._sendEvent("loop")},b.playFailed=function(){null!=window.createjs&&(this.playState=createjs.Sound.PLAY_FAILED,this._cleanUp(),this._sendEvent("failed"))},b.toString=function(){return"[HTMLAudioPlugin SoundInstance]"},createjs.HTMLAudioPlugin.SoundInstance=a}(),function(){function a(a,b){this._init(a,b)}var b=a.prototype;b.src=null,b.tag=null,b.preloadTimer=null,b.loadedHandler=null,b._init=function(a,b){if(this.src=a,this.tag=b,this.preloadTimer=setInterval(createjs.proxy(this.preloadTick,this),200),this.loadedHandler=createjs.proxy(this.sendLoadedEvent,this),this.tag.addEventListener&&this.tag.addEventListener("canplaythrough",this.loadedHandler),null==this.tag.onreadystatechange)this.tag.onreadystatechange=createjs.proxy(this.sendLoadedEvent,this);else{var c=this.tag.onreadystatechange;this.tag.onreadystatechange=function(){c(),this.tag.onreadystatechange=createjs.proxy(this.sendLoadedEvent,this)}
-}this.tag.preload="auto",this.tag.load()},b.preloadTick=function(){var a=this.tag.buffered,b=this.tag.duration;a.length>0&&a.end(0)>=b-1&&this.handleTagLoaded()},b.handleTagLoaded=function(){clearInterval(this.preloadTimer)},b.sendLoadedEvent=function(){this.tag.removeEventListener&&this.tag.removeEventListener("canplaythrough",this.loadedHandler),this.tag.onreadystatechange=null,createjs.Sound._sendFileLoadEvent(this.src)},b.toString=function(){return"[HTMLAudioPlugin Loader]"},createjs.HTMLAudioPlugin.Loader=a}(),function(){function a(a){this._init(a)}var b=a;b.tags={},b.get=function(c){var d=b.tags[c];return null==d&&(d=b.tags[c]=new a(c)),d},b.remove=function(a){var c=b.tags[a];return null==c?!1:(c.removeAll(),delete b.tags[a],!0)},b.removeAll=function(){for(var a in b.tags)b.tags[a].removeAll();b.tags={}},b.getInstance=function(a){var c=b.tags[a];return null==c?null:c.get()},b.setInstance=function(a,c){var d=b.tags[a];return null==d?null:d.set(c)},b.checkSrc=function(a){var c=b.tags[a];return null==c?null:(c.checkSrcChange(),void 0)};var c=a.prototype;c.src=null,c.length=0,c.available=0,c.tags=null,c._init=function(a){this.src=a,this.tags=[]},c.add=function(a){this.tags.push(a),this.length++,this.available++},c.removeAll=function(){for(;this.length--;)delete this.tags[this.length];this.src=null,this.tags.length=0},c.get=function(){if(0==this.tags.length)return null;this.available=this.tags.length;var a=this.tags.pop();return null==a.parentNode&&document.body.appendChild(a),a},c.set=function(a){var b=createjs.indexOf(this.tags,a);-1==b&&this.tags.push(a),this.available=this.tags.length},c.checkSrcChange=function(){for(var a=this.tags.length-1,b=this.tags[a].src;a--;)this.tags[a].src=b},c.toString=function(){return"[HTMLAudioPlugin TagPool]"},createjs.HTMLAudioPlugin.TagPool=a}();
-define("soundjs", (function (global) {
-    return function () {
-        var ret, fn;
-        return ret || global.createjs;
-    };
-}(this)));
-
-define('game/objects/player',['game/objects/object',
-        'game/objects/bullet',
-        'soundjs'
-    ],
-    function(AbstractObject,
-        Bullet,
-        SoundJS
-    ) {
-        var Player = AbstractObject.$extend({
-            __init__: function(color, width, height, resource) {
-                this.type = 0;
-                this.setProperties();
-                this.$super(color, 0, 0, resource[this.type][0]);
-                this.setStartPosition(width, height);
-                this.score = 0;
-                this.bullets = [];
-                this.bonusBullets = [0, 0];
-                this.leftspeed = 0;
-                this.rightspeed = 0;
-                this.frontspeed = 0;
-                this.backspeed = 0;
-                this.joystickX = 0;
-                this.joystickY = 0;
-            },
-
-            launchBullet: function(game, type) {
-                var rocket = new Bullet("#ffffff", this.x,
-                    this.y - game.player.radius, game.resources, game.ROCKET_SPEED, type, this.damageMultiplier);
-                this.bullets.push(rocket);
-                //game.resources.attackSound.playSound();
-                SoundJS.Sound.play("attackSound");
-            },
-
-            joystickMove: function(width, height, x, y){
-                
-                this.joystickX = x;
-                this.joystickY = y;
-                if (this.x + x <= width - this.radius && this.x + x >= this.radius)
-                    this.x += x;
-                if (this.y + y <= height - this.radius && this.y + y >= this.radius)
-                    this.y += y;
-            },
-
-            changeTypeOfShip: function(resource, type, width, height) {
-                this.type = type;
-                this.radius = resource[this.type][0].radius;
-                if (this.x > width - this.radius)
-                    this.x = width - this.radius;
-                if (this.x < this.radius)
-                    this.x = this.radius;
-                if (this.y > height - this.radius)
-                    this.y = height - this.radius;
-                if (this.y < this.radius)
-                    this.y = this.radius;
-                this.setProperties();
-            },
-
-            move: function(width, height) {
-                var x = this.rightspeed - this.leftspeed;
-                var y = -this.frontspeed + this.backspeed;
-                if (this.x + x <= width - this.radius && this.x + x >= this.radius)
-                    this.x += x;
-                if (this.y + y <= height - this.radius && this.y + y >= this.radius)
-                    this.y += y;
-            },
-
-            updateSpeed: function(left, right, up, down) {
-
-                this.leftspeed += left;
-                if (this.leftspeed > this.maxhspeed)
-                    this.leftspeed = this.maxhspeed;
-                if (this.leftspeed < 0)
-                    this.leftspeed = 0;
-
-                this.rightspeed += right;
-                if (this.rightspeed > this.maxhspeed)
-                    this.rightspeed = this.maxhspeed;
-                if (this.rightspeed < 0)
-                    this.rightspeed = 0;
-
-                this.frontspeed += up;
-                if (this.frontspeed > this.maxvspeed)
-                    this.frontspeed = this.maxvspeed;
-                if (this.frontspeed < 0)
-                    this.frontspeed = 0;
-
-                this.backspeed += down;
-                if (this.backspeed > this.maxvspeed)
-                    this.backspeed = this.maxvspeed;
-                if (this.backspeed < 0)
-                    this.backspeed = 0;
-            },
-
-            setProperties: function() {
-                switch (this.type) {
-                    case 0:
-                        this.maxhspeed = 10;
-                        this.maxvspeed = 10;
-                        this.damageMultiplier = 1;
-                        this.acceleration = 0.5;
-                        this.deceleration = 0.3;
-                        break;
-                    case 1:
-                        this.maxhspeed = 7;
-                        this.maxvspeed = 7;
-                        this.damageMultiplier = 2;
-                        this.acceleration = 0.3;
-                        this.deceleration = 0.4;
-                        break;
-                }
-            },
-
-            setStartPosition: function(width, height) {
-                this.x = (width - this.radius) / 2;
-                this.y = (height - this.radius);
-                this.joystickX = 0;
-                this.joystickY = 0;
-            },
-
-            resetAll: function() {
-                this.score = 0;
-                this.bonusBullets = [0, 0];
-                this.frontspeed = 0;
-                this.backspeed = 0;
-                this.leftspeed = 0;
-                this.rightspeed = 0;
-            }
-        });
-
-        return Player;
-    });
-define('game/objects/asteroid',['game/objects/object'],
-    function(AbstractObject) {
-        var Asteroid = AbstractObject.$extend({
-            __init__: function(color, x, y, resources, constSpeed) {
-                this.type = Math.floor(Math.random() * 3) + 1;
-                this.health = Math.floor(this.type * 1.5);
-                var resource;
-                switch (this.type) {
-                    case 1:
-                        resource = resources.smallAsteroid;
-                        this.damagedRes = resources.smallAsteroidDamaged;
-                        break;
-                    case 2:
-                        resource = resources.mediumAsteroid;
-                        this.damagedRes = resources.mediumAsteroidDamaged;
-                        break;
-                    case 3:
-                        resource = resources.bigAsteroid;
-                        this.damagedRes = resources.bigAsteroidDamaged;
-                        break;
-                    default:
-                        break;
-                }
-                var asteroidPosition = Math.random() * (x - 2 * resource.radius) + resource.radius;
-                this.$super(color, asteroidPosition, y, resource);
-
-                //----------------------------------------------------------------------------------------------------------------------------------------
-
-                this.initDamaged();
-                this.normalRes = this.resource;
-
-
-                //--------------------------------------------------------------------------------------------------------------------------------------
-
-                this.initMotion(0, constSpeed / this.type);
-                this.initRotation(0, 1);
-            },
-
-            initDamaged: function() {
-                this.whileDamaged = 0;
-                this.damagedTimeout = 10;
-                this.damaged = false;
-            }
-
-
-
-        });
-
-        return Asteroid;
-    });
-define('game/objects/bonus',['game/objects/object'],
-    function(AbstractObject) {
-        var Bonus = AbstractObject.$extend({
-            __init__: function(color, x, y, resources, type) {
-                this.type = type;
-                var resource;
-                switch (this.type) {
-                    case 1:
-                        resource = resources.firstTypeBonus;
-                        break;
-                    case 2:
-                        resource = resources.secondTypeBonus;
-                        break;
-                    default:
-                        break;
-                }
-                this.$super(color, x, y, resource);
-                this.initRotation(0, 3);
-                this.time = 0;
-            }
-        });
-        return Bonus;
-    });
-define('game/objects/bigBang',['game/objects/object'],
-    function(AbstractObject) {
-        var BigBang = AbstractObject.$extend({
-            __init__: function(color, x, y, resources, bulletType) {
-                var bangType = "firstTypeBang";
-                switch (bulletType) {
-                    case 2:
-                        bangType = "secondTypeBang";
-                        break;
-                    case 3:
-                        bangType = "thirdTypeBang";
-                        break;
-                    default:
-                        break;
-                }
-                this.$super(color, x, y, resources.get(bangType));
-            }
-        });
-
-        return BigBang;
-    });
-define('game/mechanics',['classy',
-        'game/objects/asteroid',
-        'game/objects/bonus',
-        'game/objects/bigBang',
-        'soundjs'
-    ],
-    function(Class,
-        Asteroid,
-        Bonus,
-        BigBang,
-        SoundJS
-    ) {
-
-        var GameMechanic = Class.$extend({
-            sortArray: function(array) {
-                array.sort(function(a, b) {
-                    return b - a;
-                })
-            },
-
-            deleteObjectArray: function(object, array) {
-                this.sortArray(array);
-                for (var i = 0; i < array.length; i++) {
-                    this.deleteObject(object, array[i]);
-                };
-            },
-
-            deleteObject: function(object, index) {
-                object.splice(index, 1);
-            },
-
-            drawObjects: function(object, gameHeight, context) {
-                var toDelete = [];
-                for (var i = 0; i < object.length; i++) {
-
-                    if (object[i].damaged && object[i].whileDamaged > object[i].damagedTimeout) {
-                        object[i].initDamaged();
-                        object[i].resource = object[i].normalRes;
-                    }
-
-                    object[i].draw(context);
-                    if ((object[i].y + object[i].radius < 0) || (object[i].y - object[i].radius > gameHeight) ||
-                        (object[i].resource != undefined && object[i].resource.sprite != undefined && object[i].resource.sprite.wasPlayed)) {
-                        toDelete.push(i);
-                    }
-                };
-                this.deleteObjectArray(object, toDelete);
-            },
-
-            update: function(game) {
-
-                if (game.asteroidTimer == game.ASTEROID_TIMEOUT) {
-                    if (game.level < 2.5) {
-                        game.level += 0.025;
-                        game.setLevelInfo();
-                    }
-
-                    for (var i = 0; i < game.level - 1; i++)
-                        this.createAsteroid(game);
-                }
-
-                if (game.asteroidTimer % 1 === 0)
-                    this.collisionTest(game);
-
-                if (game.bonusTimer == game.BONUS_TIMEOUT) {
-                    this.createBonus(game);
-                }
-
-                for (var i = 0; i < game.asteroids.length; i++) {
-                    game.asteroids[i].y += game.asteroids[i].speedY;
-
-                    if (game.asteroids[i].damaged) {
-                        game.asteroids[i].whileDamaged += 1;
-                    }
-
-                    if (game.context.debug != true) {
-                        if (this.collision(game.player, game.asteroids[i], 0.95)) {
-
-                            //game.resources.bangSound.playSound();
-                            SoundJS.Sound.play("bangSound");
-
-                            game.gameover = true;
-                            game.endGame();
-                        }
-                    }
-
-
-                }
-
-                for (var i = 0; i < game.player.bullets.length; i++) {
-                    game.player.bullets[i].y -= game.player.bullets[i].speedY;
-                }
-
-                for (var i = 0; i < game.bonuses.length; i++) {
-                    game.bonuses[i].time += 1;
-                }
-
-            },
-
-            collisionTest: function(game) {
-                var toDeleteAster = [];
-                var toDeleteBullet = [];
-                var toDeleteBonus = [];
-                var toCreateBang = [];
-                for (var i = 0; i < game.player.bullets.length; i++) {
-                    for (var j = 0; j < game.asteroids.length; j++) {
-                        if (this.collision(game.player.bullets[i], game.asteroids[j])) {
-                            toDeleteBullet.push(i);
-
-                            game.asteroids[j].resource = game.asteroids[j].damagedRes;
-                            game.asteroids[j].damaged = true;
-
-                            if (game.asteroids[j].health <= game.player.bullets[i].damage) {
-                                toDeleteAster.push(j);
-                                toCreateBang.push(new BigBang("#ffffff", game.asteroids[j].x, game.asteroids[j].y,
-                                    game.resources, game.player.bullets[i].type));
-                                game.player.score += game.asteroids[j].type;
-                                game.setScore();
-                                //game.resources.bangSound.playSound();
-                                SoundJS.Sound.play("bangSound");
-                                break;
-                            }
-                            game.asteroids[j].health -= game.player.bullets[i].damage;
-                        }
-                    }
-                }
-
-                for (var i = game.bangs.length - 1; i >= 0; i--) {
-                    for (var j = game.asteroids.length - 1; j >= 0; j--) {
-                        if (this.collision(game.asteroids[j], game.bangs[i])) {
-                            game.asteroids[j].health -= 0.1;
-                            if (game.asteroids[j].health <= 0) {
-                                toDeleteAster.push(j);
-                                toCreateBang.push(new BigBang("#ffffff", game.asteroids[j].x, game.asteroids[j].y,
-                                    game.resources, 1));
-                                SoundJS.Sound.play("bangSound");
-                            };
-                        };
-                    };
-                };
-
-
-
-                for (var i = 0; i < game.bonuses.length; i++) {
-                    if (this.collision(game.player, game.bonuses[i])) {
-                        toDeleteBonus.push(i);
-                        game.player.bonusBullets[game.bonuses[i].type - 1] += 5;
-                        game.setBulletInfo();
-                    } else {
-                        if (game.bonuses[i].time > game.BONUS_TERMINATE)
-                            toDeleteBonus.push(i);
-                    };
-                };
-
-                for (var i = toCreateBang.length - 1; i >= 0; i--) {
-                    game.bangs.push(toCreateBang[i]);
-                };
-
-                this.deleteObjectArray(game.bonuses, toDeleteBonus);
-
-                this.deleteObjectArray(game.player.bullets, toDeleteBullet);
-
-                this.deleteObjectArray(game.asteroids, toDeleteAster);
-
-            },
-
-            draw: function(game) {
-                game.context.clearRect(0, 0, game.GAME_WIDTH, game.GAME_HEIGHT);
-
-                game.player.draw(game.context);
-                game.context.font = "bold " + game.FONT_SIZE + "px sans-serif";
-                this.drawObjects(game.player.bullets, game.GAME_HEIGHT, game.context);
-                this.drawObjects(game.asteroids, game.GAME_HEIGHT, game.context);
-                this.drawObjects(game.bangs, game.GAME_HEIGHT, game.context);
-                this.drawObjects(game.bonuses, game.GAME_HEIGHT, game.context);
-
-            },
-
-            createAsteroid: function(game) {
-                game.asteroidTimer = 0;
-                var asteroid = new Asteroid("#ffffff", game.GAME_WIDTH, 0, game.resources, game.ASTEROID_SPEED * game.level);
-                game.asteroids.push(asteroid);
-            },
-
-            createBonus: function(game) {
-                game.bonusTimer = 0;
-                var bonus = new Bonus("#ffffff", Math.random() * game.GAME_WIDTH, Math.random() * game.GAME_HEIGHT, game.resources, Math.floor(Math.random() * 2) + 1);
-                game.bonuses.push(bonus);
-            },
-
-            collision: function(object1, object2, percent) {
-                if (percent === undefined) {
-                    percent = 1;
-                }
-                if (Math.sqrt(Math.pow(object2.x - object1.x, 2) + Math.pow(object2.y - object1.y, 2)) < (object1.radius + object2.radius) * percent) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-        });
-
-        return GameMechanic;
-    });
-define('game/audio',['classy'],
-    function(Class) {
-        var Sound = Class.$extend({
-            __init__: function(src, times) {
-                this.array = [];
-                
-                for (var i = 0; i < times; i++) {
-                    var sound = new Audio();
-                    sound.src = src;
-                    
-                    this.array.push(sound);
-                }
-                this.currentSound = 0;
-            },
-
-            playSound: function() {
-                this.array[this.currentSound].play();
-                this.currentSound = (this.currentSound + 1) % this.array.length;
-            }
-        });
-
-
-
-        return Sound;
-    });
-define('game/objects/resource',['classy',
-        'game/sprite'
-    ],
-    function(Class,
-        Sprite
-    ) {
-        var Resource = Class.$extend({
-            __init__: function(radius, img, isAnimation, dx, dy, speed, width, height, singleAnimation, frames, isHorizontal) {
-                this.radius = radius;
-                this.isAnimation = isAnimation;
-                this.img = img;
-                if (isAnimation) {
-                    if (speed === undefined)
-                        speed = 0;
-                    if (width === undefined)
-                        width = 0;
-                    if (height === undefined)
-                        height = 0;
-                    if (singleAnimation === undefined)
-                        singleAnimation = false;
-                    if (frames === undefined)
-                        frames = [];
-                    if (isHorizontal === undefined)
-                        isHorizontal = true;
-                    this.sprite = new Sprite(this.img, width, height, speed, frames, isHorizontal, singleAnimation);
-                }
-                if (dx === undefined)
-                    dx = 0;
-                if (dy === undefined)
-                    dy = 0;
-                this.dx = dx;
-                this.dy = dy;
-            },
-
-            draw: function(context, posX, posY) {
-                if (this.isAnimation)
-                    this.sprite.render(context, posX, posY, this.radius, this.dx, this.dy);
-                else {
-                    context.drawImage(this.img, posX - this.radius + this.dx, posY - this.radius + this.dy);
-                }
-            }
-        });
-
-        return Resource;
-    });
-define('game/arrays',['classy', 'game/objects/resource'],
-    function(Class, Resource) {
-        var ResourceArray = Class.$extend({
-
-            __init__: function() {
-                this.firstTypeBullet = [];
-                this.secondTypeBullet = [];
-                this.thirdTypeBullet = [];
-                this.firstTypeBang = [];
-                this.secondTypeBang = [];
-                this.thirdTypeBang = [];
-
-                this.currentFirstTypeBullet = 0;
-                this.currentSecondTypeBullet = 0;
-                this.currentThirdTypeBullet = 0;
-                this.currentFirstTypeBang = 0;
-                this.currentSecondTypeBang = 0;
-                this.currentThirdTypeBang = 0;
-            },
-
-            set: function(type, radius, img, isAnimation, dx, dy, speed, width, height, singleAnimation, frames, isHorizontal, times) {
-                arrayToSet = null;
-                switch (type) {
-                    case "firstTypeBullet":
-                        this.firstTypeBullet = this.setArray(radius, img, isAnimation, dx, dy, speed, width, height, singleAnimation, frames, isHorizontal, times);
-                        break;
-                    case "secondTypeBullet":
-                        this.secondTypeBullet = this.setArray(radius, img, isAnimation, dx, dy, speed, width, height, singleAnimation, frames, isHorizontal, times);
-                        break;
-                    case "thirdTypeBullet":
-                        this.thirdTypeBullet = this.setArray(radius, img, isAnimation, dx, dy, speed, width, height, singleAnimation, frames, isHorizontal, times);
-                        break;
-                    case "firstTypeBang":
-                        this.firstTypeBang = this.setArray(radius, img, isAnimation, dx, dy, speed, width, height, singleAnimation, frames, isHorizontal, times);
-                        break;
-                    case "secondTypeBang":
-                        this.secondTypeBang = this.setArray(radius, img, isAnimation, dx, dy, speed, width, height, singleAnimation, frames, isHorizontal, times);
-                        break;
-                    case "thirdTypeBang":
-                        this.thirdTypeBang = this.setArray(radius, img, isAnimation, dx, dy, speed, width, height, singleAnimation, frames, isHorizontal, times);
-                        break;
-                }
-            },
-
-            setArray: function(radius, img, isAnimation, dx, dy, speed, width, height, singleAnimation, frames, isHorizontal, times) {
-                array = [];
-                array[0] = 1; //Current frame in [0] element
-                for (var i = 0; i < times; i++) {
-                    res = new Resource(radius, img, isAnimation, dx, dy, speed, width, height, singleAnimation, frames, isHorizontal, frames)
-                    array.push(res);
-                }
-                return array;
-            },
-
-            getCurrent: function(type) {
-                switch (type) {
-                    case "firstTypeBullet":
-                        return this.getCurrentFrame(this.firstTypeBullet);
-                        break;
-                    case "secondTypeBullet":
-                        return this.getCurrentFrame(this.secondTypeBullet);
-                        break;
-                    case "thirdTypeBullet":
-                        return this.getCurrentFrame(this.thirdTypeBullet);
-                        break;
-                    case "firstTypeBang":
-                        return this.getCurrentFrame(this.firstTypeBang);
-                        break;
-                    case "secondTypeBang":
-                        return this.getCurrentFrame(this.secondTypeBang);
-                        break;
-                    case "thirdTypeBang":
-                        return this.getCurrentFrame(this.thirdTypeBang);
-                        break;
-                }
-            },
-
-            getCurrentFrame: function(array) {
-                current = array[0];
-                fi = array[current];
-                array[0] = current % (array.length - 1) + 1;
-                return fi;
-            }
-
-
-        });
-
-        return new ResourceArray();
-    });
-/*!
-* @license PreloadJS
-* Visit http://createjs.com/ for documentation, updates and examples.
-*
-* Copyright (c) 2011-2013 gskinner.com, inc.
-*
-* Distributed under the terms of the MIT license.
-* http://www.opensource.org/licenses/mit-license.html
-*
-* This notice shall be included in all copies or substantial portions of the Software.
-*/
-this.createjs=this.createjs||{},function(){var a=createjs.PreloadJS=createjs.PreloadJS||{};a.version="0.4.1",a.buildDate="Thu, 12 Dec 2013 23:33:38 GMT"}(),this.createjs=this.createjs||{},function(){var a=function(a,b,c){this.initialize(a,b,c)},b=a.prototype;b.type=null,b.target=null,b.currentTarget=null,b.eventPhase=0,b.bubbles=!1,b.cancelable=!1,b.timeStamp=0,b.defaultPrevented=!1,b.propagationStopped=!1,b.immediatePropagationStopped=!1,b.removed=!1,b.initialize=function(a,b,c){this.type=a,this.bubbles=b,this.cancelable=c,this.timeStamp=(new Date).getTime()},b.preventDefault=function(){this.defaultPrevented=!0},b.stopPropagation=function(){this.propagationStopped=!0},b.stopImmediatePropagation=function(){this.immediatePropagationStopped=this.propagationStopped=!0},b.remove=function(){this.removed=!0},b.clone=function(){return new a(this.type,this.bubbles,this.cancelable)},b.toString=function(){return"[Event (type="+this.type+")]"},createjs.Event=a}(),this.createjs=this.createjs||{},function(){var a=function(){},b=a.prototype;a.initialize=function(a){a.addEventListener=b.addEventListener,a.on=b.on,a.removeEventListener=a.off=b.removeEventListener,a.removeAllEventListeners=b.removeAllEventListeners,a.hasEventListener=b.hasEventListener,a.dispatchEvent=b.dispatchEvent,a._dispatchEvent=b._dispatchEvent,a.willTrigger=b.willTrigger},b._listeners=null,b._captureListeners=null,b.initialize=function(){},b.addEventListener=function(a,b,c){var d;d=c?this._captureListeners=this._captureListeners||{}:this._listeners=this._listeners||{};var e=d[a];return e&&this.removeEventListener(a,b,c),e=d[a],e?e.push(b):d[a]=[b],b},b.on=function(a,b,c,d,e,f){return b.handleEvent&&(c=c||b,b=b.handleEvent),c=c||this,this.addEventListener(a,function(a){b.call(c,a,e),d&&a.remove()},f)},b.removeEventListener=function(a,b,c){var d=c?this._captureListeners:this._listeners;if(d){var e=d[a];if(e)for(var f=0,g=e.length;g>f;f++)if(e[f]==b){1==g?delete d[a]:e.splice(f,1);break}}},b.off=b.removeEventListener,b.removeAllEventListeners=function(a){a?(this._listeners&&delete this._listeners[a],this._captureListeners&&delete this._captureListeners[a]):this._listeners=this._captureListeners=null},b.dispatchEvent=function(a,b){if("string"==typeof a){var c=this._listeners;if(!c||!c[a])return!1;a=new createjs.Event(a)}if(a.target=b||this,a.bubbles&&this.parent){for(var d=this,e=[d];d.parent;)e.push(d=d.parent);var f,g=e.length;for(f=g-1;f>=0&&!a.propagationStopped;f--)e[f]._dispatchEvent(a,1+(0==f));for(f=1;g>f&&!a.propagationStopped;f++)e[f]._dispatchEvent(a,3)}else this._dispatchEvent(a,2);return a.defaultPrevented},b.hasEventListener=function(a){var b=this._listeners,c=this._captureListeners;return!!(b&&b[a]||c&&c[a])},b.willTrigger=function(a){for(var b=this;b;){if(b.hasEventListener(a))return!0;b=b.parent}return!1},b.toString=function(){return"[EventDispatcher]"},b._dispatchEvent=function(a,b){var c,d=1==b?this._captureListeners:this._listeners;if(a&&d){var e=d[a.type];if(!e||!(c=e.length))return;a.currentTarget=this,a.eventPhase=b,a.removed=!1,e=e.slice();for(var f=0;c>f&&!a.immediatePropagationStopped;f++){var g=e[f];g.handleEvent?g.handleEvent(a):g(a),a.removed&&(this.off(a.type,g,1==b),a.removed=!1)}}},createjs.EventDispatcher=a}(),this.createjs=this.createjs||{},function(){createjs.indexOf=function(a,b){for(var c=0,d=a.length;d>c;c++)if(b===a[c])return c;return-1}}(),this.createjs=this.createjs||{},function(){createjs.proxy=function(a,b){var c=Array.prototype.slice.call(arguments,2);return function(){return a.apply(b,Array.prototype.slice.call(arguments,0).concat(c))}}}(),this.createjs=this.createjs||{},function(){var a=function(){this.init()};a.prototype=new createjs.EventDispatcher;var b=a.prototype,c=a;c.FILE_PATTERN=/^(?:(\w+:)\/{2}(\w+(?:\.\w+)*\/?)|(.{0,2}\/{1}))?([/.]*?(?:[^?]+)?\/)?((?:[^/?]+)\.(\w+))(?:\?(\S+)?)?$/,c.PATH_PATTERN=/^(?:(\w+:)\/{2})|(.{0,2}\/{1})?([/.]*?(?:[^?]+)?\/?)?$/,b.loaded=!1,b.canceled=!1,b.progress=0,b._item=null,b.getItem=function(){return this._item},b.init=function(){},b.load=function(){},b.close=function(){},b._sendLoadStart=function(){this._isCanceled()||this.dispatchEvent("loadstart")},b._sendProgress=function(a){if(!this._isCanceled()){var b=null;"number"==typeof a?(this.progress=a,b=new createjs.Event("progress"),b.loaded=this.progress,b.total=1):(b=a,this.progress=a.loaded/a.total,(isNaN(this.progress)||1/0==this.progress)&&(this.progress=0)),b.progress=this.progress,this.hasEventListener("progress")&&this.dispatchEvent(b)}},b._sendComplete=function(){this._isCanceled()||this.dispatchEvent("complete")},b._sendError=function(a){!this._isCanceled()&&this.hasEventListener("error")&&(null==a&&(a=new createjs.Event("error")),this.dispatchEvent(a))},b._isCanceled=function(){return null==window.createjs||this.canceled?!0:!1},b._parseURI=function(a){return a?a.match(c.FILE_PATTERN):null},b._parsePath=function(a){return a?a.match(c.PATH_PATTERN):null},b._formatQueryString=function(a,b){if(null==a)throw new Error("You must specify data.");var c=[];for(var d in a)c.push(d+"="+escape(a[d]));return b&&(c=c.concat(b)),c.join("&")},b.buildPath=function(a,b){if(null==b)return a;var c=[],d=a.indexOf("?");if(-1!=d){var e=a.slice(d+1);c=c.concat(e.split("&"))}return-1!=d?a.slice(0,d)+"?"+this._formatQueryString(b,c):a+"?"+this._formatQueryString(b,c)},b._isCrossDomain=function(a){var b=document.createElement("a");b.href=a.src;var c=document.createElement("a");c.href=location.href;var d=""!=b.hostname&&(b.port!=c.port||b.protocol!=c.protocol||b.hostname!=c.hostname);return d},b._isLocal=function(a){var b=document.createElement("a");return b.href=a.src,""==b.hostname&&"file:"==b.protocol},b.toString=function(){return"[PreloadJS AbstractLoader]"},createjs.AbstractLoader=a}(),this.createjs=this.createjs||{},function(){var a=function(a,b,c){this.init(a,b,c)},b=a.prototype=new createjs.AbstractLoader,c=a;c.loadTimeout=8e3,c.LOAD_TIMEOUT=0,c.BINARY="binary",c.CSS="css",c.IMAGE="image",c.JAVASCRIPT="javascript",c.JSON="json",c.JSONP="jsonp",c.MANIFEST="manifest",c.SOUND="sound",c.SVG="svg",c.TEXT="text",c.XML="xml",c.POST="POST",c.GET="GET",b._basePath=null,b._crossOrigin="",b.useXHR=!0,b.stopOnError=!1,b.maintainScriptOrder=!0,b.next=null,b._typeCallbacks=null,b._extensionCallbacks=null,b._loadStartWasDispatched=!1,b._maxConnections=1,b._currentlyLoadingScript=null,b._currentLoads=null,b._loadQueue=null,b._loadQueueBackup=null,b._loadItemsById=null,b._loadItemsBySrc=null,b._loadedResults=null,b._loadedRawResults=null,b._numItems=0,b._numItemsLoaded=0,b._scriptOrder=null,b._loadedScripts=null,b.init=function(a,b,c){this._numItems=this._numItemsLoaded=0,this._paused=!1,this._loadStartWasDispatched=!1,this._currentLoads=[],this._loadQueue=[],this._loadQueueBackup=[],this._scriptOrder=[],this._loadedScripts=[],this._loadItemsById={},this._loadItemsBySrc={},this._loadedResults={},this._loadedRawResults={},this._typeCallbacks={},this._extensionCallbacks={},this._basePath=b,this.setUseXHR(a),this._crossOrigin=c===!0?"Anonymous":c===!1||null==c?"":c},b.setUseXHR=function(a){return this.useXHR=0!=a&&null!=window.XMLHttpRequest,this.useXHR},b.removeAll=function(){this.remove()},b.remove=function(a){var b=null;if(!a||a instanceof Array){if(a)b=a;else if(arguments.length>0)return}else b=[a];var c=!1;if(b){for(;b.length;){var d=b.pop(),e=this.getResult(d);for(f=this._loadQueue.length-1;f>=0;f--)if(g=this._loadQueue[f].getItem(),g.id==d||g.src==d){this._loadQueue.splice(f,1)[0].cancel();break}for(f=this._loadQueueBackup.length-1;f>=0;f--)if(g=this._loadQueueBackup[f].getItem(),g.id==d||g.src==d){this._loadQueueBackup.splice(f,1)[0].cancel();break}if(e)delete this._loadItemsById[e.id],delete this._loadItemsBySrc[e.src],this._disposeItem(e);else for(var f=this._currentLoads.length-1;f>=0;f--){var g=this._currentLoads[f].getItem();if(g.id==d||g.src==d){this._currentLoads.splice(f,1)[0].cancel(),c=!0;break}}}c&&this._loadNext()}else{this.close();for(var h in this._loadItemsById)this._disposeItem(this._loadItemsById[h]);this.init(this.useXHR)}},b.reset=function(){this.close();for(var a in this._loadItemsById)this._disposeItem(this._loadItemsById[a]);for(var b=[],c=0,d=this._loadQueueBackup.length;d>c;c++)b.push(this._loadQueueBackup[c].getItem());this.loadManifest(b,!1)},c.isBinary=function(a){switch(a){case createjs.LoadQueue.IMAGE:case createjs.LoadQueue.BINARY:return!0;default:return!1}},c.isText=function(a){switch(a){case createjs.LoadQueue.TEXT:case createjs.LoadQueue.JSON:case createjs.LoadQueue.MANIFEST:case createjs.LoadQueue.XML:case createjs.LoadQueue.HTML:case createjs.LoadQueue.CSS:case createjs.LoadQueue.SVG:case createjs.LoadQueue.JAVASCRIPT:return!0;default:return!1}},b.installPlugin=function(a){if(null!=a&&null!=a.getPreloadHandlers){var b=a.getPreloadHandlers();if(b.scope=a,null!=b.types)for(var c=0,d=b.types.length;d>c;c++)this._typeCallbacks[b.types[c]]=b;if(null!=b.extensions)for(c=0,d=b.extensions.length;d>c;c++)this._extensionCallbacks[b.extensions[c]]=b}},b.setMaxConnections=function(a){this._maxConnections=a,!this._paused&&this._loadQueue.length>0&&this._loadNext()},b.loadFile=function(a,b,c){if(null==a){var d=new createjs.Event("error");return d.text="PRELOAD_NO_FILE",this._sendError(d),void 0}this._addItem(a,null,c),b!==!1?this.setPaused(!1):this.setPaused(!0)},b.loadManifest=function(a,b,d){var e=null,f=null;if(a instanceof Array){if(0==a.length){var g=new createjs.Event("error");return g.text="PRELOAD_MANIFEST_EMPTY",this._sendError(g),void 0}e=a}else if("string"==typeof a)e=[{src:a,type:c.MANIFEST}];else{if("object"!=typeof a){var g=new createjs.Event("error");return g.text="PRELOAD_MANIFEST_NULL",this._sendError(g),void 0}if(void 0!==a.src){if(null==a.type)a.type=c.MANIFEST;else if(a.type!=c.MANIFEST){var g=new createjs.Event("error");g.text="PRELOAD_MANIFEST_ERROR",this._sendError(g)}e=[a]}else void 0!==a.manifest&&(e=a.manifest,f=a.path)}for(var h=0,i=e.length;i>h;h++)this._addItem(e[h],f,d);b!==!1?this.setPaused(!1):this.setPaused(!0)},b.load=function(){this.setPaused(!1)},b.getItem=function(a){return this._loadItemsById[a]||this._loadItemsBySrc[a]},b.getResult=function(a,b){var c=this._loadItemsById[a]||this._loadItemsBySrc[a];if(null==c)return null;var d=c.id;return b&&this._loadedRawResults[d]?this._loadedRawResults[d]:this._loadedResults[d]},b.setPaused=function(a){this._paused=a,this._paused||this._loadNext()},b.close=function(){for(;this._currentLoads.length;)this._currentLoads.pop().cancel();this._scriptOrder.length=0,this._loadedScripts.length=0,this.loadStartWasDispatched=!1},b._addItem=function(a,b,c){var d=this._createLoadItem(a,b,c);if(null!=d){var e=this._createLoader(d);null!=e&&(this._loadQueue.push(e),this._loadQueueBackup.push(e),this._numItems++,this._updateProgress(),this.maintainScriptOrder&&d.type==createjs.LoadQueue.JAVASCRIPT&&e instanceof createjs.XHRLoader&&(this._scriptOrder.push(d),this._loadedScripts.push(null)))}},b._createLoadItem=function(a,b,c){var d=null;switch(typeof a){case"string":d={src:a};break;case"object":d=window.HTMLAudioElement&&a instanceof window.HTMLAudioElement?{tag:a,src:d.tag.src,type:createjs.LoadQueue.SOUND}:a;break;default:return null}var e=this._parseURI(d.src);null!=e&&(d.ext=e[6]),null==d.type&&(d.type=this._getTypeByExtension(d.ext));var f="",g=c||this._basePath,h=d.src;if(e&&null==e[1]&&null==e[3])if(b){f=b;var i=this._parsePath(b);h=b+h,null!=g&&i&&null==i[1]&&null==i[2]&&(f=g+f)}else null!=g&&(f=g);if(d.src=f+d.src,d.path=f,(d.type==createjs.LoadQueue.JSON||d.type==createjs.LoadQueue.MANIFEST)&&(d._loadAsJSONP=null!=d.callback),d.type==createjs.LoadQueue.JSONP&&null==d.callback)throw new Error("callback is required for loading JSONP requests.");(void 0===d.tag||null===d.tag)&&(d.tag=this._createTag(d)),(void 0===d.id||null===d.id||""===d.id)&&(d.id=h);var j=this._typeCallbacks[d.type]||this._extensionCallbacks[d.ext];if(j){var k=j.callback.call(j.scope,d.src,d.type,d.id,d.data,f,this);if(k===!1)return null;k===!0||(null!=k.src&&(d.src=k.src),null!=k.id&&(d.id=k.id),null!=k.tag&&(d.tag=k.tag),null!=k.completeHandler&&(d.completeHandler=k.completeHandler),k.type&&(d.type=k.type),e=this._parseURI(d.src),null!=e&&null!=e[6]&&(d.ext=e[6].toLowerCase()))}return this._loadItemsById[d.id]=d,this._loadItemsBySrc[d.src]=d,d},b._createLoader=function(a){var b=this.useXHR;switch(a.type){case createjs.LoadQueue.JSON:case createjs.LoadQueue.MANIFEST:b=!a._loadAsJSONP;break;case createjs.LoadQueue.XML:case createjs.LoadQueue.TEXT:b=!0;break;case createjs.LoadQueue.SOUND:case createjs.LoadQueue.JSONP:b=!1;break;case null:return null}return b?new createjs.XHRLoader(a,this._crossOrigin):new createjs.TagLoader(a)},b._loadNext=function(){if(!this._paused){this._loadStartWasDispatched||(this._sendLoadStart(),this._loadStartWasDispatched=!0),this._numItems==this._numItemsLoaded?(this.loaded=!0,this._sendComplete(),this.next&&this.next.load&&this.next.load()):this.loaded=!1;for(var a=0;a<this._loadQueue.length&&!(this._currentLoads.length>=this._maxConnections);a++){var b=this._loadQueue[a];if(this.maintainScriptOrder&&b instanceof createjs.TagLoader&&b.getItem().type==createjs.LoadQueue.JAVASCRIPT){if(this._currentlyLoadingScript)continue;this._currentlyLoadingScript=!0}this._loadQueue.splice(a,1),a--,this._loadItem(b)}}},b._loadItem=function(a){a.on("progress",this._handleProgress,this),a.on("complete",this._handleFileComplete,this),a.on("error",this._handleFileError,this),this._currentLoads.push(a),this._sendFileStart(a.getItem()),a.load()},b._handleFileError=function(a){var b=a.target;this._numItemsLoaded++,this._updateProgress();var c=new createjs.Event("error");c.text="FILE_LOAD_ERROR",c.item=b.getItem(),this._sendError(c),this.stopOnError||(this._removeLoadItem(b),this._loadNext())},b._handleFileComplete=function(a){var b=a.target,c=b.getItem();if(this._loadedResults[c.id]=b.getResult(),b instanceof createjs.XHRLoader&&(this._loadedRawResults[c.id]=b.getResult(!0)),this._removeLoadItem(b),this.maintainScriptOrder&&c.type==createjs.LoadQueue.JAVASCRIPT){if(!(b instanceof createjs.TagLoader))return this._loadedScripts[createjs.indexOf(this._scriptOrder,c)]=c,this._checkScriptLoadOrder(b),void 0;this._currentlyLoadingScript=!1}if(delete c._loadAsJSONP,c.type==createjs.LoadQueue.MANIFEST){var d=b.getResult();null!=d&&void 0!==d.manifest&&this.loadManifest(d,!0)}this._processFinishedLoad(c,b)},b._processFinishedLoad=function(a,b){this._numItemsLoaded++,this._updateProgress(),this._sendFileComplete(a,b),this._loadNext()},b._checkScriptLoadOrder=function(){for(var a=this._loadedScripts.length,b=0;a>b;b++){var c=this._loadedScripts[b];if(null===c)break;if(c!==!0){var d=this._loadedResults[c.id];(document.body||document.getElementsByTagName("body")[0]).appendChild(d),this._processFinishedLoad(c),this._loadedScripts[b]=!0}}},b._removeLoadItem=function(a){for(var b=this._currentLoads.length,c=0;b>c;c++)if(this._currentLoads[c]==a){this._currentLoads.splice(c,1);break}},b._handleProgress=function(a){var b=a.target;this._sendFileProgress(b.getItem(),b.progress),this._updateProgress()},b._updateProgress=function(){var a=this._numItemsLoaded/this._numItems,b=this._numItems-this._numItemsLoaded;if(b>0){for(var c=0,d=0,e=this._currentLoads.length;e>d;d++)c+=this._currentLoads[d].progress;a+=c/b*(b/this._numItems)}this._sendProgress(a)},b._disposeItem=function(a){delete this._loadedResults[a.id],delete this._loadedRawResults[a.id],delete this._loadItemsById[a.id],delete this._loadItemsBySrc[a.src]},b._createTag=function(a){var b=null;switch(a.type){case createjs.LoadQueue.IMAGE:return b=document.createElement("img"),""==this._crossOrigin||this._isLocal(a)||(b.crossOrigin=this._crossOrigin),b;case createjs.LoadQueue.SOUND:return b=document.createElement("audio"),b.autoplay=!1,b;case createjs.LoadQueue.JSON:case createjs.LoadQueue.JSONP:case createjs.LoadQueue.JAVASCRIPT:case createjs.LoadQueue.MANIFEST:return b=document.createElement("script"),b.type="text/javascript",b;case createjs.LoadQueue.CSS:return b=this.useXHR?document.createElement("style"):document.createElement("link"),b.rel="stylesheet",b.type="text/css",b;case createjs.LoadQueue.SVG:return this.useXHR?b=document.createElement("svg"):(b=document.createElement("object"),b.type="image/svg+xml"),b}return null},b._getTypeByExtension=function(a){if(null==a)return createjs.LoadQueue.TEXT;switch(a.toLowerCase()){case"jpeg":case"jpg":case"gif":case"png":case"webp":case"bmp":return createjs.LoadQueue.IMAGE;case"ogg":case"mp3":case"wav":return createjs.LoadQueue.SOUND;case"json":return createjs.LoadQueue.JSON;case"xml":return createjs.LoadQueue.XML;case"css":return createjs.LoadQueue.CSS;case"js":return createjs.LoadQueue.JAVASCRIPT;case"svg":return createjs.LoadQueue.SVG;default:return createjs.LoadQueue.TEXT}},b._sendFileProgress=function(a,b){if(this._isCanceled())return this._cleanUp(),void 0;if(this.hasEventListener("fileprogress")){var c=new createjs.Event("fileprogress");c.progress=b,c.loaded=b,c.total=1,c.item=a,this.dispatchEvent(c)}},b._sendFileComplete=function(a,b){if(!this._isCanceled()){var c=new createjs.Event("fileload");c.loader=b,c.item=a,c.result=this._loadedResults[a.id],c.rawResult=this._loadedRawResults[a.id],a.completeHandler&&a.completeHandler(c),this.hasEventListener("fileload")&&this.dispatchEvent(c)}},b._sendFileStart=function(a){var b=new createjs.Event("filestart");b.item=a,this.hasEventListener("filestart")&&this.dispatchEvent(b)},b.toString=function(){return"[PreloadJS LoadQueue]"},createjs.LoadQueue=a;var d=function(){};d.init=function(){var a=navigator.userAgent;d.isFirefox=a.indexOf("Firefox")>-1,d.isOpera=null!=window.opera,d.isChrome=a.indexOf("Chrome")>-1,d.isIOS=a.indexOf("iPod")>-1||a.indexOf("iPhone")>-1||a.indexOf("iPad")>-1},d.init(),createjs.LoadQueue.BrowserDetect=d}(),this.createjs=this.createjs||{},function(){var a=function(a){this.init(a)},b=a.prototype=new createjs.AbstractLoader;b._loadTimeout=null,b._tagCompleteProxy=null,b._isAudio=!1,b._tag=null,b._jsonResult=null,b.init=function(a){this._item=a,this._tag=a.tag,this._isAudio=window.HTMLAudioElement&&a.tag instanceof window.HTMLAudioElement,this._tagCompleteProxy=createjs.proxy(this._handleLoad,this)},b.getResult=function(){return this._item.type==createjs.LoadQueue.JSONP||this._item.type==createjs.LoadQueue.MANIFEST?this._jsonResult:this._tag},b.cancel=function(){this.canceled=!0,this._clean()},b.load=function(){var a=this._item,b=this._tag;clearTimeout(this._loadTimeout);var c=createjs.LoadQueue.LOAD_TIMEOUT;0==c&&(c=createjs.LoadQueue.loadTimeout),this._loadTimeout=setTimeout(createjs.proxy(this._handleTimeout,this),c),this._isAudio&&(b.src=null,b.preload="auto"),b.onerror=createjs.proxy(this._handleError,this),this._isAudio?(b.onstalled=createjs.proxy(this._handleStalled,this),b.addEventListener("canplaythrough",this._tagCompleteProxy,!1)):(b.onload=createjs.proxy(this._handleLoad,this),b.onreadystatechange=createjs.proxy(this._handleReadyStateChange,this));var d=this.buildPath(a.src,a.values);switch(a.type){case createjs.LoadQueue.CSS:b.href=d;break;case createjs.LoadQueue.SVG:b.data=d;break;default:b.src=d}if(a.type==createjs.LoadQueue.JSONP||a.type==createjs.LoadQueue.JSON||a.type==createjs.LoadQueue.MANIFEST){if(null==a.callback)throw new Error("callback is required for loading JSONP requests.");if(null!=window[a.callback])throw new Error('JSONP callback "'+a.callback+'" already exists on window. You need to specify a different callback. Or re-name the current one.');window[a.callback]=createjs.proxy(this._handleJSONPLoad,this)}(a.type==createjs.LoadQueue.SVG||a.type==createjs.LoadQueue.JSONP||a.type==createjs.LoadQueue.JSON||a.type==createjs.LoadQueue.MANIFEST||a.type==createjs.LoadQueue.JAVASCRIPT||a.type==createjs.LoadQueue.CSS)&&(this._startTagVisibility=b.style.visibility,b.style.visibility="hidden",(document.body||document.getElementsByTagName("body")[0]).appendChild(b)),null!=b.load&&b.load()},b._handleJSONPLoad=function(a){this._jsonResult=a},b._handleTimeout=function(){this._clean();var a=new createjs.Event("error");a.text="PRELOAD_TIMEOUT",this._sendError(a)},b._handleStalled=function(){},b._handleError=function(){this._clean();var a=new createjs.Event("error");this._sendError(a)},b._handleReadyStateChange=function(){clearTimeout(this._loadTimeout);var a=this.getItem().tag;("loaded"==a.readyState||"complete"==a.readyState)&&this._handleLoad()},b._handleLoad=function(){if(!this._isCanceled()){var a=this.getItem(),b=a.tag;if(!(this.loaded||this._isAudio&&4!==b.readyState)){switch(this.loaded=!0,a.type){case createjs.LoadQueue.SVG:case createjs.LoadQueue.JSON:case createjs.LoadQueue.JSONP:case createjs.LoadQueue.MANIFEST:case createjs.LoadQueue.CSS:b.style.visibility=this._startTagVisibility,(document.body||document.getElementsByTagName("body")[0]).removeChild(b)}this._clean(),this._sendComplete()}}},b._clean=function(){clearTimeout(this._loadTimeout);var a=this.getItem(),b=a.tag;null!=b&&(b.onload=null,b.removeEventListener&&b.removeEventListener("canplaythrough",this._tagCompleteProxy,!1),b.onstalled=null,b.onprogress=null,b.onerror=null,null!=b.parentNode&&a.type==createjs.LoadQueue.SVG&&a.type==createjs.LoadQueue.JSON&&a.type==createjs.LoadQueue.MANIFEST&&a.type==createjs.LoadQueue.CSS&&a.type==createjs.LoadQueue.JSONP&&b.parentNode.removeChild(b));var a=this.getItem();(a.type==createjs.LoadQueue.JSONP||a.type==createjs.LoadQueue.MANIFEST)&&(window[a.callback]=null)},b.toString=function(){return"[PreloadJS TagLoader]"},createjs.TagLoader=a}(),this.createjs=this.createjs||{},function(){var a=function(a,b){this.init(a,b)},b=a.prototype=new createjs.AbstractLoader;b._request=null,b._loadTimeout=null,b._xhrLevel=1,b._response=null,b._rawResponse=null,b._crossOrigin="",b.init=function(a,b){this._item=a,this._crossOrigin=b,!this._createXHR(a)},b.getResult=function(a){return a&&this._rawResponse?this._rawResponse:this._response},b.cancel=function(){this.canceled=!0,this._clean(),this._request.abort()},b.load=function(){if(null==this._request)return this._handleError(),void 0;if(this._request.onloadstart=createjs.proxy(this._handleLoadStart,this),this._request.onprogress=createjs.proxy(this._handleProgress,this),this._request.onabort=createjs.proxy(this._handleAbort,this),this._request.onerror=createjs.proxy(this._handleError,this),this._request.ontimeout=createjs.proxy(this._handleTimeout,this),1==this._xhrLevel){var a=createjs.LoadQueue.LOAD_TIMEOUT;if(0==a)a=createjs.LoadQueue.loadTimeout;else try{console.warn("LoadQueue.LOAD_TIMEOUT has been deprecated in favor of LoadQueue.loadTimeout")}catch(b){}this._loadTimeout=setTimeout(createjs.proxy(this._handleTimeout,this),a)}this._request.onload=createjs.proxy(this._handleLoad,this),this._request.onreadystatechange=createjs.proxy(this._handleReadyStateChange,this);try{this._item.values&&this._item.method!=createjs.LoadQueue.GET?this._item.method==createjs.LoadQueue.POST&&this._request.send(this._formatQueryString(this._item.values)):this._request.send()}catch(c){var d=new createjs.Event("error");d.error=c,this._sendError(d)}},b.getAllResponseHeaders=function(){return this._request.getAllResponseHeaders instanceof Function?this._request.getAllResponseHeaders():null},b.getResponseHeader=function(a){return this._request.getResponseHeader instanceof Function?this._request.getResponseHeader(a):null},b._handleProgress=function(a){if(a&&!(a.loaded>0&&0==a.total)){var b=new createjs.Event("progress");b.loaded=a.loaded,b.total=a.total,this._sendProgress(b)}},b._handleLoadStart=function(){clearTimeout(this._loadTimeout),this._sendLoadStart()},b._handleAbort=function(){this._clean();var a=new createjs.Event("error");a.text="XHR_ABORTED",this._sendError(a)},b._handleError=function(){this._clean();var a=new createjs.Event("error");this._sendError(a)},b._handleReadyStateChange=function(){4==this._request.readyState&&this._handleLoad()},b._handleLoad=function(){if(!this.loaded){if(this.loaded=!0,!this._checkError())return this._handleError(),void 0;this._response=this._getResponse(),this._clean();var a=this._generateTag();a&&this._sendComplete()}},b._handleTimeout=function(a){this._clean();var b=new createjs.Event("error");b.text="PRELOAD_TIMEOUT",this._sendError(a)},b._checkError=function(){var a=parseInt(this._request.status);switch(a){case 404:case 0:return!1}return!0},b._getResponse=function(){if(null!=this._response)return this._response;if(null!=this._request.response)return this._request.response;try{if(null!=this._request.responseText)return this._request.responseText}catch(a){}try{if(null!=this._request.responseXML)return this._request.responseXML}catch(a){}return null},b._createXHR=function(a){var b=this._isCrossDomain(a),c=null;if(b&&window.XDomainRequest)c=new XDomainRequest;else if(window.XMLHttpRequest)c=new XMLHttpRequest;else try{c=new ActiveXObject("Msxml2.XMLHTTP.6.0")}catch(d){try{c=new ActiveXObject("Msxml2.XMLHTTP.3.0")}catch(d){try{c=new ActiveXObject("Msxml2.XMLHTTP")}catch(d){return!1}}}createjs.LoadQueue.isText(a.type)&&c.overrideMimeType&&c.overrideMimeType("text/plain; charset=utf-8"),this._xhrLevel="string"==typeof c.responseType?2:1;var e=null;return e=a.method==createjs.LoadQueue.GET?this.buildPath(a.src,a.values):a.src,c.open(a.method||createjs.LoadQueue.GET,e,!0),b&&c instanceof XMLHttpRequest&&1==this._xhrLevel&&c.setRequestHeader("Origin",location.origin),a.values&&a.method==createjs.LoadQueue.POST&&c.setRequestHeader("Content-Type","application/x-www-form-urlencoded"),createjs.LoadQueue.isBinary(a.type)&&(c.responseType="arraybuffer"),this._request=c,!0},b._clean=function(){clearTimeout(this._loadTimeout);var a=this._request;a.onloadstart=null,a.onprogress=null,a.onabort=null,a.onerror=null,a.onload=null,a.ontimeout=null,a.onloadend=null,a.onreadystatechange=null},b._generateTag=function(){var a=this._item.type,b=this._item.tag;switch(a){case createjs.LoadQueue.IMAGE:return b.onload=createjs.proxy(this._handleTagReady,this),""!=this._crossOrigin&&(b.crossOrigin="Anonymous"),b.src=this.buildPath(this._item.src,this._item.values),this._rawResponse=this._response,this._response=b,!1;case createjs.LoadQueue.JAVASCRIPT:return b=document.createElement("script"),b.text=this._response,this._rawResponse=this._response,this._response=b,!0;case createjs.LoadQueue.CSS:var c=document.getElementsByTagName("head")[0];if(c.appendChild(b),b.styleSheet)b.styleSheet.cssText=this._response;else{var d=document.createTextNode(this._response);b.appendChild(d)}return this._rawResponse=this._response,this._response=b,!0;case createjs.LoadQueue.XML:var e=this._parseXML(this._response,"text/xml");return this._rawResponse=this._response,this._response=e,!0;case createjs.LoadQueue.SVG:var e=this._parseXML(this._response,"image/svg+xml");return this._rawResponse=this._response,null!=e.documentElement?(b.appendChild(e.documentElement),this._response=b):this._response=e,!0;case createjs.LoadQueue.JSON:case createjs.LoadQueue.MANIFEST:var f={};try{f=JSON.parse(this._response)}catch(g){f=g}return this._rawResponse=this._response,this._response=f,!0}return!0},b._parseXML=function(a,b){var c=null;try{if(window.DOMParser){var d=new DOMParser;c=d.parseFromString(a,b)}else c=new ActiveXObject("Microsoft.XMLDOM"),c.async=!1,c.loadXML(a)}catch(e){}return c},b._handleTagReady=function(){this._sendComplete()},b.toString=function(){return"[PreloadJS XHRLoader]"},createjs.XHRLoader=a}(),"object"!=typeof JSON&&(JSON={}),function(){function f(a){return 10>a?"0"+a:a}function quote(a){return escapable.lastIndex=0,escapable.test(a)?'"'+a.replace(escapable,function(a){var b=meta[a];return"string"==typeof b?b:"\\u"+("0000"+a.charCodeAt(0).toString(16)).slice(-4)})+'"':'"'+a+'"'}function str(a,b){var c,d,e,f,g,h=gap,i=b[a];switch(i&&"object"==typeof i&&"function"==typeof i.toJSON&&(i=i.toJSON(a)),"function"==typeof rep&&(i=rep.call(b,a,i)),typeof i){case"string":return quote(i);case"number":return isFinite(i)?String(i):"null";case"boolean":case"null":return String(i);case"object":if(!i)return"null";if(gap+=indent,g=[],"[object Array]"===Object.prototype.toString.apply(i)){for(f=i.length,c=0;f>c;c+=1)g[c]=str(c,i)||"null";return e=0===g.length?"[]":gap?"[\n"+gap+g.join(",\n"+gap)+"\n"+h+"]":"["+g.join(",")+"]",gap=h,e}if(rep&&"object"==typeof rep)for(f=rep.length,c=0;f>c;c+=1)"string"==typeof rep[c]&&(d=rep[c],e=str(d,i),e&&g.push(quote(d)+(gap?": ":":")+e));else for(d in i)Object.prototype.hasOwnProperty.call(i,d)&&(e=str(d,i),e&&g.push(quote(d)+(gap?": ":":")+e));return e=0===g.length?"{}":gap?"{\n"+gap+g.join(",\n"+gap)+"\n"+h+"}":"{"+g.join(",")+"}",gap=h,e}}"function"!=typeof Date.prototype.toJSON&&(Date.prototype.toJSON=function(){return isFinite(this.valueOf())?this.getUTCFullYear()+"-"+f(this.getUTCMonth()+1)+"-"+f(this.getUTCDate())+"T"+f(this.getUTCHours())+":"+f(this.getUTCMinutes())+":"+f(this.getUTCSeconds())+"Z":null},String.prototype.toJSON=Number.prototype.toJSON=Boolean.prototype.toJSON=function(){return this.valueOf()});var cx=/[\u0000\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,escapable=/[\\\"\x00-\x1f\x7f-\x9f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,gap,indent,meta={"\b":"\\b","	":"\\t","\n":"\\n","\f":"\\f","\r":"\\r",'"':'\\"',"\\":"\\\\"},rep;"function"!=typeof JSON.stringify&&(JSON.stringify=function(a,b,c){var d;if(gap="",indent="","number"==typeof c)for(d=0;c>d;d+=1)indent+=" ";else"string"==typeof c&&(indent=c);if(rep=b,b&&"function"!=typeof b&&("object"!=typeof b||"number"!=typeof b.length))throw new Error("JSON.stringify");return str("",{"":a})}),"function"!=typeof JSON.parse&&(JSON.parse=function(text,reviver){function walk(a,b){var c,d,e=a[b];if(e&&"object"==typeof e)for(c in e)Object.prototype.hasOwnProperty.call(e,c)&&(d=walk(e,c),void 0!==d?e[c]=d:delete e[c]);return reviver.call(a,b,e)}var j;if(text=String(text),cx.lastIndex=0,cx.test(text)&&(text=text.replace(cx,function(a){return"\\u"+("0000"+a.charCodeAt(0).toString(16)).slice(-4)})),/^[\],:{}\s]*$/.test(text.replace(/\\(?:["\\\/bfnrt]|u[0-9a-fA-F]{4})/g,"@").replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g,"]").replace(/(?:^|:|,)(?:\s*\[)+/g,"")))return j=eval("("+text+")"),"function"==typeof reviver?walk({"":j},""):j;throw new SyntaxError("JSON.parse")})}();
-define("preload", (function (global) {
-    return function () {
-        var ret, fn;
-        return ret || global.createjs;
-    };
-}(this)));
-
-define('game/resources',['classy',
-        'game/audio',
-        'game/objects/resource',
-        'game/arrays',
-        'preload',
-        'soundjs'
-    ],
-    function(Class,
-        Sound,
-        Resource,
-        ResourceArray,
-        Loader,
-        SoundJS
-    ) {
-        var resources = Class.$extend({
-            __init__: function() {
-                var bangSound = this.DJCheckTheSoundTitle(["/sounds/boom.ogg", "/sounds/boom.mp3", "/sounds/boom.wav"]);
-                var attackSound = this.DJCheckTheSoundTitle(["/sounds/attack.ogg", "/sounds/attack.mp3", "/sounds/attack.wav"]);
-
-                var filesToLoad = [{
-                    id: "smallAsteroid",
-                    src: "/images/asteroid/smallAsteroid.png"
-                }, {
-                    id: "mediumAsteroid",
-                    src: "/images/asteroid/mediumAsteroid.png"
-                }, {
-                    id: "bigAsteroid",
-                    src: "/images/asteroid/bigAsteroid.png"
-                }, {
-                    id: "smallDamaged",
-                    src: "/images/asteroid/smallDamaged.png"
-                }, {
-                    id: "mediumDamaged",
-                    src: "/images/asteroid/mediumDamaged.png"
-                }, {
-                    id: "bigDamaged",
-                    src: "/images/asteroid/bigDamaged.png"
-                }, {
-                    id: "firstDirect",
-                    src: "/images/ship/first/direct.png"
-                }, {
-                    id: "firstLeft",
-                    src: "/images/ship/first/left.png"
-                }, {
-                    id: "firstRight",
-                    src: "/images/ship/first/right.png"
-                }, {
-                    id: "secondDirect",
-                    src: "/images/ship/second/direct.png"
-                }, {
-                    id: "secondLeft",
-                    src: "/images/ship/second/left.png"
-                }, {
-                    id: "secondRight",
-                    src: "/images/ship/second/right.png"
-                }, {
-                    id: "firstTypeShip",
-                    src: "/images/ship/first/info.png"
-                }, {
-                    id: "secondTypeShip",
-                    src: "/images/ship/second/info.png"
-                }, {
-                    id: "bullet",
-                    src: "/images/bullet/bullet.png"
-                }, {
-                    id: "secondTypeBonus",
-                    src: "/images/bullet/secondbonus.png"
-                }, {
-                    id: "firstTypeBonus",
-                    src: "/images/bullet/firstbonus.png"
-                }, {
-                    id: "secondAndThirdBulletArray",
-                    src: "/images/bullet/rocket.png"
-                }, {
-                    id: "firstBulletArray",
-                    src: "/images/bullet/rocket2.png"
-                }, {
-                    id: "bang1",
-                    src: "/images/bang/bang1.png"
-                }, {
-                    id: "bang2",
-                    src: "/images/bang/bang2.png"
-                }, {
-                    id: "bang3",
-                    src: "/images/bang/bang3.png"
-                }, {
-                    id: "bangSound",
-                    src: bangSound
-                }, {
-                    id: "attackSound",
-                    src: attackSound
-                }];
-                this.loaded = false;
-
-                this.error = false;
-                this.array = [];
-                //radius, src , isAnimation , dx , dy , speed , width , height , singleAnimation , frames
-
-                this.queue = new Loader.LoadQueue();
-                this.queue.installPlugin(SoundJS.Sound);
-                this.queue.on("complete", this.handleComplete, this);
-                this.queue.on("progress", function(event) {
-                    $('.loader').val(Math.floor(event.loaded * 100));
-                    $('#loadingPercent').html(Math.floor(event.loaded * 100) + '%');
-
-                }, this);
-                this.queue.on("error", function(event) {
-                    $('#gameOver').hide();
-                    $('#loadingForm').hide();
-                    $('#game').show();
-                    $('#gameDiv').hide();
-                    $('#errorForm').show();
-                    $('#error').html("Can't load " + event.item.type + " " + event.item.id + "." + event.item.ext);
-
-                    this.queue.reset();
-                }, this);
-
-                this.queue.loadManifest(filesToLoad);
-            },
-
-            //Анимированные ресурсы
-            get: function(resource) {
-                return this.arrays.getCurrent(resource);
-            },
-
-            handleComplete: function() {
-                //this.attackSound = this.queue.getResult("attackSound");//this.DJCheckTheSound(["/sounds/attack.ogg", "/sounds/attack.mp3", "/sounds/attack.wav"]);
-                //this.bangSound = this.queue.getResult("bangSound"); //this.DJCheckTheSound(["/sounds/attack.ogg", "/sounds/attack.mp3", "/sounds/attack.wav"]);
-                $('#loadingForm').hide();
-                this.smallAsteroid = new Resource(23, this.queue.getResult("smallAsteroid"), false, 0, 2);
-                this.bigAsteroid = new Resource(47, this.queue.getResult("bigAsteroid"), false, 0, 0);
-                this.mediumAsteroid = new Resource(40, this.queue.getResult("mediumAsteroid"), false, 0, 0);
-                this.bigAsteroidDamaged = new Resource(47, this.queue.getResult("bigDamaged"), false, 0, 0);
-                this.mediumAsteroidDamaged = new Resource(40, this.queue.getResult("mediumDamaged"), false, 0, 0);
-                this.smallAsteroidDamaged = new Resource(23, this.queue.getResult("smallDamaged"), false, 0, 2);
-
-
-                this.player = [
-                    [
-                        new Resource(47, this.queue.getResult("firstDirect"), true, 0, 20, 0.3, 95, 100, false, [0, 1, 2, 3], true),
-                        new Resource(47, this.queue.getResult("firstLeft"), true, 0, 20, 0.3, 95, 100, false, [0, 1, 2, 3], true),
-                        new Resource(47, this.queue.getResult("firstRight"), true, 0, 20, 0.3, 95, 100, false, [0, 1, 2, 3], true)
-                    ],
-                    [
-                        new Resource(73, this.queue.getResult("secondDirect"), true, 0, 20, 0.3, 146, 174, false, [0, 1, 2, 3, 4, 3, 2, 1], true),
-                        new Resource(73, this.queue.getResult("secondLeft"), true, 0, 20, 0.3, 146, 174, false, [0, 1, 2, 3, 4, 3, 2, 1], true),
-                        new Resource(73, this.queue.getResult("secondRight"), true, 0, 20, 0.3, 146, 174, false, [0, 1, 2, 3, 4, 3, 2, 1], true)
-                    ]
-                ];
-
-                this.firstTypeBonus = new Resource(20, this.queue.getResult("firstTypeBonus"), false, 10, -5);
-                this.secondTypeBonus = new Resource(20, this.queue.getResult("secondTypeBonus"), false, 10, 0);
-                this.bullet = new Resource(20, this.queue.getResult("bullet"), false, 10, 0);
-
-                this.firstTypeShip = new Resource(20, this.queue.getResult("firstTypeShip"), false, 10, -5);
-                this.secondTypeShip = new Resource(20, this.queue.getResult("secondTypeShip"), false, 10, 0);
-
-                //OGG, MP3, WAV
-
-
-
-                this.arrays = ResourceArray;
-
-                this.arrays.set("firstTypeBullet", 12, this.queue.getResult("firstBulletArray"), true, 0, -2, 0.3, 20, 50, false, [4, 5, 6, 7], false, 5);
-                this.arrays.set("secondTypeBullet", 12, this.queue.getResult("secondAndThirdBulletArray"), true, -2, 0, 0.3, 20, 50, false, [0, 1, 2, 3], false, 5);
-                this.arrays.set("thirdTypeBullet", 12, this.queue.getResult("secondAndThirdBulletArray"), true, -2, 0, 0.3, 20, 50, false, [4, 5, 6, 7], false, 5);
-
-                this.arrays.set("firstTypeBang", 46, this.queue.getResult("bang1"), true, 0, 0, 0.5, 96, 94, true, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], true, 5);
-                this.arrays.set("secondTypeBang", 32, this.queue.getResult("bang2"), true, 0, 0, 0.4, 81, 62, true, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], true, 5);
-                this.arrays.set("thirdTypeBang", 50, this.queue.getResult("bang3"), true, 0, 0, 0.4, 93, 100, true, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], true, 5);
-                this.loaded = true;
-                $('#loadingFrom').hide();
-                $.event.trigger({
-                    type: "createGame",
-                    resource: this
-                });
-
-            },
-
-            DJCheckTheSoundTitle: function(soundsArray) {
-                var audio = new Audio();
-                var types = ['audio/ogg', 'audio/mp3', 'audio/wav'];
-                for (var i = 0; i < types.length; i++) {
-                    if (audio.canPlayType(types[i]) == "probably") return soundsArray[i];
-                }
-                for (var i = 0; i < types.length; i++) {
-                    if (audio.canPlayType(types[i]) == "maybe") return soundsArray[i];
-                }
-                return soundsArray[0];
-
-            }
-        });
-
-
-
-        return resources;
-
-    });
-define('tmpl/gameOver',[],function () { return function (__fest_context){var __fest_self=this,__fest_buf="",__fest_chunks=[],__fest_chunk,__fest_attrs=[],__fest_select,__fest_if,__fest_iterator,__fest_to,__fest_fn,__fest_html="",__fest_blocks={},__fest_params,__fest_element,__fest_debug_file="",__fest_debug_line="",__fest_debug_block="",__fest_htmlchars=/[&<>"]/g,__fest_htmlchars_test=/[&<>"]/,__fest_short_tags = {"area":true,"base":true,"br":true,"col":true,"command":true,"embed":true,"hr":true,"img":true,"input":true,"keygen":true,"link":true,"meta":true,"param":true,"source":true,"wbr":true},__fest_element_stack = [],__fest_htmlhash={"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"},__fest_jschars=/[\\'"\/\n\r\t\b\f<>]/g,__fest_jschars_test=/[\\'"\/\n\r\t\b\f<>]/,__fest_jshash={"\"":"\\\"","\\":"\\\\","/":"\\/","\n":"\\n","\r":"\\r","\t":"\\t","\b":"\\b","\f":"\\f","'":"\\'","<":"\\u003C",">":"\\u003E"},___fest_log_error;if(typeof __fest_error === "undefined"){___fest_log_error = (typeof console !== "undefined" && console.error) ? function(){return Function.prototype.apply.call(console.error, console, arguments)} : function(){};}else{___fest_log_error=__fest_error};function __fest_log_error(msg){___fest_log_error(msg+"\nin block \""+__fest_debug_block+"\" at line: "+__fest_debug_line+"\nfile: "+__fest_debug_file)}function __fest_replaceHTML(chr){return __fest_htmlhash[chr]}function __fest_replaceJS(chr){return __fest_jshash[chr]}function __fest_extend(dest, src){for(var i in src)if(src.hasOwnProperty(i))dest[i]=src[i];}function __fest_param(fn){fn.param=true;return fn}function __fest_call(fn, params,cp){if(cp)for(var i in params)if(typeof params[i]=="function"&&params[i].param)params[i]=params[i]();return fn.call(__fest_self,params)}function __fest_escapeJS(s){if (typeof s==="string") {if (__fest_jschars_test.test(s))return s.replace(__fest_jschars,__fest_replaceJS);} else if (typeof s==="undefined")return "";return s;}function __fest_escapeHTML(s){if (typeof s==="string") {if (__fest_htmlchars_test.test(s))return s.replace(__fest_htmlchars,__fest_replaceHTML);} else if (typeof s==="undefined")return "";return s;}var json=__fest_context;__fest_buf+=("<div class=\"gameOverForm\"><button id=\"closeBtn\" class=\"btn btn_close\">x</button><br/><div class=\"gameOverForm__text\">Your score is ");try{__fest_buf+=(__fest_escapeHTML(json.score))}catch(e){__fest_log_error(e.message + "4");}__fest_buf+=("</div><form id=\"gameOverForm\"><div class=\"gameOverForm__text\"><label class=\"label\">Your name:</label><input id=\"nameField\" maxlength=\"50\" type=\"text\" name=\"name\"/></div><input id=\"scoreField\" type=\"hidden\" name=\"score\" value=\"");try{__fest_select=(json.score)}catch(e){__fest_select="";__fest_log_error(e.message)}__fest_buf+=(__fest_select);__fest_buf+=("\"/><button id=\"submitBtn\" type=\"submit\" class=\"btn_thin\">Save</button></form><div id=\"formError\" class=\"gameOverForm__text\"></div></div>");__fest_to=__fest_chunks.length;if (__fest_to) {__fest_iterator = 0;for (;__fest_iterator<__fest_to;__fest_iterator++) {__fest_chunk=__fest_chunks[__fest_iterator];if (typeof __fest_chunk==="string") {__fest_html+=__fest_chunk;} else {__fest_fn=__fest_blocks[__fest_chunk.name];if (__fest_fn) __fest_html+=__fest_call(__fest_fn,__fest_chunk.params,__fest_chunk.cp);}}return __fest_html+__fest_buf;} else {return __fest_buf;}} ; });
-define('views/gameOver',[
-    'backbone',
-    'tmpl/gameOver',
-    'views/viewManager',
-    'models/score',
-    'collections/scores',
-    'localStorageFunc'
-], function(
-    Backbone,
-    tmpl,
-    ViewManager,
-    Score,
-    Scoreboard,
-    Storage
-) {
-
-    var View = Backbone.View.extend({
-        el: "#gameOver",
-        template: tmpl,
-
-        initialize: function() {
-            _.bindAll(this, "render", "show", "hide");
-        },
-
-        render: function(score) {
-            this.$el.html(this.template({
-                score: score
-            }));
-            var gameOverForm = this;
-            $('.btn_close').click(function() {
-                gameOverForm.hide()
-            });
-            $('#gameOverForm').on("submit", postScores);
-        },
-
-        show: function(score) {
-            $('.overlay').show();
-            this.render(score);
-            this.$el.show();
-        },
-
-        hide: function() {
-            $('.overlay').hide();
-            this.$el.hide();
-        }
-
-    });
-
-    function postScores(event) {
-        event.preventDefault();
-        var data = $(this).serialize();
-        var name = $("#nameField").val();
-        var score = $("#scoreField").val();
-        if (name == '') {
-            $("#formError").html("Type your name");
-        } else {
-            var player = new Score({
-                name: name,
-                score: score
-            });
-            Scoreboard.add(player);
-            player = {
-                'name': name,
-                'score': score
-            }
-            $('.btn').prop("disabled", true);
-            $('#nameField').prop("disabled", true);
-            $.ajax({
-                url: '/scores',
-                type: 'post',
-                data: data,
-                dataType: 'json',
-                success: function(response) {
-                    $('.btn').prop("disabled", false);
-                    window.location = "/#scoreboard";
-                    $('.btn').prop("disabled", false);
-                    $('#nameField').prop("disabled", false);
-                    $('.overlay').hide();
-                    $('#gameOver').hide();
-                },
-                error: function(response) {
-                    var scores = Storage.getJSON('scores');
-                    scores.push(player);
-                    Storage.setJSON('scores', scores);
-                    window.location = "/#scoreboard";
-                    $('.btn').prop("disabled", false);
-                    $('#nameField').prop("disabled", false);
-                    $('.overlay').hide();
-                    $('#gameOver').hide();
-                }
-            });
-
-        }
-
-    }
-
-    return View;
-});
 define('FnQuery',[],function(){
     function FnQuery(){
         this.query = [];
@@ -18668,817 +17142,585 @@ define('checking',['Modernizr'],
             checkConsoleFeatures: checkConsoleFeatures
         }
     });
-var gameDiv;
-var selectForm;
-var tokenForm;
-var overlay;
-var error;
-var errorForm;
-var token;
-var hidden = [];
-var shown = [];
+/**
+    deviceapi-normaliser.js
+    
+    Author: Andrew Fisher
+    Date: 27/03/2013
+    
+    Version: 0.5
+    
+    This file is licensed under a BSD licence as per the Licence.
+        
+**/
 
-$(document).ready(function() {
-    gameDiv = $('#gameDiv');
-    selectForm = $('#selectForm');
-    tokenForm = $('#tokenForm');
-    overlay = $('.overlay');
-    error = $('#error');
-    errorForm = $('#errorForm');
-    token = $('#token');
-    $('#toSelect').click(function() {
-        errorForm.hide();
-        selectForm.show();
-    });
-    console.log(tokenForm);
+var mo = {
+    _browser:  null,
+    _os: null,
+    _ua: navigator.userAgent,
+    normalise: false, 
+    orientation: false,
+    motion: false,
+
+    init: function() {
+        // Initialises the library to do things like device checking etc.
+
+
+        var orientation = false;
+        var motion = false
+
+        // first pass.
+        if (window.DeviceOrientationEvent) {
+            orientation = true;
+        }
+
+        if (window.DeviceMotionEvent) {
+            motion = true;
+        }
+
+        if (orientation && motion) {
+            // Could be iOS, Android Stock or FF or blackberry
+            if (this._ua.match(/Firefox/i) && this._ua.match(/Android/i)) {
+                // this is definitive
+                this._os = "Android";
+                this._browser = "Firefox";
+            } else if (this._ua.match(/Android/i)){
+                // Stock Android
+                this._os = "Android";
+                this._browser = "Stock";
+            } else if (this._ua.match(/Blackberry|RIM/i)){
+                //blackberry
+                this._os = "Blackberry";
+                this._browser = "Stock";
+            } else {
+                this._os = "iOS";
+                this._browser = "webkit";
+            }
+        } else if (orientation && !motion) {
+            // It's chrome but is it desktop or mobile?
+            this._browser = "Chrome";
+            if (this._ua.match(/Android/i)){
+                this._os = "Android";
+            } else {
+                this._os = "Desktop";
+            }
+        } else if (!orientation) {
+
+            // this is something very odd
+            this._browser = "Unknown";
+            this._os = "Unknown";
+        }
+
+        // TODO - actually set these properly.
+        this.orientation = orientation;
+        this.motion = motion;
+    },
+}
+
+
+
+// set up some constants
+var accel_multi = 1; // used to normalise the accel values if firefox
+
+$(function() {
+    ;
 });
 
-var hideShown = function() {
-    for (var i = 0; i < shown.length; i++) {
-        shown[i].hide();
-    }
-    shown = [];
-};
+function deviceMotion(e) {
 
-var saveShown = function() {
-    for (var i = 0; i < shown.length; i++) {
-        hidden.push(shown[i]);
-    };
-};
+    
 
-var showHidden = function() {
-    for (var i = 0; i < hidden.length; i++) {
-        hidden[i].show();
+	// we need to normalise the values, safari will just return
+	// as they are but ff will multiply by gravity.
+    this.accelerationIncludingGravity = new Object();
+    this.accelerationIncludingGravity.x = e.accelerationIncludingGravity.x;
+    this.accelerationIncludingGravity.y = e.accelerationIncludingGravity.y;
+    this.accelerationIncludingGravity.z = e.accelerationIncludingGravity.z;
+    
+    this.acceleration = new Object();
+    if (e.acceleration !== null) {
+        this.acceleration.x = e.acceleration.x;
+        this.acceleration.y = e.acceleration.y;
+        this.acceleration.z = e.acceleration.z;
+    } else {
+        this.acceleration.x = null;
+        this.acceleration.y = null;
+        this.acceleration.z = null;
     }
-    hidden = [];
-};
+    
+    this.rotationRate = new Object();
+    if (e.rotationRate !== null) {
+        this.rotationRate.alpha = e.rotationRate.alpha;
+        this.rotationRate.beta = e.rotationRate.beta;
+        this.rotationRate.gamma = e.rotationRate.gamma;
+    } else {
+        this.rotationRate.alpha = null;
+        this.rotationRate.beta = null;
+        this.rotationRate.gamma = null;
+    }
+
+    this.interval = null;
+    if (e.interval !== null) { this.interval = e.interval; }
+
+    return (this);
+}
+
+function deviceOrientation(e) {
+    
+    // normalise the values for the orientation event.
+    
+    // TODO:
+    // these values need further normalisation because I know safari
+    // breaks them but haven't got a device to test with.
+    
+	this.gamma = e.gamma;
+	this.beta = e.beta;
+	this.alpha = e.alpha; // compass
+
+    this.absolute = false;
+    if (e.absolute !== null) { this.absolute = e.absolute; }
+
+	return(this);
+	
+}
+;
+define("lib/deviceapi-normaliser", function(){});
+
+var mainscreen = $('#mainscreen');
+var tokenForm = $('#tokenForm');
+var errorForm = $('#errorForm');
+var controls = $('#controls');
+var tokenError = $('#tokenError');
+var error = $('#error');
 
 var init = function() {
-    if (!sessionStorage.getItem('guid')) {
-        this.server.getToken(function(data) {
-            tokenForm.show();
-            token.html(data);
-            errorForm.hide();
-        });
+    if (!sessionStorage.getItem('guid_joystick')) {
+        mainscreen.show();
+        tokenForm.show();
+        errorForm.hide();
+        controls.hide();
     } else {
         reconnect.call(this);
     }
 };
 
 var reconnect = function() {
-    if (!this.pauseFlag)
-        this.pauseGame();
+    console.log('reconnect');
     var self = this;
-    if (sessionStorage.getItem('guid')) {
-        this.server.bind({
-            guid: sessionStorage.getItem('guid')
+    if (sessionStorage.getItem('guid_joystick')) {
+        this.bind({
+            guid: sessionStorage.getItem('guid_joystick')
         }, function(data) {
+            console.log(data);
             if (data.status == 'success') {
-                sessionStorage.setItem('guid', data.guid);
-                //  hideShown();
-                //  shown.push(gameDiv);
-                gameDiv.show();
-                overlay.hide();
+                console.log('rec ok');
+                sessionStorage.setItem('guid_joystick', data.guid);
+                mainscreen.show();
+                errorForm.hide();
+                tokenForm.hide();
+                controls.show();
             } else if (data.status == 'undefined guid') {
-                sessionStorage.removeItem('guid');
+                // Начинаем все заново
+                console.log('rec bad');
+                sessionStorage.removeItem('guid_joystick');
                 init.call(self);
             }
         });
+    } else {
+        mainscreen.show();
+        errorForm.hide();
     }
 };
 
 var disconnect = function() {
-    this.endGame();
-    gameDiv.hide();
-    selectForm.hide();
-    tokenForm.hide();
-    overlay.show();
-    error.html('server unavailable');
+    console.log('disconnect');
+    mainscreen.hide();
     errorForm.show();
+    error.html('server unavailable');
 };
-define("serverFunc", function(){});
 
-define('game/game',['classy',
-        'game/objects/player',
-        'game/mechanics',
-        'game/resources',
-        'views/gameOver',
-        'lib/Connector',
-        'checking',
-        'serverFunc'
-    ],
-    function(Class, Player, GameMechanic, Resources, GameOver, Connection, Modernizr) {
-        /* TODO 
-         */
-
-        var Game = Class.$extend({
-            __init__: function(resources) {
-                var game = this;
-
-                $('#pc').on('click', function() {
-                    if (Modernizr.checkConsoleFeatures()) {
-                        gameDiv.show();
-                        overlay.hide();
-                        selectForm.hide();
-                    } else {
-                        selectForm.hide();
-                        error.html("some features aren't supported");
-                        errorForm.show();
-                    }
-                    return false;
-                });
-                $('#smart').click(this.SmartSelection.bind(game));
-                _.bindAll(this, "messageRecieved");
-                gameDiv = $('#gameDiv');
-                selectForm = $('#selectForm');
-                tokenForm = $('#tokenForm');
-                overlay = $('.overlay');
-                error = $('#error');
-                errorForm = $('#errorForm');
-                token = $('#token');
-                selectForm.show();
-                overlay.show();
-                tokenForm.hide();
-                $('#toSelect').click(function() {
-                    errorForm.hide();
-                    selectForm.show();
-                });
-
-                $('#gameOver').hide();
-                gameDiv.hide();
+var connect = function() {
+    console.log('connect');
+    if (sessionStorage.getItem('guid_joystick')) {
+        this.bind({
+            guid: sessionStorage.getItem('guid_joystick')
+        }, function(data) {
+            console.log(data);
+            if (data.status == 'success') {
+                console.log('conn ok');
+                sessionStorage.setItem('guid_joystick', data.guid);
+                mainscreen.show();
                 errorForm.hide();
-
-                this.server = new Connection({
-                    remote: '/console'
-                });
-
-                this.server.on('message', this.messageRecieved);
-                this.server.on('reconnect', reconnect.bind(game));
-                this.server.on('disconnect', disconnect.bind(game));
-                this.server.on('player-joined', function(data) {
-                    console.log(data.guid); // guid инициализированной связки
-                    sessionStorage.setItem('guid', data.guid);
-                    gameDiv.show();
-                    tokenForm.hide();
-                    overlay.hide();
-                });
-
-                this.resources = resources;
-
-                this.prevX = 0;
-                this.prevY = 0;
-                //Константы
-
-                this.DELAY = 50;
-                this.GAME_WIDTH = 1024;
-                this.GAME_HEIGHT = 768;
-                this.ROCKET_SPEED = 10;
-                this.ASTEROID_SPEED = 5;
-
-                this.FONT_SIZE = 50;
-                this.ASTEROID_TIMEOUT = 50;
-                this.BULLET_TIMEOUT = 25;
-                this.BONUS_TIMEOUT = 500;
-                this.BONUS_TERMINATE = 200;
-                //Переменные
-                this.level = 1;
-                this.bulletTimer = 0;
-                this.asteroidTimer = 0;
-                this.bonusTimer = 0;
-                this.pauseFlag = false;
-                this.stopped = true;
-                this.asteroids = [];
-                this.keydown = [];
-                this.bangs = [];
-                this.bonuses = [];
-                this.gameMechanic = new GameMechanic();
-                var canvas = document.getElementById("gameField");
-                canvas.width = this.GAME_WIDTH;
-                canvas.height = this.GAME_HEIGHT;
-                this.context = canvas.getContext("2d");
-                this.context.fillStyle = "#ffffff";
-                this.context.debug = false; //режим отладки перенесен сюда
-                this.player = new Player("#ffffff", this.GAME_WIDTH, this.GAME_HEIGHT,
-                    this.resources.player);
-
-
-                $(document).bind("keydown", function(event) {
-                    game.keydown[String.fromCharCode(event.which).toLowerCase()] = true;
-                });
-                $(document).bind("keyup", function(event) {
-                    game.keydown[String.fromCharCode(event.which).toLowerCase()] = false;
-                });
-
-                this.restart = $("#restart");
-                this.restart.click(this.restartGame.bind(game));
-                this.pauseBtn = $("#pause");
-                this.pauseBtn.click(this.pauseGame.bind(game));
-                this.backBtn = $("#backBtn");
-                this.backBtn.click(
-                    function() {
-                        selectForm.show();
-                        overlay.show();
-                        gameDiv.hide();
-                        game.context.clearRect(0, 0, game.GAME_WIDTH, game.GAME_HEIGHT);
-                        game.endGame.bind(game);
-                        game.stopped = true;
-                        game.setBtnText();
-                    }
-                );
-
-                this.interval;
-                this.gameOverForm = new GameOver();
-                this.gameover = false;
-                this.reloading(true);
-                this.setBtnText();
-                this.setScore();
-            },
-
-            SmartSelection: function() {
-                console.log('ok');
-                if (Modernizr.checkConsoleFeatures()) {
-                    console.log('ok_1');
-                    init.call(this);
-                    var self = this;
-                    selectForm.hide();
-                } else {
-                    console.log('ok_qq');
-                    selectForm.hide();
-                    error.html("some features doesn't support");
-                    errorForm.show();
-                }
-            },
-
-            setBtnText: function() {
-                if (this.pauseFlag) {
-                    this.pauseBtn.html("Continue");
-                } else {
-                    this.pauseBtn.html("Pause");
-                }
-                if (this.stopped) {
-                    this.restart.html("Play");
-                } else {
-                    this.restart.html("Restart");
-                }
-            },
-
-
-            messageRecieved: function(data, answer) {
-                var game = this;
-                if (data.type === 'disconnect') {
-                    this.endGame();
-                    sessionStorage.removeItem('guid');
-                    gameDiv.hide();
-                    selectForm.hide();
-                    tokenForm.hide();
-                    $('#gameOver').hide();
-                    overlay.show();
-                    error.html('device has been disconnected');
-                    errorForm.show();
-                }
-
-                if (data.type === 'pause') {
-                    this.pauseGame();
-                    answer(this.pauseFlag);
-                }
-
-                if (data.type === 'restart') {
-                    this.gameOverForm.hide();
-                    this.restartGame();
-                    answer(this.stopped);
-                }
-
-                if (data.type === 'portrait') {
-                    if (!this.pauseFlag)
-                        this.pauseGame();
-                    answer(this.pauseFlag);
-                }
-
-                if (data.type === 'shoot') {
-                    answer(this.launchBullet(data.bulletType));
-                }
-
-                if (data.type === "ship1") {
-                    this.player.changeTypeOfShip(this.resources.player, 0, this.GAME_WIDTH, this.GAME_HEIGHT);
-                    this.setShipInfo();
-                }
-
-                if (data.type === "ship2") {
-                    this.player.changeTypeOfShip(this.resources.player, 1, this.GAME_WIDTH, this.GAME_HEIGHT);
-                    this.setShipInfo();
-                }
-
-                if (data.type === 'move') {
-                    var x = 0;
-                    var y = 0;
-                    var betaStart = Math.floor(data.startBeta);
-                    var gammaStart = Math.floor(data.startGamma);
-                    var beta = Math.floor(data.beta);
-                    var gamma = Math.floor(data.gamma);
-                    var k = 0.5;
-
-                    var moveX = this.getDirectionX(betaStart, beta);
-                    if (moveX.differ > this.player.maxhspeed) {
-                        moveX.differ = this.player.maxhspeed;
-                    }
-                    if (moveX.direct === "left") {
-                        x -= moveX.differ * k;
-                    }
-                    if (moveX.direct === "right") {
-                        x += moveX.differ * k;
-                    }
-                    var moveY = this.getDirectionY(gammaStart, gamma);
-                    if (moveY.differ > this.player.maxvspeed) {
-                        moveY.differ = this.player.maxvspeed;
-                    }
-                    if (moveY.direct === "up") {
-                        y -= moveY.differ * k;
-                    }
-                    if (moveY.direct === "down") {
-                        y += moveY.differ * k;
-                    }
-
-                    this.player.joystickMove(this.GAME_WIDTH, this.GAME_HEIGHT, x, y);
-                }
-            },
-
-            getDirectionY: function(startPos, pos) {
-                var diff = pos - startPos;
-                var dir = "up";
-                if (diff < 0)
-                    dir = "down";
-                diff = Math.abs(diff);
-                return {
-                    differ: diff,
-                    direct: dir
-                }
-            },
-
-            getDirectionX: function(startPos, pos) {
-                var diff = pos - startPos;
-                var dir = "right";
-                if (diff < 0)
-                    dir = "left";
-                diff = Math.abs(diff);
-                return {
-                    differ: diff,
-                    direct: dir
-                }
-            },
-
-            diff: function(startPos, pos) {
-                var result1 = Math.abs(startPos - pos);
-                var result2 = Math.abs(startPos - pos);
-                if (startPos > 270) {
-                    result1 = 360 - startPos + pos;
-                    result2 = Math.abs(startPos - pos);
-                }
-                if (startPos < 90) {
-                    result1 = startPos + (360 - pos);
-                    result2 = Math.abs(startPos - pos);
-                }
-                return Math.min(result1, result2);
-            },
-
-            inDiapazon: function(x, a, b) {
-                return (90 - this.diff(x, a)) === this.diff(x, b);
-            },
-
-            movePlayer: function() {
-                if (!this.pauseFlag && !this.stopped) {
-
-                    if (this.keydown["a"]) {
-                        this.player.resource = this.resources.player[this.player.type][1];
-                        this.player.updateSpeed(this.player.acceleration, 0, 0, 0);
-                    }
-
-                    if (!this.keydown["a"]) {
-                        this.player.updateSpeed(-this.player.deceleration, 0, 0, 0);
-                    }
-
-                    if (this.keydown["d"]) {
-                        this.player.resource = this.resources.player[this.player.type][2];
-                        this.player.updateSpeed(0, this.player.acceleration, 0, 0);
-                    }
-
-                    if (!this.keydown["d"]) {
-                        this.player.updateSpeed(0, -this.player.deceleration, 0, 0);
-                    }
-
-                    if (this.keydown["p"]) {
-                        if (this.bulletTimer > this.BULLET_TIMEOUT) {
-                            this.player.launchBullet(this, 1);
-                            this.bulletTimer = 0;
-                        }
-                    }
-
-                    if (!this.keydown["a"] && !this.keydown["d"] || this.keydown["a"] && this.keydown["d"]) {
-                        this.player.resource = this.resources.player[this.player.type][0];
-                    }
-
-                    if (!this.keydown["w"]) {
-                        this.player.updateSpeed(0, 0, -this.player.deceleration, 0);
-                    }
-
-                    if (!this.keydown["s"]) {
-                        this.player.updateSpeed(0, 0, 0, -this.player.deceleration);
-                    }
-
-                    if (this.keydown["w"]) {
-                        this.player.updateSpeed(0, 0, this.player.acceleration, 0);
-                    }
-                    if (this.keydown["s"]) {
-                        this.player.updateSpeed(0, 0, 0, this.player.acceleration);
-                    }
-
-                    if (this.keydown["q"]) {
-                        if (this.bulletTimer > this.BULLET_TIMEOUT && this.player.bonusBullets[0] > 0) {
-                            this.player.launchBullet(this, 2);
-                            this.bulletTimer = 0;
-                            this.player.bonusBullets[0] -= 1;
-                            this.setBulletInfo();
-                        }
-
-                    }
-                    if (this.keydown["e"]) {
-                        if (this.bulletTimer > this.BULLET_TIMEOUT && this.player.bonusBullets[1] > 0) {
-                            this.player.launchBullet(this, 3);
-                            this.bulletTimer = 0;
-                            this.player.bonusBullets[1] -= 1;
-                            this.setBulletInfo();
-                        }
-
-                    }
-
-                    if (this.keydown["1"]) {
-                        this.player.changeTypeOfShip(this.resources.player, 0, this.GAME_WIDTH, this.GAME_HEIGHT);
-                        this.setShipInfo();
-                    }
-                    if (this.keydown["2"]) {
-                        this.player.changeTypeOfShip(this.resources.player, 1, this.GAME_WIDTH, this.GAME_HEIGHT);
-                        this.setShipInfo();
-                    }
-
-                    if (this.context.debug) {
-                        if (this.keydown['z']) {
-                            this.gameover = true;
-                            this.endGame();
-                        }
-                        if (this.keydown['x']) {
-                            for (var i = this.player.bonusBullets.length - 1; i >= 0; i--) {
-                                this.player.bonusBullets[i] += 1;
-                            };
-                            this.setBulletInfo();
-                        }
-                    }
-                }
-                this.player.move(this.GAME_WIDTH, this.GAME_HEIGHT);
-
-                if (Math.abs(this.player.joystickX) > Math.abs(this.player.maxhspeed / 10)) {
-                    if (this.player.joystickX > 0)
-                        this.player.resource = this.resources.player[this.player.type][2];
-                    if (this.player.joystickX < 0)
-                        this.player.resource = this.resources.player[this.player.type][1];
-                }
-
-                this.player.joystickMove(this.GAME_WIDTH, this.GAME_HEIGHT, this.player.joystickX, this.player.joystickY);
-
-            },
-
-            launchBullet: function(type) {
-                if (this.bulletTimer > this.BULLET_TIMEOUT) {
-                    if (type === 1) {
-                        this.player.launchBullet(this, 1);
-                        this.bulletTimer = 0;
-                        return "shootACK";
-                    }
-                    if (this.player.bonusBullets[type - 2] > 0) {
-                        this.player.launchBullet(this, type);
-                        this.player.bonusBullets[type - 2] -= 1;
-                        this.setBulletInfo();
-                        this.bulletTimer = 0;
-                        return "shootACK";
-                    }
-                }
-                return "shootNAK";
-
-            },
-
-            reloading: function(flag) {
-                if (flag) {
-                    var game = this;
-                    this.interval = setInterval(function() {
-                        game.play();
-                        game.movePlayer();
-                    }, 1000 / this.DELAY);
-                } else
-                    clearInterval(this.interval);
-            },
-
-            restartGame: function() {
-                if (this.pauseFlag)
-                    this.reloading(true);
-                this.gameover = false;
-
-                this.endGame();
-                this.pauseFlag = false;
-                this.stopped = false;
-                this.setBtnText();
-
-                this.drawBulletImg();
-                this.setBulletInfo();
-                this.setShipInfo();
-                this.setScore();
-            },
-
-            pauseGame: function() {
-                if (!this.stopped) {
-                    if (this.pauseFlag) {
-                        this.pauseFlag = false;
-                        this.reloading(true);
-                    } else {
-                        this.pauseFlag = true;
-                        this.reloading(false);
-                        this.play();
-                    }
-                }
-                this.setBtnText();
-
-            },
-
-            play: function() {
-                if (this.bulletTimer === this.BULLET_TIMEOUT) {
-                    this.server.send({
-                        type: "canShoot"
-                    })
-                }
-                this.drawBulletImg();
-                this.setShipInfo();
-                if (!this.pauseFlag && !this.stopped && !this.gameover) {
-
-                    this.asteroidTimer += 1;
-                    this.bulletTimer += 1;
-                    this.bonusTimer += 1;
-                    this.gameMechanic.draw(this);
-                    this.gameMechanic.update(this);
-                    return;
-                }
-                this.context.font = "bold " + this.FONT_SIZE + "px sans-serif";
-                if (this.stopped) {
-                    this.context.fillText("Click play button", this.GAME_WIDTH / 2 - this.FONT_SIZE * 4, this.GAME_HEIGHT / 2);
-                    return;
-                }
-                if (this.pauseFlag) {
-                    this.context.fillText("Game paused", this.GAME_WIDTH / 2 - this.FONT_SIZE * 3, this.GAME_HEIGHT / 2);
-                    return;
-                }
-            },
-
-            endGame: function() {
-                this.server.send({
-                    type: 'ship'
-                });
-                if (this.gameover) {
-                    this.gameOverForm.show(this.player.score);
-                }
-                this.level = 1;
-                this.asteroidTimer = 0;
-                this.bulletTimer = 0;
-                this.player.resetAll();
-                this.bonusTimer = 0;
-                this.player.setStartPosition(this.GAME_WIDTH, this.GAME_HEIGHT);
-                this.player.changeTypeOfShip(this.resources.player, 0, this.GAME_WIDTH, this.GAME_HEIGHT);
-                this.asteroids = [];
-                this.player.bullets = [];
-                this.bangs = [];
-                this.bonuses = [];
-                this.keydown = [];
-                this.stoppedFunc();
-            },
-
-            stoppedFunc: function() {
-                this.context.clearRect(0, 0, this.GAME_WIDTH, this.GAME_HEIGHT);
-                this.setScore();
-                this.stopped = true;
-                this.setBtnText();
-                this.setLevelInfo();
-            },
-
-            drawBulletImg: function() {
-                var canvas = document.getElementById("first_bullet");
-                canvas.width = this.resources.bullet.img.width
-                canvas.height = this.resources.bullet.img.height
-                context = canvas.getContext("2d");
-                context.drawImage(this.resources.bullet.img, 0, 0)
-
-
-                canvas = document.getElementById("second_bullet");
-                canvas.width = this.resources.firstTypeBonus.img.width
-                canvas.height = this.resources.firstTypeBonus.img.height
-                context = canvas.getContext("2d");
-                context.drawImage(this.resources.firstTypeBonus.img, 0, 0)
-
-
-                canvas = document.getElementById("third_bullet");
-                canvas.width = this.resources.secondTypeBonus.img.width
-                canvas.height = this.resources.secondTypeBonus.img.height
-                context = canvas.getContext("2d");
-                context.drawImage(this.resources.secondTypeBonus.img, 0, 0)
-            },
-
-            setBulletInfo: function() {
-                $('.first-bonus').html(this.player.bonusBullets[0]);
-                $('.second-bonus').html(this.player.bonusBullets[1]);
-            },
-
-            setLevelInfo: function() {
-                var load = (this.level - 1) / 0.015 + '%';
-                var load_el = $('.info__level');
-                if (parseInt(load) <= 100)
-                    load_el.css('background-color', 'red');
-                if (parseInt(load) < 70)
-                    load_el.css('background-color', 'yellow');
-                if (parseInt(load) < 40)
-                    load_el.css('background-color', 'green');
-                load_el.width(load);
-            },
-
-            setShipInfo: function() {
-                $('#ship-size').html(this.player.resource.radius);
-                $('#ship-hspeed').html(this.player.maxhspeed);
-                $('#ship-vspeed').html(this.player.maxvspeed);
-                $('#ship-multiplier').html(this.player.damageMultiplier);
-
-                canvas = document.getElementById("ship_img");
-                context = canvas.getContext("2d");
-                switch (this.player.type) {
-                    case 0:
-                        canvas.width = this.resources.firstTypeShip.img.width
-                        canvas.height = this.resources.firstTypeShip.img.height
-                        context.drawImage(this.resources.firstTypeShip.img, 0, 0)
-                        break;
-                    case 1:
-                        canvas.width = this.resources.secondTypeShip.img.width
-                        canvas.height = this.resources.secondTypeShip.img.height
-                        context.drawImage(this.resources.secondTypeShip.img, 0, 0)
-                        break;
-                }
-
-            },
-
-            setScore: function() {
-                $('#score').html(this.player.score);
+                tokenForm.hide();
+                controls.show();
+            } else if (data.status == 'undefined guid') {
+                console.log('conn bad');
+                sessionStorage.removeItem('guid_joystick');
+                init.call(self);
             }
-
         });
+    } else {
+        mainscreen.show();
+        errorForm.hide();
+        tokenForm.show();
+        controls.hide();
+    }
+};
+define("joystick/serverFunc", function(){});
 
-        return Game;
-    });
-define('views/game',[
-    'backbone',
-    'tmpl/game',
-    'game/game',
-    'views/viewManager',
-    'game/resources'
-], function(
-    Backbone,
-    tmpl,
-    Game,
-    ViewManager,
-    Resource
-) {
-
-    var View = Backbone.View.extend({
-        el: "#game",
-        template: tmpl,
-        _name: "game",
-        initialize: function() {
-            this.render();
-            this.$el.hide();
-            var self = this;
-            $(document).on("createGame", function(event) {
-                self.game = new Game(event.resource);
-                self.show();
-            });
-        },
-        render: function() {
-            this.$el.html(this.template);
-            $(".overlay").hide();
-        },
-
-        show: function() {
-            $.event.trigger({
-                type: "show",
-                _name: this._name
-            });
-
-            if (this.resources === undefined || !this.resources.loaded) {
-                this.$el.hide();
-                this.resources = new Resource();
-                $('#loadingForm').show();
-            } else {
-                this.$el.show();
-            }
-        },
-        hide: function() {
-            this.$el.hide();
-        }
-
-    });
-
-    return new View();
-});
-define('router',['backbone',
-    'views/main',
-    'views/scoreboard',
-    'views/game',
-    'views/viewManager'
-
-], function(Backbone,
-    mainScreen,
-    scoreboardScreen,
-    gameScreen,
-    viewManager
-) {
-    var currentScreen = "";
-    var Router = Backbone.Router.extend({
-        routes: {
-            'scoreboard': 'scoreboardAction',
-            'game': 'gameAction',
-            '*default': 'defaultActions'
-        },
-        initialize: function() {
-            this.viewManager = viewManager;
-            viewManager.addView(mainScreen._name, mainScreen);
-            viewManager.addView(scoreboardScreen._name, scoreboardScreen);
-            viewManager.addView(gameScreen._name, gameScreen);
-        },
-        defaultActions: function() {
-            mainScreen.show();
-        },
-        scoreboardAction: function() {
-            scoreboardScreen.show();
-        },
-        gameAction: function() {
-            gameScreen.show();
-        }
-    });
-
-    var router = new Router();
-    return router;
-});
 require.config({
-
     urlArgs: "_=" + (new Date()).getTime(),
     baseUrl: "js",
     paths: {
         jquery: "lib/jquery",
         underscore: "lib/underscore",
         backbone: "lib/backbone",
-        classy: "lib/classy",
-        preload: "lib/preload.min",
         Connector: "lib/Connector",
         FnQuery: "lib/FnQuery",
-        "socket.io": "lib/socket.io",
         device_orientation: "lib/deviceapi-normaliser",
-        soundjs: "lib/soundjs",
-        Modernizr: "lib/Modernizr"
+        Modernizr: "lib/Modernizr",
+        "socket.io": "lib/socket.io"
     },
     shim: {
         'backbone': {
             deps: ['underscore', 'jquery'],
             exports: 'Backbone'
         },
+
         'underscore': {
             exports: '_'
         },
-        'classy': {
-            exports: 'Class'
-        },
-        'preload': {
-            exports: 'createjs'
-        },
+
         "socket.io": {
             exports: "io"
         },
+
         "device_orientation": {
             exports: "deviceOrientation"
         },
-        'soundjs': {
-            exports: 'createjs'
-        },
+
         "Modernizr": {
             exports: 'Modernizr'
         }
-
     }
 });
 
+require(['lib/Connector', 'checking', 'lib/deviceapi-normaliser', 'joystick/serverFunc'],
+    function(Connection, Modernizr) {
+        var bulletType = 1;
+        var gameStarted = false;
+        var fingers = 0;
+        var currentPressed = [];
+        var canShoot = true;
+        var stopped = true;
+        var pause = false;
+        var currentBeta = 0;
+        var currentGamma = 0;
+        var startPosBeta = 0;
+        var startPosGamma = 0;
+        var current_position;
 
-define('main',[
-    'router'
-], function(
-    router
-) {
-    Backbone.history.start();
-});
+        var disconnectBtn = document.getElementById('disconnect');
+        disconnectBtn.addEventListener("touchstart",
+            function() {
+                event.preventDefault();
+                currentPressed = [];
+                server.send({
+                    type: 'disconnect'
+                });
+                sessionStorage.removeItem('joystick_guid');
+                console.log('disconnect');
+                mainscreen.show();
+                controls.hide();
+                tokenForm.show();
+            }
+        );
+        var shootBtn = document.getElementById('shoot');
+        var pauseBtn = document.getElementById('pause');
+        var restartBtn = document.getElementById('restart');
+        var bulletSwitcher = document.getElementById('bulletSwitcher');
+        var bullet1 = document.getElementById('bullet1');
+        var bullet2 = document.getElementById('bullet2');
+        var bullet3 = document.getElementById('bullet3');
+        var shipSwitcher = document.getElementById('shipSwitcher');
+        var ship1 = document.getElementById('ship1');
+        var ship2 = document.getElementById('ship2');
+
+        window.addEventListener("touchstart", touchStart);
+        window.addEventListener("touchend", touchEnd);
+        window.addEventListener("deviceorientation", updategyro, false);
+        window.addEventListener('orientationchange', changeOrientation);
+
+        mo.init();
+
+        errorForm.hide();
+        controls.hide();
+        mainscreen.hide();
+        if (Modernizr.checkJoystickFeatures()) {
+            var server = new Connection({
+                remote: '/player'
+            });
+
+            server.on('disconnect', disconnect);
+            server.on('connect', connect);
+            server.on('reconnect', reconnect.bind(server));
+            server.onReady(function() {
+                server.on('message', function(data) {
+                    if (data.type === 'ship') {
+                        $("#bulletSwitcher .active").removeClass("active");
+                        $('#bullet1').addClass("active");
+                    }
+                    if (data.type === "canShoot") {
+                        canShoot = true;
+                    }
+                    if (data.type === "shootACK") {
+                        canShoot = false;
+                    }
+                });
+            });
+            init.call(server);
+
+            function updategyro(e) {
+                current_position = deviceOrientation(e);
+                if (Math.abs(currentBeta - current_position.beta) > 2 || Math.abs(currentGamma - current_position.gamma) > 2) {
+                    server.send({
+                        type: 'move',
+                        startBeta: startPosBeta,
+                        startGamma: startPosGamma,
+                        beta: current_position.beta,
+                        gamma: current_position.gamma
+                    });
+                    currentBeta = current_position.beta;
+                    currentGamma = current_position.gamma;
+                }
+            };
+
+            $('#submit').click(function() {
+                tokenError.html("");
+                var currentPos = current_position;
+                startPosBeta = currentPos.beta;
+                startPosGamma = currentPos.gamma;
+                currentBeta = startPosBeta;
+                currentGamma = startPosGamma;
+                server.bind({
+                    token: $('#token').val()
+                }, function(answer) {
+                    if (answer.status == 'success') {
+                        tokenForm.hide();
+                        controls.show();
+                        sessionStorage.setItem('guid_joystick', answer.guid);
+                        gameStarted = true;
+
+                    } else {
+                        tokenError.html(answer.status);
+                    }
+                });
+
+
+                return false;
+            });
+
+            function changeOrientation() {
+                if (window.orientation % 180 == 0) {
+                    errorForm.show();
+                    error.html('please turn your device');
+                    mainscreen.hide();
+                    server.send({
+                            type: 'portrait'
+                        },
+                        function(data) {
+                            pause = data;
+                            setBtnText();
+                        });
+
+                    setBtnText();
+                } else {
+                    server.send({
+                        type: 'landscape'
+                    });
+                    mainscreen.show();
+                    errorForm.hide();
+
+                }
+            };
+
+            function setBtnText() {
+                var pauseBtn = $('.button__text.pause');
+                var restart = $('.button__text.start');
+                if (pause) {
+                    pauseBtn.html("Go");
+                } else {
+                    pauseBtn.html("Pause");
+                }
+                if (stopped) {
+                    restart.html("Start");
+                } else {
+                    restart.html("Restart");
+                }
+            };
+
+
+            function touchStart(event) {
+                fingers = event.touches.length;
+                var shoot = null;
+                var bullet = null;
+                for (var i = 0; i < fingers; i++) {
+                    if (bulletSwitcher.contains(event.touches[i].target))
+                        bullet = event.touches[i];
+                    if (shootBtn.contains(event.touches[i].target))
+                        shoot = event.touches[i];
+                };
+                if (shoot != null)
+                    currentPressed.push({
+                        type: "shoot",
+                        target: shoot.target,
+                        identifier: shoot.identifier
+                    });
+                if (bullet != null) {
+                    currentPressed.push({
+                        type: "bullet",
+                        target: bullet.target,
+                        identifier: bullet.identifier
+                    });
+                    checkBullet(bullet.target);
+                }
+
+            };
+
+
+            function checkBullet(target) {
+                $("#bulletSwitcher .active").removeClass("active");
+                switch (target) {
+                    case bullet1:
+                        bulletType = 1;
+                        $('#bullet1').addClass("active");
+                        break;
+                    case bullet2:
+                        bulletType = 2;
+                        $('#bullet2').addClass("active");
+                        break;
+                    case bullet3:
+                        bulletType = 3;
+                        $('#bullet3').addClass("active");
+                        break;
+                }
+            };
+
+            var interval = setInterval(function() {
+                if (canShoot && isElementInCurrentPressed(shootBtn)) {
+                    server.send({
+                        type: "shoot",
+                        bulletType: bulletType
+                    }, function(answer) {
+                        if (answer === "shootACK") {
+                            canShoot = false;
+                        }
+                    });
+                }
+            }, 50);
+
+            function touchEnd(event) {
+                var touches = event.changedTouches;
+                var toDelete = [];
+                for (var i = 0; i < touches.length; i++)
+                    for (var j = 0; j < currentPressed.length; j++) {
+                        if (touches[i].identifier === currentPressed[j].identifier)
+                            toDelete.push(j);
+                    }
+                deleteEndedTouches(toDelete);
+            };
+
+            function deleteEndedTouches(indexes) {
+                sortArray(indexes);
+                for (var i = 0; i < indexes.length; i++) {
+                    currentPressed.splice(indexes[i], 1);
+                };
+            };
+
+            function sortArray(array) {
+                array.sort(function(a, b) {
+                    return b - a;
+                })
+            };
+
+            function isElementInCurrentPressed(element) {
+                for (var i = 0; i < currentPressed.length; i++) {
+                    if (element.contains(currentPressed[i].target))
+                        return true;
+                }
+                return false;
+            };
+
+            function getIdentifierFromCurrentPressed(type) {
+                for (var i = 0; i < currentPressed.length; i++) {
+                    if (currentPressed[i].type === type) {
+                        return currentPressed[i].identifier;
+                    }
+                }
+            };
+
+            ship1.addEventListener("touchstart", function(event) {
+                event.preventDefault();
+                currentPressed = [];
+                $('#shipSwitcher .active').removeClass('active');
+                $('#ship1').addClass('active');
+                server.send({
+                    type: 'ship1'
+                });
+            });
+
+            ship2.addEventListener("touchstart", function(event) {
+                event.preventDefault();
+                currentPressed = [];
+                $('#shipSwitcher .active').removeClass('active');
+                $('#ship2').addClass('active');
+                server.send({
+                    type: 'ship2'
+                });
+            });
+
+            shootBtn.addEventListener("touchstart", function(event) {
+                event.preventDefault();
+            });
+
+            bulletSwitcher.addEventListener("touchstart", function(event) {
+                event.preventDefault();
+            })
+
+            pauseBtn.addEventListener("touchstart", function(event) {
+                event.preventDefault();
+                currentPressed = [];
+                server.send({
+                    type: 'pause'
+                }, function(data) {
+                    pause = data;
+                    setBtnText();
+                });
+
+            });
+
+            restartBtn.addEventListener("touchstart", function(event) {
+                event.preventDefault();
+                currentPressed = [];
+                $('#shipSwitcher .active').removeClass('active');
+                $('#ship1').addClass('active');
+                var currentPos = current_position;
+                startPosBeta = currentPos.beta;
+                startPosGamma = currentPos.gamma;
+                currentBeta = startPosBeta;
+                currentGamma = startPosGamma;
+                server.send({
+                    type: 'restart'
+                }, function(data) {
+                    stopped = data;
+                    setBtnText();
+                });
+            });
+        } else {
+            error.html("some features aren't supported");
+            errorForm.show();
+        }
+
+    });
+define("joystick/joystick", function(){});
+

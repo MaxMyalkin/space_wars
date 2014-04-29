@@ -65,14 +65,27 @@ module.exports = function(grunt) {
                     optimize: "none",
                     out: "public/js/build/main.js"
                 }
+            },
+            build_joystick: {
+                options: {
+                    almond: true,
+                    baseUrl: "public/js",
+                    mainConfigFile: "public/js/joystick/joystick.js",
+                    name: "joystick/joystick",
+                    optimize: "none",
+                    out: "public/js/build/joystick.js"
+                }
             }
         },
 
         uglify: {
             build: {
                 files: [{
-                    src: ['public/js/build.js'],
+                    src: ['public/js/build/main.js'],
                     dest: 'public/js/build.min.js'
+                }, {
+                    src: ['public/js/build/joystick.js'],
+                    dest: 'public/js/joystick.min.js'
                 }]
             }
         },
@@ -94,6 +107,13 @@ module.exports = function(grunt) {
                 },
                 src: ['public/js/lib/almond.js', 'public/js/build/main.js'],
                 dest: 'public/js/build/main.js'
+            },
+            build_joystick: {
+                options: {
+                    separator: ';\n'
+                },
+                src: ['public/js/lib/almond.js', 'public/js/build/joystick.js'],
+                dest: 'public/js/build/joystick.js'
             }
         },
 
@@ -139,7 +159,7 @@ module.exports = function(grunt) {
     grunt.registerTask('default', ['express', 'watch']);
     grunt.registerTask(
         'build', [
-            'cssmin', 'fest', 'sass', 'requirejs:build',
+            'cssmin', 'fest', 'sass', 'requirejs:build', 'requirejs:build_joystick', 'concat:build_joystick',
             'concat:build', 'uglify:build'
         ]
     );

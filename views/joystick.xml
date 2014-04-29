@@ -58,10 +58,23 @@
 		</div>
 
 	</body>
-	<script type="text/javascript" src="js/lib/require.js"></script>
-	<script type="text/javascript" src="js/lib/jquery.js"></script>
-	<script type="text/javascript" src="js/joystick/joystick.js"></script>
-
+	<fest:if test="json.development">
+		<script data-main="js/joystick/joystick" src="js/lib/require.js"></script>
+		<script type="text/javascript" src="js/lib/jquery.js"></script>
+	</fest:if>
+	<fest:if test="!json.development">
+		<script>
+			console.time('load');
+		</script>
+		<script src="js/joystick.min.js"></script>
+		<script>
+			require(['joystick/joystick'], function(){
+				console.timeEnd('load');
+			});
+		</script>
+	</fest:if>
+	
+	
 
 </html>
 </fest:template>

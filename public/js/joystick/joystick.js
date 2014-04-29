@@ -2,36 +2,40 @@ require.config({
     urlArgs: "_=" + (new Date()).getTime(),
     baseUrl: "js",
     paths: {
-        jquery: "/js/lib/jquery",
-        underscore: "/js/lib/underscore",
-        backbone: "/js/lib/backbone",
-        Connector: "/js/lib/Connector",
-        FnQuery: "/js/lib/FnQuery",
-        device_orientation: "js/lib/deviceapi-normaliser",
+        jquery: "lib/jquery",
+        underscore: "lib/underscore",
+        backbone: "lib/backbone",
+        Connector: "lib/Connector",
+        FnQuery: "lib/FnQuery",
+        device_orientation: "lib/deviceapi-normaliser",
         Modernizr: "lib/Modernizr",
-        "socket.io": "/socket.io/socket.io"
+        "socket.io": "lib/socket.io"
     },
     shim: {
         'backbone': {
             deps: ['underscore', 'jquery'],
             exports: 'Backbone'
         },
+
         'underscore': {
             exports: '_'
         },
+
         "socket.io": {
             exports: "io"
         },
+
         "device_orientation": {
             exports: "deviceOrientation"
         },
+
         "Modernizr": {
             exports: 'Modernizr'
         }
     }
 });
 
-require(['js/lib/Connector.js', 'js/checking.js', 'lib/deviceapi-normaliser', 'js/joystick/serverFunc.js'],
+require(['lib/Connector', 'checking', 'lib/deviceapi-normaliser', 'joystick/serverFunc'],
     function(Connection, Modernizr) {
         var bulletType = 1;
         var gameStarted = false;

@@ -9,17 +9,12 @@ define(['classy',
     ],
     function(Class, Player, GameMechanic, Resources, GameOver, Connection, Modernizr) {
         /* TODO 
- выбор звука в зависимости от браузера
- сделать нормальную загрузку в начале игры
- астероиды разлетаются в стороны при взрыве
- появление одинаковых астероидов
          */
 
         var Game = Class.$extend({
-
             __init__: function(resources) {
-
                 var game = this;
+
                 $('#pc').on('click', function() {
                     if (Modernizr.checkConsoleFeatures()) {
                         gameDiv.show();
@@ -32,16 +27,26 @@ define(['classy',
                     }
                     return false;
                 });
-
                 $('#smart').click(this.SmartSelection.bind(game));
                 _.bindAll(this, "messageRecieved");
+                gameDiv = $('#gameDiv');
+                selectForm = $('#selectForm');
+                tokenForm = $('#tokenForm');
+                overlay = $('.overlay');
+                error = $('#error');
+                errorForm = $('#errorForm');
+                token = $('#token');
                 selectForm.show();
                 overlay.show();
                 tokenForm.hide();
+                $('#toSelect').click(function() {
+                    errorForm.hide();
+                    selectForm.show();
+                });
+
                 $('#gameOver').hide();
                 gameDiv.hide();
                 errorForm.hide();
-
 
                 this.server = new Connection({
                     remote: '/console'
@@ -130,11 +135,14 @@ define(['classy',
             },
 
             SmartSelection: function() {
+                console.log('ok');
                 if (Modernizr.checkConsoleFeatures()) {
+                    console.log('ok_1');
                     init.call(this);
                     var self = this;
                     selectForm.hide();
                 } else {
+                    console.log('ok_qq');
                     selectForm.hide();
                     error.html("some features doesn't support");
                     errorForm.show();

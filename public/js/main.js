@@ -10,7 +10,7 @@ require.config({
         preload: "lib/preload.min",
         Connector: "lib/Connector",
         FnQuery: "lib/FnQuery",
-        "socket.io": "/socket.io/socket.io",
+        "socket.io": "lib/socket.io",
         device_orientation: "lib/deviceapi-normaliser",
         soundjs: "lib/soundjs",
         Modernizr: "lib/Modernizr"
