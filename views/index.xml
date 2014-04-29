@@ -3,6 +3,7 @@
 <html>
 	<head>
 		<meta charset="utf-8" />
+		<link rel="icon" type="image/png" href="/public/images/favicon.png" />
 		<title>
 			<fest:value>json.title</fest:value>
 		</title>
@@ -15,7 +16,12 @@
 		</fest:if>
 	</head>
 	<body>
-		<div class='loader'></div>
+		<div id='loadingForm' style='display:none;' class='form'>
+			<div class="gameOverForm">
+				<div class="gameOverForm__text">Loading<fest:space/><span id='loadingPercent'></span></div><br/>
+				<progress class='loader' value="10" max="100"></progress>
+			</div>
+		</div>
 	    <div id="main"></div>
 	    <div id="scoreboard"></div>
 	    <div id="game"></div>

@@ -36,10 +36,10 @@ define([
                 _name: this._name
             });
 
-            if (this.resources === undefined) {
+            if (this.resources === undefined || !this.resources.loaded) {
                 this.$el.hide();
                 this.resources = new Resource();
-                $('.loader').show();
+                $('#loadingForm').show();
             } else {
                 this.$el.show();
             }

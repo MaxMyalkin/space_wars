@@ -22,25 +22,25 @@ define(['classy',
                 var game = this;
                 $('#pc').on('click', function() {
                     if (Modernizr.checkConsoleFeatures()) {
-                        $('#gameDiv').show();
-                        $('.overlay').hide();
-                        $('#selectForm').hide();
+                        gameDiv.show();
+                        overlay.hide();
+                        selectForm.hide();
                     } else {
-                        $('#selectForm').hide();
-                        $('#error').html("some features aren't supported");
-                        $('#errorForm').show();
+                        selectForm.hide();
+                        error.html("some features aren't supported");
+                        errorForm.show();
                     }
                     return false;
                 });
 
                 $('#smart').click(this.SmartSelection.bind(game));
                 _.bindAll(this, "messageRecieved");
-                $('#selectFrom').show();
-                $('.overlay').show();
-                $('#tokenForm').hide();
+                selectForm.show();
+                overlay.show();
+                tokenForm.hide();
                 $('#gameOver').hide();
-                $('#gameDiv').hide();
-                $('#errorForm').hide();
+                gameDiv.hide();
+                errorForm.hide();
 
 
                 this.server = new Connection({
@@ -53,9 +53,9 @@ define(['classy',
                 this.server.on('player-joined', function(data) {
                     console.log(data.guid); // guid инициализированной связки
                     sessionStorage.setItem('guid', data.guid);
-                    $('#gameDiv').show();
-                    $('#tokenForm').hide();
-                    $('.overlay').hide();
+                    gameDiv.show();
+                    tokenForm.hide();
+                    overlay.hide();
                 });
 
                 this.resources = resources;
@@ -111,9 +111,9 @@ define(['classy',
                 this.backBtn = $("#backBtn");
                 this.backBtn.click(
                     function() {
-                        $('#selectForm').show();
-                        $('.overlay').show();
-                        $('#gameDiv').hide();
+                        selectForm.show();
+                        overlay.show();
+                        gameDiv.hide();
                         game.context.clearRect(0, 0, game.GAME_WIDTH, game.GAME_HEIGHT);
                         game.endGame.bind(game);
                         game.stopped = true;
@@ -133,13 +133,11 @@ define(['classy',
                 if (Modernizr.checkConsoleFeatures()) {
                     init.call(this);
                     var self = this;
-                    var tokenForm = $('#tokenForm');
-                    var selectForm = $('#selectForm');
                     selectForm.hide();
                 } else {
-                    $('#selectForm').hide();
-                    $('#error').html("some features doesn't support");
-                    $('#errorForm').show();
+                    selectForm.hide();
+                    error.html("some features doesn't support");
+                    errorForm.show();
                 }
             },
 
@@ -162,13 +160,13 @@ define(['classy',
                 if (data.type === 'disconnect') {
                     this.endGame();
                     sessionStorage.removeItem('guid');
-                    $('#gameDiv').hide();
-                    $('#selectForm').hide();
-                    $('#tokenForm').hide();
+                    gameDiv.hide();
+                    selectForm.hide();
+                    tokenForm.hide();
                     $('#gameOver').hide();
-                    $('.overlay').show();
-                    $('#error').html('device has been disconnected');
-                    $('#errorForm').show();
+                    overlay.show();
+                    error.html('device has been disconnected');
+                    errorForm.show();
                 }
 
                 if (data.type === 'pause') {

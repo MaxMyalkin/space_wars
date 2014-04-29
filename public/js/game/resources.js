@@ -89,8 +89,7 @@ define(['classy',
                 }, {
                     id: "attackSound",
                     src: attackSound
-                }
-                ];
+                }];
                 this.loaded = false;
 
                 this.error = false;
@@ -101,27 +100,22 @@ define(['classy',
                 this.queue.installPlugin(SoundJS.Sound);
                 this.queue.on("complete", this.handleComplete, this);
                 this.queue.on("progress", function(event) {
-                    $('.loader').width(event.loaded * 100 + '%');
+                    $('.loader').val(Math.floor(event.loaded * 100));
+                    $('#loadingPercent').html(Math.floor(event.loaded * 100) + '%');
 
                 }, this);
-                this.queue.on("error", function(event){
-
-                    $('.loader').hide();
-                    $('#game').show();                    
+                this.queue.on("error", function(event) {
+                    $('#gameOver').hide();
+                    $('#loadingForm').hide();
+                    $('#game').show();
                     $('#gameDiv').hide();
-                    $('#toSelect').hide();
                     $('#errorForm').show();
                     $('#error').html("Can't load " + event.item.type + " " + event.item.id + "." + event.item.ext);
-                    
+
                     this.queue.reset();
                 }, this);
 
-
-                
-                
                 this.queue.loadManifest(filesToLoad);
-
-
             },
 
             //Анимированные ресурсы
@@ -132,7 +126,7 @@ define(['classy',
             handleComplete: function() {
                 //this.attackSound = this.queue.getResult("attackSound");//this.DJCheckTheSound(["/sounds/attack.ogg", "/sounds/attack.mp3", "/sounds/attack.wav"]);
                 //this.bangSound = this.queue.getResult("bangSound"); //this.DJCheckTheSound(["/sounds/attack.ogg", "/sounds/attack.mp3", "/sounds/attack.wav"]);
-                
+                $('#loadingForm').hide();
                 this.smallAsteroid = new Resource(23, this.queue.getResult("smallAsteroid"), false, 0, 2);
                 this.bigAsteroid = new Resource(47, this.queue.getResult("bigAsteroid"), false, 0, 0);
                 this.mediumAsteroid = new Resource(40, this.queue.getResult("mediumAsteroid"), false, 0, 0);
@@ -163,7 +157,7 @@ define(['classy',
 
                 //OGG, MP3, WAV
 
-                
+
 
                 this.arrays = ResourceArray;
 
@@ -175,25 +169,11 @@ define(['classy',
                 this.arrays.set("secondTypeBang", 32, this.queue.getResult("bang2"), true, 0, 0, 0.4, 81, 62, true, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], true, 5);
                 this.arrays.set("thirdTypeBang", 50, this.queue.getResult("bang3"), true, 0, 0, 0.4, 93, 100, true, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], true, 5);
                 this.loaded = true;
-                $('.loader').hide();
+                $('#loadingFrom').hide();
                 $.event.trigger({
                     type: "createGame",
                     resource: this
                 });
-
-            },
-
-
-            DJCheckTheSound: function(soundsArray) {
-                var audio = new Audio();
-                var types = ['audio/ogg', 'audio/mp3', 'audio/wav'];
-                for (var i = 0; i < types.length; i++) {
-                    if (audio.canPlayType(types[i]) == "probably") return new Sound(soundsArray[i], 5);
-                }
-                for (var i = 0; i < types.length; i++) {
-                    if (audio.canPlayType(types[i]) == "maybe") return new Sound(soundsArray[i], 5);
-                }
-                return new Sound(soundsArray[0], 5);
 
             },
 
@@ -211,7 +191,7 @@ define(['classy',
             }
         });
 
- 
+
 
         return resources;
 

@@ -13,18 +13,6 @@ body {
   height: 100%;
   font-family: Yahoo, serif; }
 
-.loader {
-  display: none;
-  width: 0px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  height: 30px;
-  background: #33ff00;
-  -webkit-transform: translate(-50%, -50%);
-  -moz-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%); }
-
 .overlay {
   background-color: #777;
   top: 0;
@@ -47,6 +35,13 @@ body {
   border-top: 0;
   border-width: 10px;
   margin: auto; }
+
+progress {
+  background-color: #f3f3f3;
+  border: 0;
+  height: 18px;
+  border-radius: 9px;
+  width: 90%; }
 
 /*buttons*/
 .btn, .btn_small, .btn_thin, .btn_big, .btn_close {

@@ -13,9 +13,10 @@ define([
         el: "#main",
         _name: "main",
         initialize: function() {
+            $('#loadingForm').hide();
             this.render();
             this.hide();
-            $('.loader').hide();
+
         },
 
         render: function() {
