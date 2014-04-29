@@ -105,6 +105,12 @@ progress {
     margin: auto;
     height: 30px;
     margin-bottom: 20px; }
+    .gameOverForm__text_big {
+      width: 100%;
+      font-size: 15pt;
+      margin: auto;
+      height: 30px;
+      margin-bottom: 20px; }
 
 .form {
   z-index: 100;

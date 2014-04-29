@@ -11,8 +11,15 @@
   		font-size: 8pt;
   		margin: auto;
   		height: 30px;
-  		margin-bottom: 20px; 
-	}; 
+  		margin-bottom: 20px;
+      &_big {
+        width: 100%;
+        font-size: 15pt;
+        margin: auto;
+        height: 30px;
+        margin-bottom: 20px; 
+      }; 
+	 }; 
 }
 
 .form {

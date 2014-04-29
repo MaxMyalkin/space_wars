@@ -11,14 +11,14 @@
 
 	<div id='tokenForm' class='form'>
 		<div class="gameOverForm">
-			<div class="gameOverForm__text">Here is your token: </div><br/>
+			<div class="gameOverForm__text_big">Here is your token: </div><br/>
 			<span id='token'></span>
 		</div>
 	</div>
 
     <div id='errorForm' class='form'>
         <div class="gameOverForm">
-            <div id='error' class="gameOverForm__text"></div><br/>
+            <div id='error' class="gameOverForm__text_big"></div><br/>
             <a href='/#' id='toSelect' class='btn_big'>&#9668 Back</a>
         </div>
     </div>
