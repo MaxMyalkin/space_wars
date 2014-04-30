@@ -1,6 +1,7 @@
 define(['tmpl/forms/errorForm', 'tmpl/forms/selectForm', 'tmpl/forms/tokenForm', 'checking'],
     function(errorForm, selectForm, tokenForm, Modernizr) {
         var showErrorForm = function(error, game) {
+            $('#gameOver').hide();
             $('#formTemplate').html(errorForm);
             $('#error').html(error);
             $('#forms').show();

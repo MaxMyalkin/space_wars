@@ -35,6 +35,7 @@ body {
       width: 40%;
       height: 60%; } }
   .form input {
+    text-transform: uppercase;
     width: 50%; }
     @media screen and (min-width: 320px) {
       .form input {

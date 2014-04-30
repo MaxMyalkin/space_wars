@@ -133,7 +133,7 @@ require(['lib/Connector', 'checking', 'lib/deviceapi-normaliser', 'joystick/serv
                 currentBeta = startPosBeta;
                 currentGamma = startPosGamma;
                 server.bind({
-                    token: $('#token').val()
+                    token: $('#token').val().toLowerCase()
                 }, function(answer) {
                     if (answer.status == 'success') {
                         tokenForm.hide();
@@ -145,6 +145,7 @@ require(['lib/Connector', 'checking', 'lib/deviceapi-normaliser', 'joystick/serv
                         tokenError.html(answer.status);
                     }
                 });
+                $('#token').val("");
 
 
                 return false;
