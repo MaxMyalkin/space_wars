@@ -9,7 +9,7 @@ define(['Modernizr'],
         };
 
         var checkJoystickFeatures = function() {
-            if (!Modernizr.fontface || !Modernizr.sessionstorage || !Modernizr.websockets) {
+            if (!Modernizr.fontface || !Modernizr.sessionstorage || !Modernizr.websockets || !Modernizr.touch) {
                 return false;
             }
             return true;

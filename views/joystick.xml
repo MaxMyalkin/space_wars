@@ -32,7 +32,7 @@
 				<p id='tokenError' class='form__text_error'></p>
 				<div id='submit' class='form__btn'><div class='button__text'>Submit</div></div>
 			</div>
-			<div id='controls'>
+			<div id='controls' style='display: none'>
 				<div class='buttons'>
 					<div class='button' id='disconnect'><div class='button__text disconnect'>Delete</div></div>
 					<div class='button' id='restart'><div class='button__text start'>Start</div></div>

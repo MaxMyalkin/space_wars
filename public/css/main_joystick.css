@@ -12,6 +12,7 @@ body {
   margin: auto; }
 
 .form {
+  display: none;
   text-align: center;
   background-color: #C98887;
   border-radius: 20px;
