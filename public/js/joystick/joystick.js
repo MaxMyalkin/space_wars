@@ -152,24 +152,28 @@ require(['lib/Connector', 'checking', 'lib/deviceapi-normaliser', 'joystick/serv
 
             function changeOrientation() {
                 if (window.orientation % 180 == 0) {
-                    errorForm.show();
-                    error.html('please turn your device');
-                    mainscreen.hide();
-                    server.send({
-                            type: 'portrait'
-                        },
-                        function(data) {
-                            pause = data;
-                            setBtnText();
-                        });
+                    if (!errorForm.is(':visible')) {
+                        errorForm.show();
+                        error.html('please turn your device');
+                        mainscreen.hide();
+                        server.send({
+                                type: 'portrait'
+                            },
+                            function(data) {
+                                pause = data;
+                                setBtnText();
+                            });
 
-                    setBtnText();
+                        setBtnText();
+                    }
                 } else {
-                    server.send({
-                        type: 'landscape'
-                    });
-                    mainscreen.show();
-                    errorForm.hide();
+                    if (error.html() === 'please turn your device') {
+                        server.send({
+                            type: 'landscape'
+                        });
+                        mainscreen.show();
+                        errorForm.hide();
+                    }
 
                 }
             };
