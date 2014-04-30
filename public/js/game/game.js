@@ -5,62 +5,65 @@ define(['classy',
         'views/gameOver',
         'lib/Connector',
         'checking',
-        'serverFunc'
+        'tmpl/forms/errorForm',
+        'tmpl/forms/selectForm',
+        'tmpl/forms/tokenForm',
+        'serverFunc',
+        'formManager'
     ],
-    function(Class, Player, GameMechanic, Resources, GameOver, Connection, Modernizr) {
-        /* TODO 
-         */
+    function(Class,
+        Player,
+        GameMechanic,
+        Resources,
+        GameOver,
+        Connection,
+        Modernizr,
+        errorForm,
+        selectForm,
+        tokenForm,
+        serverFunc,
+        formManager) {
+
+        /*var showSelectForm = function(game) {
+            formManager.showSelectForm();
+            $('#pc').on('click', function() {
+                if (Modernizr.checkConsoleFeatures()) {
+                    gameDiv.show();
+                    overlay.hide();
+                    $('#forms').hide();
+                } else {
+                    formManager.showErrorForm("some features aren't supported");
+                }
+                return false;
+            });
+            $('#smart').click(game.SmartSelection.bind(game));
+        };*/
 
         var Game = Class.$extend({
             __init__: function(resources) {
                 var game = this;
-
-                $('#pc').on('click', function() {
-                    if (Modernizr.checkConsoleFeatures()) {
-                        gameDiv.show();
-                        overlay.hide();
-                        selectForm.hide();
-                    } else {
-                        selectForm.hide();
-                        error.html("some features aren't supported");
-                        errorForm.show();
-                    }
-                    return false;
-                });
-                $('#smart').click(this.SmartSelection.bind(game));
                 _.bindAll(this, "messageRecieved");
                 gameDiv = $('#gameDiv');
-                selectForm = $('#selectForm');
-                tokenForm = $('#tokenForm');
                 overlay = $('.overlay');
-                error = $('#error');
-                errorForm = $('#errorForm');
-                token = $('#token');
-                selectForm.show();
+                formManager.showSelectForm(this);
                 overlay.show();
-                tokenForm.hide();
-                $('#toSelect').click(function() {
-                    errorForm.hide();
-                    selectForm.show();
-                });
 
                 $('#gameOver').hide();
                 gameDiv.hide();
-                errorForm.hide();
 
                 this.server = new Connection({
                     remote: '/console'
                 });
 
                 this.server.on('message', this.messageRecieved);
-                this.server.on('reconnect', reconnect.bind(game));
-                this.server.on('disconnect', disconnect.bind(game));
+                this.server.on('reconnect', serverFunc.reconnect.bind(game));
+                this.server.on('disconnect', serverFunc.disconnect.bind(game));
                 this.server.on('player-joined', function(data) {
                     console.log(data.guid); // guid инициализированной связки
                     sessionStorage.setItem('guid', data.guid);
                     gameDiv.show();
-                    tokenForm.hide();
                     overlay.hide();
+                    $('#forms').hide();
                 });
 
                 this.resources = resources;
@@ -101,7 +104,6 @@ define(['classy',
                 this.player = new Player("#ffffff", this.GAME_WIDTH, this.GAME_HEIGHT,
                     this.resources.player);
 
-
                 $(document).bind("keydown", function(event) {
                     game.keydown[String.fromCharCode(event.which).toLowerCase()] = true;
                 });
@@ -116,7 +118,7 @@ define(['classy',
                 this.backBtn = $("#backBtn");
                 this.backBtn.click(
                     function() {
-                        selectForm.show();
+                        formManager.showSelectForm(game);
                         overlay.show();
                         gameDiv.hide();
                         game.context.clearRect(0, 0, game.GAME_WIDTH, game.GAME_HEIGHT);
@@ -135,17 +137,11 @@ define(['classy',
             },
 
             SmartSelection: function() {
-                console.log('ok');
                 if (Modernizr.checkConsoleFeatures()) {
-                    console.log('ok_1');
-                    init.call(this);
+                    serverFunc.init.call(this);
                     var self = this;
-                    selectForm.hide();
                 } else {
-                    console.log('ok_qq');
-                    selectForm.hide();
-                    error.html("some features doesn't support");
-                    errorForm.show();
+                    formManager.showErrorForm("some features aren't supported");
                 }
             },
 
@@ -169,12 +165,9 @@ define(['classy',
                     this.endGame();
                     sessionStorage.removeItem('guid');
                     gameDiv.hide();
-                    selectForm.hide();
-                    tokenForm.hide();
                     $('#gameOver').hide();
                     overlay.show();
-                    error.html('device has been disconnected');
-                    errorForm.show();
+                    formManager.showErrorForm("device has been disconnected", game);
                 }
 
                 if (data.type === 'pause') {

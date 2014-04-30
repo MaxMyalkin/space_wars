@@ -1,0 +1,6 @@
+<fest:template xmlns:fest="http://fest.mail.ru"
+    context_name="json">
+    <div>Choose device:</div>
+    <a id='pc'><img style='height: 100px; float:left; margin-left: 50px;' src='images/pc.png' alt='pc'/></a>
+    <a id='smart'><img style='height: 100px; float:right; margin-right: 50px;' src='images/mobile.png' alt='smartphone'/></a>
+</fest:template>

@@ -1,28 +1,12 @@
 <fest:template xmlns:fest="http://fest.mail.ru"
     context_name="json">
 
-	<div id='selectForm' class='form'>
-		<div class="gameOverForm">
-			<div>Choose device:</div>
-		    <a id='pc'><img style='height: 100px; float:left; margin-left: 50px;' src='images/pc.png' alt='pc'/></a>
-		    <a id='smart'><img style='height: 100px; float:right; margin-right: 50px;' src='images/mobile.png' alt='smartphone'/></a>
-		</div>
-	</div>
 
-	<div id='tokenForm' class='form'>
-		<div class="gameOverForm">
-			<div class="gameOverForm__text_big">Here is your token: </div><br/>
-			<span id='token'></span>
-		</div>
-	</div>
+    <div id='forms' class='form'>
+        <div class="gameOverForm" id='formTemplate'>
 
-    <div id='errorForm' class='form'>
-        <div class="gameOverForm">
-            <div id='error' class="gameOverForm__text_big"></div><br/>
-            <a href='/#' id='toSelect' class='btn_big'>&#9668 Back</a>
         </div>
     </div>
-
     <div id='gameDiv'>
 	    <div class="header header_game">
 	    	<a id="backBtn" href='/#' class='btn_thin game_button'>&#9668 BACK</a>

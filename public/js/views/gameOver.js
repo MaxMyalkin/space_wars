@@ -1,6 +1,6 @@
 define([
     'backbone',
-    'tmpl/gameOver',
+    'tmpl/forms/gameOver',
     'views/viewManager',
     'models/score',
     'collections/scores',

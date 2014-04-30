@@ -28,7 +28,7 @@ module.exports = function(grunt) {
                 }
             },
             fest: {
-                files: ['templates/*.xml'],
+                files: ['templates/*.xml', 'templates/forms/*.xml'],
                 tasks: ['fest'],
                 options: {
                     atBegin: true
@@ -134,6 +134,11 @@ module.exports = function(grunt) {
                     cwd: 'templates',
                     src: '*.xml',
                     dest: 'public/js/tmpl'
+                }, {
+                    expand: true,
+                    cwd: 'templates/forms',
+                    src: '*.xml',
+                    dest: 'public/js/tmpl/forms'
                 }],
                 options: {
                     template: function(data) {
