@@ -16,6 +16,5 @@ results
 npm-debug.log
 node_modules
 .sass-cache
-public/js/build.js
-public/js/build.min.js
 src
+public/js/production

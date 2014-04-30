@@ -63,7 +63,7 @@ module.exports = function(grunt) {
                     mainConfigFile: "public/js/main.js",
                     name: "main",
                     optimize: "none",
-                    out: "public/js/build/main.js"
+                    out: "public/js/production/console.js"
                 }
             },
             build_joystick: {
@@ -73,7 +73,7 @@ module.exports = function(grunt) {
                     mainConfigFile: "public/js/joystick/joystick.js",
                     name: "joystick/joystick",
                     optimize: "none",
-                    out: "public/js/build/joystick.js"
+                    out: "public/js/production/joystick.js"
                 }
             }
         },
@@ -81,11 +81,11 @@ module.exports = function(grunt) {
         uglify: {
             build: {
                 files: [{
-                    src: ['public/js/build/main.js'],
-                    dest: 'public/js/build.min.js'
+                    src: ['public/js/production/console.js'],
+                    dest: 'public/js/production/console.min.js'
                 }, {
-                    src: ['public/js/build/joystick.js'],
-                    dest: 'public/js/joystick.min.js'
+                    src: ['public/js/production/joystick.js'],
+                    dest: 'public/js/production/joystick.min.js'
                 }]
             }
         },
@@ -105,15 +105,15 @@ module.exports = function(grunt) {
                 options: {
                     separator: ';\n'
                 },
-                src: ['public/js/lib/almond.js', 'public/js/build/main.js'],
-                dest: 'public/js/build/main.js'
+                src: ['public/js/lib/almond.js', 'public/js/production/console.js'],
+                dest: 'public/js/production/console.js'
             },
             build_joystick: {
                 options: {
                     separator: ';\n'
                 },
-                src: ['public/js/lib/almond.js', 'public/js/build/joystick.js'],
-                dest: 'public/js/build/joystick.js'
+                src: ['public/js/lib/almond.js', 'public/js/production/joystick.js'],
+                dest: 'public/js/production/joystick.js'
             }
         },
 
