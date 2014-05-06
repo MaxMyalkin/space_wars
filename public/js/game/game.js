@@ -24,21 +24,6 @@ define(['classy',
         serverFunc,
         formManager) {
 
-        /*var showSelectForm = function(game) {
-            formManager.showSelectForm();
-            $('#pc').on('click', function() {
-                if (Modernizr.checkConsoleFeatures()) {
-                    gameDiv.show();
-                    overlay.hide();
-                    $('#forms').hide();
-                } else {
-                    formManager.showErrorForm("some features aren't supported");
-                }
-                return false;
-            });
-            $('#smart').click(game.SmartSelection.bind(game));
-        };*/
-
         var Game = Class.$extend({
             __init__: function(resources) {
                 var game = this;
@@ -100,7 +85,7 @@ define(['classy',
                 canvas.height = this.GAME_HEIGHT;
                 this.context = canvas.getContext("2d");
                 this.context.fillStyle = "#ffffff";
-                this.context.debug = false; //режим отладки перенесен сюда
+                this.context.debug = true; //режим отладки перенесен сюда
                 this.player = new Player("#ffffff", this.GAME_WIDTH, this.GAME_HEIGHT,
                     this.resources.player);
 
@@ -134,6 +119,9 @@ define(['classy',
                 this.reloading(true);
                 this.setBtnText();
                 this.setScore();
+
+
+
             },
 
             SmartSelection: function() {
@@ -472,7 +460,7 @@ define(['classy',
                     type: 'ship'
                 });
                 if (this.gameover) {
-                    this.gameOverForm.show(this.player.score);
+                    this.gameOverForm.show(this);
                 }
                 this.level = 1;
                 this.asteroidTimer = 0;
@@ -487,14 +475,15 @@ define(['classy',
                 this.bonuses = [];
                 this.keydown = [];
                 this.stoppedFunc();
+                this.setBulletInfo();
+                this.setScore();
+                this.setLevelInfo();
             },
 
             stoppedFunc: function() {
                 this.context.clearRect(0, 0, this.GAME_WIDTH, this.GAME_HEIGHT);
-                this.setScore();
                 this.stopped = true;
                 this.setBtnText();
-                this.setLevelInfo();
             },
 
             drawBulletImg: function() {
@@ -564,6 +553,8 @@ define(['classy',
             }
 
         });
+
+
 
         return Game;
     });

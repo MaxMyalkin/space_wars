@@ -9,9 +9,9 @@
     </div>
     <div id='gameDiv'>
 	    <div class="header header_game">
-	    	<a id="backBtn" href='/#' class='btn_thin game_button'>&#9668 BACK</a>
-	    	<a id="pause" class='btn_thin game_button'></a>
-	    	<a id="restart" class='btn_thin game_button'></a>
+	    	<a id="backBtn" href='/#' class='btn_thin game_button btn'>&#9668 BACK</a>
+	    	<a id="pause" class='btn_thin game_button btn'></a>
+	    	<a id="restart" class='btn_thin game_button btn'></a>
 	    </div>
     	<div class="info">
     		<div class='info__header'>score:<fest:space/><span id='score'>0</span></div>

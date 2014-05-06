@@ -49,7 +49,7 @@ require(['lib/Connector', 'checking', 'lib/deviceapi-normaliser', 'joystick/serv
         var startPosBeta = 0;
         var startPosGamma = 0;
         var current_position;
-
+        var disconnected = false;
         var disconnectBtn = document.getElementById('disconnect');
         disconnectBtn.addEventListener("touchstart",
             function() {
@@ -63,6 +63,7 @@ require(['lib/Connector', 'checking', 'lib/deviceapi-normaliser', 'joystick/serv
                 mainscreen.show();
                 controls.hide();
                 tokenForm.show();
+                disconnected = true;
             }
         );
         var shootBtn = document.getElementById('shoot');
@@ -112,7 +113,7 @@ require(['lib/Connector', 'checking', 'lib/deviceapi-normaliser', 'joystick/serv
 
             function updategyro(e) {
                 current_position = deviceOrientation(e);
-                if (Math.abs(currentBeta - current_position.beta) > 2 || Math.abs(currentGamma - current_position.gamma) > 2) {
+                if (!disconnected && (Math.abs(currentBeta - current_position.beta) > 2 || Math.abs(currentGamma - current_position.gamma) > 2)) {
                     server.send({
                         type: 'move',
                         startBeta: startPosBeta,
@@ -127,6 +128,7 @@ require(['lib/Connector', 'checking', 'lib/deviceapi-normaliser', 'joystick/serv
 
             $('#submit').click(function() {
                 tokenError.html("");
+                disconnected = false;
                 var currentPos = current_position;
                 startPosBeta = currentPos.beta;
                 startPosGamma = currentPos.gamma;
@@ -157,13 +159,15 @@ require(['lib/Connector', 'checking', 'lib/deviceapi-normaliser', 'joystick/serv
                         errorForm.show();
                         error.html('please turn your device');
                         mainscreen.hide();
-                        server.send({
-                                type: 'portrait'
-                            },
-                            function(data) {
-                                pause = data;
-                                setBtnText();
-                            });
+                        if (!disconnected) {
+                            server.send({
+                                    type: 'portrait'
+                                },
+                                function(data) {
+                                    pause = data;
+                                    setBtnText();
+                                });
+                        }
 
                         setBtnText();
                     }

@@ -14,7 +14,7 @@
     			<fest:attribute name='value' value='{json.score}'/> 
     		</fest:attributes>
     	</input>
-    	<button id="submitBtn" type="submit" class="btn_thin">Save</button>
+    	<button id="submitBtn" type="submit" class="btn_thin btn">Save</button>
    </form>
    <div id="formError" class="gameOverForm__text"></div>
 </div>
