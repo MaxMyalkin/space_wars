@@ -554,7 +554,5 @@ define(['classy',
 
         });
 
-
-
         return Game;
     });

@@ -50,50 +50,5 @@ define([
 
     });
 
-    $('#gameOverForm').on("submit", function(event) {
-        event.preventDefault();
-        var data = $(this).serialize();
-        var name = $("#nameField").val();
-        var score = $("#scoreField").val();
-        if (name == '') {
-            $("#formError").html("Type your name");
-        } else {
-            var player = new Score({
-                name: name,
-                score: score
-            });
-            Scoreboard.add(player);
-            player = {
-                'name': name,
-                'score': score
-            }
-            $('.btn').prop("disabled", true);
-            $('#nameField').prop("disabled", true);
-            $.ajax({
-                url: '/scores',
-                type: 'post',
-                data: data,
-                dataType: 'json',
-                success: function(response) {
-                    $('.btn').prop("disabled", false);
-                    window.location = "/#scoreboard";
-                    $('.btn').prop("disabled", false);
-                    $('#nameField').prop("disabled", false);
-                    formManager.showSelectForm(Game);
-                    $('#gameOver').hide();
-                },
-                error: function(response) {
-                    var scores = Storage.getJSON('scores');
-                    scores.push(player);
-                    Storage.setJSON('scores', scores);
-                    window.location = "/#scoreboard";
-                    $('.btn').prop("disabled", false);
-                    $('#nameField').prop("disabled", false);
-                    formManager.showSelectForm(Game);
-                    $('#gameOver').hide();
-                }
-            });
-        };
-    });
     return new View();
 });
