@@ -187,14 +187,14 @@ require(['lib/Connector', 'checking', 'lib/deviceapi-normaliser', 'joystick/serv
                 var pauseBtn = $('.button__text.pause');
                 var restart = $('.button__text.start');
                 if (pause) {
-                    pauseBtn.html("Go");
+                    pauseBtn.attr('src', 'images/buttons/play.png');
                 } else {
-                    pauseBtn.html("Pause");
+                    pauseBtn.attr('src', 'images/buttons/pause.png');
                 }
                 if (stopped) {
-                    restart.html("Start");
+                    restart.attr('src', 'images/buttons/play.png');
                 } else {
-                    restart.html("Restart");
+                    restart.attr('src', 'images/buttons/restart.png');
                 }
             };
 

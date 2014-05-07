@@ -133,5 +133,8 @@ body {
   -moz-transform: translate(0px, -50%);
   transform: translate(0px, -50%); }
 
+.button__img {
+  height: 80%; }
+
 .active {
   border: 5px solid red; }

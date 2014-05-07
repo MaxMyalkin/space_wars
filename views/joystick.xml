@@ -34,21 +34,32 @@
 			</div>
 			<div id='controls' style='display: none'>
 				<div class='buttons'>
-					<div class='button' id='disconnect'><div class='button__text disconnect'>Delete</div></div>
-					<div class='button' id='restart'><div class='button__text start'>Start</div></div>
-					<div class='button' id='pause'><div class='button__text pause'>Pause</div></div>
-					<div class='button' id='shoot'><div class='button__text shoot'>Shoot</div></div>
+					<div class='button' id='disconnect'><img class="button__img button__text" src='images/buttons/disconnect.png'/></div>
+					<div class='button' id='restart'>
+						<img class="button__img button__text start" src='images/buttons/restart.png'/>
+					</div>
+					<div class='button' id='pause'>
+						<img class="button__img button__text pause" src='images/buttons/pause.png'/>
+					</div>
+					<div class='button' id='shoot'>
+						<img class="button__img button__text" src='images/buttons/shoot.png'/>
+					</div>
 				</div>
 				
 				<div class='switchers'>
 					<div class='switcher-group' id='bulletSwitcher'>
-						<div id="bullet1" class='switcher active'><div class='button__text'>b1</div></div>
-						<div id="bullet2" class='switcher'><div class='button__text'>b2</div></div>
-						<div id="bullet3" class='switcher'><div class='button__text'>b3</div></div>
+						<div id="bullet1" class='switcher active'>
+							<img class="button__img button__text" src='images/buttons/first.png'/></div>
+						<div id="bullet2" class='switcher'>
+							<img class="button__img button__text" src='images/buttons/second.png'/></div>
+						<div id="bullet3" class='switcher'>
+							<img class="button__img button__text" src='images/buttons/third.png'/></div>
 					</div>
 					<div class='switcher-group' id='shipSwitcher'>
-						<div id="ship1" class='switcher active'><div class='button__text'>s1</div></div>
-						<div id="ship2" class='switcher'><div class='button__text'>s2</div></div>
+						<div id="ship1" class='switcher active'>
+							<img class="button__img button__text" src='images/buttons/ship1.png'/></div>
+						<div id="ship2" class='switcher'>
+							<img class="button__img button__text" src='images/buttons/ship2.png'/></div>
 					</div>
 				</div>
 			</div>
