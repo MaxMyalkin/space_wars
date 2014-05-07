@@ -145,6 +145,7 @@ define(['classy',
                     if (this.collision(game.player, game.bonuses[i])) {
                         toDeleteBonus.push(i);
                         game.player.bonusBullets[game.bonuses[i].type - 1] += 5;
+                        SoundJS.Sound.play("bonusSound");
                         game.setBulletInfo();
                     } else {
                         if (game.bonuses[i].time > game.BONUS_TERMINATE)

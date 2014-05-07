@@ -16,7 +16,8 @@ define(['classy',
             __init__: function() {
                 var bangSound = this.DJCheckTheSoundTitle(["/sounds/boom.ogg", "/sounds/boom.mp3", "/sounds/boom.wav"]);
                 var attackSound = this.DJCheckTheSoundTitle(["/sounds/attack.ogg", "/sounds/attack.mp3", "/sounds/attack.wav"]);
-
+                var reloadSound = this.DJCheckTheSoundTitle(["/sounds/reload.ogg", "/sounds/reload.mp3", "/sounds/reload.wav"]);
+                var bonusSound = this.DJCheckTheSoundTitle(["/sounds/bonus.ogg", "/sounds/bonus.mp3", "/sounds/bonus.wav"]);
                 var filesToLoad = [{
                     id: "smallAsteroid",
                     src: "/images/asteroid/smallAsteroid.png"
@@ -89,6 +90,12 @@ define(['classy',
                 }, {
                     id: "attackSound",
                     src: attackSound
+                }, {
+                    id: "reloadSound",
+                    src: "/sounds/reload.mp3"
+                }, {
+                    id: "bonusSound",
+                    src: "/sounds/bonus.mp3"
                 }];
                 this.loaded = false;
 

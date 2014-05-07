@@ -9,7 +9,8 @@ define(['classy',
         'tmpl/forms/selectForm',
         'tmpl/forms/tokenForm',
         'serverFunc',
-        'formManager'
+        'formManager',
+        'soundjs'
     ],
     function(Class,
         Player,
@@ -22,7 +23,8 @@ define(['classy',
         selectForm,
         tokenForm,
         serverFunc,
-        formManager) {
+        formManager,
+        SoundJS) {
 
         var Game = Class.$extend({
             __init__: function(resources) {
@@ -429,6 +431,7 @@ define(['classy',
 
             play: function() {
                 if (this.bulletTimer === this.BULLET_TIMEOUT) {
+                    SoundJS.Sound.play("reloadSound");
                     this.server.send({
                         type: "canShoot"
                     })
