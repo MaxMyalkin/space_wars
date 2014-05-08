@@ -67,7 +67,7 @@ define(['classy',
 
                 this.FONT_SIZE = 50;
                 this.ASTEROID_TIMEOUT = 50;
-                this.BULLET_TIMEOUT = 25;
+                this.BULLET_TIMEOUT = 40;
                 this.BONUS_TIMEOUT = 500;
                 this.BONUS_TERMINATE = 200;
                 //Переменные
@@ -162,13 +162,13 @@ define(['classy',
 
                 if (data.type === 'pause') {
                     this.pauseGame();
-                    answer(this.pauseFlag);
+                    //answer(this.pauseFlag);
                 }
 
                 if (data.type === 'restart') {
                     this.gameOverForm.hide();
                     this.restartGame();
-                    answer(this.stopped);
+                    //answer(this.stopped);
                 }
 
                 if (data.type === 'portrait') {
@@ -407,7 +407,12 @@ define(['classy',
                 this.pauseFlag = false;
                 this.stopped = false;
                 this.setBtnText();
-
+                if (this.server != undefined) {
+                    this.server.send({
+                        type: 'stop',
+                        value: this.stopped
+                    });
+                }
                 this.drawBulletImg();
                 this.setBulletInfo();
                 this.setShipInfo();
@@ -426,12 +431,17 @@ define(['classy',
                     }
                 }
                 this.setBtnText();
+                if (this.server != undefined) {
+                    this.server.send({
+                        type: 'pause',
+                        value: this.pauseFlag
+                    });
+                }
 
             },
 
             play: function() {
                 if (this.bulletTimer === this.BULLET_TIMEOUT) {
-                    SoundJS.Sound.play("reloadSound");
                     this.server.send({
                         type: "canShoot"
                     })
@@ -459,9 +469,11 @@ define(['classy',
             },
 
             endGame: function() {
-                this.server.send({
-                    type: 'ship'
-                });
+                if (this.server != undefined) {
+                    this.server.send({
+                        type: 'reset'
+                    });
+                }
                 if (this.gameover) {
                     this.gameOverForm.show(this);
                 }
@@ -487,6 +499,12 @@ define(['classy',
                 this.context.clearRect(0, 0, this.GAME_WIDTH, this.GAME_HEIGHT);
                 this.stopped = true;
                 this.setBtnText();
+                if (this.server != undefined) {
+                    this.server.send({
+                        type: 'stop',
+                        value: this.stopped
+                    });
+                }
             },
 
             drawBulletImg: function() {

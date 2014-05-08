@@ -22,6 +22,7 @@ define(['formManager'],
                         sessionStorage.setItem('guid', data.guid);
                         $('#gameDiv').show();
                         $('.overlay').hide();
+                        $('#forms').hide();
                     } else if (data.status == 'undefined guid') {
                         sessionStorage.removeItem('guid');
                         init.call(self);

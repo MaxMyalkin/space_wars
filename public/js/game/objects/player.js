@@ -28,11 +28,14 @@ define(['game/objects/object',
                     this.y - game.player.radius, game.resources, game.ROCKET_SPEED, type, this.damageMultiplier);
                 this.bullets.push(rocket);
                 //game.resources.attackSound.playSound();
-                SoundJS.Sound.play("attackSound");
+                var instance = SoundJS.Sound.play("attackSound");
+                instance.addEventListener("complete", function() {
+                    SoundJS.Sound.play("reloadSound");
+                });
             },
 
-            joystickMove: function(width, height, x, y){
-                
+            joystickMove: function(width, height, x, y) {
+
                 this.joystickX = x;
                 this.joystickY = y;
                 if (this.x + x <= width - this.radius && this.x + x >= this.radius)

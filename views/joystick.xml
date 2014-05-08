@@ -36,7 +36,7 @@
 				<div class='buttons'>
 					<div class='button' id='disconnect'><img class="button__img button__text" src='images/buttons/disconnect.png'/></div>
 					<div class='button' id='restart'>
-						<img class="button__img button__text start" src='images/buttons/restart.png'/>
+						<img class="button__img button__text start" src='images/buttons/play.png'/>
 					</div>
 					<div class='button' id='pause'>
 						<img class="button__img button__text pause" src='images/buttons/pause.png'/>

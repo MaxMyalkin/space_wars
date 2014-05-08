@@ -76,7 +76,8 @@ require(['lib/Connector', 'checking', 'lib/deviceapi-normaliser', 'joystick/serv
         var shipSwitcher = document.getElementById('shipSwitcher');
         var ship1 = document.getElementById('ship1');
         var ship2 = document.getElementById('ship2');
-
+        var pauseBtnImg = $('.button__text.pause');
+        var restartImg = $('.button__text.start');
         window.addEventListener("touchstart", touchStart);
         window.addEventListener("touchend", touchEnd);
         window.addEventListener("deviceorientation", updategyro, false);
@@ -95,20 +96,7 @@ require(['lib/Connector', 'checking', 'lib/deviceapi-normaliser', 'joystick/serv
             server.on('disconnect', disconnect);
             server.on('connect', connect);
             server.on('reconnect', reconnect.bind(server));
-            server.onReady(function() {
-                server.on('message', function(data) {
-                    if (data.type === 'ship') {
-                        $("#bulletSwitcher .active").removeClass("active");
-                        $('#bullet1').addClass("active");
-                    }
-                    if (data.type === "canShoot") {
-                        canShoot = true;
-                    }
-                    if (data.type === "shootACK") {
-                        canShoot = false;
-                    }
-                });
-            });
+            server.on('message', messageRecieved)
             init.call(server);
 
             function updategyro(e) {
@@ -148,10 +136,47 @@ require(['lib/Connector', 'checking', 'lib/deviceapi-normaliser', 'joystick/serv
                     }
                 });
                 $('#token').val("");
-
-
                 return false;
             });
+
+            function messageRecieved(data, answer) {
+
+                switch (data.type) {
+                    case 'canShoot':
+                        canShoot = true;
+                        break;
+
+                    case 'shootACK':
+                        canShoot = false;
+                        break;
+
+                    case 'reset':
+                        bulletType = 1;
+                        pauseBtnImg.attr('src', 'images/buttons/pause.png');
+                        $('#shipSwitcher .active').removeClass('active');
+                        $('#ship1').addClass('active');
+                        $('#bulletSwitcher .active').removeClass('active');
+                        $('#bullet1').addClass('active');
+                        break;
+
+                    case 'pause':
+                        if (data.value) { // игра на паузе
+                            pauseBtnImg.attr('src', 'images/buttons/play.png');
+                        } else {
+                            pauseBtnImg.attr('src', 'images/buttons/pause.png');
+                        }
+                        break;
+
+                    case 'stop':
+                        if (data.value) { // игра остановлена
+                            restartImg.attr('src', 'images/buttons/play.png');
+                        } else {
+                            restartImg.attr('src', 'images/buttons/restart.png');
+                        }
+                        break;
+
+                }
+            }
 
             function changeOrientation() {
                 if (window.orientation % 180 == 0) {
@@ -180,21 +205,6 @@ require(['lib/Connector', 'checking', 'lib/deviceapi-normaliser', 'joystick/serv
                         errorForm.hide();
                     }
 
-                }
-            };
-
-            function setBtnText() {
-                var pauseBtn = $('.button__text.pause');
-                var restart = $('.button__text.start');
-                if (pause) {
-                    pauseBtn.attr('src', 'images/buttons/play.png');
-                } else {
-                    pauseBtn.attr('src', 'images/buttons/pause.png');
-                }
-                if (stopped) {
-                    restart.attr('src', 'images/buttons/play.png');
-                } else {
-                    restart.attr('src', 'images/buttons/restart.png');
                 }
             };
 
@@ -331,9 +341,6 @@ require(['lib/Connector', 'checking', 'lib/deviceapi-normaliser', 'joystick/serv
                 currentPressed = [];
                 server.send({
                     type: 'pause'
-                }, function(data) {
-                    pause = data;
-                    setBtnText();
                 });
 
             });
@@ -341,8 +348,7 @@ require(['lib/Connector', 'checking', 'lib/deviceapi-normaliser', 'joystick/serv
             restartBtn.addEventListener("touchstart", function(event) {
                 event.preventDefault();
                 currentPressed = [];
-                $('#shipSwitcher .active').removeClass('active');
-                $('#ship1').addClass('active');
+
                 var currentPos = current_position;
                 startPosBeta = currentPos.beta;
                 startPosGamma = currentPos.gamma;
@@ -350,9 +356,6 @@ require(['lib/Connector', 'checking', 'lib/deviceapi-normaliser', 'joystick/serv
                 currentGamma = startPosGamma;
                 server.send({
                     type: 'restart'
-                }, function(data) {
-                    stopped = data;
-                    setBtnText();
                 });
             });
         } else {
