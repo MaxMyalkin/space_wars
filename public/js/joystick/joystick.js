@@ -82,14 +82,14 @@ require(['lib/Connector', 'checking', 'lib/deviceapi-normaliser', 'joystick/serv
         window.addEventListener("touchend", touchEnd);
         window.addEventListener("deviceorientation", updategyro, false);
         window.addEventListener('orientationchange', changeOrientation);
-
+        var server;
         mo.init();
 
         errorForm.hide();
         controls.hide();
         mainscreen.hide();
         if (Modernizr.checkJoystickFeatures()) {
-            var server = new Connection({
+            server = new Connection({
                 remote: '/player'
             });
 

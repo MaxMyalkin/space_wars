@@ -20,10 +20,6 @@
 		    minimum-scale=1"/>	
 	</head>
 	<body>
-		<div style='color: white' id='alpha'></div>
-		<div id='betta' style='color: white'></div>
-		<div id='gamma' style='color: white'></div>
-		<div id='fingers' style='color: white'></div>
 		<div id='mainscreen'>
 			<div id='tokenForm' class='form'>
 
@@ -65,7 +61,7 @@
 			</div>
 		</div>
 		<div id='errorForm' class='form'>
-			<p id='error' class='form__text_error'>Please turn your device</p>
+			<div id='error' class='form__text_error'>Please turn your device</div>
 		</div>
 
 	</body>
