@@ -14,7 +14,10 @@
 			<link rel="stylesheet" type="text/css" href="css/main_console.css" />
 		</fest:if>
 	</head>
-	<body>
+	<body background= 'images/stars.gif'>
+		<script type="text/javascript">
+			
+		</script>
 		<div id='loadingForm' style='display:none;' class='form'>
 			<div class="gameOverForm">
 				<div class="gameOverForm__text">Loading<fest:space/><span id='loadingPercent'></span></div><br/>

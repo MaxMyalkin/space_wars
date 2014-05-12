@@ -26,6 +26,16 @@ define(['classy',
         formManager,
         SoundJS) {
 
+        var bg_Offset = 0;
+        var bg_Object = eval('document.body');
+
+        function scroll_bg(Size) {
+            bg_Offset = bg_Offset + 1;
+            if (bg_Offset > Size) bg_Offset = 0;
+            bg_Object.style.backgroundPosition = "0px " + bg_Offset + "px";
+        }
+
+
         var Game = Class.$extend({
             __init__: function(resources) {
                 var game = this;
@@ -87,7 +97,7 @@ define(['classy',
                 canvas.height = this.GAME_HEIGHT;
                 this.context = canvas.getContext("2d");
                 this.context.fillStyle = "#ffffff";
-                this.context.debug = true; //режим отладки перенесен сюда
+                this.context.debug = false; //режим отладки перенесен сюда
                 this.player = new Player("#ffffff", this.GAME_WIDTH, this.GAME_HEIGHT,
                     this.resources.player);
 
@@ -394,8 +404,14 @@ define(['classy',
                         game.play();
                         game.movePlayer();
                     }, 1000 / this.DELAY);
-                } else
+
+                    this.bginterval = setInterval(function() {
+                        scroll_bg(234);
+                    }, 50);
+                } else {
                     clearInterval(this.interval);
+                    clearInterval(this.bginterval);
+                }
             },
 
             restartGame: function() {
