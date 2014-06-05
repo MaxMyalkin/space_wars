@@ -125,22 +125,6 @@ define(['classy',
                     }
                 }
 
-                for (var i = game.bangs.length - 1; i >= 0; i--) {
-                    for (var j = game.asteroids.length - 1; j >= 0; j--) {
-                        if (this.collision(game.asteroids[j], game.bangs[i])) {
-                            game.asteroids[j].health -= 0.1;
-                            if (game.asteroids[j].health <= 0) {
-                                toDeleteAster.push(j);
-                                toCreateBang.push(new BigBang("#ffffff", game.asteroids[j].x, game.asteroids[j].y,
-                                    game.resources, 1));
-                                SoundJS.Sound.play("bangSound");
-                            };
-                        };
-                    };
-                };
-
-
-
                 for (var i = 0; i < game.bonuses.length; i++) {
                     if (this.collision(game.player, game.bonuses[i])) {
                         toDeleteBonus.push(i);

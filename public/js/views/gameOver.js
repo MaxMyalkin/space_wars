@@ -32,14 +32,12 @@ define([
             $('.btn_close').click(function() {
                 gameOverForm.hide()
             });
-            $('#gameOverForm').on("submit", function(event) {
+            $('#submitBtn').click(function(event) {
                 event.preventDefault();
                 var data = $(this).serialize();
                 var name = $("#nameField").val();
                 var score = $("#scoreField").val();
-                if (name == '') {
-                    $("#formError").html("Type your name");
-                } else {
+                if (name != "") {
                     var player = new Score({
                         name: name,
                         score: score

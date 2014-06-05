@@ -14,7 +14,6 @@ $font-family : Yahoo, serif;
 $main-color: #f2e8c9;
 $blue: #082567;
 $red: #B22222;
-$green: #33FF00;
 
 html {
   	height: 100%;
@@ -56,7 +55,7 @@ body {
 }
 
 progress {
-    background-color: #f3f3f3;
+    background-color: $blue;
     border: 0;
     height: 18px;
     border-radius: 9px;

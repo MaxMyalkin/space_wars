@@ -2,8 +2,8 @@
   font-family: Yahoo;
   src: url(fonts/Yahoo.ttf); }
 html {
+  background-image: url(/images/stars.gif);
   font-family: Yahoo, serif;
-  background: #B3B3B3;
   height: 100%; }
 
 body {
@@ -14,7 +14,7 @@ body {
 .form {
   display: none;
   text-align: center;
-  background-color: #C98887;
+  background-color: #f2e8c9;
   border-radius: 20px;
   z-index: 100;
   position: absolute;
@@ -35,8 +35,13 @@ body {
       width: 40%;
       height: 60%; } }
   .form input {
+    font-size: 20px;
+    padding: 6px 0 4px 10px;
+    border: 3px solid #082567;
+    background: #f2e8c9;
+    border-radius: 8px;
     text-transform: uppercase;
-    width: 50%; }
+    width: 25%; }
     @media screen and (min-width: 320px) {
       .form input {
         margin-bottom: 5%; } }
@@ -51,12 +56,13 @@ body {
   .form__btn {
     margin: 20px;
     width: 50%;
-    background-color: #EBEDEB;
+    background-color: #082567;
     font-size: 12px;
     border-radius: 10px;
     display: inline-block;
     text-decoration: none;
     text-align: center;
+    color: white;
     -moz-box-shadow: 0px 0px 30px 3px black;
     -webkit-box-shadow: 0px 0px 30px 3px black;
     box-shadow: 0px 0px 30px 3px black; }
@@ -72,7 +78,7 @@ body {
         height: 30%; } }
     .form__btn:active {
       text-decoration: underline;
-      background-color: red; }
+      background-color: firebrick; }
 
 .buttons {
   position: absolute;
@@ -84,14 +90,14 @@ body {
     float: left;
     height: 100%;
     border-radius: 30px;
-    background-color: #EBEDEB;
-    -moz-box-shadow: 0px 0px 30px 3px black;
-    -webkit-box-shadow: 0px 0px 30px 3px black;
-    box-shadow: 0px 0px 30px 3px black; }
+    background-color: #f2e8c9;
+    -moz-box-shadow: 0px 0px 30px 3px #f2e8c9;
+    -webkit-box-shadow: 0px 0px 30px 3px #f2e8c9;
+    box-shadow: 0px 0px 30px 3px #f2e8c9; }
     @media screen and (min-width: 320px) {
       .buttons .button {
-        width: 20%;
-        margin-left: 4%; } }
+        width: 25%;
+        margin-left: 6%; } }
     @media screen and (min-width: 1224px) {
       .buttons .button {
         width: 10%;
@@ -111,10 +117,10 @@ body {
       display: inline-block;
       width: 25%;
       margin-left: 5%;
-      background-color: #EBEDEB;
-      -moz-box-shadow: 0px 0px 30px 3px black;
-      -webkit-box-shadow: 0px 0px 30px 3px black;
-      box-shadow: 0px 0px 30px 3px black;
+      background-color: #f2e8c9;
+      -moz-box-shadow: 0px 0px 30px 3px #f2e8c9;
+      -webkit-box-shadow: 0px 0px 30px 3px #f2e8c9;
+      box-shadow: 0px 0px 30px 3px #f2e8c9;
       height: 100%;
       border-radius: 50%; }
   @media screen and (min-width: 320px) {
@@ -136,4 +142,4 @@ body {
   height: 80%; }
 
 .active {
-  border: 5px solid red; }
+  border: 5px solid firebrick; }

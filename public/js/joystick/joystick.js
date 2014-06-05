@@ -50,7 +50,7 @@ require(['lib/Connector', 'checking', 'lib/deviceapi-normaliser', 'joystick/serv
         var startPosGamma = 0;
         var current_position;
         var disconnected = false;
-        var disconnectBtn = document.getElementById('disconnect');
+        /*var disconnectBtn = document.getElementById('disconnect');
         disconnectBtn.addEventListener("touchstart",
             function() {
                 event.preventDefault();
@@ -65,7 +65,7 @@ require(['lib/Connector', 'checking', 'lib/deviceapi-normaliser', 'joystick/serv
                 tokenForm.show();
                 disconnected = true;
             }
-        );
+        );*/
         var shootBtn = document.getElementById('shoot');
         var pauseBtn = document.getElementById('pause');
         var restartBtn = document.getElementById('restart');
@@ -115,6 +115,7 @@ require(['lib/Connector', 'checking', 'lib/deviceapi-normaliser', 'joystick/serv
             };
 
             $('#submit').click(function() {
+                changeOrientation();
                 tokenError.html("");
                 disconnected = false;
                 var currentPos = current_position;
@@ -193,7 +194,6 @@ require(['lib/Connector', 'checking', 'lib/deviceapi-normaliser', 'joystick/serv
                                     setBtnText();
                                 });
                         }
-
                         setBtnText();
                     }
                 } else {

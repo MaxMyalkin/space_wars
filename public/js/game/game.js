@@ -530,13 +530,11 @@ define(['classy',
                 context = canvas.getContext("2d");
                 context.drawImage(this.resources.bullet.img, 0, 0)
 
-
                 canvas = document.getElementById("second_bullet");
                 canvas.width = this.resources.firstTypeBonus.img.width
                 canvas.height = this.resources.firstTypeBonus.img.height
                 context = canvas.getContext("2d");
                 context.drawImage(this.resources.firstTypeBonus.img, 0, 0)
-
 
                 canvas = document.getElementById("third_bullet");
                 canvas.width = this.resources.secondTypeBonus.img.width
@@ -588,7 +586,6 @@ define(['classy',
             setScore: function() {
                 $('#score').html(this.player.score);
             }
-
         });
 
         return Game;
