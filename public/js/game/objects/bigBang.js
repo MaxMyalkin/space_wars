@@ -10,6 +10,8 @@ define(['game/objects/object'],
                     case 3:
                         bangType = "thirdTypeBang";
                         break;
+                    case 4:
+                        bangType = "smoke";
                     default:
                         break;
                 }

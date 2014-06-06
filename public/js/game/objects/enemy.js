@@ -11,8 +11,12 @@ define(['game/objects/object',
                 this.type = type;
                 switch (this.type) {
                     case 1:
-                        resource = resources.enemy;
+                        resource = resources.get("enemyFirst");
                         this.speed = 2;
+                        break;
+                    case 2:
+                        resource = resources.get("enemySecond");
+                        this.speed = 3;
                         break;
                     default:
                         break;
@@ -23,7 +27,7 @@ define(['game/objects/object',
 
             launchBullet: function(game) {
                 var rocket = new Bullet("#ffffff", this.x,
-                    this.y + this.radius, game.resources, 10, 1, 1);
+                    this.y + this.radius, game.resources, 10, 4, this.type);
                 game.enemyBullets.push(rocket);
                 var instance = SoundJS.Sound.play("attackSound");
             }

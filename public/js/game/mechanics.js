@@ -61,6 +61,7 @@ define(['classy',
 
                 if (game.enemyTimer == game.ENEMY_TIMEOUT) {
                     this.createEnemy(game);
+
                 }
 
                 if (game.asteroidTimer == game.ASTEROID_TIMEOUT) {
@@ -86,8 +87,13 @@ define(['classy',
                     enemy = game.enemies[i];
                     enemy.y += enemy.speed;
 
-                    if (this.collision(enemy, game.player)) { // столкновение с пришельцем - смерть
-                        isDead = true;
+                    if (this.collision(enemy, game.player)) {
+                        toDeleteEnemies.push(i);
+                        toCreateBang.push(new BigBang("#ffffff", enemy.x, enemy.y,
+                            game.resources, 4, enemy.speed));
+                        game.player.health -= 5;
+                        game.setBulletInfo();
+                        SoundJS.Sound.play("bangSound");
                     }
 
                     if (enemy.bulletTimer == 50) {
@@ -108,7 +114,12 @@ define(['classy',
 
                     if (game.context.debug != true) {
                         if (this.collision(game.player, game.asteroids[i], 0.95)) {
-                            isDead = true;
+                            toDeleteAster.push(i);
+                            game.player.health -= game.asteroids[i].type;
+                            toCreateBang.push(new BigBang("#ffffff", game.asteroids[i].x, game.asteroids[i].y,
+                                game.resources, 4, game.asteroids[i].speedY));
+                            game.setBulletInfo();
+                            SoundJS.Sound.play("bangSound");
                         }
                     }
                 }
@@ -140,7 +151,7 @@ define(['classy',
                             toDeleteBullet.push(i);
                             toDeleteEnemies.push(j);
                             toCreateBang.push(new BigBang("#ffffff", game.enemies[j].x, game.enemies[j].y,
-                                game.resources, game.player.bullets[i].type, game.enemies[j].speedY));
+                                game.resources, game.player.bullets[i].type, game.enemies[j].speed));
                             game.player.score += 10;
                             game.setScore();
                             SoundJS.Sound.play("bangSound");
@@ -151,17 +162,20 @@ define(['classy',
                 for (var i = 0; i < game.enemyBullets.length; i++) {
                     game.enemyBullets[i].y += game.enemyBullets[i].speedY;
                     if (this.collision(game.enemyBullets[i], game.player)) {
-                        game.player.health -= 1;
+                        toCreateBang.push(new BigBang("#ffffff", game.player.x, game.player.y,
+                            game.resources, 4, game.enemyBullets[i].speedY));
+                        game.player.health -= game.enemyBullets[i].type;
                         toDeleteEnemyBullets.push(i);
+                        game.setBulletInfo();
                     }
                 }
 
                 for (var i = 0; i < game.bonuses.length; i++) {
                     game.bonuses[i].time += 1;
-
+                    game.bonuses[i].y += game.bonuses[i].speedY;
                     if (this.collision(game.bonuses[i], game.player)) {
                         toDeleteBonus.push(i);
-                        game.player.bonusBullets[game.bonuses[i].type - 1] += 5;
+                        game.bonuses[i].getMeBonus(game.player);
                         SoundJS.Sound.play("bonusSound");
                         game.setBulletInfo();
                     } else
@@ -207,13 +221,13 @@ define(['classy',
 
             createEnemy: function(game) {
                 game.enemyTimer = 0;
-                var enemy = new Enemy("#ffffff", game.GAME_WIDTH, 0, game.resources, 1);
+                var enemy = new Enemy("#ffffff", game.GAME_WIDTH, 0, game.resources, Math.floor(Math.random() * 2 + 1));
                 game.enemies.push(enemy);
             },
 
             createBonus: function(game) {
                 game.bonusTimer = 0;
-                var bonus = new Bonus("#ffffff", Math.random() * game.GAME_WIDTH, Math.random() * game.GAME_HEIGHT, game.resources, Math.floor(Math.random() * 2) + 1);
+                var bonus = new Bonus("#ffffff", Math.random() * game.GAME_WIDTH, Math.random() * game.GAME_HEIGHT, game.resources, Math.floor(Math.random() * 3) + 1);
                 game.bonuses.push(bonus);
             },
 

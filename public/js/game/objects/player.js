@@ -28,7 +28,6 @@ define(['game/objects/object',
                 var rocket = new Bullet("#ffffff", this.x,
                     this.y - game.player.radius, game.resources, game.ROCKET_SPEED, type, this.damageMultiplier);
                 this.bullets.push(rocket);
-                //game.resources.attackSound.playSound();
                 var instance = SoundJS.Sound.play("attackSound");
                 instance.addEventListener("complete", function() {
                     SoundJS.Sound.play("reloadSound");

@@ -23,10 +23,8 @@ define(['game/objects/object'],
                 }
                 var asteroidPosition = Math.random() * (x - 2 * resource.radius) + resource.radius;
                 this.$super(color, asteroidPosition, y, resource);
-
                 this.initDamaged();
                 this.normalRes = this.resource;
-
                 this.initMotion(0, constSpeed / this.type);
                 this.initRotation(0, 1);
             },

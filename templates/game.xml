@@ -30,6 +30,10 @@
     				<canvas style='width: 20px; height:50px;' id='third_bullet' class="info__bullets__img" ></canvas>
     				<div class='info__text second-bonus'>0</div>
     			</div>
+                <div class= "info__bullets__bullet-type">
+                    <canvas style='width: 40px; height:40px;' id='health' class="info__bullets__img" ></canvas>
+                    <div class='info__text third-bonus'>0</div>
+                </div>
     		</div>
     		<div class='info__ship'>
     			<div class='info__header '>ship</div>

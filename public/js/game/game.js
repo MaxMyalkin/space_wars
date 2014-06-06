@@ -101,7 +101,7 @@ define(['classy',
                 canvas.height = this.GAME_HEIGHT;
                 this.context = canvas.getContext("2d");
                 this.context.fillStyle = "#ffffff";
-                this.context.debug = false; //режим отладки перенесен сюда
+                this.context.debug = true; //режим отладки перенесен сюда
                 this.player = new Player("#ffffff", this.GAME_WIDTH, this.GAME_HEIGHT,
                     this.resources.player);
 
@@ -544,11 +544,18 @@ define(['classy',
                 canvas.height = this.resources.secondTypeBonus.img.height
                 context = canvas.getContext("2d");
                 context.drawImage(this.resources.secondTypeBonus.img, 0, 0)
+
+                canvas = document.getElementById("health");
+                canvas.width = this.resources.health.img.width
+                canvas.height = this.resources.health.img.height
+                context = canvas.getContext("2d");
+                context.drawImage(this.resources.health.img, 0, 0)
             },
 
             setBulletInfo: function() {
                 $('.first-bonus').html(this.player.bonusBullets[0]);
                 $('.second-bonus').html(this.player.bonusBullets[1]);
+                $('.third-bonus').html(this.player.health);
             },
 
             setLevelInfo: function() {

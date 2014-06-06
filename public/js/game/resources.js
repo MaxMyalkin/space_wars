@@ -64,6 +64,9 @@ define(['classy',
                     id: "bullet",
                     src: "/images/bullet/bullet.png"
                 }, {
+                    id: "enemyBullet",
+                    src: "/images/bullet/enemyBullet.png"
+                }, {
                     id: "secondTypeBonus",
                     src: "/images/bullet/secondbonus.png"
                 }, {
@@ -84,6 +87,18 @@ define(['classy',
                 }, {
                     id: "bang3",
                     src: "/images/bang/bang3.png"
+                }, {
+                    id: "health",
+                    src: "/images/health.png"
+                }, {
+                    id: "enemyFirst",
+                    src: "/images/enemy/first.png"
+                }, {
+                    id: "enemySecond",
+                    src: "/images/enemy/second.png"
+                }, {
+                    id: "smoke",
+                    src: "/images/bang/smoke.png"
                 }, {
                     id: "bangSound",
                     src: bangSound
@@ -131,8 +146,6 @@ define(['classy',
             },
 
             handleComplete: function() {
-                //this.attackSound = this.queue.getResult("attackSound");//this.DJCheckTheSound(["/sounds/attack.ogg", "/sounds/attack.mp3", "/sounds/attack.wav"]);
-                //this.bangSound = this.queue.getResult("bangSound"); //this.DJCheckTheSound(["/sounds/attack.ogg", "/sounds/attack.mp3", "/sounds/attack.wav"]);
                 $('#loadingForm').hide();
                 this.smallAsteroid = new Resource(23, this.queue.getResult("smallAsteroid"), false, 0, 2);
                 this.bigAsteroid = new Resource(47, this.queue.getResult("bigAsteroid"), false, 0, 0);
@@ -142,8 +155,8 @@ define(['classy',
                 this.smallAsteroidDamaged = new Resource(23, this.queue.getResult("smallDamaged"), false, 0, 2);
 
 
-                this.enemy = new Resource(40, this.queue.getResult("mediumDamaged"), false, 0, 0);
-                this.enemyRocket = new Resource(23, this.queue.getResult("smallAsteroid"), false, 0, 2);
+
+                this.enemyBullet = new Resource(10, this.queue.getResult("enemyBullet"), false, 0, 2);
 
                 this.player = [
                     [
@@ -160,8 +173,8 @@ define(['classy',
 
                 this.firstTypeBonus = new Resource(20, this.queue.getResult("firstTypeBonus"), false, 10, -5);
                 this.secondTypeBonus = new Resource(20, this.queue.getResult("secondTypeBonus"), false, 10, 0);
+                this.health = new Resource(25, this.queue.getResult("health"), false, 0, 0);
                 this.bullet = new Resource(20, this.queue.getResult("bullet"), false, 10, 0);
-
                 this.firstTypeShip = new Resource(20, this.queue.getResult("firstTypeShip"), false, 10, -5);
                 this.secondTypeShip = new Resource(20, this.queue.getResult("secondTypeShip"), false, 10, 0);
 
@@ -173,9 +186,14 @@ define(['classy',
                 this.arrays.set("secondTypeBullet", 12, this.queue.getResult("secondAndThirdBulletArray"), true, -2, 0, 0.3, 20, 50, false, [0, 1, 2, 3], false, 5);
                 this.arrays.set("thirdTypeBullet", 12, this.queue.getResult("secondAndThirdBulletArray"), true, -2, 0, 0.3, 20, 50, false, [4, 5, 6, 7], false, 5);
 
+                this.arrays.set("smoke", 47, this.queue.getResult("smoke"), true, 0, 0, 0.3, 94, 100, true, [0, 1, 2, 3, 2, 1], true, 5);
                 this.arrays.set("firstTypeBang", 46, this.queue.getResult("bang1"), true, 0, 0, 0.5, 96, 94, true, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], true, 5);
                 this.arrays.set("secondTypeBang", 32, this.queue.getResult("bang2"), true, 0, 0, 0.4, 81, 62, true, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], true, 5);
                 this.arrays.set("thirdTypeBang", 50, this.queue.getResult("bang3"), true, 0, 0, 0.4, 93, 100, true, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], true, 5);
+
+                this.arrays.set("enemyFirst", 40, this.queue.getResult("enemyFirst"), true, 10, 10, 0.3, 94, 110, false, [0, 1, 2, 3], true, 5);
+                this.arrays.set("enemySecond", 60, this.queue.getResult("enemySecond"), true, 5, -5, 0.3, 130, 110, false, [0, 1, 2, 3, 4, 5], true, 5);
+
                 this.loaded = true;
                 $('#loadingFrom').hide();
                 $.event.trigger({
@@ -198,9 +216,6 @@ define(['classy',
 
             }
         });
-
-
-
         return resources;
 
     });

@@ -16,6 +16,9 @@ define(['classy', 'game/objects/resource'],
                 this.currentFirstTypeBang = 0;
                 this.currentSecondTypeBang = 0;
                 this.currentThirdTypeBang = 0;
+                this.currentEnemyFirst = 0;
+                this.currentEnemySecond = 0;
+                this.currentSmoke = 0;
             },
 
             set: function(type, radius, img, isAnimation, dx, dy, speed, width, height, singleAnimation, frames, isHorizontal, times) {
@@ -38,6 +41,15 @@ define(['classy', 'game/objects/resource'],
                         break;
                     case "thirdTypeBang":
                         this.thirdTypeBang = this.setArray(radius, img, isAnimation, dx, dy, speed, width, height, singleAnimation, frames, isHorizontal, times);
+                        break;
+                    case "enemyFirst":
+                        this.enemyFirst = this.setArray(radius, img, isAnimation, dx, dy, speed, width, height, singleAnimation, frames, isHorizontal, times);
+                        break;
+                    case "enemySecond":
+                        this.enemySecond = this.setArray(radius, img, isAnimation, dx, dy, speed, width, height, singleAnimation, frames, isHorizontal, times);
+                        break;
+                    case "smoke":
+                        this.smoke = this.setArray(radius, img, isAnimation, dx, dy, speed, width, height, singleAnimation, frames, isHorizontal, times);
                         break;
                 }
             },
@@ -71,6 +83,15 @@ define(['classy', 'game/objects/resource'],
                         break;
                     case "thirdTypeBang":
                         return this.getCurrentFrame(this.thirdTypeBang);
+                        break;
+                    case "enemyFirst":
+                        return this.getCurrentFrame(this.enemyFirst);
+                        break;
+                    case "enemySecond":
+                        return this.getCurrentFrame(this.enemySecond);
+                        break;
+                    case "smoke":
+                        return this.getCurrentFrame(this.smoke);
                         break;
                 }
             },

@@ -17,7 +17,8 @@ define(['game/objects/object'],
                         resource = resources.get("thirdTypeBullet");
                         break;
                     case 4:
-                        break; // пуля противника
+                        resource = resources.enemyBullet;
+                        break;
                     default:
                         break;
                 }
