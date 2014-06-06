@@ -3,12 +3,11 @@
   	src: url(fonts/Yahoo.ttf); 
 }
 
-@mixin transform($value) {
-  -webkit-transform: translate($value,$value );
-   -moz-transform: translate($value, $value);
-   transform: translate($value, $value);  
+@mixin transform($value1 , $value2) {
+  -webkit-transform: translate($value1,$value2);
+   -moz-transform: translate($value1, $value2);
+   transform: translate($value1, $value2);  
 }
-
 
 $font-family : Yahoo, serif;
 $main-color: #f2e8c9;
@@ -55,13 +54,35 @@ body {
 }
 
 progress {
-    background-color: $blue;
     border: 0;
-    height: 18px;
-    border-radius: 9px;
+    height: 38px;
+    
     width: 90%;
 }
 
+progress::-webkit-progress-value {
+    background-color: $blue;
+    border-radius: 20px;
+}
+progress::-webkit-progress-bar {
+    background-color: $main-color;
+    border-radius: 20px;
+}
+progress::-moz-progress-bar {
+  background-color: $main-color;
+  border-radius: 20px;
+}
+
+progress::-moz-progress-value {
+  background-color: $blue;
+  border-radius: 20px;
+}
+
+.centered-text {
+  position: relative;
+  top: 50%;
+  @include transform(0px , -50%); 
+}
 
 @import "button";
 @import "form";

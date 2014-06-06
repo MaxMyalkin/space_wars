@@ -21,7 +21,7 @@ module.exports = function(grunt) {
 
         watch: {
             sass: {
-                files: ['public/css/scss/pc/main.scss', 'public/css/scss/joystick/main.scss'],
+                files: ['public/css/scss/pc/*.scss', 'public/css/scss/joystick/*.scss'],
                 tasks: ['sass'],
                 options: {
                     atBegin: true

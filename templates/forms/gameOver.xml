@@ -2,7 +2,7 @@
     context_name="json">
 
 <div class="gameOverForm">
-	<a id="closeBtn" class="btn btn_close">x</a>
+	<a id="closeBtn" class="btn_close">x</a>
 	<div class="gameOverForm__text_big">Your score is<fest:space /> <fest:value>json.score</fest:value></div>
     <form id="gameOverForm">
     	<div class="gameOverForm__text">

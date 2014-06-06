@@ -36,11 +36,32 @@ body {
   margin: auto; }
 
 progress {
-  background-color: #082567;
   border: 0;
-  height: 18px;
-  border-radius: 9px;
+  height: 38px;
   width: 90%; }
+
+progress::-webkit-progress-value {
+  background-color: #082567;
+  border-radius: 20px; }
+
+progress::-webkit-progress-bar {
+  background-color: #f2e8c9;
+  border-radius: 20px; }
+
+progress::-moz-progress-bar {
+  background-color: #f2e8c9;
+  border-radius: 20px; }
+
+progress::-moz-progress-value {
+  background-color: #082567;
+  border-radius: 20px; }
+
+.centered-text {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translate(0px, -50%);
+  -moz-transform: translate(0px, -50%);
+  transform: translate(0px, -50%); }
 
 /*buttons*/
 .btn, .btn_small, .btn_thin, .btn_big, .btn_close {
@@ -199,22 +220,37 @@ input {
     background-color: firebrick; }
 
 .header, .header_blue, .header_game {
-  height: 10%;
+  height: 100px;
   width: 100%;
   color: white;
   font-size: 30px;
-  padding: 10px 0px 10px;
   margin-top: 0; }
 
 .header_blue {
   background-color: #082567; }
 
 .header_game {
+  padding: 10px 0px 10px;
+  height: auto;
   background-color: #f2e8c9;
   text-align: left;
   min-width: 820px;
   /* экран игры + рамка*/ }
 
 .footer {
-  height: 10%;
-  width: 100%; }
+  width: 40%;
+  margin: 0 30%;
+  background-color: #f2e8c9;
+  position: absolute;
+  top: 100%;
+  height: 100px; }
+  .footer__element {
+    display: inline-block;
+    margin-left: 4%;
+    width: 20%;
+    height: 80px; }
+    .footer__element a {
+      display: inline-block;
+      height: 100%; }
+      .footer__element a img {
+        height: 100%; }

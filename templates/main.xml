@@ -2,14 +2,30 @@
 <fest:template xmlns:fest="http://fest.mail.ru"
     context_name="json">
     <div  class="menu">
-        <div class="header_blue">Space wars</div>
+        <div class="header_blue"><div class='centered-text'>Space wars</div></div>
         <ul class="menu__list">
         	<li class="menu__item"> <h1 class="menu__title">Main menu</h1> </li>
         	<li class="menu__item"> <a href='/#scoreboard' class='btn_big' >Score board</a> </li>
         	<li class="menu__item"> <a href='/#game' class='btn_big' >Start game</a> </li>
         </ul>
-       <!-- <img class="menu__image" src="images/shipMainMenu.png"/> -->
-        <div class='footer'></div>
+       <img class="menu__image" src="images/shipMainMenu.png"/>
+        
+    </div>
+    <div class='footer'>
+            <div class='footer__element'>
+                <a href="http://vk.com/maxmyalkin"><img src="/images/about/myalkin.png"/></a>
+            </div>
+            <div class='footer__element'>
+                <a href="http://vk.com/id13062691"><img src="/images/about/chernobrovkin.png"/></a>
+            </div>
+            <div class='footer__element'>
+                <a href="https://github.com/MaxMyalkin/tp_2014_02_frontend_Myalkin_Chernobrovkin">
+                    <img src="/images/about/github.png"/></a>
+            </div>
+            <div class='footer__element'>
+                <a href="https://tech-mail.ru/"><img src="/images/about/technopark.png" style="height:initial;width:100%;"/></a>
+            </div>
+
     </div>
 </fest:template>
 
