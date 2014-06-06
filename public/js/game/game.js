@@ -77,6 +77,7 @@ define(['classy',
 
                 this.FONT_SIZE = 50;
                 this.ASTEROID_TIMEOUT = 50;
+                this.ENEMY_TIMEOUT = 250;
                 this.BULLET_TIMEOUT = 40;
                 this.BONUS_TIMEOUT = 500;
                 this.BONUS_TERMINATE = 200;
@@ -84,6 +85,7 @@ define(['classy',
                 this.level = 1;
                 this.bulletTimer = 0;
                 this.asteroidTimer = 0;
+                this.enemyTimer = 0;
                 this.bonusTimer = 0;
                 this.pauseFlag = false;
                 this.stopped = true;
@@ -91,6 +93,7 @@ define(['classy',
                 this.keydown = [];
                 this.bangs = [];
                 this.bonuses = [];
+                this.enemies = [];
                 this.gameMechanic = new GameMechanic();
                 var canvas = document.getElementById("gameField");
                 canvas.width = this.GAME_WIDTH;
@@ -469,6 +472,7 @@ define(['classy',
                     this.asteroidTimer += 1;
                     this.bulletTimer += 1;
                     this.bonusTimer += 1;
+                    this.enemyTimer += 1;
                     this.gameMechanic.draw(this);
                     this.gameMechanic.update(this);
                     return;

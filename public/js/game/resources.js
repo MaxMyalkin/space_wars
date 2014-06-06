@@ -142,6 +142,9 @@ define(['classy',
                 this.smallAsteroidDamaged = new Resource(23, this.queue.getResult("smallDamaged"), false, 0, 2);
 
 
+                this.enemy = new Resource(40, this.queue.getResult("mediumDamaged"), false, 0, 0);
+                this.enemyRocket = new Resource(23, this.queue.getResult("smallAsteroid"), false, 0, 2);
+
                 this.player = [
                     [
                         new Resource(47, this.queue.getResult("firstDirect"), true, 0, 20, 0.3, 95, 100, false, [0, 1, 2, 3], true),
@@ -163,8 +166,6 @@ define(['classy',
                 this.secondTypeShip = new Resource(20, this.queue.getResult("secondTypeShip"), false, 10, 0);
 
                 //OGG, MP3, WAV
-
-
 
                 this.arrays = ResourceArray;
 

@@ -21,6 +21,7 @@ define(['game/objects/object',
                 this.backspeed = 0;
                 this.joystickX = 0;
                 this.joystickY = 0;
+                this.health = 10;
             },
 
             launchBullet: function(game, type) {

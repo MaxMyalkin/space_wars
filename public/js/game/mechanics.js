@@ -1,12 +1,14 @@
 define(['classy',
         'game/objects/asteroid',
         'game/objects/bonus',
+        'game/objects/enemy',
         'game/objects/bigBang',
         'soundjs'
     ],
     function(Class,
         Asteroid,
         Bonus,
+        Enemy,
         BigBang,
         SoundJS
     ) {
@@ -49,6 +51,11 @@ define(['classy',
 
             update: function(game) {
 
+                if (game.enemyTimer == game.ENEMY_TIMEOUT) {
+                    this.createEnemy(game);
+                }
+
+
                 if (game.asteroidTimer == game.ASTEROID_TIMEOUT) {
                     if (game.level < 2.5) {
                         game.level += 0.025;
@@ -70,6 +77,19 @@ define(['classy',
                     game.bangs[i].y += game.bangs[i].speedY;
                     game.bangs[i].x += game.bangs[i].speedX;
 
+                }
+
+                for (var i = 0; i < game.enemies.length; i++) {
+                    game.enemies[i].y += game.enemies[i].speed;
+                    if (game.enemies[i].bulletTimer == 50) {
+                        game.enemies[i].bulletTimer = 0;
+                        game.enemies[i].launchBullet(game);
+                    } else {
+                        game.enemies[i].bulletTimer += 1;
+                    }
+                    for (var j = 0; j < game.enemies[i].bullets.length; j++) {
+                        game.enemies[i].bullets[j].y += game.enemies[i].bullets[j].speedY;
+                    }
                 }
 
                 for (var i = 0; i < game.asteroids.length; i++) {
@@ -165,13 +185,22 @@ define(['classy',
                 this.drawObjects(game.asteroids, game.GAME_HEIGHT, game.context);
                 this.drawObjects(game.bangs, game.GAME_HEIGHT, game.context);
                 this.drawObjects(game.bonuses, game.GAME_HEIGHT, game.context);
-
+                this.drawObjects(game.enemies, game.GAME_HEIGHT, game.context);
+                for (var i = 0; i < game.enemies.length; i++) {
+                    this.drawObjects(game.enemies[i].bullets, game.GAME_HEIGHT, game.context);
+                }
             },
 
             createAsteroid: function(game) {
                 game.asteroidTimer = 0;
                 var asteroid = new Asteroid("#ffffff", game.GAME_WIDTH, 0, game.resources, game.ASTEROID_SPEED * game.level);
                 game.asteroids.push(asteroid);
+            },
+
+            createEnemy: function(game) {
+                game.enemyTimer = 0;
+                var enemy = new Enemy("#ffffff", game.GAME_WIDTH, 0, game.resources, 1);
+                game.enemies.push(enemy);
             },
 
             createBonus: function(game) {
