@@ -128,6 +128,7 @@ define(['game/objects/object',
                 this.backspeed = 0;
                 this.leftspeed = 0;
                 this.rightspeed = 0;
+                this.health = 10;
             }
         });
 

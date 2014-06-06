@@ -14,10 +14,11 @@ define(['classy',
     ) {
 
         var GameMechanic = Class.$extend({
+
             sortArray: function(array) {
                 array.sort(function(a, b) {
                     return b - a;
-                })
+                });
             },
 
             deleteObjectArray: function(object, array) {
@@ -50,11 +51,17 @@ define(['classy',
             },
 
             update: function(game) {
+                var isDead = false;
+                var toDeleteAster = [];
+                var toDeleteBullet = [];
+                var toDeleteBonus = [];
+                var toCreateBang = [];
+                var toDeleteEnemies = [];
+                var toDeleteEnemyBullets = [];
 
                 if (game.enemyTimer == game.ENEMY_TIMEOUT) {
                     this.createEnemy(game);
                 }
-
 
                 if (game.asteroidTimer == game.ASTEROID_TIMEOUT) {
                     if (game.level < 2.5) {
@@ -66,9 +73,6 @@ define(['classy',
                         this.createAsteroid(game);
                 }
 
-                if (game.asteroidTimer % 1 === 0)
-                    this.collisionTest(game);
-
                 if (game.bonusTimer == game.BONUS_TIMEOUT) {
                     this.createBonus(game);
                 }
@@ -76,19 +80,21 @@ define(['classy',
                 for (var i = 0; i < game.bangs.length; i++) {
                     game.bangs[i].y += game.bangs[i].speedY;
                     game.bangs[i].x += game.bangs[i].speedX;
-
                 }
 
                 for (var i = 0; i < game.enemies.length; i++) {
-                    game.enemies[i].y += game.enemies[i].speed;
-                    if (game.enemies[i].bulletTimer == 50) {
-                        game.enemies[i].bulletTimer = 0;
-                        game.enemies[i].launchBullet(game);
-                    } else {
-                        game.enemies[i].bulletTimer += 1;
+                    enemy = game.enemies[i];
+                    enemy.y += enemy.speed;
+
+                    if (this.collision(enemy, game.player)) { // столкновение с пришельцем - смерть
+                        isDead = true;
                     }
-                    for (var j = 0; j < game.enemies[i].bullets.length; j++) {
-                        game.enemies[i].bullets[j].y += game.enemies[i].bullets[j].speedY;
+
+                    if (enemy.bulletTimer == 50) {
+                        enemy.bulletTimer = 0;
+                        enemy.launchBullet(game);
+                    } else {
+                        enemy.bulletTimer += 1;
                     }
                 }
 
@@ -102,38 +108,17 @@ define(['classy',
 
                     if (game.context.debug != true) {
                         if (this.collision(game.player, game.asteroids[i], 0.95)) {
-
-                            //game.resources.bangSound.playSound();
-                            SoundJS.Sound.play("bangSound");
-
-                            game.gameover = true;
-                            game.endGame();
+                            isDead = true;
                         }
                     }
-
-
                 }
+
 
                 for (var i = 0; i < game.player.bullets.length; i++) {
                     game.player.bullets[i].y -= game.player.bullets[i].speedY;
-                }
-
-                for (var i = 0; i < game.bonuses.length; i++) {
-                    game.bonuses[i].time += 1;
-                }
-
-            },
-
-            collisionTest: function(game) {
-                var toDeleteAster = [];
-                var toDeleteBullet = [];
-                var toDeleteBonus = [];
-                var toCreateBang = [];
-                for (var i = 0; i < game.player.bullets.length; i++) {
                     for (var j = 0; j < game.asteroids.length; j++) {
                         if (this.collision(game.player.bullets[i], game.asteroids[j])) {
                             toDeleteBullet.push(i);
-
                             game.asteroids[j].resource = game.asteroids[j].damagedRes;
                             game.asteroids[j].damaged = true;
 
@@ -143,42 +128,67 @@ define(['classy',
                                     game.resources, game.player.bullets[i].type, game.asteroids[j].speedY));
                                 game.player.score += game.asteroids[j].type;
                                 game.setScore();
-                                //game.resources.bangSound.playSound();
                                 SoundJS.Sound.play("bangSound");
                                 break;
                             }
                             game.asteroids[j].health -= game.player.bullets[i].damage;
                         }
                     }
+
+                    for (var j = 0; j < game.enemies.length; j++) {
+                        if (this.collision(game.player.bullets[i], game.enemies[j])) {
+                            toDeleteBullet.push(i);
+                            toDeleteEnemies.push(j);
+                            toCreateBang.push(new BigBang("#ffffff", game.enemies[j].x, game.enemies[j].y,
+                                game.resources, game.player.bullets[i].type, game.enemies[j].speedY));
+                            game.player.score += 10;
+                            game.setScore();
+                            SoundJS.Sound.play("bangSound");
+                        }
+                    }
+                }
+
+                for (var i = 0; i < game.enemyBullets.length; i++) {
+                    game.enemyBullets[i].y += game.enemyBullets[i].speedY;
+                    if (this.collision(game.enemyBullets[i], game.player)) {
+                        game.player.health -= 1;
+                        toDeleteEnemyBullets.push(i);
+                    }
                 }
 
                 for (var i = 0; i < game.bonuses.length; i++) {
-                    if (this.collision(game.player, game.bonuses[i])) {
+                    game.bonuses[i].time += 1;
+
+                    if (this.collision(game.bonuses[i], game.player)) {
                         toDeleteBonus.push(i);
                         game.player.bonusBullets[game.bonuses[i].type - 1] += 5;
                         SoundJS.Sound.play("bonusSound");
                         game.setBulletInfo();
-                    } else {
-                        if (game.bonuses[i].time > game.BONUS_TERMINATE)
-                            toDeleteBonus.push(i);
-                    };
-                };
+                    } else
+                    if (game.bonuses[i].time > game.BONUS_TERMINATE)
+                        toDeleteBonus.push(i);
+                }
 
-                for (var i = toCreateBang.length - 1; i >= 0; i--) {
-                    game.bangs.push(toCreateBang[i]);
-                };
+                if (isDead || game.player.health <= 0) {
+                    SoundJS.Sound.play("bangSound");
+                    game.gameover = true;
+                    game.endGame();
+                }
 
                 this.deleteObjectArray(game.bonuses, toDeleteBonus);
-
                 this.deleteObjectArray(game.player.bullets, toDeleteBullet);
-
                 this.deleteObjectArray(game.asteroids, toDeleteAster);
+                this.deleteObjectArray(game.enemies, toDeleteEnemies);
+                this.deleteObjectArray(game.enemyBullets, toDeleteEnemyBullets);
+
+                for (var i = 0; i < toCreateBang.length; i++) {
+                    game.bangs.push(toCreateBang[i]);
+                };
 
             },
 
             draw: function(game) {
                 game.context.clearRect(0, 0, game.GAME_WIDTH, game.GAME_HEIGHT);
-
                 game.player.draw(game.context);
                 game.context.font = "bold " + game.FONT_SIZE + "px sans-serif";
                 this.drawObjects(game.player.bullets, game.GAME_HEIGHT, game.context);
@@ -186,9 +196,7 @@ define(['classy',
                 this.drawObjects(game.bangs, game.GAME_HEIGHT, game.context);
                 this.drawObjects(game.bonuses, game.GAME_HEIGHT, game.context);
                 this.drawObjects(game.enemies, game.GAME_HEIGHT, game.context);
-                for (var i = 0; i < game.enemies.length; i++) {
-                    this.drawObjects(game.enemies[i].bullets, game.GAME_HEIGHT, game.context);
-                }
+                this.drawObjects(game.enemyBullets, game.GAME_HEIGHT, game.context);
             },
 
             createAsteroid: function(game) {

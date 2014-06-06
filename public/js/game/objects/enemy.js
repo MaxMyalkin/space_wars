@@ -18,14 +18,13 @@ define(['game/objects/object',
                         break;
                 }
                 this.$super(color, Math.random() * (width - 2 * resource.radius) + resource.radius, resource.radius, resource);
-                this.bullets = [];
                 this.bulletTimer = 0;
             },
 
             launchBullet: function(game) {
                 var rocket = new Bullet("#ffffff", this.x,
-                    this.y + this.radius, game.resources, 5, 1, 1);
-                this.bullets.push(rocket);
+                    this.y + this.radius, game.resources, 10, 1, 1);
+                game.enemyBullets.push(rocket);
                 var instance = SoundJS.Sound.play("attackSound");
             }
         });

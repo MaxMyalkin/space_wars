@@ -94,6 +94,7 @@ define(['classy',
                 this.bangs = [];
                 this.bonuses = [];
                 this.enemies = [];
+                this.enemyBullets = [];
                 this.gameMechanic = new GameMechanic();
                 var canvas = document.getElementById("gameField");
                 canvas.width = this.GAME_WIDTH;
@@ -135,8 +136,6 @@ define(['classy',
                 this.setBtnText();
                 this.setScore();
 
-
-
             },
 
             SmartSelection: function() {
@@ -175,13 +174,11 @@ define(['classy',
 
                 if (data.type === 'pause') {
                     this.pauseGame();
-                    //answer(this.pauseFlag);
                 }
 
                 if (data.type === 'restart') {
                     this.gameOverForm.hide();
                     this.restartGame();
-                    //answer(this.stopped);
                 }
 
                 if (data.type === 'portrait') {
@@ -509,6 +506,8 @@ define(['classy',
                 this.bangs = [];
                 this.bonuses = [];
                 this.keydown = [];
+                this.enemies = [];
+                this.enemyBullets = [];
                 this.stoppedFunc();
                 this.setBulletInfo();
                 this.setScore();
