@@ -66,8 +66,15 @@ define(['classy',
                     this.createBonus(game);
                 }
 
+                for (var i = 0; i < game.bangs.length; i++) {
+                    game.bangs[i].y += game.bangs[i].speedY;
+                    game.bangs[i].x += game.bangs[i].speedX;
+
+                }
+
                 for (var i = 0; i < game.asteroids.length; i++) {
                     game.asteroids[i].y += game.asteroids[i].speedY;
+                    game.asteroids[i].x += game.asteroids[i].speedX;
 
                     if (game.asteroids[i].damaged) {
                         game.asteroids[i].whileDamaged += 1;
@@ -113,7 +120,7 @@ define(['classy',
                             if (game.asteroids[j].health <= game.player.bullets[i].damage) {
                                 toDeleteAster.push(j);
                                 toCreateBang.push(new BigBang("#ffffff", game.asteroids[j].x, game.asteroids[j].y,
-                                    game.resources, game.player.bullets[i].type));
+                                    game.resources, game.player.bullets[i].type, game.asteroids[j].speedY));
                                 game.player.score += game.asteroids[j].type;
                                 game.setScore();
                                 //game.resources.bangSound.playSound();

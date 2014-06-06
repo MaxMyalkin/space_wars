@@ -1,7 +1,7 @@
 <fest:template xmlns:fest="http://fest.mail.ru"
     context_name="json">
     <div class="menu">
-    	<h1 class="header header_blue">Space wars</h1>
+    	<div class="header_blue">Space wars</div>
     	<h1 class="menu__title">SCORE BOARD</h1>
 
    		<div id="loading"><img src="/images/ajax-loader.gif" alt="Loading..." /></div>

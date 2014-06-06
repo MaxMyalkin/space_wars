@@ -1,7 +1,7 @@
 define(['game/objects/object'],
     function(AbstractObject) {
         var BigBang = AbstractObject.$extend({
-            __init__: function(color, x, y, resources, bulletType) {
+            __init__: function(color, x, y, resources, bulletType, speed) {
                 var bangType = "firstTypeBang";
                 switch (bulletType) {
                     case 2:
@@ -14,6 +14,7 @@ define(['game/objects/object'],
                         break;
                 }
                 this.$super(color, x, y, resources.get(bangType));
+                this.initMotion(0, speed);
             }
         });
 

@@ -2,13 +2,14 @@
 <fest:template xmlns:fest="http://fest.mail.ru"
     context_name="json">
     <div  class="menu">
-        <h1 class="header header_blue">Space wars</h1>
+        <div class="header_blue">Space wars</div>
         <ul class="menu__list">
         	<li class="menu__item"> <h1 class="menu__title">Main menu</h1> </li>
         	<li class="menu__item"> <a href='/#scoreboard' class='btn_big' >Score board</a> </li>
         	<li class="menu__item"> <a href='/#game' class='btn_big' >Start game</a> </li>
         </ul>
-        <img class="menu__image" src="images/shipMainMenu.png"/>
+       <!-- <img class="menu__image" src="images/shipMainMenu.png"/> -->
+        <div class='footer'></div>
     </div>
 </fest:template>
 
