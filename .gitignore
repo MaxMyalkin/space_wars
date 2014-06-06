@@ -19,3 +19,4 @@ node_modules
 src
 public/js/production
 public/css/*.css
+public/js/tmpl
