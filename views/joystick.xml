@@ -43,18 +43,10 @@
 				
 				<div class='switchers'>
 					<div class='switcher-group' id='bulletSwitcher'>
-						<div id="bullet1" class='switcher active'>
-							<img class="button__img button__text" src='images/buttons/first.png'/></div>
-						<div id="bullet2" class='switcher'>
-							<img class="button__img button__text" src='images/buttons/second.png'/></div>
-						<div id="bullet3" class='switcher'>
-							<img class="button__img button__text" src='images/buttons/third.png'/></div>
+						<fest:text> &lt </fest:text><fest:space/><img class="button__img button__text" src='images/buttons/first.png'/><fest:space/><fest:text> &gt </fest:text>
 					</div>
 					<div class='switcher-group' id='shipSwitcher'>
-						<div id="ship1" class='switcher active'>
-							<img class="button__img button__text" src='images/buttons/ship1.png'/></div>
-						<div id="ship2" class='switcher'>
-							<img class="button__img button__text" src='images/buttons/ship2.png'/></div>
+						<fest:text> &lt </fest:text><fest:space/><img class="button__img button__text" src='images/buttons/ship1.png'/><fest:space/><fest:text> &gt </fest:text>
 					</div>
 				</div>
 			</div>

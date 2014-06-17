@@ -40,7 +40,8 @@ require(['lib/Connector', 'checking', 'lib/hammer', 'lib/deviceapi-normaliser', 
         var hammerOptions = {
             preventDefault: true
         };
-        var bulletType = 1;
+        var currentBulletType = 1;
+        var currentShipType = 1;
         var gameStarted = false;
         var fingers = 0;
         var currentPressed = [];
@@ -58,12 +59,7 @@ require(['lib/Connector', 'checking', 'lib/hammer', 'lib/deviceapi-normaliser', 
         var pauseBtn = document.getElementById('pause');
         var restartBtn = document.getElementById('restart');
         var bulletSwitcher = document.getElementById('bulletSwitcher');
-        var bullet1 = document.getElementById('bullet1');
-        var bullet2 = document.getElementById('bullet2');
-        var bullet3 = document.getElementById('bullet3');
         var shipSwitcher = document.getElementById('shipSwitcher');
-        var ship1 = document.getElementById('ship1');
-        var ship2 = document.getElementById('ship2');
         var pauseBtnImg = $('.button__text.pause');
         var restartImg = $('.button__text.start');
 
@@ -122,6 +118,7 @@ require(['lib/Connector', 'checking', 'lib/hammer', 'lib/deviceapi-normaliser', 
                         tokenError.html(answer.status);
                     }
                 });
+                (new HammerJS(window, hammerOptions));
                 $('#token').val("");
                 return false;
             });
@@ -130,12 +127,9 @@ require(['lib/Connector', 'checking', 'lib/hammer', 'lib/deviceapi-normaliser', 
 
                 switch (data.type) {
                     case 'reset':
-                        bulletType = 1;
+                        currentBulletType = 1;
                         pauseBtnImg.attr('src', 'images/buttons/pause.png');
-                        $('#shipSwitcher .active').removeClass('active');
-                        $('#ship1').addClass('active');
-                        $('#bulletSwitcher .active').removeClass('active');
-                        $('#bullet1').addClass('active');
+                        //переключить -----------------------------------------------------------------------------------------
                         break;
 
                     case 'pause':
@@ -151,6 +145,7 @@ require(['lib/Connector', 'checking', 'lib/hammer', 'lib/deviceapi-normaliser', 
                             restartImg.attr('src', 'images/buttons/play.png');
                         } else {
                             restartImg.attr('src', 'images/buttons/restart.png');
+
                         }
                         break;
                 }
@@ -185,24 +180,6 @@ require(['lib/Connector', 'checking', 'lib/hammer', 'lib/deviceapi-normaliser', 
                 }
             };
 
-            function checkBullet(target) {
-                $("#bulletSwitcher .active").removeClass("active");
-                switch (target) {
-                    case bullet1:
-                        bulletType = 1;
-                        $('#bullet1').addClass("active");
-                        break;
-                    case bullet2:
-                        bulletType = 2;
-                        $('#bullet2').addClass("active");
-                        break;
-                    case bullet3:
-                        bulletType = 3;
-                        $('#bullet3').addClass("active");
-                        break;
-                }
-            };
-
             (new HammerJS(restartBtn, hammerOptions)).on('tap', function(ev) {
                 var currentPos = current_position;
                 startPosBeta = currentPos.beta;
@@ -220,47 +197,63 @@ require(['lib/Connector', 'checking', 'lib/hammer', 'lib/deviceapi-normaliser', 
                 });
             });
 
-            (new HammerJS(ship1, hammerOptions)).on('tap', function(ev) {
-                $('#shipSwitcher .active').removeClass('active');
-                $('#ship1').addClass('active');
-                server.send({
-                    type: 'ship',
-                    shipType: 1
-                });
+            (new HammerJS(shipSwitcher, hammerOptions)).on('gesture', function(ev) {
+                if (ev.gesture.eventType === 'end') {
+                    if (currentShipType === 1)
+                        currentShipType = 2;
+                    else
+                        currentShipType = 1;
+
+                    switch (currentShipType) {
+                        case 1:
+                            $('#shipSwitcher .button__img').attr('src', '/images/ship/first/info.png');
+                            break;
+                        case 2:
+                            $('#shipSwitcher .button__img').attr('src', '/images/ship/second/info.png');
+                            break;
+                    }
+
+                    server.send({
+                        type: 'ship',
+                        shipType: currentShipType
+                    });
+                }
             });
 
-            (new HammerJS(ship2, hammerOptions)).on('tap', function(ev) {
-                $('#shipSwitcher .active').removeClass('active');
-                $('#ship2').addClass('active');
-                server.send({
-                    type: 'ship',
-                    shipType: 2
-                });
-            });
+            (new HammerJS(bulletSwitcher, hammerOptions)).on('gesture', function(ev) {
+                if (ev.gesture.eventType === 'end') {
+                    if (ev.gesture.type === 'tap' || ev.gesture.direction === 'left') {
+                        if (currentBulletType > 0 && currentBulletType < 3)
+                            currentBulletType++;
+                        else
+                            currentBulletType = 1;
+                    } else {
+                        if (currentBulletType > 1 && currentBulletType < 4)
+                            currentBulletType--;
+                        else
+                            currentBulletType = 3;
+                    }
+                    switch (currentBulletType) {
+                        case 1:
+                            $('#bulletSwitcher .button__img').attr('src', '/images/bullet/bullet.png');
+                            break;
 
-            (new HammerJS(bullet1, hammerOptions)).on('tap', function(ev) {
-                $('#bulletSwitcher .active').removeClass('active');
-                $('#bullet1').addClass('active');
-                bulletType = 1;
-            });
+                        case 2:
+                            $('#bulletSwitcher .button__img').attr('src', '/images/bullet/firstbonus.png');
+                            break;
 
-            (new HammerJS(bullet2, hammerOptions)).on('tap', function(ev) {
-                $('#bulletSwitcher .active').removeClass('active');
-                $('#bullet2').addClass('active');
-                bulletType = 2;
-            });
-
-            (new HammerJS(bullet3, hammerOptions)).on('tap', function(ev) {
-                $('#bulletSwitcher .active').removeClass('active');
-                $('#bullet3').addClass('active');
-                bulletType = 3;
+                        case 3:
+                            $('#bulletSwitcher .button__img').attr('src', '/images/bullet/secondbonus.png');
+                            break;
+                    }
+                }
             });
 
             (new HammerJS(shootBtn, hammerOptions)).on('gesture', function(ev) {
                 if (ev.gesture.eventType === 'touch') {
                     server.send({
                         type: 'shootStart',
-                        bulletType: bulletType
+                        bulletType: currentBulletType
                     });
                 }
 
