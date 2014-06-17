@@ -40,12 +40,13 @@ require(['lib/Connector', 'checking', 'lib/hammer', 'lib/deviceapi-normaliser', 
         var hammerOptions = {
             preventDefault: true
         };
+        var delay = 0;
+        setInterval(function() {
+            delay += 50;
+        }, 50)
         var currentBulletType = 1;
         var currentShipType = 1;
         var gameStarted = false;
-        var fingers = 0;
-        var currentPressed = [];
-        var canShoot = true;
         var stopped = true;
         var pause = false;
         var currentBeta = 0;
@@ -84,7 +85,8 @@ require(['lib/Connector', 'checking', 'lib/hammer', 'lib/deviceapi-normaliser', 
 
             function updategyro(e) {
                 current_position = deviceOrientation(e);
-                if (!disconnected && (Math.abs(currentBeta - current_position.beta) > 2 || Math.abs(currentGamma - current_position.gamma) > 2)) {
+                if (!disconnected && (Math.abs(currentBeta - current_position.beta) > 2 || Math.abs(currentGamma - current_position.gamma) > 2) && delay > 150) {
+                    delay = 0;
                     server.send({
                         type: 'move',
                         startBeta: startPosBeta,
