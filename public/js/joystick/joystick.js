@@ -7,8 +7,8 @@ require.config({
         backbone: "lib/backbone",
         Connector: "lib/Connector",
         FnQuery: "lib/FnQuery",
-        device_orientation: "lib/deviceapi-normaliser",
         Modernizr: "lib/Modernizr",
+        device_orientation: "lib/deviceapi-normaliser",
         "socket.io": "lib/socket.io"
     },
     shim: {
@@ -35,8 +35,11 @@ require.config({
     }
 });
 
-require(['lib/Connector', 'checking', 'lib/deviceapi-normaliser', 'joystick/serverFunc'],
-    function(Connection, Modernizr) {
+require(['lib/Connector', 'checking', 'lib/hammer', 'lib/deviceapi-normaliser', 'joystick/serverFunc'],
+    function(Connection, Modernizr, HammerJS) {
+        var hammerOptions = {
+            preventDefault: true
+        };
         var bulletType = 1;
         var gameStarted = false;
         var fingers = 0;
@@ -50,22 +53,7 @@ require(['lib/Connector', 'checking', 'lib/deviceapi-normaliser', 'joystick/serv
         var startPosGamma = 0;
         var current_position;
         var disconnected = false;
-        /*var disconnectBtn = document.getElementById('disconnect');
-        disconnectBtn.addEventListener("touchstart",
-            function() {
-                event.preventDefault();
-                currentPressed = [];
-                server.send({
-                    type: 'disconnect'
-                });
-                sessionStorage.removeItem('joystick_guid');
-                console.log('disconnect');
-                mainscreen.show();
-                controls.hide();
-                tokenForm.show();
-                disconnected = true;
-            }
-        );*/
+
         var shootBtn = document.getElementById('shoot');
         var pauseBtn = document.getElementById('pause');
         var restartBtn = document.getElementById('restart');
@@ -78,8 +66,7 @@ require(['lib/Connector', 'checking', 'lib/deviceapi-normaliser', 'joystick/serv
         var ship2 = document.getElementById('ship2');
         var pauseBtnImg = $('.button__text.pause');
         var restartImg = $('.button__text.start');
-        window.addEventListener("touchstart", touchStart);
-        window.addEventListener("touchend", touchEnd);
+
         window.addEventListener("deviceorientation", updategyro, false);
         window.addEventListener('orientationchange', changeOrientation);
         var server;
@@ -131,7 +118,6 @@ require(['lib/Connector', 'checking', 'lib/deviceapi-normaliser', 'joystick/serv
                         controls.show();
                         sessionStorage.setItem('guid_joystick', answer.guid);
                         gameStarted = true;
-
                     } else {
                         tokenError.html(answer.status);
                     }
@@ -143,14 +129,6 @@ require(['lib/Connector', 'checking', 'lib/deviceapi-normaliser', 'joystick/serv
             function messageRecieved(data, answer) {
 
                 switch (data.type) {
-                    case 'canShoot':
-                        canShoot = true;
-                        break;
-
-                    case 'shootACK':
-                        canShoot = false;
-                        break;
-
                     case 'reset':
                         bulletType = 1;
                         pauseBtnImg.attr('src', 'images/buttons/pause.png');
@@ -175,7 +153,6 @@ require(['lib/Connector', 'checking', 'lib/deviceapi-normaliser', 'joystick/serv
                             restartImg.attr('src', 'images/buttons/restart.png');
                         }
                         break;
-
                 }
             }
 
@@ -208,35 +185,6 @@ require(['lib/Connector', 'checking', 'lib/deviceapi-normaliser', 'joystick/serv
                 }
             };
 
-
-            function touchStart(event) {
-                fingers = event.touches.length;
-                var shoot = null;
-                var bullet = null;
-                for (var i = 0; i < fingers; i++) {
-                    if (bulletSwitcher.contains(event.touches[i].target))
-                        bullet = event.touches[i];
-                    if (shootBtn.contains(event.touches[i].target))
-                        shoot = event.touches[i];
-                };
-                if (shoot != null)
-                    currentPressed.push({
-                        type: "shoot",
-                        target: shoot.target,
-                        identifier: shoot.identifier
-                    });
-                if (bullet != null) {
-                    currentPressed.push({
-                        type: "bullet",
-                        target: bullet.target,
-                        identifier: bullet.identifier
-                    });
-                    checkBullet(bullet.target);
-                }
-
-            };
-
-
             function checkBullet(target) {
                 $("#bulletSwitcher .active").removeClass("active");
                 switch (target) {
@@ -255,100 +203,7 @@ require(['lib/Connector', 'checking', 'lib/deviceapi-normaliser', 'joystick/serv
                 }
             };
 
-            var interval = setInterval(function() {
-                if (canShoot && isElementInCurrentPressed(shootBtn)) {
-                    server.send({
-                        type: "shoot",
-                        bulletType: bulletType
-                    }, function(answer) {
-                        if (answer === "shootACK") {
-                            canShoot = false;
-                        }
-                    });
-                }
-            }, 50);
-
-            function touchEnd(event) {
-                var touches = event.changedTouches;
-                var toDelete = [];
-                for (var i = 0; i < touches.length; i++)
-                    for (var j = 0; j < currentPressed.length; j++) {
-                        if (touches[i].identifier === currentPressed[j].identifier)
-                            toDelete.push(j);
-                    }
-                deleteEndedTouches(toDelete);
-            };
-
-            function deleteEndedTouches(indexes) {
-                sortArray(indexes);
-                for (var i = 0; i < indexes.length; i++) {
-                    currentPressed.splice(indexes[i], 1);
-                };
-            };
-
-            function sortArray(array) {
-                array.sort(function(a, b) {
-                    return b - a;
-                })
-            };
-
-            function isElementInCurrentPressed(element) {
-                for (var i = 0; i < currentPressed.length; i++) {
-                    if (element.contains(currentPressed[i].target))
-                        return true;
-                }
-                return false;
-            };
-
-            function getIdentifierFromCurrentPressed(type) {
-                for (var i = 0; i < currentPressed.length; i++) {
-                    if (currentPressed[i].type === type) {
-                        return currentPressed[i].identifier;
-                    }
-                }
-            };
-
-            ship1.addEventListener("touchstart", function(event) {
-                event.preventDefault();
-                currentPressed = [];
-                $('#shipSwitcher .active').removeClass('active');
-                $('#ship1').addClass('active');
-                server.send({
-                    type: 'ship1'
-                });
-            });
-
-            ship2.addEventListener("touchstart", function(event) {
-                event.preventDefault();
-                currentPressed = [];
-                $('#shipSwitcher .active').removeClass('active');
-                $('#ship2').addClass('active');
-                server.send({
-                    type: 'ship2'
-                });
-            });
-
-            shootBtn.addEventListener("touchstart", function(event) {
-                event.preventDefault();
-            });
-
-            bulletSwitcher.addEventListener("touchstart", function(event) {
-                event.preventDefault();
-            })
-
-            pauseBtn.addEventListener("touchstart", function(event) {
-                event.preventDefault();
-                currentPressed = [];
-                server.send({
-                    type: 'pause'
-                });
-
-            });
-
-            restartBtn.addEventListener("touchstart", function(event) {
-                event.preventDefault();
-                currentPressed = [];
-
+            (new HammerJS(restartBtn, hammerOptions)).on('tap', function(ev) {
                 var currentPos = current_position;
                 startPosBeta = currentPos.beta;
                 startPosGamma = currentPos.gamma;
@@ -358,6 +213,65 @@ require(['lib/Connector', 'checking', 'lib/deviceapi-normaliser', 'joystick/serv
                     type: 'restart'
                 });
             });
+
+            (new HammerJS(pauseBtn, hammerOptions)).on('tap', function(ev) {
+                server.send({
+                    type: 'pause'
+                });
+            });
+
+            (new HammerJS(ship1, hammerOptions)).on('tap', function(ev) {
+                $('#shipSwitcher .active').removeClass('active');
+                $('#ship1').addClass('active');
+                server.send({
+                    type: 'ship',
+                    shipType: 1
+                });
+            });
+
+            (new HammerJS(ship2, hammerOptions)).on('tap', function(ev) {
+                $('#shipSwitcher .active').removeClass('active');
+                $('#ship2').addClass('active');
+                server.send({
+                    type: 'ship',
+                    shipType: 2
+                });
+            });
+
+            (new HammerJS(bullet1, hammerOptions)).on('tap', function(ev) {
+                $('#bulletSwitcher .active').removeClass('active');
+                $('#bullet1').addClass('active');
+                bulletType = 1;
+            });
+
+            (new HammerJS(bullet2, hammerOptions)).on('tap', function(ev) {
+                $('#bulletSwitcher .active').removeClass('active');
+                $('#bullet2').addClass('active');
+                bulletType = 2;
+            });
+
+            (new HammerJS(bullet3, hammerOptions)).on('tap', function(ev) {
+                $('#bulletSwitcher .active').removeClass('active');
+                $('#bullet3').addClass('active');
+                bulletType = 3;
+            });
+
+            (new HammerJS(shootBtn, hammerOptions)).on('gesture', function(ev) {
+                if (ev.gesture.eventType === 'touch') {
+                    server.send({
+                        type: 'shootStart',
+                        bulletType: bulletType
+                    });
+                }
+
+                if (ev.gesture.eventType === 'end') {
+                    server.send({
+                        type: 'shootEnd'
+                    });
+                }
+            });
+
+
         } else {
             error.html("some features aren't supported");
             errorForm.show();

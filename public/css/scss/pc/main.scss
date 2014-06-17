@@ -50,7 +50,8 @@ body {
   	border-color: $main-color;
   	border-top: 0;
   	border-width: 10px;
-  	margin: auto; 
+  	margin: auto;
+    border-radius: 0 0 30px 30px; 
 }
 
 progress {

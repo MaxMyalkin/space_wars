@@ -59,6 +59,10 @@ define(['classy',
                 var toDeleteEnemies = [];
                 var toDeleteEnemyBullets = [];
 
+                if (game.launchBullet.isShooted) {
+                    game.player.launchBullet(game, game.launchBullet.type);
+                }
+
                 if (game.enemyTimer == game.ENEMY_TIMEOUT) {
                     this.createEnemy(game);
 

@@ -74,7 +74,6 @@ define(['classy',
                 this.GAME_HEIGHT = 768;
                 this.ROCKET_SPEED = 10;
                 this.ASTEROID_SPEED = 5;
-
                 this.FONT_SIZE = 50;
                 this.ASTEROID_TIMEOUT = 50;
                 this.ENEMY_TIMEOUT = 250;
@@ -83,6 +82,10 @@ define(['classy',
                 this.BONUS_TERMINATE = 200;
                 //Переменные
                 this.level = 1;
+                this.launchBullet = {
+                    isShooted: false,
+                    type: 0
+                }
                 this.bulletTimer = 0;
                 this.asteroidTimer = 0;
                 this.enemyTimer = 0;
@@ -187,17 +190,18 @@ define(['classy',
                     answer(this.pauseFlag);
                 }
 
-                if (data.type === 'shoot') {
-                    answer(this.launchBullet(data.bulletType));
+                if (data.type === 'shootStart') {
+                    this.launchBullet.isShooted = true;
+                    this.launchBullet.type = data.bulletType;
                 }
 
-                if (data.type === "ship1") {
-                    this.player.changeTypeOfShip(this.resources.player, 0, this.GAME_WIDTH, this.GAME_HEIGHT);
-                    this.setShipInfo();
+                if (data.type === 'shootEnd') {
+                    this.launchBullet.isShooted = false;
+                    this.launchBullet.type = 0;
                 }
 
-                if (data.type === "ship2") {
-                    this.player.changeTypeOfShip(this.resources.player, 1, this.GAME_WIDTH, this.GAME_HEIGHT);
+                if (data.type === "ship") {
+                    this.player.changeTypeOfShip(this.resources.player, data.shipType - 1, this.GAME_WIDTH, this.GAME_HEIGHT);
                     this.setShipInfo();
                 }
 
@@ -299,10 +303,7 @@ define(['classy',
                     }
 
                     if (this.keydown["p"]) {
-                        if (this.bulletTimer > this.BULLET_TIMEOUT) {
-                            this.player.launchBullet(this, 1);
-                            this.bulletTimer = 0;
-                        }
+                        this.player.launchBullet(this, 1);
                     }
 
                     if (!this.keydown["a"] && !this.keydown["d"] || this.keydown["a"] && this.keydown["d"]) {
@@ -325,21 +326,23 @@ define(['classy',
                     }
 
                     if (this.keydown["q"]) {
-                        if (this.bulletTimer > this.BULLET_TIMEOUT && this.player.bonusBullets[0] > 0) {
+                        this.player.launchBullet(this, 2);
+                        /*if (this.bulletTimer > this.BULLET_TIMEOUT && this.player.bonusBullets[0] > 0) {
                             this.player.launchBullet(this, 2);
                             this.bulletTimer = 0;
                             this.player.bonusBullets[0] -= 1;
                             this.setBulletInfo();
-                        }
+                        }*/
 
                     }
                     if (this.keydown["e"]) {
-                        if (this.bulletTimer > this.BULLET_TIMEOUT && this.player.bonusBullets[1] > 0) {
+                        this.player.launchBullet(this, 3);
+                        /* if (this.bulletTimer > this.BULLET_TIMEOUT && this.player.bonusBullets[1] > 0) {
                             this.player.launchBullet(this, 3);
                             this.bulletTimer = 0;
                             this.player.bonusBullets[1] -= 1;
                             this.setBulletInfo();
-                        }
+                        }*/
 
                     }
 
@@ -457,11 +460,11 @@ define(['classy',
             },
 
             play: function() {
-                if (this.bulletTimer === this.BULLET_TIMEOUT) {
+                /*if (this.bulletTimer === this.BULLET_TIMEOUT) {
                     this.server.send({
                         type: "canShoot"
                     })
-                }
+                }*/
                 this.drawBulletImg();
                 this.setShipInfo();
                 if (!this.pauseFlag && !this.stopped && !this.gameover) {

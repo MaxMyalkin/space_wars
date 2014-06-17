@@ -17,7 +17,6 @@
     		<div class='info__header'>score:<fest:space/><span id='score'>0</span></div>
     		
     		<div class='info__bullets'>
-    			<div class='info__header'>bullets</div>
     			<div class= "info__bullets__bullet-type">
     				<canvas style='width: 20px; height:50px;' id='first_bullet' class="info__bullets__img" ></canvas>
     				<div class='info__text'>∞</div>
@@ -45,7 +44,7 @@
     				<div class='info__text'>multi:<fest:space/><span id="ship-multiplier">0</span></div>
     			</div>
     		</div>
-    		<div class='info__text'>Level</div>
+    		<div class='info__text'>difficulty</div>
     		<div class='info__level'></div>
     	</div>
     	<canvas id='gameField' class= "game-screen"/>

@@ -25,13 +25,32 @@ define(['game/objects/object',
             },
 
             launchBullet: function(game, type) {
-                var rocket = new Bullet("#ffffff", this.x,
-                    this.y - game.player.radius, game.resources, game.ROCKET_SPEED, type, this.damageMultiplier);
-                this.bullets.push(rocket);
-                var instance = SoundJS.Sound.play("attackSound");
-                instance.addEventListener("complete", function() {
-                    SoundJS.Sound.play("reloadSound");
-                });
+                if (game.bulletTimer > game.BULLET_TIMEOUT) {
+                    switch (type) {
+                        case 2:
+                            if (this.bonusBullets[0] <= 0)
+                                return;
+                            this.bonusBullets[0] -= 1;
+                            game.setBulletInfo();
+                            break;
+
+                        case 3:
+                            if (this.bonusBullets[1] <= 0)
+                                return;
+                            this.bonusBullets[1] -= 1;
+                            game.setBulletInfo();
+                            break;
+                    };
+                    game.bulletTimer = 0;
+                    var rocket = new Bullet("#ffffff", this.x,
+                        this.y - game.player.radius, game.resources, game.ROCKET_SPEED, type, this.damageMultiplier);
+                    this.bullets.push(rocket);
+                    var instance = SoundJS.Sound.play("attackSound");
+                    instance.addEventListener("complete", function() {
+                        SoundJS.Sound.play("reloadSound");
+                    });
+                }
+
             },
 
             joystickMove: function(width, height, x, y) {
