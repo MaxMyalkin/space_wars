@@ -63,7 +63,7 @@ define(['classy',
                     game.player.launchBullet(game, game.launchBullet.type);
                 }
 
-                if (game.enemyTimer == game.ENEMY_TIMEOUT) {
+                if (game.enemyTimer >= game.ENEMY_TIMEOUT && game.enemies.length < 5) {
                     this.createEnemy(game);
 
                 }
@@ -89,7 +89,9 @@ define(['classy',
 
                 for (var i = 0; i < game.enemies.length; i++) {
                     enemy = game.enemies[i];
-                    enemy.y += enemy.speed;
+                    enemy.updateSpeed(game.GAME_WIDTH, game.GAME_HEIGHT);
+                    enemy.x += enemy.speed.x;
+                    enemy.y += enemy.speed.y;
 
                     if (this.collision(enemy, game.player)) {
                         toDeleteEnemies.push(i);
