@@ -231,7 +231,7 @@ define(['classy',
 
             createBonus: function(game) {
                 game.bonusTimer = 0;
-                var bonus = new Bonus("#ffffff", Math.random() * game.GAME_WIDTH, Math.random() * game.GAME_HEIGHT, game.resources, Math.floor(Math.random() * 3) + 1);
+                var bonus = new Bonus("#ffffff", Math.random() * game.GAME_WIDTH, Math.random() * game.GAME_HEIGHT / 2, game.resources, Math.floor(Math.random() * 3) + 1);
                 game.bonuses.push(bonus);
             },
 

@@ -1,12 +1,16 @@
 {
-    "name": "epicgame",
-    "version": "0.0.1",
-    "description": "technopark project",
+    "name": "space wars",
+    "version": "1.0",
+    "description": "technopark frontend project",
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "Myalkin Maxim",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/MaxMyalkin/tp_2014_02_frontend_Myalkin_Chernobrovkin.git"
+    },
     "license": "ISC",
     "devDependencies": {
         "grunt": "~0.4.2",

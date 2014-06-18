@@ -21,6 +21,7 @@ define(['classy'],
                 this._index = 0;
                 this.src = src;
                 this.wasPlayed = false;
+                this.increased = false;
             },
 
             update: function() {
@@ -60,6 +61,18 @@ define(['classy'],
 
             gotoZeroFrame: function() {
                 this._index = 0;
+            },
+
+            increase: function(multiplier) {
+                if (this.increased && (multiplier < 0)) {
+                    this.speed /= -multiplier;
+                    this.increased = false;
+                } else {
+                    if (!this.increased) {
+                        this.speed *= multiplier;
+                        this.increased = true;
+                    }
+                }
             }
 
         });

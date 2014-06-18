@@ -327,23 +327,9 @@ define(['classy',
 
                     if (this.keydown["q"]) {
                         this.player.launchBullet(this, 2);
-                        /*if (this.bulletTimer > this.BULLET_TIMEOUT && this.player.bonusBullets[0] > 0) {
-                            this.player.launchBullet(this, 2);
-                            this.bulletTimer = 0;
-                            this.player.bonusBullets[0] -= 1;
-                            this.setBulletInfo();
-                        }*/
-
                     }
                     if (this.keydown["e"]) {
                         this.player.launchBullet(this, 3);
-                        /* if (this.bulletTimer > this.BULLET_TIMEOUT && this.player.bonusBullets[1] > 0) {
-                            this.player.launchBullet(this, 3);
-                            this.bulletTimer = 0;
-                            this.player.bonusBullets[1] -= 1;
-                            this.setBulletInfo();
-                        }*/
-
                     }
 
                     if (this.keydown["1"]) {
