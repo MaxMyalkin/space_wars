@@ -26,16 +26,6 @@ define(['classy',
         formManager,
         SoundJS) {
 
-        var bg_Offset = 0;
-        var bg_Object = eval('document.body');
-
-        function scroll_bg(Size) {
-            bg_Offset = bg_Offset + 1;
-            if (bg_Offset > Size) bg_Offset = 0;
-            bg_Object.style.backgroundPosition = "0px " + bg_Offset + "px";
-        }
-
-
         var Game = Class.$extend({
             __init__: function(resources) {
                 var game = this;
@@ -132,13 +122,11 @@ define(['classy',
                     }
                 );
 
-                this.interval;
                 this.gameOverForm = new GameOver();
                 this.gameover = false;
                 this.reloading(true);
                 this.setBtnText();
                 this.setScore();
-
             },
 
             SmartSelection: function() {
@@ -393,13 +381,8 @@ define(['classy',
                         game.play();
                         game.movePlayer();
                     }, 1000 / this.DELAY);
-
-                    this.bginterval = setInterval(function() {
-                        scroll_bg(234);
-                    }, 50);
                 } else {
                     clearInterval(this.interval);
-                    clearInterval(this.bginterval);
                 }
             },
 

@@ -14,9 +14,22 @@
 			<link rel="stylesheet" type="text/css" href="css/main_console.css" />
 		</fest:if>
 	</head>
-	<body background= 'images/stars.gif'>
+	<body background= 'images/stars.gif' onload='setScroll()'>
 		<script type="text/javascript">
-			
+			var bg_Offset = 0;
+	        var bg_Object = eval('document.body');
+
+	        function scroll_bg(Size) {
+	            bg_Offset = bg_Offset + 1;
+	            if (bg_Offset > Size) bg_Offset = 0;
+	            bg_Object.style.backgroundPosition = "0px " + bg_Offset + "px";
+	        }
+
+	        function setScroll() {
+	        	this.bginterval = setInterval(function() {
+                    scroll_bg(234);
+                }, 50);
+	        }
 		</script>
 		<div id='loadingForm' style='display:none;' class='form'>
 			<div class="gameOverForm">
