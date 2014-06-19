@@ -11,21 +11,5 @@
        <img class="menu__image" src="images/shipMainMenu.png"/>
         
     </div>
-    <div class='footer'>
-            <div class='footer__element'>
-                <a href="http://vk.com/maxmyalkin"><img src="/images/about/myalkin.png"/></a>
-            </div>
-            <div class='footer__element'>
-                <a href="http://vk.com/id13062691"><img src="/images/about/chernobrovkin.png"/></a>
-            </div>
-            <div class='footer__element'>
-                <a href="https://github.com/MaxMyalkin/tp_2014_02_frontend_Myalkin_Chernobrovkin">
-                    <img src="/images/about/github.png"/></a>
-            </div>
-            <div class='footer__element'>
-                <a href="https://tech-mail.ru/"><img src="/images/about/technopark.png" style="height:initial;width:100%;"/></a>
-            </div>
-
-    </div>
 </fest:template>
 

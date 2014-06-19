@@ -2,10 +2,12 @@ define([
     'backbone',
     'tmpl/main',
     'views/viewManager',
+    'soundjs',
 ], function(
     Backbone,
     tmpl,
-    viewManager
+    viewManager,
+    SoundJS
 ) {
 
     var View = Backbone.View.extend({
@@ -16,7 +18,30 @@ define([
             $('#loadingForm').hide();
             this.render();
             this.hide();
-
+            $(".info-slide").mouseenter(function() {
+                $(this).animate({
+                    left: 0
+                });
+                $('.info-slide .arrow').html("&lt");
+            }).mouseleave(function() {
+                $(this).animate({
+                    left: -$(this).outerWidth() + 20
+                });
+                $('.info-slide .arrow').html("&gt");
+            });
+            soundFlag = true;
+            $('#toggle-sound').click(function() {
+                var img = $("#toggle-sound img");
+                if (soundFlag) {
+                    SoundJS.Sound.setMute(true);
+                    soundFlag = false;
+                    img.attr("src", "/images/soundoff.png");
+                } else {
+                    SoundJS.Sound.setMute(false);
+                    soundFlag = true;
+                    img.attr("src", "/images/soundon.png");
+                }
+            });
         },
 
         render: function() {

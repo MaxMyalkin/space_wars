@@ -27,7 +27,25 @@
 	    <div id="main"></div>
 	    <div id="scoreboard"></div>
 	    <div id="game"></div>
-
+	    <div class="info-slide">
+	    	<div class="info-slide__element" id='toggle-sound'>
+                <img src="/images/soundon.png"/>
+            </div>
+	    	<div class="info-slide__element">
+                <a href="http://vk.com/maxmyalkin"><img src="/images/about/myalkin.png"/></a>
+            </div>
+            <div class="info-slide__element">
+                <a href="http://vk.com/id13062691"><img src="/images/about/chernobrovkin.png"/></a>
+            </div>
+            <div class="info-slide__element">
+                <a href="https://github.com/MaxMyalkin/tp_2014_02_frontend_Myalkin_Chernobrovkin">
+                    <img src="/images/about/github.png"/></a>
+            </div>
+            <div class="info-slide__element">
+                <a href="https://tech-mail.ru/"><img src="/images/about/technopark.png"/></a>
+            </div>
+            <div class='arrow'><fest:text> &gt </fest:text></div>
+        </div>
 		<fest:if test="json.development">
 			<script data-main="js/main" src="js/lib/require.js"></script>
 		</fest:if>
