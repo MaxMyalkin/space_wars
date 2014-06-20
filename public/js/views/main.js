@@ -3,6 +3,7 @@ define([
     'tmpl/main',
     'views/viewManager',
     'soundjs',
+    'lib/share'
 ], function(
     Backbone,
     tmpl,

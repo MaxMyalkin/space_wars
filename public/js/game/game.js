@@ -265,10 +265,6 @@ define(['classy',
                 return Math.min(result1, result2);
             },
 
-            inDiapazon: function(x, a, b) {
-                return (90 - this.diff(x, a)) === this.diff(x, b);
-            },
-
             movePlayer: function() {
                 if (!this.pauseFlag && !this.stopped) {
 
@@ -355,25 +351,6 @@ define(['classy',
 
             },
 
-            launchBullet: function(type) {
-                if (this.bulletTimer > this.BULLET_TIMEOUT) {
-                    if (type === 1) {
-                        this.player.launchBullet(this, 1);
-                        this.bulletTimer = 0;
-                        return "shootACK";
-                    }
-                    if (this.player.bonusBullets[type - 2] > 0) {
-                        this.player.launchBullet(this, type);
-                        this.player.bonusBullets[type - 2] -= 1;
-                        this.setBulletInfo();
-                        this.bulletTimer = 0;
-                        return "shootACK";
-                    }
-                }
-                return "shootNAK";
-
-            },
-
             reloading: function(flag) {
                 if (flag) {
                     var game = this;
@@ -429,11 +406,6 @@ define(['classy',
             },
 
             play: function() {
-                /*if (this.bulletTimer === this.BULLET_TIMEOUT) {
-                    this.server.send({
-                        type: "canShoot"
-                    })
-                }*/
                 this.drawBulletImg();
                 this.setShipInfo();
                 if (!this.pauseFlag && !this.stopped && !this.gameover) {

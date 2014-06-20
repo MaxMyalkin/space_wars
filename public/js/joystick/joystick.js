@@ -40,6 +40,7 @@ require(['lib/Connector', 'checking', 'lib/hammer', 'lib/deviceapi-normaliser', 
         var hammerOptions = {
             preventDefault: true
         };
+        new HammerJS(document, hammerOptions);
         var delay = 0;
         setInterval(function() {
             delay += 50;
@@ -131,7 +132,9 @@ require(['lib/Connector', 'checking', 'lib/hammer', 'lib/deviceapi-normaliser', 
                     case 'reset':
                         currentBulletType = 1;
                         pauseBtnImg.attr('src', 'images/buttons/pause.png');
-                        //переключить -----------------------------------------------------------------------------------------
+                        currentShipType = 1;
+                        $('#shipSwitcher .button__img').attr('src', '/images/ship/first/info.png');
+                        $('#bulletSwitcher .button__img').attr('src', '/images/bullet/bullet.png');
                         break;
 
                     case 'pause':
@@ -143,6 +146,11 @@ require(['lib/Connector', 'checking', 'lib/hammer', 'lib/deviceapi-normaliser', 
                         break;
 
                     case 'stop':
+                        currentBulletType = 1;
+                        pauseBtnImg.attr('src', 'images/buttons/pause.png');
+                        currentShipType = 1;
+                        $('#shipSwitcher .button__img').attr('src', '/images/ship/first/info.png');
+                        $('#bulletSwitcher .button__img').attr('src', '/images/bullet/bullet.png');
                         if (data.value) { // игра остановлена
                             restartImg.attr('src', 'images/buttons/play.png');
                         } else {
