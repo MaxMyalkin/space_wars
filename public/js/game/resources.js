@@ -14,91 +14,91 @@ define(['classy',
     ) {
         var resources = Class.$extend({
             __init__: function() {
-                var bangSound = this.DJCheckTheSoundTitle(["/sounds/boom.ogg", "/sounds/boom.mp3", "/sounds/boom.wav"]);
-                var attackSound = this.DJCheckTheSoundTitle(["/sounds/attack.ogg", "/sounds/attack.mp3", "/sounds/attack.wav"]);
-                var reloadSound = this.DJCheckTheSoundTitle(["/sounds/reload.ogg", "/sounds/reload.mp3", "/sounds/reload.wav"]);
-                var bonusSound = this.DJCheckTheSoundTitle(["/sounds/bonus.ogg", "/sounds/bonus.mp3", "/sounds/bonus.wav"]);
+                var bangSound = this.DJCheckTheSoundTitle(["sounds/boom.ogg", "sounds/boom.mp3", "sounds/boom.wav"]);
+                var attackSound = this.DJCheckTheSoundTitle(["sounds/attack.ogg", "sounds/attack.mp3", "sounds/attack.wav"]);
+                var reloadSound = this.DJCheckTheSoundTitle(["sounds/reload.ogg", "sounds/reload.mp3", "sounds/reload.wav"]);
+                var bonusSound = this.DJCheckTheSoundTitle(["sounds/bonus.ogg", "sounds/bonus.mp3", "sounds/bonus.wav"]);
                 var filesToLoad = [{
                     id: "smallAsteroid",
-                    src: "/images/asteroid/smallAsteroid.png"
+                    src: "images/asteroid/smallAsteroid.png"
                 }, {
                     id: "mediumAsteroid",
-                    src: "/images/asteroid/mediumAsteroid.png"
+                    src: "images/asteroid/mediumAsteroid.png"
                 }, {
                     id: "bigAsteroid",
-                    src: "/images/asteroid/bigAsteroid.png"
+                    src: "images/asteroid/bigAsteroid.png"
                 }, {
                     id: "smallDamaged",
-                    src: "/images/asteroid/smallDamaged.png"
+                    src: "images/asteroid/smallDamaged.png"
                 }, {
                     id: "mediumDamaged",
-                    src: "/images/asteroid/mediumDamaged.png"
+                    src: "images/asteroid/mediumDamaged.png"
                 }, {
                     id: "bigDamaged",
-                    src: "/images/asteroid/bigDamaged.png"
+                    src: "images/asteroid/bigDamaged.png"
                 }, {
                     id: "firstDirect",
-                    src: "/images/ship/first/direct.png"
+                    src: "images/ship/first/direct.png"
                 }, {
                     id: "firstLeft",
-                    src: "/images/ship/first/left.png"
+                    src: "images/ship/first/left.png"
                 }, {
                     id: "firstRight",
-                    src: "/images/ship/first/right.png"
+                    src: "images/ship/first/right.png"
                 }, {
                     id: "secondDirect",
-                    src: "/images/ship/second/direct.png"
+                    src: "images/ship/second/direct.png"
                 }, {
                     id: "secondLeft",
-                    src: "/images/ship/second/left.png"
+                    src: "images/ship/second/left.png"
                 }, {
                     id: "secondRight",
-                    src: "/images/ship/second/right.png"
+                    src: "images/ship/second/right.png"
                 }, {
                     id: "firstTypeShip",
-                    src: "/images/ship/first/info.png"
+                    src: "images/ship/first/info.png"
                 }, {
                     id: "secondTypeShip",
-                    src: "/images/ship/second/info.png"
+                    src: "images/ship/second/info.png"
                 }, {
                     id: "bullet",
-                    src: "/images/bullet/bullet.png"
+                    src: "images/bullet/bullet.png"
                 }, {
                     id: "enemyBullet",
-                    src: "/images/bullet/enemyBullet.png"
+                    src: "images/bullet/enemyBullet.png"
                 }, {
                     id: "secondTypeBonus",
-                    src: "/images/bullet/secondbonus.png"
+                    src: "images/bullet/secondbonus.png"
                 }, {
                     id: "firstTypeBonus",
-                    src: "/images/bullet/firstbonus.png"
+                    src: "images/bullet/firstbonus.png"
                 }, {
                     id: "secondAndThirdBulletArray",
-                    src: "/images/bullet/rocket.png"
+                    src: "images/bullet/rocket.png"
                 }, {
                     id: "firstBulletArray",
-                    src: "/images/bullet/rocket2.png"
+                    src: "images/bullet/rocket2.png"
                 }, {
                     id: "bang1",
-                    src: "/images/bang/bang1.png"
+                    src: "images/bang/bang1.png"
                 }, {
                     id: "bang2",
-                    src: "/images/bang/bang2.png"
+                    src: "images/bang/bang2.png"
                 }, {
                     id: "bang3",
-                    src: "/images/bang/bang3.png"
+                    src: "images/bang/bang3.png"
                 }, {
                     id: "health",
-                    src: "/images/health.png"
+                    src: "images/health.png"
                 }, {
                     id: "enemyFirst",
-                    src: "/images/enemy/first.png"
+                    src: "images/enemy/first.png"
                 }, {
                     id: "enemySecond",
-                    src: "/images/enemy/second.png"
+                    src: "images/enemy/second.png"
                 }, {
                     id: "smoke",
-                    src: "/images/bang/smoke.png"
+                    src: "images/bang/smoke.png"
                 }, {
                     id: "bangSound",
                     src: bangSound
@@ -107,10 +107,10 @@ define(['classy',
                     src: attackSound
                 }, {
                     id: "reloadSound",
-                    src: "/sounds/reload.mp3"
+                    src: "sounds/reload.mp3"
                 }, {
                     id: "bonusSound",
-                    src: "/sounds/bonus.mp3"
+                    src: "sounds/bonus.mp3"
                 }];
                 this.loaded = false;
 
