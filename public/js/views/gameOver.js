@@ -56,7 +56,7 @@ define([
                         dataType: 'json',
                         success: function(response) {
                             $('.btn').prop("disabled", false);
-                            window.location = "/#scoreboard";
+                            window.location = "#scoreboard";
                             $('.btn').prop("disabled", false);
                             $('#nameField').prop("disabled", false);
                             formManager.showSelectForm(game);
@@ -66,7 +66,7 @@ define([
                             var scores = Storage.getJSON('scores');
                             scores.push(player);
                             Storage.setJSON('scores', scores);
-                            window.location = "/#scoreboard";
+                            window.location = "#scoreboard";
                             $('.btn').prop("disabled", false);
                             $('#nameField').prop("disabled", false);
                             formManager.showSelectForm(game);
