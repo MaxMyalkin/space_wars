@@ -13,7 +13,7 @@ require.config({
         "socket.io": "lib/socket.io",
         device_orientation: "lib/deviceapi-normaliser",
         soundjs: "lib/soundjs",
-        Modernizr: "lib/Modernizr",
+        Modernizr: "lib/Modernizr"
     },
     shim: {
         'backbone': {

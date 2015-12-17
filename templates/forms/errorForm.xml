@@ -1,5 +1,5 @@
 <fest:template xmlns:fest="http://fest.mail.ru"
     context_name="json">
     <div id='error' class="gameOverForm__text_big"></div><br/>
-    <a href='/#' id='toSelect' class='btn_big'>&#9668 Back</a>
+    <a href='#' id='toSelect' class='btn_big'>&#9668; Back</a>
 </fest:template>

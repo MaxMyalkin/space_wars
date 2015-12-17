@@ -5,8 +5,8 @@
         <div class="header_blue"><div class='centered-text'>Space wars</div></div>
         <ul class="menu__list">
         	<li class="menu__item"> <h1 class="menu__title">Main menu</h1> </li>
-        	<li class="menu__item"> <a href='/#scoreboard' class='btn_big' >Score board</a> </li>
-        	<li class="menu__item"> <a href='/#game' class='btn_big' >Start game</a> </li>
+        	<li class="menu__item"> <a href='#scoreboard' class='btn_big' >Score board</a> </li>
+        	<li class="menu__item"> <a href='#game' class='btn_big' >Start game</a> </li>
         </ul>
        <img class="menu__image" src="images/shipMainMenu.png"/>
        <div class="yashare-auto-init social" data-yashareL10n="ru"
